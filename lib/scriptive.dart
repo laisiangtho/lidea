@@ -1,6 +1,4 @@
-library scriptive;
-
-export 'scroll/root.dart';
+library lidea;
 
 /// A Calculator.
 class Calculator {
