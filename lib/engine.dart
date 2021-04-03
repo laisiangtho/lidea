@@ -4,7 +4,7 @@ import 'dart:io' show Directory, File, FileSystemEntity;
 // import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' show join, basename;
-import 'package:path_provider/path_provider.dart';
+import 'package:path_provider/path_provider.dart' show getApplicationDocumentsDirectory;
 
 import 'package:flutter/services.dart' show rootBundle;
 
