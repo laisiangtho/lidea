@@ -113,7 +113,7 @@ class IdeaData {
     secondaryVariant: Color(0xFF451B6F),
     background: Color(0xFF5E5D5E),
     surface: Color(0xFF1F1929),
-    onBackground: Color(0x0DFFFFFF), // White with 0.05 opacity
+    onBackground: Color(0xFF3D3C3D), // White with 0.05 opacity
     error: _darkFillColor,
     onError: _darkFillColor,
     onPrimary: _darkFillColor,
