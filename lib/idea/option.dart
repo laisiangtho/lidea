@@ -23,7 +23,7 @@ Locale get deviceLocale => _deviceLocale;
 set deviceLocale(Locale locale) => _deviceLocale ??= locale;
 
 class IdeaTheme{
-  IdeaTheme({
+  const IdeaTheme({
     this.themeMode,
     double textScaleFactor,
     this.customTextDirection,
@@ -34,7 +34,7 @@ class IdeaTheme{
   })  : _textScaleFactor = textScaleFactor,
         _locale = locale;
 
-  ThemeMode themeMode;
+  final ThemeMode themeMode;
   final double _textScaleFactor;
   final CustomTextDirection customTextDirection;
   final Locale _locale;
