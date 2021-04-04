@@ -8,7 +8,9 @@ import 'package:path_provider/path_provider.dart' show getApplicationDocumentsDi
 
 import 'package:flutter/services.dart' show rootBundle;
 
+
 class UtilDocument {
+  // static Future<void> abc() => WidgetsFlutterBinding.ensureInitialized();
   /// getApplicationDocumentsDirectory `Future<Directory> get directory async => await getApplicationDocumentsDirectory();`
   static Future<Directory> get directory => getApplicationDocumentsDirectory();
 
