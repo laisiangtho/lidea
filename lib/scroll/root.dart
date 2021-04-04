@@ -7,5 +7,5 @@ import 'package:flutter/rendering.dart';
 
 part 'scrollExtension.dart';
 part 'scrollWidgetPage.dart';
-part 'scrollWidgetBottom.dart';
+part 'scrollBottom.dart';
 part 'scrollHeader.dart';

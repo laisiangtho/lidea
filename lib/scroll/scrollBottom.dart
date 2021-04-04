@@ -132,7 +132,9 @@ class _BottomBarAnimatedState extends State<ScrollPageBottom> with TickerProvide
       // color: Colors.red,
       child: DecoratedBox(
         decoration: BoxDecoration(
+          // color: Theme.of(context).scaffoldBackgroundColor,
           color: Theme.of(context).primaryColor,
+          // color: Theme.of(context).backgroundColor,
           borderRadius: new BorderRadius.vertical(
             top: Radius.elliptical(3, 2),
             // bottom: Radius.elliptical(3, 2)
