@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
 // Option
-import 'package:flutter/services.dart' show SystemChrome, SystemUiOverlayStyle;
+import 'package:flutter/services.dart' show SystemUiOverlayStyle;
 import 'package:flutter/services.dart';
 
 part 'config.dart';
@@ -17,8 +17,8 @@ part 'theme.dart';
 class IdeaModel extends StatefulWidget {
   IdeaModel({
     Key key,
-    // this.initialModel = const IdeaTheme(),
-    this.initialModel,
+    this.initialModel = const IdeaTheme(),
+    // this.initialModel,
     this.child,
   }) : assert(initialModel != null), super(key: key);
 
@@ -35,6 +35,7 @@ class _ModelBindingState extends State<IdeaModel> {
   @override
   void initState() {
     super.initState();
+    // WidgetsFlutterBinding.ensureInitialized();
     currentModel = widget.initialModel;
   }
 
@@ -51,7 +52,7 @@ class _ModelBindingState extends State<IdeaModel> {
     }
   }
 
-  bool get isLight {
+  bool get light {
     Brightness brightness;
     switch (currentModel.themeMode) {
       case ThemeMode.light:
@@ -69,25 +70,68 @@ class _ModelBindingState extends State<IdeaModel> {
     // return brightness == Brightness.light;
   }
 
-  Brightness get brightness => this.isLight? Brightness.dark:Brightness.light;
+  Brightness get brightness => this.light? Brightness.dark:Brightness.light;
 
   @override
   Widget build(BuildContext context) {
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     // SystemChrome.setEnabledSystemUIOverlays([]);
+    // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    // 
+    /*
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: brightness,
         statusBarBrightness: brightness,
         // statusBarBrightness: Platform.isAndroid ? Brightness.dark : Brightness.light,
-        systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
+        systemNavigationBarDividerColor: Theme.of(context).scaffoldBackgroundColor,
+        // systemNavigationBarColor: Colors.transparent,
+        // systemNavigationBarDividerColor: Colors.transparent,
         systemNavigationBarIconBrightness: brightness,
       )
     );
     return _ModelBindingScope(
       modelBindingState: this,
       child: widget.child
+    );
+    */
+    // currentModel.
+    // IdeaTheme.of(context).
+    // return AnnotatedRegion<SystemUiOverlayStyle>(
+    //   value: SystemUiOverlayStyle(
+    //     statusBarColor: Colors.transparent,
+    //     statusBarIconBrightness: brightness,
+    //     statusBarBrightness: brightness,
+    //     // statusBarBrightness: Platform.isAndroid ? Brightness.dark : Brightness.light,
+    //     systemNavigationBarColor: light?IdeaData.lightColorScheme.primary:IdeaData.darkColorScheme.primary,
+    //     // systemNavigationBarColor: Colors.transparent,
+    //     systemNavigationBarDividerColor: Colors.transparent,
+    //     systemNavigationBarIconBrightness: brightness,
+    //   ),
+    //   child: _ModelBindingScope(
+    //     modelBindingState: this,
+    //     child: widget.child
+    //   )
+    // );
+    // 
+    return _ModelBindingScope(
+      modelBindingState: this,
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: brightness,
+          statusBarBrightness: brightness,
+          // statusBarBrightness: Platform.isAndroid ? Brightness.dark : Brightness.light,
+          systemNavigationBarColor: light?IdeaData.lightColorScheme.primary:IdeaData.darkColorScheme.primary,
+          // systemNavigationBarColor: currentModel.themeMode.,
+          // systemNavigationBarColor: Colors.transparent,
+          systemNavigationBarDividerColor: Colors.transparent,
+          systemNavigationBarIconBrightness: brightness,
+        ),
+        child:  widget.child
+      )
     );
   }
 }
