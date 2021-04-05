@@ -41,10 +41,12 @@ class UtilDocument {
   // );
 
   /// JSON to Map
-  static Map<String, dynamic> decodeJSON(String response)  => json.decode(response);
+  // static Map<String, dynamic> decodeJSON(String response)  => json.decode(response);
+  static dynamic decodeJSON(String response)  => json.decode(response);
 
   /// Map to JSON
-  static String encodeJSON(Map<String, dynamic> response) => json.encode(response);
+  // static String encodeJSON(Map<String, dynamic> response) => json.encode(response);
+  static String encodeJSON(dynamic response) => json.encode(response);
 }
 
 class UtilClient {
