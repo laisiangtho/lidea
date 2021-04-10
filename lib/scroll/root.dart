@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 
-part 'scrollExtension.dart';
-part 'scrollWidgetPage.dart';
-part 'scrollBottom.dart';
-part 'scrollHeader.dart';
+part 'extension.dart';
+part 'page.dart';
+part 'bottom.dart';
+part 'header.dart';
