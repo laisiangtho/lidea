@@ -24,8 +24,6 @@ class ScrollPage extends StatelessWidget {
   }
 
   bool _notification(ScrollNotification notification) {
-    // print(notification.metrics.pixels);
-    // if (controller.hasClients) {
     if (controller != null && controller.hasClients && notification.depth == depth) controller.notification.value = notification;
     return false;
   }
@@ -36,31 +34,31 @@ class ScrollPageBehavior extends ScrollBehavior {
   Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) => child;
 }
 
-class ScrollMainDecoratedBox extends StatelessWidget {
-  final Widget child;
-  ScrollMainDecoratedBox({Key key,this.child}):super(key: key);
+// class ScrollMainDecoratedBox extends StatelessWidget {
+//   final Widget child;
+//   ScrollMainDecoratedBox({Key key,this.child}):super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        borderRadius: new BorderRadius.vertical(
-          top: Radius.elliptical(3, 2),
-          bottom: Radius.elliptical(3, 2)
-        ),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 1,
-            // color: Colors.grey[300],
-            // color: Theme.of(context).primaryColor,
-            color: Theme.of(context).backgroundColor,
-            spreadRadius: 0.3,
-            offset: Offset(0.0, .0),
-          )
-        ]
-      ),
-      child: this.child
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return DecoratedBox(
+//       decoration: BoxDecoration(
+//         color: Theme.of(context).primaryColor,
+//         borderRadius: new BorderRadius.vertical(
+//           top: Radius.elliptical(3, 2),
+//           bottom: Radius.elliptical(3, 2)
+//         ),
+//         boxShadow: [
+//           BoxShadow(
+//             blurRadius: 1,
+//             // color: Colors.grey[300],
+//             // color: Theme.of(context).primaryColor,
+//             color: Theme.of(context).backgroundColor,
+//             spreadRadius: 0.3,
+//             offset: Offset(0.0, .0),
+//           )
+//         ]
+//       ),
+//       child: this.child
+//     );
+//   }
+// }
