@@ -75,10 +75,8 @@ class IdeaTheme{
     }
   }
 
-  /// Returns a [SystemUiOverlayStyle] based on the [ThemeMode] setting.
-  /// In other words, if the theme is dark, returns light; if the theme is
-  /// light, returns dark.
-  SystemUiOverlayStyle resolvedSystemUiOverlayStyle() {
+  /// Returns the active [Brightness].
+  Brightness get systemBrightness {
     Brightness brightness;
     switch (themeMode) {
       case ThemeMode.light:
@@ -90,11 +88,20 @@ class IdeaTheme{
       default:
         brightness = WidgetsBinding.instance.window.platformBrightness;
     }
-
-    final overlayStyle = brightness == Brightness.dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark;
-
-    return overlayStyle;
+    return brightness;
   }
+
+  /// Returns opposite of active [Brightness].
+  Brightness get resolvedSystemBrightness {
+    return this.systemBrightness == Brightness.dark ? Brightness.light : Brightness.dark;
+  }
+
+  /// Returns a [SystemUiOverlayStyle] based on the [ThemeMode] setting.
+  /// In other words, if the theme is dark, returns light; if the theme is
+  /// light, returns dark.
+  // SystemUiOverlayStyle resolvedSystemUiOverlayStyle() {
+  //   return this.systemBrightness == Brightness.dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark;
+  // }
 
   IdeaTheme copyWith({
     ThemeMode themeMode,
