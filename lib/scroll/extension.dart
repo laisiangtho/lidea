@@ -230,7 +230,10 @@ class _ScrollBottomControllerExtends extends ScrollPageController {
   }
 
   /// Set current page index
-  void pageChange(int index) => pageNotify.value = index;
+  void pageChange(int index) {
+    // print(scrollController.);
+    if (index != null) pageNotify.value = index;
+  }
 
   @override
   void dispose() {

@@ -58,6 +58,6 @@ class _ModelBindingScope extends InheritedWidget {
   final _ModelBindingState modelBindingState;
 
   @override
-  bool updateShouldNotify(_ModelBindingScope old) =>  old.modelBindingState != modelBindingState;
-  // bool updateShouldNotify(_ModelBindingScope oldWidget) => true;
+  // bool updateShouldNotify(_ModelBindingScope old) =>  old.modelBindingState != modelBindingState;
+  bool updateShouldNotify(_ModelBindingScope oldWidget) => true;
 }

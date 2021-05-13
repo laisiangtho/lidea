@@ -5,6 +5,7 @@ class ScrollPage extends StatelessWidget {
   final Widget child;
   final int depth;
 
+  /// depth is useful on NestedScrollView
   ScrollPage({
     Key key,
     this.controller,
@@ -33,32 +34,3 @@ class ScrollPageBehavior extends ScrollBehavior {
   @override
   Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) => child;
 }
-
-// class ScrollMainDecoratedBox extends StatelessWidget {
-//   final Widget child;
-//   ScrollMainDecoratedBox({Key key,this.child}):super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return DecoratedBox(
-//       decoration: BoxDecoration(
-//         color: Theme.of(context).primaryColor,
-//         borderRadius: new BorderRadius.vertical(
-//           top: Radius.elliptical(3, 2),
-//           bottom: Radius.elliptical(3, 2)
-//         ),
-//         boxShadow: [
-//           BoxShadow(
-//             blurRadius: 1,
-//             // color: Colors.grey[300],
-//             // color: Theme.of(context).primaryColor,
-//             color: Theme.of(context).backgroundColor,
-//             spreadRadius: 0.3,
-//             offset: Offset(0.0, .0),
-//           )
-//         ]
-//       ),
-//       child: this.child
-//     );
-//   }
-// }
