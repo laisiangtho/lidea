@@ -1,28 +1,31 @@
-part of 'root.dart';
+import 'package:flutter/material.dart';
+// import 'model.dart';
+// import 'notify.dart';
 
-// LideaView View IdeaView
-class ScrollPage extends StatelessWidget {
-  final ScrollController controller;
+class ViewPage extends StatelessWidget {
+  // final ScrollController controller;
   final Widget child;
   final int depth;
 
   /// depth is useful on NestedScrollView
-  ScrollPage({
+  ViewPage({
     Key? key,
-    required this.controller,
+    // required this.controller,
     this.depth:0,
     required this.child,
-  }) : super(key: key);
+  });
+  // : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ScrollConfiguration(
+      key: key,
       behavior: ScrollPageBehavior(),
       child: NotificationListener<ScrollNotification>(
         onNotification: _notification,
         child: child
       )
-   );
+    );
   }
 
   bool _notification(ScrollNotification notification) {

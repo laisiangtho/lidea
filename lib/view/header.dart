@@ -1,7 +1,12 @@
-part of 'root.dart';
 
-class ScrollHeaderDelegate extends SliverPersistentHeaderDelegate {
-  ScrollHeaderDelegate(
+
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+
+class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
+  ViewHeaderDelegate(
     this.builder,
     {
       this.minHeight:kToolbarHeight, 
@@ -13,8 +18,8 @@ class ScrollHeaderDelegate extends SliverPersistentHeaderDelegate {
   final Function builder;
 
   @override
-  // bool shouldRebuild(ScrollHeaderDelegate oldDelegate) => maxHeight != oldDelegate.maxHeight || minHeight != oldDelegate.minHeight;
-  bool shouldRebuild(ScrollHeaderDelegate oldDelegate) => true;
+  // bool shouldRebuild(ViewHeaderDelegate oldDelegate) => maxHeight != oldDelegate.maxHeight || minHeight != oldDelegate.minHeight;
+  bool shouldRebuild(ViewHeaderDelegate oldDelegate) => true;
 
   double get _min => minHeight;
   double get _max => maxHeight;
@@ -46,7 +51,7 @@ class ScrollHeaderDelegate extends SliverPersistentHeaderDelegate {
 }
 
 
-// class ScrollPageBarDelegate extends ScrollHeaderDelegate {
+// class ScrollPageBarDelegate extends ViewHeaderDelegate {
 //   ScrollPageBarDelegate(
 //     this.builder,
 //     {

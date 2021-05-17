@@ -18,26 +18,28 @@ const List<String> rtlLanguages = <String>[
 // Fake locale to represent the system Locale option.
 const systemLocaleOption = Locale('system');
 
-Locale _deviceLocale;
+late Locale _deviceLocale;
 Locale get deviceLocale => _deviceLocale;
-set deviceLocale(Locale locale) => _deviceLocale ??= locale;
+set deviceLocale(Locale locale) {
+  _deviceLocale = locale;
+}
 
 class IdeaTheme{
+
   const IdeaTheme({
-    this.themeMode,
-    double textScaleFactor,
-    this.customTextDirection,
-    Locale locale,
-    this.timeDilation,
-    this.platform,
-    this.isTesting,
-  })  : _textScaleFactor = textScaleFactor,
-        _locale = locale;
+    required this.themeMode,
+    required this.textFactor,
+    required this.customTextDirection,
+    this.locale,
+    required this.timeDilation,
+    required this.platform,
+    required this.isTesting
+  });
 
   final ThemeMode themeMode;
-  final double _textScaleFactor;
+  final double textFactor;
   final CustomTextDirection customTextDirection;
-  final Locale _locale;
+  final Locale? locale;
   final double timeDilation;
   final TargetPlatform platform;
   final bool isTesting; // True for integration tests.
@@ -46,33 +48,33 @@ class IdeaTheme{
   // default, return the actual text scale factor, otherwise return the
   // sentinel value.
   double textScaleFactor(BuildContext context, {bool useSentinel = false}) {
-    if (_textScaleFactor == systemTextScaleFactorOption) {
+    if (textFactor == systemTextScaleFactorOption) {
       return useSentinel
           ? systemTextScaleFactorOption
           : MediaQuery.of(context).textScaleFactor;
     } else {
-      return _textScaleFactor;
+      return textFactor;
     }
   }
 
-  Locale get locale => _locale ?? deviceLocale;
 
   /// Returns a text direction based on the [CustomTextDirection] setting.
   /// If it is based on locale and the locale cannot be determined, returns
   /// null.
-  TextDirection resolvedTextDirection() {
-    switch (customTextDirection) {
-      case CustomTextDirection.localeBased:
-        final language = locale?.languageCode?.toLowerCase();
-        if (language == null) return null;
-        return rtlLanguages.contains(language)
-            ? TextDirection.rtl
-            : TextDirection.ltr;
-      case CustomTextDirection.rtl:
-        return TextDirection.rtl;
-      default:
-        return TextDirection.ltr;
-    }
+  TextDirection? resolvedTextDirection() {
+    return TextDirection.ltr;
+    // switch (customTextDirection) {
+    //   case CustomTextDirection.localeBased:
+    //     final language = locale.countryCode!.toLowerCase();
+    //     if (language.isEmpty) return null;
+    //     return rtlLanguages.contains(language)
+    //         ? TextDirection.rtl
+    //         : TextDirection.ltr;
+    //   case CustomTextDirection.rtl:
+    //     return TextDirection.rtl;
+    //   default:
+    //     return TextDirection.ltr;
+    // }
   }
 
   /// Returns the active [Brightness].
@@ -86,7 +88,7 @@ class IdeaTheme{
         brightness = Brightness.dark;
         break;
       default:
-        brightness = WidgetsBinding.instance.window.platformBrightness;
+        brightness = WidgetsBinding.instance!.window.platformBrightness;
     }
     return brightness;
   }
@@ -104,17 +106,17 @@ class IdeaTheme{
   // }
 
   IdeaTheme copyWith({
-    ThemeMode themeMode,
-    double textScaleFactor,
-    CustomTextDirection customTextDirection,
-    Locale locale,
-    double timeDilation,
-    TargetPlatform platform,
-    bool isTesting,
+    ThemeMode? themeMode,
+    double? textFactor,
+    CustomTextDirection? customTextDirection,
+    Locale? locale,
+    double? timeDilation,
+    TargetPlatform? platform,
+    bool? isTesting,
   }) {
     return IdeaTheme(
       themeMode: themeMode ?? this.themeMode,
-      textScaleFactor: textScaleFactor ?? _textScaleFactor,
+      textFactor: textFactor ?? this.textFactor,
       customTextDirection: customTextDirection ?? this.customTextDirection,
       locale: locale ?? this.locale,
       timeDilation: timeDilation ?? this.timeDilation,
@@ -127,7 +129,7 @@ class IdeaTheme{
   bool operator ==(Object other) =>
       other is IdeaTheme &&
       themeMode == other.themeMode &&
-      _textScaleFactor == other._textScaleFactor &&
+      textFactor == other.textFactor &&
       customTextDirection == other.customTextDirection &&
       locale == other.locale &&
       timeDilation == other.timeDilation &&
@@ -137,7 +139,7 @@ class IdeaTheme{
   @override
   int get hashCode => hashValues(
     themeMode,
-    _textScaleFactor,
+    textFactor,
     customTextDirection,
     locale,
     timeDilation,
@@ -147,12 +149,12 @@ class IdeaTheme{
 
   static IdeaTheme of(BuildContext context) {
     final scope = context.dependOnInheritedWidgetOfExactType<_ModelBindingScope>();
-    return scope.modelBindingState.currentModel;
+    return scope!.modelBindingState.currentModel;
   }
 
   static void update(BuildContext context, IdeaTheme newModel) {
     final scope = context.dependOnInheritedWidgetOfExactType<_ModelBindingScope>();
-    scope.modelBindingState.updateModel(newModel);
+    scope!.modelBindingState.updateModel(newModel);
   }
 
   // amount range from 0.0 to 1.0
@@ -179,7 +181,7 @@ class IdeaTheme{
 
 // Applies text IdeaTheme to a widget
 class ApplyTextOptions extends StatelessWidget {
-  const ApplyTextOptions({@required this.child});
+  const ApplyTextOptions({required this.child});
 
   final Widget child;
 

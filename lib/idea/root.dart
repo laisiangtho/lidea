@@ -5,10 +5,15 @@ part 'option.dart';
 
 class IdeaModel extends StatefulWidget {
   IdeaModel({
-    Key key,
-    this.initialModel = const IdeaTheme(),
-    this.child,
-  }) : assert(initialModel != null), super(key: key);
+    Key? key,
+    required this.initialModel,
+    required this.child,
+  }) : super(key: key);
+  // IdeaModel({
+  //   Key? key,
+  //   this.initialModel = const IdeaTheme(),
+  //   required this.child,
+  // }) : assert(initialModel != null), super(key: key);
 
   final IdeaTheme initialModel;
   final Widget child;
@@ -18,7 +23,7 @@ class IdeaModel extends StatefulWidget {
 }
 
 class _ModelBindingState extends State<IdeaModel> {
-  IdeaTheme currentModel;
+  late IdeaTheme currentModel;
 
   @override
   void initState() {
@@ -50,10 +55,10 @@ class _ModelBindingState extends State<IdeaModel> {
 
 class _ModelBindingScope extends InheritedWidget {
   _ModelBindingScope({
-    Key key,
-    @required this.modelBindingState,
-    Widget child,
-  }) : assert(modelBindingState != null), super(key: key, child: child);
+    Key? key,
+    required this.modelBindingState,
+    required Widget child,
+  }) : super(key: key, child: child);
 
   final _ModelBindingState modelBindingState;
 
