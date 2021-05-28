@@ -15,8 +15,9 @@ class ViewNavigation extends StatefulWidget {
   // final ScrollController controller;
   final List<ViewNavigationModel> items;
   // final Duration duration;
-  final Widget Function({Widget child}) itemDecoration;
-  final Widget Function({int? index, required ViewNavigationModel item, required bool current, required bool route}) itemBuilder;
+  final Widget Function({required BuildContext context, Widget child}) itemDecoration;
+  
+  final Widget Function({required BuildContext context, required int index, required ViewNavigationModel item, required bool disabled, required bool route}) itemBuilder;
 
   @override
   _NavigationState createState() => _NavigationState();
@@ -45,8 +46,9 @@ class _NavigationState extends State<ViewNavigation> with TickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return widget.itemDecoration(
+      context: context,
       child: ValueListenableBuilder<int>(
-        key: widget.key,
+        // key: widget.key,
         valueListenable: ViewNotify.navigation,
         builder: _item
       )
@@ -56,17 +58,18 @@ class _NavigationState extends State<ViewNavigation> with TickerProviderStateMix
   Widget _item(BuildContext context, int value,Widget? child){
     return Row(
       mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      // crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: widget.items.asMap().map(
         (index, item) => MapEntry(
           index, 
           widget.itemBuilder(
-            index: item.key,
-            // index: index,
+            context: context,
+            // index: item.key,
+            index: index,
             item: item,
             route: item.action == null,
-            current: item.action == null && item.key == value
+            disabled: item.action == null && item.key == value
           )
         )
       ).values.toList()

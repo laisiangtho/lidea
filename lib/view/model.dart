@@ -21,5 +21,5 @@ class ViewNavigationModel {
   final String name;
   final IconData icon;
   // final void Function(BuildContext context) action;
-  void Function(BuildContext context)? action;
+  void Function()? action;
 }
