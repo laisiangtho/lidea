@@ -48,7 +48,7 @@ class _NavigationState extends State<ViewNavigation> with TickerProviderStateMix
     return widget.itemDecoration(
       context: context,
       child: ValueListenableBuilder<int>(
-        // key: widget.key,
+        key: widget.key,
         valueListenable: ViewNotify.navigation,
         builder: _item
       )

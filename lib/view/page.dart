@@ -65,6 +65,7 @@ class ViewPage extends StatelessWidget {
 
   bool _notification(BuildContext context,dynamic scroll) {
     if (scroll == null) return true;
+    if (controller ==null) return true;
     // if (controller.hasClients && scroll.depth == depth) controller.notification.value = scroll;
 
     final notify = Provider.of<ViewScrollNotify>(context, listen: false);
