@@ -18,8 +18,8 @@ class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
   final Function builder;
 
   @override
-  // bool shouldRebuild(ViewHeaderDelegate oldDelegate) => maxHeight != oldDelegate.maxHeight || minHeight != oldDelegate.minHeight;
-  bool shouldRebuild(ViewHeaderDelegate oldDelegate) => true;
+  bool shouldRebuild(ViewHeaderDelegate oldDelegate) => maxHeight != oldDelegate.maxHeight || minHeight != oldDelegate.minHeight;
+  // bool shouldRebuild(ViewHeaderDelegate oldDelegate) => true;
 
   double get _min => minHeight;
   double get _max => maxHeight;
@@ -32,6 +32,9 @@ class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   FloatingHeaderSnapConfiguration? get snapConfiguration => null;
+
+  // @override
+  // OverScrollHeaderStretchConfiguration get stretchConfiguration => OverScrollHeaderStretchConfiguration();
 
   double stretchDouble (double shrinkOffset) => (shrinkOffset/maxExtent).toDouble();
   double shrinkDouble (double stretch) => (1.0 - stretch).toDouble();
@@ -47,6 +50,7 @@ class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
     return new SizedBox.expand(
       child: builder(context,shrinkOffset,overlapsContent,shrink,stretch)
     );
+    // return builder(context,shrinkOffset,overlapsContent,shrink,stretch);
   }
 }
 
