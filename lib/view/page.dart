@@ -38,29 +38,29 @@ class ViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ViewScrollNotify>(
-      create: (context) => ViewScrollNotify(),
-      // we use `builder` to obtain a new `BuildContext` that has access to the provider
-      builder: (context,e) {
-        // No longer throws
-        // return Text(context.watch<ScrollNotify>()),
-        return ScrollConfiguration(
-          behavior: ScrollPageBehavior(),
-          child: NotificationListener<ScrollNotification>(
-            onNotification: (notification) => _notification(context,notification),
-            child: child
-          )
-        );
-      },
-    );
-    // return ScrollConfiguration(
-    //   key: key,
-    //   behavior: ScrollPageBehavior(),
-    //   child: NotificationListener<ScrollNotification>(
-    //     onNotification: (ScrollNotification notification) => _notification(context,notification),
-    //     child: child
-    //   )
+    // return ChangeNotifierProvider<NotifyViewScroll>(
+    //   create: (context) => NotifyViewScroll(),
+    //   // we use `builder` to obtain a new `BuildContext` that has access to the provider
+    //   builder: (context,e) {
+    //     // No longer throws
+    //     // return Text(context.watch<NotifyViewScroll>()),
+    //     return ScrollConfiguration(
+    //       behavior: ScrollPageBehavior(),
+    //       child: NotificationListener<ScrollNotification>(
+    //         onNotification: (notification) => _notification(context,notification),
+    //         child: child
+    //       )
+    //     );
+    //   },
     // );
+    return ScrollConfiguration(
+      key: key,
+      behavior: ScrollPageBehavior(),
+      child: NotificationListener<ScrollNotification>(
+        onNotification: (ScrollNotification notification) => _notification(context,notification),
+        child: child
+      )
+    );
   }
 
   bool _notification(BuildContext context,dynamic scroll) {
@@ -68,7 +68,8 @@ class ViewPage extends StatelessWidget {
     if (controller ==null) return true;
     // if (controller.hasClients && scroll.depth == depth) controller.notification.value = scroll;
 
-    final notify = Provider.of<ViewScrollNotify>(context, listen: false);
+    final notify = Provider.of<NotifyViewScroll>(context, listen: false);
+    final nav = Provider.of<NotifyNavigationScroll>(context, listen: false);
     notify.notification = scroll;
 
     if (scroll is ScrollStartNotification) {
@@ -79,10 +80,12 @@ class ViewPage extends StatelessWidget {
       // notify.metrics = scroll.metrics; 
       notify.isUpdating = true;
       notify.isEnded = false;
+      nav.scrollUpdate(scroll.metrics);
     } else if (scroll is ScrollEndNotification) {
       // notify.metrics = scroll.metrics; 
       notify.isUpdating = false;
       notify.isEnded = true;
+      nav.scrollEnd(scroll.metrics);
     } else if (scroll is UserScrollNotification) {
       notify.direction = scroll.direction.index;
     }
