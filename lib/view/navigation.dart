@@ -24,7 +24,7 @@ class ViewNavigation extends StatefulWidget {
 }
 
 class _NavigationState extends State<ViewNavigation> with TickerProviderStateMixin {
-  // ValueNotifier<int> get notify => ViewNotify.navigation;
+  // ValueNotifier<int> get notify => NotifyNavigationButton.navigation;
 
   @override
   void initState() {
@@ -49,7 +49,7 @@ class _NavigationState extends State<ViewNavigation> with TickerProviderStateMix
       context: context,
       child: ValueListenableBuilder<int>(
         key: widget.key,
-        valueListenable: ViewNotify.navigation,
+        valueListenable: NotifyNavigationButton.navigation,
         builder: _item
       )
     );
