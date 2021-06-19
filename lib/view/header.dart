@@ -10,16 +10,19 @@ class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
     this.builder,
     {
       this.minHeight:kToolbarHeight, 
-      this.maxHeight:kToolbarHeight
+      this.maxHeight:kToolbarHeight,
+      // this.rebuild:true
     }
   );
   final double minHeight;
   final double maxHeight;
+  // final bool rebuild;
   final Function builder;
 
   @override
-  bool shouldRebuild(ViewHeaderDelegate oldDelegate) => maxHeight != oldDelegate.maxHeight || minHeight != oldDelegate.minHeight;
-  // bool shouldRebuild(ViewHeaderDelegate oldDelegate) => true;
+  // bool shouldRebuild(ViewHeaderDelegate oldDelegate) => maxHeight != oldDelegate.maxHeight || minHeight != oldDelegate.minHeight;
+  // bool shouldRebuild(ViewHeaderDelegate oldDelegate) => this.rebuild||(maxHeight != oldDelegate.maxHeight || minHeight != oldDelegate.minHeight);
+  bool shouldRebuild(ViewHeaderDelegate oldDelegate) => true;
 
   double get _min => minHeight;
   double get _max => maxHeight;
@@ -48,7 +51,7 @@ class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
     // double stretch = (shrinkOffset/maxExtent).toDouble();
     // double shrink = (1.0 - stretch).toDouble();
     return new SizedBox.expand(
-      child: builder(context,shrinkOffset,overlapsContent,shrink,stretch)
+      child: this.builder(context,shrinkOffset,overlapsContent,shrink,stretch)
     );
     // return builder(context,shrinkOffset,overlapsContent,shrink,stretch);
   }
