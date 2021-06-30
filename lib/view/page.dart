@@ -65,32 +65,37 @@ class ViewPage extends StatelessWidget {
 
   bool _notification(BuildContext context,dynamic scroll) {
     if (scroll == null) return true;
-    if (controller ==null) return true;
+    if (controller == null) return true;
     // if (controller.hasClients && scroll.depth == depth) controller.notification.value = scroll;
+    // if (controller!.hasClients && scroll.depth == depth) return true;
 
+    // While the widget tree was being built, laid out, and painted, a new frame was scheduled to rebuild the widget tree.
     final notify = Provider.of<NotifyViewScroll>(context, listen: false);
     final nav = Provider.of<NotifyNavigationScroll>(context, listen: false);
-    notify.notification = scroll;
+    Future.microtask(() {
+      notify.notification = scroll;
 
-    if (scroll is ScrollStartNotification) {
-      // notify.metrics = scroll.metrics; 
-      notify.isUpdating = false;
-      notify.isEnded = true;
-    } else if (scroll is ScrollUpdateNotification) {
-      // notify.metrics = scroll.metrics; 
-      notify.isUpdating = true;
-      notify.isEnded = false;
-      nav.scrollUpdate(scroll.metrics);
-    } else if (scroll is ScrollEndNotification) {
-      // notify.metrics = scroll.metrics; 
-      notify.isUpdating = false;
-      notify.isEnded = true;
-      nav.scrollEnd(scroll.metrics);
-    } else if (scroll is UserScrollNotification) {
-      notify.direction = scroll.direction.index;
-    }
+      if (scroll is ScrollStartNotification) {
+        // notify.metrics = scroll.metrics; 
+        notify.isUpdating = false;
+        notify.isEnded = true;
+      } else if (scroll is ScrollUpdateNotification) {
+        // notify.metrics = scroll.metrics; 
+        notify.isUpdating = true;
+        notify.isEnded = false;
+        nav.scrollUpdate(scroll.metrics);
+      } else if (scroll is ScrollEndNotification) {
+        // notify.metrics = scroll.metrics; 
+        notify.isUpdating = false;
+        notify.isEnded = true;
+        nav.scrollEnd(scroll.metrics);
+      } else if (scroll is UserScrollNotification) {
+        notify.direction = scroll.direction.index;
+      }
+      notify.metrics = scroll.metrics; 
+    });
+    // Future.delayed(Duration.zero, () {});
 
-    notify.metrics = scroll.metrics; 
     return false;
   }
 }
