@@ -1,7 +1,6 @@
 
 
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -33,8 +32,8 @@ class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   double get maxExtent => max(_min,_max);
 
-  @override
-  FloatingHeaderSnapConfiguration? get snapConfiguration => null;
+  // @override
+  // FloatingHeaderSnapConfiguration? get snapConfiguration => null;
 
   // @override
   // OverScrollHeaderStretchConfiguration get stretchConfiguration => OverScrollHeaderStretchConfiguration();
@@ -44,12 +43,11 @@ class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent){
+    // double padding = MediaQuery.of(context).padding.top;
     double stretch = stretchDouble(shrinkOffset);
+    // double stretch = stretchDouble(shrinkOffset+padding,maxExtent+padding).clamp(0.0,1.0);
     double shrink = shrinkDouble(stretch);
 
-    // bool isOverlaps = kToolbarHeight <= shrinkOffset;
-    // double stretch = (shrinkOffset/maxExtent).toDouble();
-    // double shrink = (1.0 - stretch).toDouble();
     return new SizedBox.expand(
       child: this.builder(context,shrinkOffset,overlapsContent,shrink,stretch)
     );
