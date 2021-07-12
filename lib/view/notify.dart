@@ -44,6 +44,10 @@ class NotifyViewScroll extends ChangeNotifier {
 }
 
 class NotifyNavigationScroll extends ChangeNotifier {
+  double bottomPadding;
+  NotifyNavigationScroll({
+    this.bottomPadding:0.0
+  });
 
   double _heightFactor = 1.0;
   double get heightFactor => _heightFactor;
@@ -59,8 +63,7 @@ class NotifyNavigationScroll extends ChangeNotifier {
   // double get height => (kHeight*heightFactor).toDouble().clamp(5.0, height);
   int get milliseconds => [0.0, 1.0].contains(heightFactor)?200:0;
 
-
-  double get kHeight => kBottomNavigationBarHeight;
+  double get kHeight => (kBottomNavigationBarHeight+bottomPadding).toDouble();
 
   double _delta = 0.0;
   double _offset = 0.0;
