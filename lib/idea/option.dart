@@ -57,7 +57,6 @@ class IdeaTheme{
     }
   }
 
-
   /// Returns a text direction based on the [CustomTextDirection] setting.
   /// If it is based on locale and the locale cannot be determined, returns
   /// null.
@@ -193,7 +192,7 @@ class ApplyTextOptions extends StatelessWidget {
 
     Widget widget = MediaQuery(
       data: MediaQuery.of(context).copyWith(
-        textScaleFactor: textScaleFactor,
+        textScaleFactor: textScaleFactor
       ),
       child: child,
     );
