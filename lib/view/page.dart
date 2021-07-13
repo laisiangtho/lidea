@@ -71,7 +71,7 @@ class ViewPage extends StatelessWidget {
 
     // While the widget tree was being built, laid out, and painted, a new frame was scheduled to rebuild the widget tree.
     final notify = Provider.of<NotifyViewScroll>(context, listen: false);
-    final nav = Provider.of<NotifyNavigationScroll>(context, listen: false);
+    // final nav = Provider.of<NotifyNavigationScroll>(context, listen: false);
     Future.microtask(() {
       notify.notification = scroll;
 
@@ -83,12 +83,12 @@ class ViewPage extends StatelessWidget {
         // notify.metrics = scroll.metrics; 
         notify.isUpdating = true;
         notify.isEnded = false;
-        nav.scrollUpdate(scroll.metrics);
+        notify.scrollUpdate(scroll.metrics);
       } else if (scroll is ScrollEndNotification) {
         // notify.metrics = scroll.metrics; 
         notify.isUpdating = false;
         notify.isEnded = true;
-        nav.scrollEnd(scroll.metrics);
+        notify.scrollEnd(scroll.metrics);
       } else if (scroll is UserScrollNotification) {
         notify.direction = scroll.direction.index;
       }
