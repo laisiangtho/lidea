@@ -33,6 +33,10 @@ class UtilDocument {
   // static Future<String> loadBundleAsString(String fileName) async => await rootBundle.loadString(join(assetsFolder,fileName));
   // static Future<ByteData> loadBundleAsByte(String fileName) async => rootBundle.load(join(assetsFolder,fileName));
   
+  static String loadBundlePath(String fileName) {
+    return join(assetsFolder,fileName);
+  }
+
   static Future<String> loadBundleAsString(String fileName) async {
     try {
       return await rootBundle.loadString(join(assetsFolder,fileName));
