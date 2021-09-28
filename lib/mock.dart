@@ -6,13 +6,10 @@ class Calculator {
   int addOne(int value) => value + 1;
 }
 
-
 class Mock {
   Future<List<String>> ramdom() async {
     // return ['abc','xyx'];
-    return List<String>.generate(50,
-        (int index) => 'This is sliver child'
-    );
+    return List<String>.generate(50, (int index) => 'This is sliver child');
   }
 
   // Future<String> getCollection = Future<String>.delayed(

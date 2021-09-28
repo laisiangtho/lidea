@@ -1,25 +1,34 @@
-// import 'dart:math';
-// import 'dart:io';
-// import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter/material.dart';
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 
 class ViewNavigationModel {
-  ViewNavigationModel({
-    this.key,
-    required this.name,
-    required this.icon,
-    // required this.screenName,
-    required this.description,
-    this.action
-  });
+  final int key;
+  final String? description;
+  final String? name;
+  final IconData? icon;
+  final void Function()? action;
 
-  final int? key;
-  // final String screenName;
-  final String description;
-  final String name;
-  final IconData icon;
-  // final void Function(BuildContext context) action;
-  void Function()? action;
+  const ViewNavigationModel({
+    this.key = 0,
+    this.name,
+    this.icon,
+    this.description,
+    this.action,
+  });
+}
+
+/// readonly Navigator
+///
+/// route where the route came from using [ViewNavigationModel]
+class ViewNavigationArguments {
+  final bool canPop;
+  final Object? args;
+  final Object? route;
+  final GlobalKey<NavigatorState> navigator;
+
+  const ViewNavigationArguments({
+    this.canPop = false,
+    this.args,
+    this.route,
+    required this.navigator,
+  });
 }

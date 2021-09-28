@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // import 'model.dart';
@@ -7,21 +6,21 @@ import 'notify.dart';
 // controller = new ScrollController()..addListener(_scrollListener);
 // controller = new ScrollController()..addListener((){
 //   if (controller is ScrollEndNotification){
-//     print('addListener end');
+//     debugPrint('addListener end');
 //   }
 //   if (controller is UserScrollNotification) {
 
-//     print('addListener.position ${controller.position}');
+//     debugPrint('addListener.position ${controller.position}');
 //   }
 // });
 // controller.position.isScrollingNotifier.addListener(() {
 //   if(!controller.position.isScrollingNotifier.value) {
-//     print('scroll is stopped');
+//     debugPrint('scroll is stopped');
 //   } else {
-//     print('scroll is started');
+//     debugPrint('scroll is started');
 //   }
 // });
-    
+
 class ViewPage extends StatelessWidget {
   final ScrollController? controller;
   final Widget child;
@@ -31,19 +30,19 @@ class ViewPage extends StatelessWidget {
   ViewPage({
     Key? key,
     this.controller,
-    this.depth:0,
+    this.depth: 0,
     required this.child,
   });
   // : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // return ChangeNotifierProvider<NotifyViewScroll>(
-    //   create: (context) => NotifyViewScroll(),
+    // return ChangeNotifierProvider<ViewScrollNotify>(
+    //   create: (context) => ViewScrollNotify(),
     //   // we use `builder` to obtain a new `BuildContext` that has access to the provider
     //   builder: (context,e) {
     //     // No longer throws
-    //     // return Text(context.watch<NotifyViewScroll>()),
+    //     // return Text(context.watch<ViewScrollNotify>()),
     //     return ScrollConfiguration(
     //       behavior: ScrollPageBehavior(),
     //       child: NotificationListener<ScrollNotification>(
@@ -54,45 +53,44 @@ class ViewPage extends StatelessWidget {
     //   },
     // );
     return ScrollConfiguration(
-      key: key,
-      behavior: ScrollPageBehavior(),
-      child: NotificationListener<ScrollNotification>(
-        onNotification: (ScrollNotification notification) => _notification(context,notification),
-        child: child
-      )
-    );
+        key: key,
+        behavior: const ViewScrollBehavior(),
+        child: NotificationListener<ScrollNotification>(
+            onNotification: (ScrollNotification notification) =>
+                _notification(context, notification),
+            child: child));
   }
 
-  bool _notification(BuildContext context,dynamic scroll) {
+  bool _notification(BuildContext context, dynamic scroll) {
     if (scroll == null) return true;
     if (controller == null) return true;
     // if (controller.hasClients && scroll.depth == depth) controller.notification.value = scroll;
     // if (controller!.hasClients && scroll.depth == depth) return true;
 
     // While the widget tree was being built, laid out, and painted, a new frame was scheduled to rebuild the widget tree.
-    final notify = Provider.of<NotifyViewScroll>(context, listen: false);
+    final notify = Provider.of<ViewScrollNotify>(context, listen: false);
     // final nav = Provider.of<NotifyNavigationScroll>(context, listen: false);
     Future.microtask(() {
       notify.notification = scroll;
 
       if (scroll is ScrollStartNotification) {
-        // notify.metrics = scroll.metrics; 
+        // notify.metrics = scroll.metrics;
         notify.isUpdating = false;
         notify.isEnded = true;
       } else if (scroll is ScrollUpdateNotification) {
-        // notify.metrics = scroll.metrics; 
+        // notify.metrics = scroll.metrics;
         notify.isUpdating = true;
         notify.isEnded = false;
         notify.scrollUpdate(scroll.metrics);
       } else if (scroll is ScrollEndNotification) {
-        // notify.metrics = scroll.metrics; 
+        // notify.metrics = scroll.metrics;
         notify.isUpdating = false;
         notify.isEnded = true;
         notify.scrollEnd(scroll.metrics);
       } else if (scroll is UserScrollNotification) {
         notify.direction = scroll.direction.index;
       }
-      notify.metrics = scroll.metrics; 
+      notify.metrics = scroll.metrics;
     });
     // Future.delayed(Duration.zero, () {});
 
@@ -100,7 +98,25 @@ class ViewPage extends StatelessWidget {
   }
 }
 
-class ScrollPageBehavior extends ScrollBehavior {
+class ViewScrollBehavior extends ScrollBehavior {
+  const ViewScrollBehavior();
+
   @override
-  Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) => child;
+  ScrollPhysics getScrollPhysics(BuildContext context) {
+    switch (getPlatform(context)) {
+      case TargetPlatform.iOS:
+      case TargetPlatform.macOS:
+      case TargetPlatform.android:
+        // return const BouncingScrollPhysics();
+        return const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics());
+      case TargetPlatform.fuchsia:
+      case TargetPlatform.linux:
+      case TargetPlatform.windows:
+        return const ClampingScrollPhysics();
+    }
+  }
+
+  @override
+  Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) =>
+      child;
 }

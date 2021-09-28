@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.4-8
+
+- Add widget
+
+    keepAlive
+    Update package
+        Add connectivity_plus
+    Update overall ScrollPageBehavior in page
+    Method
+        notify
+- add
+  - ViewNavigationArguments
+- removed
+  - view/navigation.dart
+
 ## 0.0.8
 
 - Add extension test

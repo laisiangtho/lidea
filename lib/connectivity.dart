@@ -1,1 +1,1 @@
-export 'package:connectivity/connectivity.dart';
+export 'package:connectivity_plus/connectivity_plus.dart';

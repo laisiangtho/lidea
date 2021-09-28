@@ -7,47 +7,46 @@ class UtilClient {
   // static Future<dynamic> patch(Uri uri, {Map<String, String> headers, Object body}) async {
   //   HttpClient httpClient = new HttpClient();
   //   HttpClientRequest req = await httpClient.patchUrl(uri);
-  //   print(req);
+  //   debugPrint(req);
   //   return null;
   // }
   late Uri uri;
 
   /// `url` String, Uri...
   UtilClient(dynamic url) {
-    this.uri=this.urlParse(url);
+    this.uri = this.urlParse(url);
   }
 
-  Uri urlParse (dynamic url) => (url is Uri)?url:Uri.parse(url);
+  Uri urlParse(dynamic url) => (url is Uri) ? url : Uri.parse(url);
   HttpClient get client => new HttpClient();
-
 
   /// ` await UtilClient(item).get<Uint8List>().catchError((e) => null);`
   Future<T> get<T>({Map<String, Object>? headers, String? body}) => open<T>(
-    this.uri,
-    method:'GET',
-    headers: headers, 
-    body: body
-  );
-  
+        this.uri,
+        method: 'GET',
+        headers: headers,
+        body: body,
+      );
+
   Future<T> put<T>({Map<String, Object>? headers, String? body}) => open<T>(
-    this.uri,
-    method:'PUT',
-    headers: headers, 
-    body: body
-  );
+        this.uri,
+        method: 'PUT',
+        headers: headers,
+        body: body,
+      );
 
   Future<T> patch<T>({Map<String, Object>? headers, String? body}) => open<T>(
-    this.uri,
-    method:'PATCH',
-    headers: headers, 
-    body: body
-  );
+        this.uri,
+        method: 'PATCH',
+        headers: headers,
+        body: body,
+      );
 
   /// Request data over HTTP `...errorHandler(?).then().catchError();`
-  Future<T> open<T>(Uri uri,{String? method, Map<String, Object>? headers, String? body}) async {
+  Future<T> open<T>(Uri uri, {String? method, Map<String, Object>? headers, String? body}) async {
     try {
       HttpClient httpClient = client;
-      HttpClientRequest req = await httpClient.openUrl((method??'get').toUpperCase(), uri);
+      HttpClientRequest req = await httpClient.openUrl((method ?? 'get').toUpperCase(), uri);
 
       if (headers != null) {
         // request.headers.set('content-type', 'application/json');
@@ -64,43 +63,44 @@ class UtilClient {
       httpClient.close();
 
       // Check the res.statusCode
-      if (res.statusCode == 200){
-        if (T == String){
+      if (res.statusCode == 200) {
+        if (T == String) {
           return await _responseToString(res) as T;
-        } else if (T == Uint8List){
+        } else if (T == Uint8List) {
           return await _responseToBytes(res) as T;
         } else {
           return res as T;
         }
       } else {
-        print(res.statusCode);
-        return Future.error("Failed to load", StackTrace.fromString("code: ${res.statusCode}"));
+        debugPrint('${res.statusCode}');
+        return Future<T>.error("Failed to load");
+        // return Future.error("Failed to load", StackTrace.fromString("code: ${res.statusCode}"));
       }
 
       // return await new HttpClient().openUrl((method??'get').toUpperCase(), uri).then(
       //   (HttpClientRequest request) {
       // ).then((HttpClientResponse response) async{
       // });
-      
+
     } on PlatformException catch (e) {
-      return Future.error(e.message!);
+      return Future<T>.error(e.message!);
     } on TimeoutException catch (e) {
-      return Future.error(e.message!);
+      return Future<T>.error(e.message!);
     } on SocketException catch (e) {
-      if (e.port == null || e.address == null){
-        return Future.error("No Internet", StackTrace.fromString(e.message));
+      if (e.port == null || e.address == null) {
+        return Future<T>.error("No internet");
       } else {
-        return Future.error("Failed host lookup", StackTrace.fromString(uri.toString()));
+        return Future<T>.error("Failed host lookup");
       }
     } on Error catch (e) {
-      return Future.error("Error", e.stackTrace);
+      return Future<T>.error("Error", e.stackTrace);
     } catch (e) {
-      return Future.error(e);
+      return Future<T>.error(e);
     }
   }
 }
 
-Future<String> _responseToString(HttpClientResponse response) async{
+Future<String> _responseToString(HttpClientResponse response) async {
   return await response.transform(utf8.decoder).join();
   // final completer = Completer<String>();
   // final data = StringBuffer();
@@ -110,7 +110,8 @@ Future<String> _responseToString(HttpClientResponse response) async{
   // return completer.future;
 }
 
-Future<Uint8List> _responseToBytes (HttpClientResponse response) async => await consolidateHttpClientResponseBytes(response);
+Future<Uint8List> _responseToBytes(HttpClientResponse response) async =>
+    await consolidateHttpClientResponseBytes(response);
 
 /*
   // Future<List<int>> download(String url) async {
@@ -141,7 +142,7 @@ class UtilClient {
         return Future.error("Failed to load, code: ${response?.statusCode}");
       }
     } catch (e) {
-      return Future.error("No Internet", StackTrace.fromString(e.toString()));
+      return Future.error("No internet", StackTrace.fromString(e.toString()));
     }
   }
 
@@ -161,7 +162,7 @@ class UtilClient {
   static Future<http.Response> get(Uri uri, {Map<String, String> headers}) {
     // return await UtilClient.errorHandler(http.get(uri, headers: headers)).catchError((error, stackTrace) => null);
       return http.get(uri, headers: headers).catchError((e) {
-        throw Future.error("No Internet");
+        throw Future.error("No internet");
       });
   }
 

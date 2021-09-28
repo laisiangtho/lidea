@@ -1,68 +1,81 @@
 import 'package:flutter/material.dart';
 
-part 'config.dart';
-part 'option.dart';
+// Default color configuration is light, and translated into how human mind can interpreted the material color
+class IdeaColor {
+  final Brightness brightness;
+  final Color focus;
 
-class IdeaModel extends StatefulWidget {
-  IdeaModel({
-    Key? key,
-    required this.initialModel,
-    required this.child,
-  }) : super(key: key);
-  // IdeaModel({
-  //   Key? key,
-  //   this.initialModel = const IdeaTheme(),
-  //   required this.child,
-  // }) : assert(initialModel != null), super(key: key);
+  final Color primary;
+  final Color scaffold;
+  final Color highlight;
+  final Color disable;
+  final Color background;
+  final Color shadow;
+  final Color button;
 
-  final IdeaTheme initialModel;
-  final Widget child;
+  // schemePrimary primaryScheme
+  final Color primaryScheme;
 
-  @override
-  _ModelBindingState createState() => _ModelBindingState();
+  const IdeaColor({
+    this.brightness = Brightness.light,
+    this.focus = Colors.black,
+    this.primary = Colors.white,
+    this.scaffold = Colors.white,
+    this.highlight = Colors.blue,
+    this.disable = Colors.grey,
+    this.background = Colors.grey,
+    this.shadow = Colors.grey,
+    this.button = Colors.blue,
+    this.primaryScheme = Colors.white,
+  });
+
+  // Color get shadow => scaffold.darken(amount: 0.2);
+  Color get canvas => Colors.transparent;
+
+  Color get focusOpacity => focus.withOpacity(0.12);
+  Color get text => focus;
+
+  ColorScheme get scheme => ColorScheme(
+        brightness: brightness,
+        primary: primaryScheme,
+        primaryVariant: primary.darken(),
+        secondary: primaryScheme,
+        secondaryVariant: primary.darken(),
+        background: scaffold,
+        surface: scaffold.darken(),
+        error: focusOpacity,
+        onError: focusOpacity,
+        onPrimary: focusOpacity,
+        onSecondary: focusOpacity,
+        onSurface: focusOpacity,
+        onBackground: scaffold,
+      );
 }
 
-class _ModelBindingState extends State<IdeaModel> {
-  late IdeaTheme currentModel;
-
-  @override
-  void initState() {
-    super.initState();
-    currentModel = widget.initialModel;
+extension ColorDimExtension on Color {
+  Color darken({double amount = .1}) {
+    assert(amount >= 0 && amount <= 1);
+    HSLColor color = HSLColor.fromColor(this);
+    return color.withLightness((color.lightness - amount).clamp(0.0, 1.0)).toColor();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  Color lighten({double amount = .1}) {
+    assert(amount >= 0 && amount <= 1);
+    HSLColor color = HSLColor.fromColor(this);
+    return color.withLightness((color.lightness + amount).clamp(0.0, 1.0)).toColor();
   }
 
-  void updateModel(IdeaTheme newModel) {
-    if (newModel != currentModel) {
-      setState(() {
-        currentModel = newModel;
-      });
-    }
-  }
+  // Color darken(Color color, [double amount = .1]) {
+  //   assert(amount >= 0 && amount <= 1);
+  //   final hsl = HSLColor.fromColor(color);
+  //   final hslDark = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
+  //   return hslDark.toColor();
+  // }
 
-  @override
-  Widget build(BuildContext context) {
-    return _ModelBindingScope(
-      modelBindingState: this,
-      child: widget.child
-    );
-  }
-}
-
-class _ModelBindingScope extends InheritedWidget {
-  _ModelBindingScope({
-    Key? key,
-    required this.modelBindingState,
-    required Widget child,
-  }) : super(key: key, child: child);
-
-  final _ModelBindingState modelBindingState;
-
-  @override
-  // bool updateShouldNotify(_ModelBindingScope old) =>  old.modelBindingState != modelBindingState;
-  bool updateShouldNotify(_ModelBindingScope oldWidget) => true;
+  // Color lighten(Color color, [double amount = .1]) {
+  //   assert(amount >= 0 && amount <= 1);
+  //   final hsl = HSLColor.fromColor(color);
+  //   final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+  //   return hslLight.toColor();
+  // }
 }
