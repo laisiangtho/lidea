@@ -12,6 +12,8 @@ class WidgetLabel extends StatelessWidget {
     this.iconColor,
     this.message = '',
     this.softWrap = false,
+    this.enable = true,
+    this.labelPadding = EdgeInsets.zero,
   }) : super(key: key);
 
   final String? label;
@@ -21,7 +23,9 @@ class WidgetLabel extends StatelessWidget {
   final double? iconSize;
   final Color? iconColor;
   final bool softWrap;
+  final bool enable;
   final TextOverflow overflow;
+  final EdgeInsetsGeometry? labelPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -80,12 +84,16 @@ class WidgetLabel extends StatelessWidget {
               color: iconColor,
             )
           : null,
-      labelPadding: EdgeInsets.zero,
+      labelPadding: labelPadding,
       label: Text(
         label ?? '',
         maxLines: 1,
         overflow: TextOverflow.fade,
+        softWrap: false,
       ),
+      labelStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+            color: enable ? null : Theme.of(context).disabledColor,
+          ),
     );
     if (message.isNotEmpty) {
       return Tooltip(

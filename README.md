@@ -7,6 +7,16 @@ flutter pub outdated
 flutter pub upgrade --major-versions
 ```
 
+## Extension
+
+... String
+
+```dart
+''.bracketsHack('0');
+''.gitHack('0');
+''.token('0');
+```
+
 ## for iOS
 
 ...
@@ -34,7 +44,6 @@ Size
 - iPad Pro (3rd gen)
 - iPad Pro (2nd gen)
 - iPad Pro (1st gen)
-
 
 ## for Android
 
