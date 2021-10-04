@@ -1,0 +1,37 @@
+{
+  "my": [
+    "history",
+    "recent",
+    "restore",
+    "recentSearch",
+    "confirm",
+    "delete",
+    "signIn",
+    "wouldYouLiketoSignIn",
+    "bySigningIn",
+    "signOut",
+    "formatCurrency",
+    "mockSelect",
+    "formatDate",
+    "twoArgs",
+    "confirmToDelete"
+  ],
+
+  "no": [
+    "history",
+    "recent",
+    "restore",
+    "recentSearch",
+    "confirm",
+    "delete",
+    "signIn",
+    "wouldYouLiketoSignIn",
+    "bySigningIn",
+    "signOut",
+    "formatCurrency",
+    "mockSelect",
+    "formatDate",
+    "twoArgs",
+    "confirmToDelete"
+  ]
+}

@@ -1,0 +1,183 @@
+{
+  "appTitle": "Fleth",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+
+  "headline": "headline",
+  "@headline": {
+    "description": "headline"
+  },
+  "subtitle": "subtitle",
+  "@subtitle": {
+    "description": "subtitle"
+  },
+  "text": "Text",
+  "@text": {
+    "description": "Text"
+  },
+  "caption": "Caption",
+  "@caption": {
+    "description": "Caption"
+  },
+  "overline": "Overline",
+  "@overline": {
+    "description": "Overline"
+  },
+  "button": "Button",
+  "@button": {
+    "description": "Button"
+  },
+  
+  "home": "Home",
+  "@home": {
+    "description": "Home page"
+  },
+  "back": "Back",
+  "@back": {
+    "description": "Back"
+  },
+  "filter": "Filter",
+  "@filter": {
+    "description": "Filter content"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "App settings"
+  },
+
+  "history": "History",
+  "@history": {
+    "description": "History"
+  },
+  "recent": "Recent",
+  "@recent": {
+    "description": "Recent"
+  },
+  "restore": "Restore",
+  "@restore": {
+    "description": "Restore"
+  },
+  "search": "Search",
+  "@search": {
+    "description": "Search"
+  },
+  "recentSearch": "Recent search",
+  "@recentSearch": {
+    "description": "Recent search"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel task"
+  },
+  "confirm": "Confirm",
+  "@confirm": {
+    "description": "Confirm task"
+  },
+  "clear": "Clear",
+  "@clear": {
+    "description": "Clear search"
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Delete file, data"
+  },
+  "signIn": "Sign in",
+  "@signIn": {
+    "description": "Sign in"
+  },
+  "wouldYouLiketoSignIn": "Would you like to sign in?",
+  "@wouldYouLiketoSignIn": {
+    "description": "Would you like to sign in?"
+  },
+  "bySigningIn": "...",
+  "@bySigningIn": {
+    "description": "..."
+  },
+  "signOut": "Sign out",
+  "@signOut": {
+    "description": "Sign out"
+  },
+  "aWordOrTwo": "...a word or two",
+  "@aWordOrTwo": {
+    "description": "a word or two to search"
+  },
+  "locale": "Locale",
+  "@locale": {
+    "description": "System locale"
+  },
+  "themeMode": "Theme mode",
+  "@themeMode": {
+    "description": "Change theme"
+  },
+  "automatic": "Automatic",
+  "@automatic": {
+    "description": "Default theme mode"
+  },
+  "dark": "Dark",
+  "@dark": {
+    "description": "Dark theme"
+  },
+  "light": "Light",
+  "@light": {
+    "description": "Light theme"
+  },
+
+  "formatCurrency": "{value}",
+  "@formatCurrency": {
+    "placeholders": {
+      "value": {
+        "type": "double",
+        "format": "currency"
+      }
+    }
+  },
+  "itemCount": "{count, plural, =0{No item} =1{{count} item} other{{count} items}}",
+  "@itemCount": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+
+  "itemCountNumber": "{count, plural, =0{No item} =1{{number} item} other{{number} items}}",
+  "@itemCountNumber": {
+    "description": "Depending on count, but display number. Used for Myanmar translation",
+    "placeholders": {
+      "count": {},
+      "number": {}
+    }
+  },
+  "mockSelect": "{gender, select, male{His code} female{Her code} other{Their code}}",
+  "@mockSelect": {
+      "description": "Mock select gender is between [male] or [female]",
+      "placeholders": {
+          "gender": {}
+      }
+  },
+
+  "formatDate": "{date}",
+  "@formatDate": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMd"
+      }
+    }
+  },
+  "twoArgs": "This is 2 args {one} & {two}.",
+  "@twoArgs": {
+    "placeholders": {
+      "one": {},
+      "two": {}
+    }
+  },
+  "confirmToDelete": "Are you sure to delete{task, select, all{ all} this{ this} other{}}?",
+  "@confirmToDelete": {
+    "description": "{task, select, all{ all} this{ this} word{ item} other{}}?",
+    "placeholders": {
+      "task": {
+        "type":"String"
+      }
+    }
+  }
+}

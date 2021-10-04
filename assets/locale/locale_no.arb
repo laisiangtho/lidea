@@ -1,0 +1,28 @@
+{
+  "appTitle": "Fleth",
+  
+  "headline": "Overskrift",
+  "subtitle": "Teksting",
+  "text": "Tekst",
+  "caption": "Bildetekst",
+  "overline": "Overlinje",
+  "button": "Knapp",
+  
+  "home": "Hjem",
+  "back": "Tilbake",
+  "filter": "Filter",
+  "settings": "Innstillinger",
+  "search": "Søk",
+  "cancel": "Avbryt",
+  "clear": "klar",
+  "aWordOrTwo": "...et ord eller to",
+
+  "locale": "Språk",
+  "themeMode": "Temamodus",
+  "automatic": "Automatisk",
+  "dark": "Mørk",
+  "light": "Lys",
+
+  "itemCount": "{count, plural, =0{ingenting} =1{{count} stk} other{{count} stk}}",
+  "itemCountNumber": "{count, plural, =0{ingenting} =1{{number} stk} other{{number} stk}}"
+}
