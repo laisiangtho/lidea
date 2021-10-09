@@ -6,7 +6,7 @@ library lidea;
 extension LideaStringExtension on String {
   String bracketsHack({String? key}) {
     String id = this.replaceAllMapped(
-      RegExp(r'\[(.*?)\]'),
+      RegExp(r'\<(.*?)\>'),
       (Match i) => i.group(1).toString().split('').reversed.join(),
     );
     return (key != null && key.isNotEmpty) ? id.token(key) : id;

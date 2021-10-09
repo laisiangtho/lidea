@@ -1,7 +1,6 @@
-/*
-version: 0.2
-developer: Khen Solomon Lethil
-*/
+# ?
+
+```dart
 part of 'root.dart';
 
 abstract class ScrollPageController {

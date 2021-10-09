@@ -16,9 +16,9 @@ part of '../engine.dart';
 ///
 /// ```
 class GistData {
-  late final gitContentUri = Uri.https('gist.githubusercontent.com', '/owner/repo/raw/id/file');
-  late final gitListUri = Uri.https('api.github.com', '/gists/repo');
-  late final rawContentUri = Uri.https('raw.githubusercontent.com', '/owner/repo/master/file');
+  late final _gitContentTemp = Uri.https('gist.githubusercontent.com', '/owner/repo/raw/id/file');
+  late final _gitListTemp = Uri.https('api.github.com', '/gists/repo');
+  late final _rawContentTemp = Uri.https('raw.githubusercontent.com', '/owner/repo/master/file');
 
   late UtilClient _client;
 
@@ -30,8 +30,18 @@ class GistData {
   /// api.github.com/gists/repo
   /// create default client
   GistData({required this.owner, required this.repo, this.token, this.file}) {
-    _client = UtilClient(gitListUri.replace(path: '/gists/$repo'));
+    _client = UtilClient(_gitListTemp.replace(path: '/gists/$repo'));
   }
+
+  // Uri uri({String? owner, String? repo, Map<String, dynamic>? args}) {
+  //   if (owner == null) {
+  //     owner = this.owner;
+  //   }
+  //   if (repo == null) {
+  //     repo = this.repo;
+  //   }
+  //   return Uri.https(owner, repo, args);
+  // }
 
   /// gist.githubusercontent.com/owner/repo/raw/id/file
   /// ```dart
@@ -42,18 +52,22 @@ class GistData {
   ///   debugPrint('error $e');
   /// });
   /// ```
-  Future<T> gitContent<T>({String? owner, String? repo, String? file}) async {
+  Uri gitContentUri({String? owner, String? repo, String? file}) {
     if (owner == null) {
       owner = this.owner;
     }
     if (repo == null) {
       repo = this.repo;
     }
-    if (file == null && this.file != null) {
-      file = this.file;
-    }
     if (file != null && file.isNotEmpty) {
-      return UtilClient(gitContentUri.replace(path: '/$owner/$repo/raw/$file')).get<T>();
+      return _gitContentTemp.replace(path: '/$owner/$repo/raw/$file');
+    }
+    return _gitContentTemp.replace(path: '/$owner/$repo/raw');
+  }
+
+  Future<T> gitContent<T>({String? owner, String? repo, String? file, bool url = false}) async {
+    if (file != null && file.isNotEmpty) {
+      return UtilClient(gitContentUri(owner: owner, repo: repo, file: file)).get<T>();
     }
     return Future<T>.error("No identity");
   }
@@ -67,7 +81,20 @@ class GistData {
   ///   debugPrint('error $e');
   /// });
   /// ```
-  Future<T> rawContent<T>({String? owner, String? repo, String? file}) {
+  Uri rawContentUri({String? owner, String? repo, String? file}) {
+    if (owner == null) {
+      owner = this.owner;
+    }
+    if (repo == null) {
+      repo = this.repo;
+    }
+    if (file != null && file.isNotEmpty) {
+      return _rawContentTemp.replace(path: '/$owner/$repo/master/$file');
+    }
+    return _rawContentTemp.replace(path: '/$owner/$repo/master/');
+  }
+
+  Future<T> rawContent<T>({String? owner, String? repo, String? file}) async {
     if (owner == null) {
       owner = this.owner;
     }
@@ -78,7 +105,7 @@ class GistData {
       file = this.file;
     }
     if (file != null && file.isNotEmpty) {
-      return UtilClient(rawContentUri.replace(path: '/$owner/$repo/master/$file')).get<T>();
+      return UtilClient(rawContentUri(owner: owner, repo: repo, file: file)).get<T>();
     }
     return Future<T>.error("No identity");
   }
@@ -107,10 +134,10 @@ class GistData {
       for (var item in files) {
         if (item['truncated'] == false) {
           final bytes = await UtilDocument.strToListInt(item['content']);
-          await UtilArchive().extract(bytes);
+          await UtilArchive.extract(bytes);
         } else {
           await UtilClient(item['url']).get<Uint8List>().then((res) {
-            UtilArchive().extract(res).then((arc) {
+            UtilArchive.extract(res).then((arc) {
               arc!.forEach((fileName) async {
                 final isExists = await UtilDocument.exists(fileName);
                 debugPrint('$fileName added: $isExists');
