@@ -1,7 +1,49 @@
 {
-  "appTitle": "Fleth",
-  "@appTitle": {
-    "description": "The title of the application"
+  "appZaideih": "Zaideih",
+  "appMyOrdbok": "MyOrdbok",
+  "appLaiSiangtho": "Lai Siangtho",
+
+  "desZaideih": "Zaideih Music Station",
+  "desMyOrdbok": "A comprehensive Myanmar online dictionary",
+  "desLaiSiangtho": "The Holy Bible in languages",
+
+  "holyBible": "Holy Bible",
+  "@holyBible": {
+    "description": "the Holy Bible"
+  },
+  "bible": "Bible",
+  "@bible": {
+    "description": "Bible"
+  },
+  "book": "Book",
+  "@book": {
+    "description": "Book"
+  },
+  "chapter": "Chapter",
+  "@chapter": {
+    "description": "Chapter"
+  },
+  "verse": "Verse",
+  "@verse": {
+    "description": "Verse"
+  },
+
+  "bookmark": "Bookmark",
+  "@bookmark": {
+    "description": "Bookmark"
+  },
+  "bookmarkPlural": "{count, plural, =0{Bookmark} =1{Bookmark} other{{count} Bookmarks}}",
+  "@bookmarkPlural": {
+    "description": "Bookmark/Bookmarks",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "bookmarkCount": "{count, plural, =0{No Bookmark} =1{{count} Bookmark} other{{count} Bookmarks}}",
+  "@bookmarkCount": {
+    "placeholders": {
+      "count": {}
+    }
   },
 
   "headline": "headline",
@@ -28,7 +70,7 @@
   "@button": {
     "description": "Button"
   },
-  
+
   "home": "Home",
   "@home": {
     "description": "Home page"
@@ -44,6 +86,26 @@
   "settings": "Settings",
   "@settings": {
     "description": "App settings"
+  },
+  "more": "More",
+  "@more": {
+    "description": "More info"
+  },
+  "read": "Read",
+  "@read": {
+    "description": "Read"
+  },
+  "note": "Note",
+  "@note": {
+    "description": "Note"
+  },
+  "page": "Page",
+  "@page": {
+    "description": "Page"
+  },
+  "favorites": "Favorites",
+  "@favorites": {
+    "description": "Favorites"
   },
 
   "history": "History",
@@ -62,6 +124,18 @@
   "@search": {
     "description": "Search"
   },
+  "searchNoMatch": "No match",
+  "@searchNoMatch": {
+    "description": "When no result returned"
+  },
+  "searchNoQuery": "No query",
+  "@searchNoQuery": {
+    "description": "When no query provided"
+  },
+  "aWordOrTwo": "...a word or two",
+  "@aWordOrTwo": {
+    "description": "a word or two to search"
+  },
   "recentSearch": "Recent search",
   "@recentSearch": {
     "description": "Recent search"
@@ -74,13 +148,25 @@
   "@confirm": {
     "description": "Confirm task"
   },
+  "confirmation": "Confirmation",
+  "@confirmation": {
+    "description": "Confirmation"
+  },
   "clear": "Clear",
   "@clear": {
     "description": "Clear search"
   },
+  "sort": "Sort",
+  "@sort": {
+    "description": "Sort list"
+  },
   "delete": "Delete",
   "@delete": {
     "description": "Delete file, data"
+  },
+  "download": "Download",
+  "@download": {
+    "description": "Download file, data"
   },
   "signIn": "Sign in",
   "@signIn": {
@@ -98,13 +184,22 @@
   "@signOut": {
     "description": "Sign out"
   },
-  "aWordOrTwo": "...a word or two",
-  "@aWordOrTwo": {
-    "description": "a word or two to search"
+
+  "aMoment": "a moment",
+  "@aMoment": {
+    "description": "a moment"
+  },
+  "noInternet": "No internet",
+  "@noInternet": {
+    "description": "No internet"
   },
   "locale": "Locale",
   "@locale": {
     "description": "System locale"
+  },
+  "fontSize": "Text size",
+  "@fontSize": {
+    "description": "Text size"
   },
   "themeMode": "Theme mode",
   "@themeMode": {
@@ -121,6 +216,16 @@
   "light": "Light",
   "@light": {
     "description": "Light theme"
+  },
+
+  "confirmToDelete": "Are you sure to delete{task, select, all{ all} this{ this} other{}}?",
+  "@confirmToDelete": {
+    "description": "{task, select, all{ all} this{ this} word{ item} other{}}?",
+    "placeholders": {
+      "task": {
+        "type":"String"
+      }
+    }
   },
 
   "formatCurrency": "{value}",
@@ -169,15 +274,6 @@
     "placeholders": {
       "one": {},
       "two": {}
-    }
-  },
-  "confirmToDelete": "Are you sure to delete{task, select, all{ all} this{ this} other{}}?",
-  "@confirmToDelete": {
-    "description": "{task, select, all{ all} this{ this} word{ item} other{}}?",
-    "placeholders": {
-      "task": {
-        "type":"String"
-      }
     }
   }
 }

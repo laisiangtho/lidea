@@ -19,13 +19,17 @@ class SettingType {
   @HiveField(4)
   String locale;
 
-  // token, user file
   @HiveField(5)
-  String token;
+  String identify;
   @HiveField(6)
-  String userId;
+  int bookId;
   @HiveField(7)
-  String repo;
+  int chapterId;
+  @HiveField(8)
+  int verseId;
+
+  @HiveField(9)
+  String parallel;
 
   SettingType({
     this.version = 0,
@@ -33,9 +37,11 @@ class SettingType {
     this.fontSize = 17.0,
     this.searchQuery = '',
     this.locale = '',
-    this.token = '',
-    this.userId = '',
-    this.repo = '',
+    this.identify: '',
+    this.bookId: 1,
+    this.chapterId: 1,
+    this.verseId: 1,
+    this.parallel: '',
   });
 
   factory SettingType.fromJSON(Map<String, dynamic> o) {
@@ -45,9 +51,11 @@ class SettingType {
       fontSize: o["fontSize"] as double,
       searchQuery: o["searchQuery"] as String,
       locale: o["locale"] as String,
-      token: (o["token"] ?? '') as String,
-      userId: (o["userId"] ?? '') as String,
-      repo: (o["file"] ?? '') as String,
+      identify: (o["identify"] ?? '') as String,
+      bookId: (o["bookId"] ?? '') as int,
+      chapterId: (o["chapterId"] ?? '') as int,
+      verseId: (o["verseId"] ?? '') as int,
+      parallel: (o["identify"] ?? '') as String,
     );
   }
 
@@ -59,8 +67,8 @@ class SettingType {
       "searchQuery": searchQuery,
       "locale": locale,
       // "token": token,
-      "userId": userId,
-      "repo": repo,
+      // "userId": userId,
+      // "repo": repo,
     };
   }
 
@@ -71,9 +79,11 @@ class SettingType {
       fontSize: o.fontSize,
       searchQuery: o.searchQuery,
       locale: o.locale,
-      token: o.token,
-      userId: o.userId,
-      repo: o.repo,
+      identify: o.identify,
+      bookId: o.bookId,
+      chapterId: o.chapterId,
+      verseId: o.verseId,
+      parallel: o.parallel,
     );
   }
 
@@ -83,9 +93,11 @@ class SettingType {
     double? fontSize,
     String? searchQuery,
     String? locale,
-    String? token,
-    String? userId,
-    String? repo,
+    String? identify,
+    int? bookId,
+    int? chapterId,
+    int? verseId,
+    String? parallel,
   }) {
     return SettingType(
       version: version ?? this.version,
@@ -93,9 +105,11 @@ class SettingType {
       fontSize: fontSize ?? this.fontSize,
       searchQuery: searchQuery ?? this.searchQuery,
       locale: locale ?? this.locale,
-      token: token ?? this.token,
-      userId: userId ?? this.userId,
-      repo: repo ?? this.repo,
+      identify: identify ?? this.identify,
+      bookId: bookId ?? this.bookId,
+      chapterId: chapterId ?? this.chapterId,
+      verseId: verseId ?? this.verseId,
+      parallel: parallel ?? this.parallel,
     );
   }
 }

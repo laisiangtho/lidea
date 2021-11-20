@@ -1,12 +1,8 @@
 part of 'package:lidea/type.dart';
 
-// this.product,
-//     this.purchase,
-//     this.completePurchase,
-//     this.transactionDate,
 class PurchaseAdapter extends TypeAdapter<PurchaseType> {
   @override
-  final int typeId = 7;
+  final int typeId = 3;
 
   @override
   PurchaseType read(BinaryReader reader) {

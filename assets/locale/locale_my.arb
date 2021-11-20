@@ -1,5 +1,13 @@
 {
-  "appTitle": "Fleth",
+  "desZaideih": "Zaideih ဂီတဗဟို",
+  "desMyOrdbok": "ပြီးပြည့်စုံသော မြန်မာအွန်လိုင်းအဘိဓာန်",
+  "desLaiSiangtho": "ဘာသာစကားများဖြင့် သမ္မာကျမ်းစာ",
+
+  "holyBible": "သမ္မာကျမ်းစာ",
+  "bible": "ကျမ်းစာ",
+  "book": "ကျမ်း",
+  "chapter": "အခန်း",
+  "verse": "ပိုဒ်",
 
   "headline": "ခေါင်းစဉ်",
   "subtitle": "ခေါင်းစဉ်ကလေး",
@@ -14,8 +22,31 @@
   "settings": "ချိန်ညှိခြင်း",
   "search": "ရှာဖွေရန်",
   "cancel": "ပယ်ဖျက်ရန်",
+  "confirm": "အတည်ပြုရန်",
   "clear": "ရှင်းလင်းရန်",
   "aWordOrTwo": "...စကားလုံး တစ်လုံး နှစ်လုံး",
+
+  "more":"နောက်ထပ်",
+  "read":"ဖတ်",
+  "note":"မှတ်ချက်",
+  "page":"စာမျက်နှာ",
+  "favorites":"အကြိုက်ဆုံးများ",
+  "history":"မှတ်တမ်း",
+  "recent":"မကြာမီက",
+  "restore":"ပြန်လည်ရယူ",
+  "searchNoMatch":"ကိုက်ညီမှု မရှိ",
+  "searchNoQuery":"မေးမြန်းမှု မရှိ",
+  "recentSearch":"လတ်တလော ရှာဖွေမှု",
+
+  "sort":"အမျိုးအစား",
+  "download":"ဒေါင်းလုဒ်",
+  "signIn":"ဆိုင်းအင်",
+  "wouldYouLiketoSignIn":"ဆိုင်းအင် လိုပါသလား",
+  "bySigningIn":"ဆိုင်းအင် ခြင်းဖြင့်",
+  "signOut":"ဆိုင်းအောက်",
+  "aMoment":"ခဏ",
+  "noInternet":"အင်တာနက်မရှိ",
+  "fontSize":"စာသားအရွယ်အစား",
 
   "locale": "ဘာသာစကား",
   "themeMode": "အလင်းအမှောင်",
@@ -23,6 +54,33 @@
   "dark": "အမှောင်",
   "light": "အလင်း",
 
+  "bookmark": "စာညှပ်",
+  "bookmarkPlural": "{count, plural, =0{စာညှပ်} =1{စာညှပ်} other{{count} စာညှပ်များ}}",
+  "@bookmarkPlural": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "bookmarkCount": "{count, plural, =0{စာညှပ် မရှိပါ} =1{{count} စာညှပ်} other{{count} စာညှပ်}}",
+  "@bookmarkCount": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+
+  "delete": "ဖျက်ရန်",
+
   "itemCount": "{count, plural, =0{တစ်ခုမှမရှိ} =1{တစ်ခုရှိ} item} other{{count} ခုရှိ}}",
-  "itemCountNumber": "{count, plural, =0{တစ်ခုမှမရှိ} =1{{number} ခုရှိ} other{{number} ခုရှိ}}"
+  "itemCountNumber": "{count, plural, =0{တစ်ခုမှမရှိ} =1{{number} ခုရှိ} other{{number} ခုရှိ}}",
+
+  "confirmation": "အတည်ပြုခြင်း",
+
+  "confirmToDelete": "{task, select, all{အားလုံးကို ဖျက်ဖို့ သေချာလား} other{ဖျက်ဖို့ သေချာလား}}?",
+  "@confirmToDelete": {
+    "placeholders": {
+      "task": {
+        "type":"String"
+      }
+    }
+  }
 }

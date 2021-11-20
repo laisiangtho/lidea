@@ -4,7 +4,7 @@ part of 'package:lidea/type.dart';
 // purchaseID
 // transactionDate
 // pendingCompletePurchase
-@HiveType(typeId: 7)
+@HiveType(typeId: 3)
 class PurchaseType {
   @HiveField(0)
   String productId;

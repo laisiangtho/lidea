@@ -14,6 +14,7 @@ class WidgetLabel extends StatelessWidget {
     this.softWrap = false,
     this.enable = true,
     this.labelPadding = EdgeInsets.zero,
+    this.padding = EdgeInsets.zero,
   }) : super(key: key);
 
   final String? label;
@@ -26,6 +27,7 @@ class WidgetLabel extends StatelessWidget {
   final bool enable;
   final TextOverflow overflow;
   final EdgeInsetsGeometry? labelPadding;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +79,7 @@ class WidgetLabel extends StatelessWidget {
     // );
     final btn = Chip(
       backgroundColor: Colors.transparent,
+      padding: padding,
       avatar: (icon != null)
           ? Icon(
               icon,
@@ -85,6 +88,7 @@ class WidgetLabel extends StatelessWidget {
             )
           : null,
       labelPadding: labelPadding,
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       label: Text(
         label ?? '',
         maxLines: 1,

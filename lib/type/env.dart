@@ -38,8 +38,8 @@ class EnvironmentType {
       package: o["package"] ?? "",
       version: o["version"] ?? "1.0.0",
       buildNumber: o["buildNumber"] ?? "0",
-      settingName: o["settingName"] ?? "0",
-      settingKey: o["settingKey"] ?? "0",
+      settingName: o["settingName"] ?? "s00",
+      settingKey: o["settingKey"] ?? "s01",
       token: (o['token'] ?? "[]").map<TokenType>((e) => TokenType.fromJSON(e)).toList(),
       api: (o['api'] ?? "[]").map<APIType>((e) => APIType.fromJSON(e)).toList(),
       products: o['products'].map<ProductsType>((e) => ProductsType.fromJSON(e)).toList(),
@@ -55,11 +55,12 @@ class EnvironmentType {
 
   /// track Uri used in Music
   /// ```dart
-  /// Uri a = .url([api.uid]).uri(2147)
+  /// Uri a = .url([api.uid]).uri(name: 2147)
   /// String b = .url([api.uid]).cache(2147)
-  /// Uri first = .url('word').uri('4354');
-  /// Uri second = .url('word').uri('4354', index: 1, scheme: 'http');
+  /// Uri first = .url('word').uri(name: '4354');
+  /// Uri second = .url('word').uri(name: '4354', index: 1, scheme: 'http');
   /// String file = .url('word').cache('4354');
+  /// String file = .url('word').local;
   /// ```
   APIType url(String id) {
     return api.lastWhere((e) => e.uid == id);
@@ -76,22 +77,22 @@ class EnvironmentType {
   }
 
   // patch Square Bracket
-  String _srcConfigure(String obs) {
-    return obs.replaceAllMapped(
+  String _srcConfigure(String brackets) {
+    return brackets.replaceAllMapped(
       RegExp(r'\[(.*?)\]'),
       (Match i) {
         final name = i.group(1);
         final lt = token.where((e) => e.id == name);
         if (lt.isNotEmpty) {
-          List<String> lq = ['/', lt.first.owns, lt.first.name];
-          if (name == 'repo') {
-            lq.insert(1, 'raw.githubusercontent.com');
-            lq.add('master');
-          } else if (name == 'gist') {
-            lq.insert(1, 'gist.githubusercontent.com');
-            lq.add('raw');
+          final url = GistData(owner: lt.first.owns, repo: lt.first.name);
+
+          if (lt.first.type == 'repo') {
+            return url.rawContentUri().toString();
+          } else if (lt.first.type == 'gist') {
+            return url.gitContentUri().toString();
+          } else if (lt.first.type == 'url') {
+            return url.uri().toString();
           }
-          return lq.join('/');
         }
         return name.toString();
       },
@@ -133,7 +134,7 @@ class EnvironmentType {
     );
   }
 
-  TokenType get _tokenClient => token.lastWhere((e) => e.id == 'client' && e.id.isNotEmpty);
+  TokenType get _tokenClient => token.lastWhere((e) => e.id == 'client' && e.key.isNotEmpty);
 
   /// GistData gist with token using TokenType id
   GistData get client {
@@ -148,16 +149,16 @@ class EnvironmentType {
 
 /// NOTE: only type, EnvironmentType child
 class APIType {
-  String uid;
-  String asset;
-  String local;
+  final String uid;
+  String assetName;
+  String localName;
   // String repo;
   Iterable<String> src;
 
   APIType({
     required this.uid,
-    required this.asset,
-    required this.local,
+    required this.assetName,
+    required this.localName,
     // required this.repo,
     required this.src,
   });
@@ -165,43 +166,41 @@ class APIType {
   factory APIType.fromJSON(Map<String, dynamic> o) {
     return APIType(
       uid: o["uid"] as String,
-      asset: (o['asset'] ?? "").toString().gitHack(),
-      local: (o['local'] ?? "").toString().gitHack(),
-      // repo: (o['repo'] ?? "").toString().gitHack(),
+      assetName: (o['asset'] ?? "").toString().gitHack(),
+      localName: (o['local'] ?? "").toString().gitHack(),
       src: List.from(
         (o['src'] ?? []).map<String>((e) => e.toString().gitHack()),
       ),
     );
   }
 
-  String get assetName => asset.replaceFirst('?', uid);
-  String get localName => local.replaceFirst('?', uid);
+  String get asset => assetName.replaceFirst('?', uid);
+  String get local => localName.replaceFirst('?', uid);
   // String get repoName => repo.replaceFirst('!', uid);
 
   /// Uri
   /// ```dart
   /// // Uri
-  /// .uri('2147')
-  /// .uri('4354', index: 1, scheme: 'http');
+  /// .uri(name: '2147')
+  /// .uri(name: '4354', index: 1, scheme: 'http');
   /// ```
-  Uri uri(String id, {int index = 0, String scheme = 'https'}) {
+  Uri uri({Object? name, int index = 0, String scheme = 'https'}) {
     String url = '';
     if (src.isNotEmpty) {
       url = src.length > index ? src.elementAt(index) : src.first;
     }
-    Uri uri = Uri.parse(url.replaceFirst('!', id)).replace(scheme: scheme);
+    if (name == null) {
+      name = uid;
+    }
+    Uri uri = Uri.parse(url.replaceFirst('!', '$name')).replace(scheme: scheme);
     if (uri.hasAuthority == false) {
       uri = uri.replace(host: 'example.com');
     }
     return uri;
-    // if (uri.hasQuery) {
-    //   return Uri.https(uri.authority, uri.path, uri.queryParameters);
-    // }
-    // return Uri.https(uri.authority, uri.path);
   }
 
-  String cache(Object id) {
-    return local.replaceFirst('?', id.toString());
+  String cache(Object name) {
+    return localName.replaceFirst('?', '$name');
   }
 }
 

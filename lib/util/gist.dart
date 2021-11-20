@@ -33,15 +33,15 @@ class GistData {
     _client = UtilClient(_gitListTemp.replace(path: '/gists/$repo'));
   }
 
-  // Uri uri({String? owner, String? repo, Map<String, dynamic>? args}) {
-  //   if (owner == null) {
-  //     owner = this.owner;
-  //   }
-  //   if (repo == null) {
-  //     repo = this.repo;
-  //   }
-  //   return Uri.https(owner, repo, args);
-  // }
+  Uri uri({String? owner, String? repo, Map<String, dynamic>? args}) {
+    if (owner == null) {
+      owner = this.owner;
+    }
+    if (repo == null) {
+      repo = this.repo;
+    }
+    return Uri.https(owner, repo, args);
+  }
 
   /// gist.githubusercontent.com/owner/repo/raw/id/file
   /// ```dart
@@ -62,7 +62,7 @@ class GistData {
     if (file != null && file.isNotEmpty) {
       return _gitContentTemp.replace(path: '/$owner/$repo/raw/$file');
     }
-    return _gitContentTemp.replace(path: '/$owner/$repo/raw');
+    return _gitContentTemp.replace(path: '/$owner/$repo/raw/');
   }
 
   Future<T> gitContent<T>({String? owner, String? repo, String? file, bool url = false}) async {

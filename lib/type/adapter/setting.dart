@@ -16,15 +16,22 @@ class SettingAdapter extends TypeAdapter<SettingType> {
       ..fontSize = fields[2] as double
       ..searchQuery = fields[3] as String
       ..locale = fields[4] as String
-      ..token = fields[5] as String
-      ..userId = (fields[6] ?? '') as String
-      ..repo = (fields[7] ?? '') as String;
+      ..identify = fields[5] as String
+      ..bookId = fields[6] as int
+      ..chapterId = fields[7] as int
+      ..verseId = fields[8] as int
+      ..parallel = fields[9] as String;
   }
 
+//  identify: o.identify,
+//       bookId: o.bookId,
+//       chapterId: o.chapterId,
+//       verseId: o.verseId,
+//       parallel: o.parallel,
   @override
   void write(BinaryWriter writer, SettingType obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.version)
       ..writeByte(1)
@@ -36,11 +43,15 @@ class SettingAdapter extends TypeAdapter<SettingType> {
       ..writeByte(4)
       ..write(obj.locale)
       ..writeByte(5)
-      ..write(obj.token)
+      ..write(obj.identify)
       ..writeByte(6)
-      ..write(obj.userId)
+      ..write(obj.bookId)
       ..writeByte(7)
-      ..write(obj.repo);
+      ..write(obj.chapterId)
+      ..writeByte(8)
+      ..write(obj.verseId)
+      ..writeByte(9)
+      ..write(obj.parallel);
   }
 
   @override

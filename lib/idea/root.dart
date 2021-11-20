@@ -6,10 +6,13 @@ class IdeaColor {
   final Color focus;
 
   final Color primary;
+  final Color dark;
+  final Color light;
   final Color scaffold;
   final Color highlight;
   final Color disable;
   final Color background;
+  final Color error;
   final Color shadow;
   final Color button;
 
@@ -20,10 +23,13 @@ class IdeaColor {
     this.brightness = Brightness.light,
     this.focus = Colors.black,
     this.primary = Colors.white,
+    this.light = Colors.grey,
+    this.dark = Colors.blue,
     this.scaffold = Colors.white,
     this.highlight = Colors.blue,
     this.disable = Colors.grey,
     this.background = Colors.grey,
+    this.error = Colors.red,
     this.shadow = Colors.grey,
     this.button = Colors.blue,
     this.primaryScheme = Colors.white,
@@ -38,12 +44,12 @@ class IdeaColor {
   ColorScheme get scheme => ColorScheme(
         brightness: brightness,
         primary: primaryScheme,
-        primaryVariant: primary.darken(),
+        primaryVariant: light,
         secondary: primaryScheme,
-        secondaryVariant: primary.darken(),
+        secondaryVariant: light,
         background: background,
         surface: background.darken(),
-        error: focusOpacity,
+        error: error,
         onError: focusOpacity,
         onPrimary: focusOpacity,
         onSecondary: focusOpacity,

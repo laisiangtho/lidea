@@ -25,12 +25,14 @@ class ViewPage extends StatelessWidget {
   final ScrollController? controller;
   final Widget child;
   final int depth;
+  final bool Function(ScrollNotification)? onNotification;
 
   /// depth is useful on NestedScrollView
   ViewPage({
     Key? key,
     this.controller,
     this.depth: 0,
+    this.onNotification,
     required this.child,
   });
   // : super(key: key);
@@ -53,12 +55,19 @@ class ViewPage extends StatelessWidget {
     //   },
     // );
     return ScrollConfiguration(
-        key: key,
-        behavior: const ViewScrollBehavior(),
-        child: NotificationListener<ScrollNotification>(
-            onNotification: (ScrollNotification notification) =>
-                _notification(context, notification),
-            child: child));
+      key: key,
+      behavior: const ViewScrollBehavior(),
+      child: NotificationListener<ScrollNotification>(
+        onNotification: onNotification ??
+            (ScrollNotification notification) {
+              return _notification(context, notification);
+            },
+        // onNotification: (ScrollNotification notification) {
+        //   return _notification(context, notification);
+        // },
+        child: child,
+      ),
+    );
   }
 
   bool _notification(BuildContext context, dynamic scroll) {
@@ -70,28 +79,30 @@ class ViewPage extends StatelessWidget {
     // While the widget tree was being built, laid out, and painted, a new frame was scheduled to rebuild the widget tree.
     final notify = Provider.of<ViewScrollNotify>(context, listen: false);
     // final nav = Provider.of<NotifyNavigationScroll>(context, listen: false);
-    Future.microtask(() {
-      notify.notification = scroll;
+    Future.microtask(
+      () {
+        notify.notification = scroll;
 
-      if (scroll is ScrollStartNotification) {
-        // notify.metrics = scroll.metrics;
-        notify.isUpdating = false;
-        notify.isEnded = true;
-      } else if (scroll is ScrollUpdateNotification) {
-        // notify.metrics = scroll.metrics;
-        notify.isUpdating = true;
-        notify.isEnded = false;
-        notify.scrollUpdate(scroll.metrics);
-      } else if (scroll is ScrollEndNotification) {
-        // notify.metrics = scroll.metrics;
-        notify.isUpdating = false;
-        notify.isEnded = true;
-        notify.scrollEnd(scroll.metrics);
-      } else if (scroll is UserScrollNotification) {
-        notify.direction = scroll.direction.index;
-      }
-      notify.metrics = scroll.metrics;
-    });
+        if (scroll is ScrollStartNotification) {
+          // notify.metrics = scroll.metrics;
+          notify.isUpdating = false;
+          notify.isEnded = true;
+        } else if (scroll is ScrollUpdateNotification) {
+          // notify.metrics = scroll.metrics;
+          notify.isUpdating = true;
+          notify.isEnded = false;
+          notify.scrollUpdate(scroll.metrics);
+        } else if (scroll is ScrollEndNotification) {
+          // notify.metrics = scroll.metrics;
+          notify.isUpdating = false;
+          notify.isEnded = true;
+          notify.scrollEnd(scroll.metrics);
+        } else if (scroll is UserScrollNotification) {
+          notify.direction = scroll.direction.index;
+        }
+        notify.metrics = scroll.metrics;
+      },
+    );
     // Future.delayed(Duration.zero, () {});
 
     return false;
@@ -117,6 +128,5 @@ class ViewScrollBehavior extends ScrollBehavior {
   }
 
   @override
-  Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) =>
-      child;
+  Widget buildViewportChrome(BuildContext _, Widget child, AxisDirection _a) => child;
 }

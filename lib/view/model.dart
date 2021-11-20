@@ -23,7 +23,7 @@ class ViewNavigationArguments {
   final bool canPop;
   final Object? args;
   final Object? route;
-  final GlobalKey<NavigatorState> navigator;
+  final GlobalKey<NavigatorState>? navigator;
 
   const ViewNavigationArguments({
     this.canPop = false,

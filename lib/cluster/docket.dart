@@ -14,14 +14,17 @@ abstract class ClusterDocket {
   // final time = watch..start(); time.elapsedMilliseconds
   // final Stopwatch watch = new Stopwatch();
 
-  Future<void> ensureInitialized() async {
+  Future<void> ensureInitialized(Function? more) async {
     await Hive.initFlutter();
     Hive.registerAdapter(SettingAdapter());
     Hive.registerAdapter(PurchaseAdapter());
     Hive.registerAdapter(RecentSearchAdapter());
+    if (more != null) {
+      await more.call();
+    }
   }
 
-  Future<void> prepareInitialized() async {
+  Future<void> prepareInitialized(Function? more) async {
     env = EnvironmentType.fromJSON(
       UtilDocument.decodeJSON<Map<String, dynamic>>(
         await UtilDocument.loadBundleAsString('env.json'),
@@ -49,11 +52,15 @@ abstract class ClusterDocket {
 
     await tokenUpdate();
 
-    boxOfPurchase = await Hive.openBox<PurchaseType>('purchased');
+    boxOfPurchase = await Hive.openBox<PurchaseType>('purchase-list');
     // collection.boxOfSetting.clear();
 
     boxOfRecentSearch = await Hive.openBox<RecentSearchType>('recent-search');
     // await collection.boxOfRecentSearch.clear();
+
+    if (more != null) {
+      await more.call();
+    }
   }
 
   Future<void> tokenUpdate({bool force = false, String file = 'token.json'}) {
@@ -76,13 +83,20 @@ abstract class ClusterDocket {
   }
 
   String get searchQuery => setting.searchQuery;
-
   set searchQuery(String ord) {
     if (setting.searchQuery != ord) {
       setting.searchQuery = ord;
       settingUpdate(setting);
     }
   }
+
+  // String get suggestQuery => '';
+  // set suggestQuery(String ord) {
+  //   if (suggestQuery != ord) {
+  //     suggestQuery = ord;
+  //   }
+  // }
+  String suggestQuery = '';
 
   double get fontSize => setting.fontSize;
   set fontSize(double size) {
@@ -158,15 +172,16 @@ abstract class ClusterDocket {
     return false;
   }
 
-  // Iterable<MapEntry<dynamic, RecentSearchType>> recentSearch() {
-  //   if (searchQuery.isEmpty) {
-  //     return recentSearches;
-  //   } else {
-  //     return recentSearches.where(
-  //       (e) => e.value.word.toLowerCase().startsWith(searchQuery.toLowerCase()),
-  //     );
-  //   }
-  // }
+  Iterable<MapEntry<dynamic, RecentSearchType>> recentSearch() {
+    // if (searchQuery.isEmpty) {
+    //   return recentSearches;
+    // } else {
+    //   return recentSearches.where(
+    //     (e) => e.value.word.toLowerCase().startsWith(searchQuery.toLowerCase()),
+    //   );
+    // }
+    return recentSearches;
+  }
 
   // recentSearchClear
   // void boxOfRecentSearchClear() {

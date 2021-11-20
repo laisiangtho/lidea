@@ -1,13 +1,21 @@
 {
-  "appTitle": "Fleth",
-  
+  "desZaideih": "Zaideih musikkstasjon",
+  "desMyOrdbok": "En omfattende Myanmar online ordbok",
+  "desLaiSiangtho": "Den hellige bibel på språk",
+
+  "holyBible":"Bibel",
+  "bible":"Bibel",
+  "book":"Bok",
+  "chapter":"Kapittel",
+  "verse":"Vers",
+
   "headline": "Overskrift",
   "subtitle": "Teksting",
   "text": "Tekst",
   "caption": "Bildetekst",
   "overline": "Overlinje",
   "button": "Knapp",
-  
+
   "home": "Hjem",
   "back": "Tilbake",
   "filter": "Filter",
@@ -16,6 +24,54 @@
   "cancel": "Avbryt",
   "clear": "klar",
   "aWordOrTwo": "...et ord eller to",
+
+  "more":"mer",
+  "read":"Lese",
+  "note":"Merk",
+  "page":"Side",
+  "favorites":"Favoritter",
+  "history":"Historie",
+  "recent":"Nylig",
+  "restore":"Restaurere",
+  "searchNoMatch":"Ingen treff",
+  "searchNoQuery":"Ingen spørring",
+  "recentSearch":"Siste søk",
+  "confirm":"Bekrefte",
+  "confirmation":"Bekreftelse",
+  "sort":"Sortere",
+  "delete":"Slett",
+  "download":"nedlasting",
+  "signIn":"Logg inn",
+  "wouldYouLiketoSignIn":"Vil du logge på",
+  "bySigningIn":"ved å logge på",
+  "signOut":"Logg ut",
+  "aMoment":"Et øyeblikk",
+  "noInternet":"Ingen Internett",
+  "fontSize":"Skriftstørrelse",
+
+  "confirmToDelete": "Er du sikker på å slette{task, select, all{ alle} this{ dette} other{}}?",
+  "@confirmToDelete": {
+    "placeholders": {
+      "task": {
+        "type":"String"
+      }
+    }
+  },
+
+  "bookmark": "Bokmerke",
+
+  "bookmarkPlural": "{count, plural, =0{Bokmerke} =1{Bokmerke} other{{count} Bokmerker}}",
+  "@bookmarkPlural": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "bookmarkCount": "{count, plural, =0{Ingen bokmerke} =1{{count} Bokmerke} other{{count} Bokmerker}}",
+  "@bookmarkCount": {
+    "placeholders": {
+      "count": {}
+    }
+  },
 
   "locale": "Språk",
   "themeMode": "Temamodus",

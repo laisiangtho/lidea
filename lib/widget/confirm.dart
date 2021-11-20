@@ -6,31 +6,37 @@ import 'package:flutter/material.dart';
 Future<bool?> doConfirmWithDialog({
   required BuildContext context,
   required String message,
-  String? cancel = 'Cancel',
-  String? confirm = 'Confirm',
-}) async {
-  if (!Platform.isIOS) {
-    return await showDialog<bool?>(
+  String title = 'Confirm',
+  String cancel = 'Cancel',
+  String confirm = 'Confirm',
+}) {
+  if (Platform.isAndroid) {
+    return showDialog<bool?>(
       context: context,
-      useSafeArea: false,
-      barrierColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
+      useSafeArea: true,
+      barrierColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.8),
       builder: (BuildContext context) => AlertDialog(
         content: Text(message),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        actionsPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+        title: Text(title),
+        contentPadding: const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
+        actionsPadding: EdgeInsets.zero,
+        // buttonPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+        actionsAlignment: MainAxisAlignment.spaceAround,
         actions: <Widget>[
           CupertinoButton(
-            // color: Theme.of(context).scaffoldBackgroundColor,
-            // padding: const EdgeInsets.symmetric(horizontal:12, vertical:7),
-            // minSize: 10,
-            child: Text(cancel!),
+            child: Text(
+              cancel,
+              style: DefaultTextStyle.of(context).style,
+            ),
             onPressed: () => Navigator.of(context).pop(false),
           ),
           CupertinoButton(
-            // color: Theme.of(context).splashColor,
-            // padding: const EdgeInsets.symmetric(horizontal:12, vertical:7),
-            // minSize: 10,
-            child: Text(confirm!),
+            child: Text(
+              confirm,
+              style: DefaultTextStyle.of(context).style.copyWith(
+                    color: Theme.of(context).errorColor,
+                  ),
+            ),
             // Navigator.of(context, rootNavigator: true).pop(false)
             onPressed: () => Navigator.of(context).pop(true),
           ),
@@ -38,19 +44,31 @@ Future<bool?> doConfirmWithDialog({
       ),
     );
   }
-  return await showCupertinoDialog<bool?>(
+  return showCupertinoDialog<bool?>(
     context: context,
+    barrierDismissible: true,
     builder: (BuildContext context) => CupertinoAlertDialog(
-      content: Text(message),
+      title: Text(
+        title,
+        style: Theme.of(context).textTheme.bodyText1!.copyWith(),
+      ),
+      content: Text(
+        message,
+        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+              fontSize: 15,
+            ),
+      ),
       actions: <Widget>[
         CupertinoDialogAction(
           // isDefaultAction: true,
-          child: Text(cancel!),
+          // isDestructiveAction: true,
+          child: Text(cancel),
           onPressed: () => Navigator.of(context).pop(false),
         ),
         CupertinoDialogAction(
-          isDefaultAction: true,
-          child: Text(confirm!),
+          // isDefaultAction: true,
+          isDestructiveAction: true,
+          child: Text(confirm),
           // Navigator.of(context, rootNavigator: true).pop(false)
           onPressed: () => Navigator.of(context).pop(true),
         ),

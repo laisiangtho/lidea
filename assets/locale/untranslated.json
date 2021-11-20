@@ -1,37 +1,21 @@
 {
   "my": [
-    "history",
-    "recent",
-    "restore",
-    "recentSearch",
-    "confirm",
-    "delete",
-    "signIn",
-    "wouldYouLiketoSignIn",
-    "bySigningIn",
-    "signOut",
+    "appZaideih",
+    "appMyOrdbok",
+    "appLaiSiangtho",
     "formatCurrency",
     "mockSelect",
     "formatDate",
-    "twoArgs",
-    "confirmToDelete"
+    "twoArgs"
   ],
 
   "no": [
-    "history",
-    "recent",
-    "restore",
-    "recentSearch",
-    "confirm",
-    "delete",
-    "signIn",
-    "wouldYouLiketoSignIn",
-    "bySigningIn",
-    "signOut",
+    "appZaideih",
+    "appMyOrdbok",
+    "appLaiSiangtho",
     "formatCurrency",
     "mockSelect",
     "formatDate",
-    "twoArgs",
-    "confirmToDelete"
+    "twoArgs"
   ]
 }

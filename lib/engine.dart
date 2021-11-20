@@ -100,9 +100,13 @@ class UtilDocument {
   /// .readAsJSON<Map<String, dynamic>>('file.json')
   /// ```
   static Future<T> readAsJSON<T>(String name) async {
-    return decodeJSON<T>(
-      await readAsString(name),
-    );
+    try {
+      return decodeJSON<T>(
+        await readAsString(name),
+      );
+    } catch (e) {
+      return Future.error(e);
+    }
   }
   // static Future<Uint8List> readAsByte(String fileName) async => await file(fileName).then(
   //   (File e) async => await e.readAsBytes()
