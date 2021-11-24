@@ -8,21 +8,15 @@
     },
     {
       "path": "..\\scripture"
-    },
-    {
-      "path": "..\\music"
-    },
-    {
-      "path": "..\\dictionary"
     }
   ],
   "settings": {
     "workbench.colorCustomizations": {
-      "activityBar.background": "#dfdddd",
+      "activityBar.background": "#d1cfcf",
       "activityBar.foreground": "#585858",
       "textLink.foreground": "#ff0000",
       "activityBar.inactiveForeground": "#aaaaac",
-      "statusBar.background": "#b6b7b8"
+      "statusBar.background": "#a0a0a0"
     },
     "workbench.colorTheme": "Default Light+",
     "editor.tabSize": 2,
