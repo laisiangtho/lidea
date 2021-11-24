@@ -4,13 +4,16 @@
       "path": "."
     },
     {
-      "path": "..\\lidea"
-    },
-    {
       "path": "..\\fleth"
     },
     {
-      "path": "..\\development"
+      "path": "..\\scripture"
+    },
+    {
+      "path": "..\\music"
+    },
+    {
+      "path": "..\\dictionary"
     }
   ],
   "settings": {
