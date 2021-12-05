@@ -1,13 +1,18 @@
 {
+  "appZaideih": "Zaideih",
+  "appMyOrdbok": "MyOrdbok",
+  "appLaiSiangtho": "Lai Siangtho",
+
   "desZaideih": "Zaideih musikkstasjon",
   "desMyOrdbok": "En omfattende Myanmar online ordbok",
   "desLaiSiangtho": "Den hellige bibel på språk",
 
   "holyBible":"Bibel",
-  "bible":"Bibel",
-  "book":"Bok",
-  "chapter":"Kapittel",
-  "verse":"Vers",
+
+  "bible": "{plural, select, true{Bibler} other{Bibel}}",
+  "book": "{plural, select, true{Bøker} other{Bok}}",
+  "chapter": "{plural, select, true{Kapitler} other{Kapittel}}",
+  "verse": "{plural, select, true{Vers} other{Vers}}",
 
   "headline": "Overskrift",
   "subtitle": "Teksting",
@@ -18,21 +23,26 @@
 
   "home": "Hjem",
   "back": "Tilbake",
-  "filter": "Filter",
-  "settings": "Innstillinger",
-  "search": "Søk",
+  "share": "Dele",
+  "filter": "{plural, select, true{Filtre} other{Filter}}",
+  "setting": "{plural, select, true{Innstillinger} other{Innstilling}}",
+  "option": "{plural, select, true{Alternativer} other{Alternativ}}",
   "cancel": "Avbryt",
   "clear": "klar",
   "aWordOrTwo": "...et ord eller to",
 
   "more":"mer",
   "read":"Lese",
-  "note":"Merk",
-  "page":"Side",
-  "favorites":"Favoritter",
-  "history":"Historie",
-  "recent":"Nylig",
+  "note": "{plural, select, true{Notater} other{Notere}}",
+  "page": "{plural, select, true{Sider} other{Side}}",
+
+  "favorite": "{plural, select, true{Favoritter} other{Favoritt}}",
+
+  "parallel": "Parallel",
+  "history": "{plural, select, true{Historier} other{Historie}}",
+  "recent": "{plural, select, true{Nylig} other{Nylig}}",
   "restore":"Restaurere",
+  "search": "{plural, select, true{Søk} other{Søk}}",
   "searchNoMatch":"Ingen treff",
   "searchNoQuery":"Ingen spørring",
   "recentSearch":"Siste søk",
@@ -58,14 +68,8 @@
     }
   },
 
-  "bookmark": "Bokmerke",
+  "bookmark": "{plural, select, true{Bokmerker} other{Bokmerke}}",
 
-  "bookmarkPlural": "{count, plural, =0{Bokmerke} =1{Bokmerke} other{{count} Bokmerker}}",
-  "@bookmarkPlural": {
-    "placeholders": {
-      "count": {}
-    }
-  },
   "bookmarkCount": "{count, plural, =0{Ingen bokmerke} =1{{count} Bokmerke} other{{count} Bokmerker}}",
   "@bookmarkCount": {
     "placeholders": {
@@ -80,5 +84,12 @@
   "light": "Lys",
 
   "itemCount": "{count, plural, =0{ingenting} =1{{count} stk} other{{count} stk}}",
-  "itemCountNumber": "{count, plural, =0{ingenting} =1{{number} stk} other{{number} stk}}"
+  "itemCountNumber": "{count, plural, =0{ingenting} =1{{number} stk} other{{number} stk}}",
+
+  "addTo": "Legg til {to}",
+  "addMore": "Legg til flere {to}",
+  "chooseTo": "Velge {to}",
+  "compareTo": "Sammenligne med {to}",
+  "nextTo": "Neste {to}",
+  "previousTo": "Forrige {to}"
 }

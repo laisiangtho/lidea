@@ -1,13 +1,18 @@
 {
+  "appZaideih": "Zaideih",
+  "appMyOrdbok": "MyOrdbok",
+  "appLaiSiangtho": "Lai Siangtho",
+
   "desZaideih": "Zaideih ဂီတဗဟို",
   "desMyOrdbok": "ပြီးပြည့်စုံသော မြန်မာအွန်လိုင်းအဘိဓာန်",
   "desLaiSiangtho": "ဘာသာစကားများဖြင့် သမ္မာကျမ်းစာ",
 
   "holyBible": "သမ္မာကျမ်းစာ",
-  "bible": "ကျမ်းစာ",
-  "book": "ကျမ်း",
-  "chapter": "အခန်း",
-  "verse": "ပိုဒ်",
+
+  "bible": "{plural, select, true{ကျမ်းစာများ} other{ကျမ်းစာ}}",
+  "book": "{plural, select, true{ကျမ်းများ} other{ကျမ်း}}",
+  "chapter": "{plural, select, true{အခန်းများ} other{အခန်း}}",
+  "verse": "{plural, select, true{ပိုဒ်များ} other{ပိုဒ်}}",
 
   "headline": "ခေါင်းစဉ်",
   "subtitle": "ခေါင်းစဉ်ကလေး",
@@ -18,9 +23,11 @@
 
   "home": "အိမ်",
   "back": "နောက်သို့",
-  "filter": "စီစစ်ရန်",
-  "settings": "ချိန်ညှိခြင်း",
-  "search": "ရှာဖွေရန်",
+  "share": "မျှဝေရန်",
+  "filter": "{plural, select, true{စီစစ်မှုများ} other{စီစစ်ရန်}}",
+  "setting": "{plural, select, true{ချိန်ညှိခြင်း} other{ချိန်ညှိခြင်း}}",
+  "option": "{plural, select, true{ရွေးချယ်မှုများ} other{ရွေးချယ်မှု}}",
+  "search": "{plural, select, true{ရှာဖွေမှုများ} other{ရှာဖွေရန်}}",
   "cancel": "ပယ်ဖျက်ရန်",
   "confirm": "အတည်ပြုရန်",
   "clear": "ရှင်းလင်းရန်",
@@ -28,25 +35,29 @@
 
   "more":"နောက်ထပ်",
   "read":"ဖတ်",
-  "note":"မှတ်ချက်",
-  "page":"စာမျက်နှာ",
-  "favorites":"အကြိုက်ဆုံးများ",
-  "history":"မှတ်တမ်း",
-  "recent":"မကြာမီက",
+  "note": "{plural, select, true{မှတ်ချက်များ} other{မှတ်ချက်}}",
+  "page": "{plural, select, true{စာမျက်နှာများ} other{စာမျက်နှာ}}",
+
+  "favorite": "{plural, select, true{အကြိုက်ဆုံးများ} other{အကြိုက်ဆုံး}}",
+
+  "parallel": "ပြိုင်တူ",
+  "history": "{plural, select, true{မှတ်တမ်းများ} other{မှတ်တမ်း}}",
+  "recent": "{plural, select, true{မကြာမီကများ} other{မကြာမီက}}",
   "restore":"ပြန်လည်ရယူ",
   "searchNoMatch":"ကိုက်ညီမှု မရှိ",
   "searchNoQuery":"မေးမြန်းမှု မရှိ",
   "recentSearch":"လတ်တလော ရှာဖွေမှု",
 
-  "sort":"အမျိုးအစား",
+  "sort":"မျိုးတူစု",
   "download":"ဒေါင်းလုဒ်",
+  "delete": "ဖျက်ရန်",
   "signIn":"ဆိုင်းအင်",
   "wouldYouLiketoSignIn":"ဆိုင်းအင် လိုပါသလား",
   "bySigningIn":"ဆိုင်းအင် ခြင်းဖြင့်",
   "signOut":"ဆိုင်းအောက်",
   "aMoment":"ခဏ",
   "noInternet":"အင်တာနက်မရှိ",
-  "fontSize":"စာသားအရွယ်အစား",
+  "fontSize":"စာသား အရွယ်အစား",
 
   "locale": "ဘာသာစကား",
   "themeMode": "အလင်းအမှောင်",
@@ -54,21 +65,14 @@
   "dark": "အမှောင်",
   "light": "အလင်း",
 
-  "bookmark": "စာညှပ်",
-  "bookmarkPlural": "{count, plural, =0{စာညှပ်} =1{စာညှပ်} other{{count} စာညှပ်များ}}",
-  "@bookmarkPlural": {
-    "placeholders": {
-      "count": {}
-    }
-  },
+  "bookmark": "{plural, select, true{စာညှပ်များ} other{စာညှပ်}}",
+
   "bookmarkCount": "{count, plural, =0{စာညှပ် မရှိပါ} =1{{count} စာညှပ်} other{{count} စာညှပ်}}",
   "@bookmarkCount": {
     "placeholders": {
       "count": {}
     }
   },
-
-  "delete": "ဖျက်ရန်",
 
   "itemCount": "{count, plural, =0{တစ်ခုမှမရှိ} =1{တစ်ခုရှိ} item} other{{count} ခုရှိ}}",
   "itemCountNumber": "{count, plural, =0{တစ်ခုမှမရှိ} =1{{number} ခုရှိ} other{{number} ခုရှိ}}",
@@ -82,5 +86,11 @@
         "type":"String"
       }
     }
-  }
+  },
+  "addTo": "{to} ထည့်ရန်",
+  "addMore": "{to} ထပ်ထည့်ရန်",
+  "chooseTo": "{to} ရွေးချယ်ရန်",
+  "compareTo": "{to} နှိုင်းယှဉ်ရန်",
+  "nextTo": "ရှေ့ {to}",
+  "previousTo": "နောက် {to}"
 }

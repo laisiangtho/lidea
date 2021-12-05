@@ -11,34 +11,47 @@
   "@holyBible": {
     "description": "the Holy Bible"
   },
-  "bible": "Bible",
-  "@bible": {
-    "description": "Bible"
-  },
-  "book": "Book",
-  "@book": {
-    "description": "Book"
-  },
-  "chapter": "Chapter",
-  "@chapter": {
-    "description": "Chapter"
-  },
-  "verse": "Verse",
-  "@verse": {
-    "description": "Verse"
-  },
 
-  "bookmark": "Bookmark",
-  "@bookmark": {
-    "description": "Bookmark"
-  },
-  "bookmarkPlural": "{count, plural, =0{Bookmark} =1{Bookmark} other{{count} Bookmarks}}",
-  "@bookmarkPlural": {
-    "description": "Bookmark/Bookmarks",
+  "bible": "{plural, select, true{Bibles} other{Bible}}",
+  "@bible": {
+    "description": "default is singular form. Plural form must provided false",
     "placeholders": {
-      "count": {}
+      "plural": {}
     }
   },
+
+  "book": "{plural, select, true{Books} other{Book}}",
+  "@book": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+
+  "chapter": "{plural, select, true{Chapters} other{Chapter}}",
+  "@chapter": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+
+  "verse": "{plural, select, true{Verses} other{Verse}}",
+  "@verse": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+
+  "bookmark": "{plural, select, true{Bookmarks} other{Bookmark}}",
+  "@bookmark": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+
   "bookmarkCount": "{count, plural, =0{No Bookmark} =1{{count} Bookmark} other{{count} Bookmarks}}",
   "@bookmarkCount": {
     "placeholders": {
@@ -79,14 +92,35 @@
   "@back": {
     "description": "Back"
   },
-  "filter": "Filter",
+  "share": "Share",
+  "@share": {
+    "description": "Share"
+  },
+
+  "filter": "{plural, select, true{Filters} other{Filter}}",
   "@filter": {
-    "description": "Filter content"
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
   },
-  "settings": "Settings",
-  "@settings": {
-    "description": "App settings"
+
+  "setting": "{plural, select, true{Settings} other{Setting}}",
+  "@setting": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
   },
+
+  "option": "{plural, select, true{Options} other{Option}}",
+  "@option": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+
   "more": "More",
   "@more": {
     "description": "More info"
@@ -95,35 +129,62 @@
   "@read": {
     "description": "Read"
   },
-  "note": "Note",
+  "note": "{plural, select, true{Notes} other{Note}}",
   "@note": {
-    "description": "Note"
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
   },
-  "page": "Page",
+  "page": "{plural, select, true{Pages} other{Page}}",
   "@page": {
-    "description": "Page"
-  },
-  "favorites": "Favorites",
-  "@favorites": {
-    "description": "Favorites"
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
   },
 
-  "history": "History",
+  "favorite": "{plural, select, true{Favorites} other{Favorite}}",
+  "@favorite": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+
+  "parallel": "Parallel",
+  "@parallel": {
+    "description": "Parallel chapter, verse"
+  },
+  "history": "{plural, select, true{Histories} other{History}}",
   "@history": {
-    "description": "History"
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
   },
-  "recent": "Recent",
+
+  "recent": "{plural, select, true{Recents} other{Recent}}",
   "@recent": {
-    "description": "Recent"
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
   },
+
   "restore": "Restore",
   "@restore": {
     "description": "Restore"
   },
-  "search": "Search",
+  "searchTmp": "asdf",
+  "search": "{plural, select, true{Searches} other{Search}}",
   "@search": {
-    "description": "Search"
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
   },
+
   "searchNoMatch": "No match",
   "@searchNoMatch": {
     "description": "When no result returned"
@@ -228,6 +289,54 @@
     }
   },
 
+  "addTo": "Add {to}",
+  "@addTo": {
+    "description": "Add favorites, add bookmark",
+    "placeholders": {
+      "to": {}
+    }
+  },
+
+  "addMore": "Add more {to}",
+  "@addMore": {
+    "description": "Add more favorites, add more bookmark",
+    "placeholders": {
+      "to": {}
+    }
+  },
+
+  "chooseTo": "Choose {to}",
+  "@chooseTo": {
+    "description": "Choose bible, chapter, verse",
+    "placeholders": {
+      "to": {}
+    }
+  },
+
+  "compareTo": "Compare {to}",
+  "@compareTo": {
+    "description": "Compare chapter, verse parallel",
+    "placeholders": {
+      "to": {}
+    }
+  },
+
+  "nextTo": "Next {to}",
+  "@nextTo": {
+    "description": "Next chapter, next verse",
+    "placeholders": {
+      "to": {}
+    }
+  },
+
+  "previousTo": "Previous {to}",
+  "@previousTo": {
+    "description": "Previous chapter, previous verse",
+    "placeholders": {
+      "to": {}
+    }
+  },
+
   "formatCurrency": "{value}",
   "@formatCurrency": {
     "placeholders": {
@@ -243,7 +352,15 @@
       "count": {}
     }
   },
-
+  "formatDate": "{date}",
+  "@formatDate": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMd"
+      }
+    }
+  },
   "itemCountNumber": "{count, plural, =0{No item} =1{{number} item} other{{number} items}}",
   "@itemCountNumber": {
     "description": "Depending on count, but display number. Used for Myanmar translation",
@@ -258,16 +375,6 @@
       "placeholders": {
           "gender": {}
       }
-  },
-
-  "formatDate": "{date}",
-  "@formatDate": {
-    "placeholders": {
-      "date": {
-        "type": "DateTime",
-        "format": "yMMMd"
-      }
-    }
   },
   "twoArgs": "This is 2 args {one} & {two}.",
   "@twoArgs": {

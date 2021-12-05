@@ -1,21 +1,17 @@
 {
   "my": [
-    "appZaideih",
-    "appMyOrdbok",
-    "appLaiSiangtho",
+    "searchTmp",
     "formatCurrency",
-    "mockSelect",
     "formatDate",
+    "mockSelect",
     "twoArgs"
   ],
 
   "no": [
-    "appZaideih",
-    "appMyOrdbok",
-    "appLaiSiangtho",
+    "searchTmp",
     "formatCurrency",
-    "mockSelect",
     "formatDate",
+    "mockSelect",
     "twoArgs"
   ]
 }
