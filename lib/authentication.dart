@@ -193,6 +193,7 @@ class Authentication extends Notify {
     try {
       await app.signOut();
       // await FacebookAuth.instance.logOut();
+      message = 'Signed out';
     } catch (e) {
       message = 'Error signing out. Try again.';
     }
