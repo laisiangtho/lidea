@@ -126,7 +126,8 @@ class EnvironmentType {
 
   TokenType get _tokenConfigure => token.lastWhere((e) => e.id == 'configure');
 
-  /// GistData gist with token using TokenType id
+  /// GistData gist without token using TokenType id
+  /// To fetch data
   GistData get configure {
     return GistData(
       owner: _tokenConfigure.owns,
@@ -137,6 +138,7 @@ class EnvironmentType {
   TokenType get _tokenClient => token.lastWhere((e) => e.id == 'client' && e.key.isNotEmpty);
 
   /// GistData gist with token using TokenType id
+  /// To push data
   GistData get client {
     return GistData(
       owner: _tokenClient.owns,
