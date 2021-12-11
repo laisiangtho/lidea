@@ -188,6 +188,7 @@ class GistData {
   /// final gist = GistData(repo:?);
   /// gist.token = '?';
   /// gist.updateFile(file:?, content:?);
+  /// updateFile
   /// ```
   Future<T> updateFile<T>({String? file, required Object content}) {
     if (file == null && this.file != null) {
@@ -232,6 +233,28 @@ class GistData {
             "files": {
               "$file": {"content": ""}
             }
+          },
+        ),
+      );
+    }
+    return Future<T>.error("No identity");
+  }
+
+  // tmp: working
+  Future<T> comment<T>({String? file, required Object content}) {
+    final tmp = UtilClient(_gitListTemp.replace(path: '/gists/$repo/comments'));
+    // final tmp = UtilClient(_client.uri.replace(path: '/gists/$repo/comments'));
+    if (file == null && this.file != null) {
+      file = this.file;
+    }
+    debugPrint(tmp.uri.toString());
+    if (file != null && file.isNotEmpty) {
+      return tmp.post<T>(
+        headers: header(),
+        body: UtilDocument.encodeJSON<Object>(
+          {
+            "gist_id": "gist_id",
+            "body": content,
           },
         ),
       );
