@@ -1,13 +1,12 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 
 /// setup `FirebaseAnalytics`
 ///
 /// Firebase Analytics API.
 class UtilAnalytics {
-  static final FirebaseAnalytics _analytics = FirebaseAnalytics();
-  static final FirebaseAnalyticsObserver _observer =
-      FirebaseAnalyticsObserver(analytics: _analytics);
+  // static final FirebaseAnalytics _analytics = FirebaseAnalytics();
+  static FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver _observer = FirebaseAnalyticsObserver(analytics: _analytics);
 
   FirebaseAnalytics get send => _analytics;
   get observer => _observer;
