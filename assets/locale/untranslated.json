@@ -1,6 +1,5 @@
 {
   "my": [
-    "searchTmp",
     "formatCurrency",
     "formatDate",
     "mockSelect",
@@ -8,7 +7,6 @@
   ],
 
   "no": [
-    "searchTmp",
     "formatCurrency",
     "formatDate",
     "mockSelect",

@@ -176,7 +176,6 @@
   "@restore": {
     "description": "Restore"
   },
-  "searchTmp": "asdf",
   "search": "{plural, select, true{Searches} other{Search}}",
   "@search": {
     "description": "default is singular form. Plural form must provided false",
