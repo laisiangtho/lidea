@@ -42,6 +42,13 @@ class UtilClient {
         body: body,
       );
 
+  Future<T> post<T>({Map<String, Object>? headers, String? body}) => open<T>(
+        this.uri,
+        method: 'POST',
+        headers: headers,
+        body: body,
+      );
+
   /// Request data over HTTP `...errorHandler(?).then().catchError();`
   Future<T> open<T>(Uri uri, {String? method, Map<String, Object>? headers, String? body}) async {
     try {
@@ -63,7 +70,8 @@ class UtilClient {
       httpClient.close();
 
       // Check the res.statusCode
-      if (res.statusCode == 200) {
+      // Status: 201 gist comment Created
+      if (res.statusCode == 200 || res.statusCode == 201) {
         if (T == String) {
           return await _responseToString(res) as T;
         } else if (T == Uint8List) {
@@ -73,6 +81,7 @@ class UtilClient {
         }
       } else {
         debugPrint('${res.statusCode}');
+        // debugPrint('${res.compressionState}');
         return Future<T>.error("Failed to load");
         // return Future.error("Failed to load", StackTrace.fromString("code: ${res.statusCode}"));
       }
