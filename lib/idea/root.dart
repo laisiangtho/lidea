@@ -18,6 +18,7 @@ class IdeaColor {
 
   // schemePrimary primaryScheme
   final Color primaryScheme;
+  final MaterialColor primarySwatch;
 
   const IdeaColor({
     this.brightness = Brightness.light,
@@ -33,6 +34,7 @@ class IdeaColor {
     this.shadow = Colors.grey,
     this.button = Colors.blue,
     this.primaryScheme = Colors.white,
+    this.primarySwatch = Colors.grey,
   });
 
   // Color get shadow => scaffold.darken(amount: 0.2);
