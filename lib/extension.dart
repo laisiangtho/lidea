@@ -1,5 +1,7 @@
 library lidea;
 
+import 'package:flutter/material.dart';
+
 // .split('').reverse().join('');
 // .replaceAll('0','~');
 // .replaceAll('0','~').split('').reverse().join('');
@@ -24,5 +26,19 @@ extension LideaStringExtension on String {
 
   String token(String key) {
     return this.replaceAll('~', key);
+  }
+}
+
+extension LideaLocale on Locale {
+  String get nativeName {
+    switch (this.languageCode) {
+      case 'en':
+        return 'English';
+      case 'my':
+        return 'မြန်မာ';
+      case 'no':
+        return 'Norsk';
+    }
+    return 'Other';
   }
 }
