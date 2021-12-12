@@ -1,7 +1,10 @@
 name: lidea
 description: Loading, reading, writing file logic
-version: 0.1.10
+version: 0.1.11
 homepage:
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -10,9 +13,10 @@ dependencies:
   intl: ^0.17.0
 
   path_provider: ^2.0.8
-  provider: ^6.0.0
   archive: ^3.1.6
   crypto: ^3.0.1
+
+  provider: ^6.0.0
 
   shared_preferences: ^2.0.11
   connectivity_plus: ^2.1.0
@@ -31,8 +35,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^1.0.4
-
-environment:
-  sdk: ">=2.12.0 <3.0.0"
