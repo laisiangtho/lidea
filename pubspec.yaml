@@ -1,6 +1,6 @@
 name: lidea
 description: Loading, reading, writing file logic
-version: 0.1.11
+version: 0.1.12
 homepage:
 
 environment:
@@ -24,9 +24,9 @@ dependencies:
 
   hive_flutter: ^1.1.0
 
-  firebase_core: ^1.10.5
-  firebase_analytics: ^9.0.3
-  firebase_auth: ^3.3.3
+  firebase_core: ^1.10.6
+  firebase_analytics: ^9.0.4
+  firebase_auth: ^3.3.4
   google_sign_in: ^5.2.1
   flutter_facebook_auth: ^3.5.7
 
