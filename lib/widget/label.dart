@@ -7,13 +7,14 @@ class WidgetLabel extends StatelessWidget {
     this.label,
     this.overflow = TextOverflow.fade,
     this.iconLeft = true,
-    this.iconSize,
+    this.iconSize = 26.0,
     this.iconColor,
     this.message = '',
     this.softWrap = false,
     this.enable = true,
     this.labelPadding = EdgeInsets.zero,
     this.padding = EdgeInsets.zero,
+    this.materialTapTargetSize = MaterialTapTargetSize.shrinkWrap,
   }) : super(key: key);
 
   final String? label;
@@ -27,24 +28,27 @@ class WidgetLabel extends StatelessWidget {
   final TextOverflow overflow;
   final EdgeInsetsGeometry? labelPadding;
   final EdgeInsetsGeometry? padding;
+  final MaterialTapTargetSize? materialTapTargetSize;
 
   @override
   Widget build(BuildContext context) {
     final btn = Chip(
-      backgroundColor: Colors.transparent,
       padding: padding,
       avatar: (icon != null) ? avatar : null,
       labelPadding: labelPadding,
-      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      // materialTapTargetSize: MaterialTapTargetSize.padded,
+      materialTapTargetSize: materialTapTargetSize,
       label: Text(
         label ?? '',
         maxLines: 1,
         overflow: TextOverflow.fade,
         softWrap: false,
+        // style: Theme.of(context).textTheme.bodyText1,
       ),
-      labelStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
-            color: enable ? null : Theme.of(context).disabledColor,
-          ),
+      // labelStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+      //       color: enable ? null : Theme.of(context).disabledColor,
+      //     ),
     );
     if (message.isNotEmpty) {
       return Tooltip(
