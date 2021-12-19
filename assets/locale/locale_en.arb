@@ -367,19 +367,5 @@
       "count": {},
       "number": {}
     }
-  },
-  "mockSelect": "{gender, select, male{His code} female{Her code} other{Their code}}",
-  "@mockSelect": {
-      "description": "Mock select gender is between [male] or [female]",
-      "placeholders": {
-          "gender": {}
-      }
-  },
-  "twoArgs": "This is 2 args {one} & {two}.",
-  "@twoArgs": {
-    "placeholders": {
-      "one": {},
-      "two": {}
-    }
   }
 }

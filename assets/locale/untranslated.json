@@ -1,15 +1,11 @@
 {
   "my": [
     "formatCurrency",
-    "formatDate",
-    "mockSelect",
-    "twoArgs"
+    "formatDate"
   ],
 
   "no": [
     "formatCurrency",
-    "formatDate",
-    "mockSelect",
-    "twoArgs"
+    "formatDate"
   ]
 }
