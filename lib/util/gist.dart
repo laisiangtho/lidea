@@ -1,4 +1,4 @@
-part of '../engine.dart';
+part of 'main.dart';
 
 /// https://gist.github.com/[?]/[id]
 ///
