@@ -1,4 +1,4 @@
-part of 'package:lidea/type.dart';
+part of '../main.dart';
 
 class RecentSearchAdapter extends TypeAdapter<RecentSearchType> {
   @override

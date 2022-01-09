@@ -1,4 +1,4 @@
-part of 'package:lidea/type.dart';
+part of 'main.dart';
 
 // item.productID == consumableId
 // purchaseID
@@ -13,7 +13,7 @@ class PurchaseType {
   String? purchaseId;
 
   @HiveField(2)
-  bool completePurchase;
+  bool? completePurchase;
 
   @HiveField(3)
   String? transactionDate;
@@ -21,20 +21,22 @@ class PurchaseType {
   @HiveField(4)
   bool? consumable;
 
-  PurchaseType(
-      {this.productId = '',
-      this.purchaseId,
-      this.completePurchase = false,
-      this.transactionDate,
-      this.consumable = false});
+  PurchaseType({
+    this.productId = '',
+    this.purchaseId,
+    this.completePurchase = false,
+    this.transactionDate,
+    this.consumable = false,
+  });
 
   factory PurchaseType.fromJSON(Map<String, dynamic> o) {
     return PurchaseType(
-        productId: o["productId"] as String,
-        purchaseId: o["purchaseId"] as String,
-        completePurchase: o["completePurchase"] as bool,
-        transactionDate: o["transactionDate"] as String,
-        consumable: o["consumable"] as bool);
+      productId: o["productId"] as String,
+      purchaseId: o["purchaseId"] as String,
+      completePurchase: o["completePurchase"] as bool,
+      transactionDate: o["transactionDate"] as String,
+      consumable: o["consumable"] as bool,
+    );
   }
 
   Map<String, dynamic> toJSON() {

@@ -1,4 +1,4 @@
-part of 'package:lidea/type.dart';
+part of 'main.dart';
 
 // NOTE: only type, EnvironmentType child
 class ProductsType {
@@ -31,8 +31,24 @@ class ProductsType {
       "cart": cart,
       "name": name,
       "type": type,
-      "title": type,
-      "description": type,
+      "title": title,
+      "description": description,
     };
   }
+}
+
+class ProductsItem {
+  dynamic item;
+  bool purchased;
+  bool consumable;
+  String title;
+  String description;
+
+  ProductsItem({
+    required this.item,
+    this.purchased = false,
+    this.consumable = false,
+    this.title = '',
+    this.description = '',
+  });
 }

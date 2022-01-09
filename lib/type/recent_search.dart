@@ -1,4 +1,4 @@
-part of 'package:lidea/type.dart';
+part of 'main.dart';
 
 // RecentSearch
 @HiveType(typeId: 1)
@@ -17,7 +17,7 @@ class RecentSearchType {
 
   RecentSearchType({
     this.word = '',
-    this.hit = 1,
+    this.hit = 0,
     this.date,
     this.lang = const [],
   });

@@ -1,4 +1,4 @@
-part of 'package:lidea/type.dart';
+part of 'main.dart';
 
 // NOTE: only type
 class EnvironmentType {
@@ -17,6 +17,11 @@ class EnvironmentType {
   List<ProductsType> products;
   SettingType setting;
 
+  Map<String, Map<String, dynamic>> language;
+
+  // individual
+  Map<dynamic, dynamic> attach;
+
   EnvironmentType({
     required this.name,
     required this.description,
@@ -29,6 +34,8 @@ class EnvironmentType {
     required this.api,
     required this.products,
     required this.setting,
+    required this.attach,
+    required this.language,
   });
 
   factory EnvironmentType.fromJSON(Map<String, dynamic> o) {
@@ -44,6 +51,8 @@ class EnvironmentType {
       api: (o['api'] ?? "[]").map<APIType>((e) => APIType.fromJSON(e)).toList(),
       products: o['products'].map<ProductsType>((e) => ProductsType.fromJSON(e)).toList(),
       setting: SettingType.fromJSON(o["setting"]),
+      language: (o['language'] ?? {}).cast<String, Map<String, dynamic>>(),
+      attach: (o['attach'] ?? {}).map<dynamic, dynamic>((k, v) => MapEntry(k, v)),
     );
   }
 
@@ -154,15 +163,17 @@ class APIType {
   final String uid;
   String assetName;
   String localName;
-  // String repo;
   Iterable<String> src;
+  String name;
+  Map<dynamic, String> query;
 
   APIType({
     required this.uid,
     required this.assetName,
     required this.localName,
-    // required this.repo,
     required this.src,
+    required this.name,
+    required this.query,
   });
 
   factory APIType.fromJSON(Map<String, dynamic> o) {
@@ -173,6 +184,18 @@ class APIType {
       src: List.from(
         (o['src'] ?? []).map<String>((e) => e.toString().gitHack()),
       ),
+      name: (o['name'] ?? "").toString().gitHack(),
+      query: (o['query'] ?? {}).map<dynamic, String>((k, v) => MapEntry(k, v.toString())),
+      // query: (o['query']??{}).map<dynamic, String>(
+      //   (k, v) => MapEntry(k, v.toString().replaceFirst('??', _tableName))
+      // ),
+      // NOTE: .split('').reverse().join('')
+      // src: List.from(
+      //   (o['src']??[]).map<String>(
+      //     (e) => e.toString().gitHack()
+      //   )
+      // )
+      // child: List.from((o['child']??[]).map<APIType>((e) => APIType.fromJSON(e)))
     );
   }
 
@@ -203,6 +226,30 @@ class APIType {
 
   String cache(Object name) {
     return localName.replaceFirst('?', '$name');
+  }
+
+  // UsedIn: MyOrdbok
+  // isMain == true is also built-in as bundle
+  // bool get isMain => kind == 1 && src.length > 0;
+  // bool get isChild => kind == 1 && src.length == 0;
+  // bool get isAttach => kind == 0 && src.length > 0;
+  bool get isMain => localName.isNotEmpty && assetName.isNotEmpty;
+  bool get isChild => localName.isEmpty && assetName.isEmpty;
+  bool get isAttach => localName.isNotEmpty && assetName.isEmpty;
+
+  Iterable<MapEntry<dynamic, String>> get listQuery => query.entries;
+
+  // Table name alias
+  String get tableName => isAttach ? '$uid.$name' : name;
+  // String get tableName => isAttach ? '$uid.$uid' : '$uid.$uid';
+  // String get createIndex => listQuery.firstWhere((e) => e.key == 'createIndex',orElse: () => null)?.value?.replaceFirst('??', name);
+  String? get createIndex {
+    final val = listQuery.firstWhere((e) => e.key == 'createIndex');
+
+    if (val.value.isNotEmpty) {
+      return val.value.replaceAll('?!', tableName).replaceAll('#', uid).replaceAll('??', name);
+    }
+    return null;
   }
 }
 
