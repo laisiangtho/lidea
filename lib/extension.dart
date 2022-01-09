@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // .split('').reverse().join('');
 // .replaceAll('0','~');
 // .replaceAll('0','~').split('').reverse().join('');
-extension LideaStringExtension on String {
+extension LideaStringHackExtension on String {
   String bracketsHack({String? key}) {
     String id = this.replaceAllMapped(
       RegExp(r'\<(.*?)\>'),
@@ -18,7 +18,7 @@ extension LideaStringExtension on String {
     return this
         .replaceFirst('git+http', 'http')
         .replaceFirst('com+', url ?? "")
-        .replaceFirst('git+', '[moc.tnetnocresubuhtig.war//:sptth]')
+        .replaceFirst('git+', '<moc.tnetnocresubuhtig.war//:sptth>')
         .bracketsHack();
     // moc.tnetnocresubuhtig.war//:sptth
     // moc.buhtig//:sptth
@@ -26,6 +26,23 @@ extension LideaStringExtension on String {
 
   String token(String key) {
     return this.replaceAll('~', key);
+  }
+}
+
+extension LideaStringCasingExtension on String {
+  String removeNonAlphanumeric({String joiner = ' '}) {
+    return this.replaceAll(
+      RegExp(r'[^\w]+'),
+      joiner,
+    );
+  }
+
+  String toCapitalized() {
+    return length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+  }
+
+  String toTitleCase({String joiner = ' '}) {
+    return replaceAll(RegExp(' +'), ' ').split(' ').map((str) => str.toCapitalized()).join(joiner);
   }
 }
 
