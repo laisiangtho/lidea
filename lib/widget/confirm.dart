@@ -1,7 +1,4 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+part of 'main.dart';
 
 Future<bool?> doConfirmWithDialog({
   required BuildContext context,

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'main.dart';
 
 class WidgetLabel extends StatelessWidget {
   const WidgetLabel({
