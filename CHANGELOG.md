@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.1
+
+- Change structure
+
+## 0.1.14
+
+- Add Unit
+- Add Audio
+- Add SQLite
+- Update locales
+
 ## 0.1.4-8
 
 - Add widget
