@@ -1,4 +1,4 @@
-library lidea;
+import 'dart:math';
 
 /// A Calculator.
 class Calculator {
@@ -7,11 +7,18 @@ class Calculator {
 }
 
 class Mock {
-  Future<List<String>> ramdom() async {
-    // return ['abc','xyx'];
-    return List<String>.generate(50, (int index) => 'This is sliver child');
+  static String chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  static List<String> listOfRandomString({int length = 50}) {
+    return List<String>.generate(length, (int index) => randomString(length: 10));
   }
 
+  static int randomNumber(int max) {
+    return Random().nextInt(max);
+  }
+
+  static String randomString({int length = 10}) {
+    return List.generate(length, (index) => chars[randomNumber(chars.length)]).join();
+  }
   // Future<String> getCollection = Future<String>.delayed(
   //   Duration(seconds: 2),
   //   () => 'Data Loaded',

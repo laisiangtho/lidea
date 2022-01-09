@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:lidea/mock.dart';
+import 'package:lidea/unit/mock.dart';
 import 'package:lidea/intl.dart' as intl;
 
 void main() {
