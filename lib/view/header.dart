@@ -1,32 +1,18 @@
+part of 'main.dart';
 
-
-import 'package:flutter/material.dart';
-
-class ViewHeaderData{
+class ViewHeaderData {
   final double offset;
   final bool overlaps;
   final double shrink;
   final double stretch;
 
   const ViewHeaderData(
-    {
-      required this.offset,
-      required this.overlaps,
-      required this.shrink,
-      required this.stretch
-    }
-  );
+      {required this.offset, required this.overlaps, required this.shrink, required this.stretch});
 }
 
 class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
-  const ViewHeaderDelegate(
-    this.builder,
-    {
-      this.minHeight:kToolbarHeight, 
-      this.maxHeight:kToolbarHeight,
-      this.reservedTop:false
-    }
-  );
+  const ViewHeaderDelegate(this.builder,
+      {this.minHeight: kToolbarHeight, this.maxHeight: kToolbarHeight, this.reservedTop: false});
   final double minHeight;
   final double maxHeight;
   final Function builder;
@@ -39,7 +25,7 @@ class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get minExtent => minHeight;
 
   @override
-  double get maxExtent => minHeight < maxHeight?maxHeight:minHeight;
+  double get maxExtent => minHeight < maxHeight ? maxHeight : minHeight;
 
   // @override
   // FloatingHeaderSnapConfiguration? get snapConfiguration => null;
@@ -47,11 +33,11 @@ class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
   // @override
   // OverScrollHeaderStretchConfiguration get stretchConfiguration => OverScrollHeaderStretchConfiguration();
 
-  double stretchDouble (double shrinkOffset) => (shrinkOffset/maxExtent).toDouble();
-  double shrinkDouble (double stretch) => (1.0 - stretch).toDouble();
+  double stretchDouble(double shrinkOffset) => (shrinkOffset / maxExtent).toDouble();
+  double shrinkDouble(double stretch) => (1.0 - stretch).toDouble();
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent){
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     // double padding = MediaQuery.of(context).padding.top;
     double stretch = stretchDouble(shrinkOffset);
     // double stretch = stretchDouble(shrinkOffset+padding,maxExtent+padding).clamp(0.0,1.0);
@@ -59,7 +45,7 @@ class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
     // || shrinkOffset >= minExtent
 
     return new SizedBox.expand(
-      child: this.builder(context,shrinkOffset,overlapsContent,shrink,stretch),
+      child: this.builder(context, shrinkOffset, overlapsContent, shrink, stretch),
     );
   }
 }
@@ -69,20 +55,16 @@ class ViewHeaderSliverSnap extends StatelessWidget {
     Key? key,
     this.pinned: true,
     this.floating: true,
-
     required this.builder,
     required this.heights,
-
     this.reservedPadding: 0.0,
-
     this.backgroundColor,
     this.overlapsBackgroundColor,
     this.overlapsBorderColor: Colors.transparent,
-    this.overlapsForce= false,
+    this.overlapsForce = false,
     this.borderWidth: 0.5,
     this.borderRadius: Radius.zero,
-
-  }): super(key: key);
+  }) : super(key: key);
 
   final bool pinned;
   final bool floating;
@@ -105,77 +87,76 @@ class ViewHeaderSliverSnap extends StatelessWidget {
   double get min => heights.first;
 
   // MediaQuery.of(context).padding.top
-  double get maxHeight => max+reservedPadding;
-  double get minHeight => min+reservedPadding;
+  double get maxHeight => max + reservedPadding;
+  double get minHeight => min + reservedPadding;
 
   @override
   Widget build(BuildContext context) {
     return new SliverPersistentHeader(
-      pinned: pinned,
-      floating:floating,
-      delegate: new ViewHeaderDelegate(
-        _bar,
-        maxHeight: maxHeight,
-        minHeight: minHeight,
-      )
-    );
+        pinned: pinned,
+        floating: floating,
+        delegate: new ViewHeaderDelegate(
+          _bar,
+          maxHeight: maxHeight,
+          minHeight: minHeight,
+        ));
   }
 
-  Widget _bar(BuildContext context, double offset, bool overlaps, double shrink, double stretch){
-
+  Widget _bar(BuildContext context, double offset, bool overlaps, double shrink, double stretch) {
     // double snapExtent = _barMaxHeight - (_barHeight + MediaQuery.of(context).padding.top);
     // double snapShrink = 1.0 - (offset/snapExtent).clamp(0.0, 1.0).toDouble();
     // double snapOffset = snapExtent-offset.clamp(0.0, snapExtent).toDouble();
     final double snapExtent = maxHeight - minHeight;
-    final double snapStretch = (offset/snapExtent).clamp(0.0, 1.0).toDouble();
+    final double snapStretch = (offset / snapExtent).clamp(0.0, 1.0).toDouble();
     final double snapShrink = 1.0 - snapStretch;
-    final double snapOffset = snapExtent-offset.clamp(0.0, snapExtent).toDouble();
+    final double snapOffset = snapExtent - offset.clamp(0.0, snapExtent).toDouble();
     // final bool snapOverlaps = overlaps || snapOffset == 0.0;
-    final bool snapOverlaps = (snapExtent > 0.0)?overlaps || snapOffset == 0.0:(overlapsForce == false)?offset > 0.0:overlapsForce;
+    final bool snapOverlaps = (snapExtent > 0.0)
+        ? overlaps || snapOffset == 0.0
+        : (overlapsForce == false)
+            ? offset > 0.0
+            : overlapsForce;
 
     return ViewHeaderDecoration(
-      overlaps: snapOverlaps,
-      reservedPadding:reservedPadding,
-      backgroundColor:backgroundColor,
-      overlapsBackgroundColor:overlapsBackgroundColor,
-      overlapsBorderColor:overlapsBorderColor,
-
-      borderWidth:borderWidth,
-      borderRadius:borderRadius,
-      child:builder(
-        context,
-        // chain
-        ViewHeaderData(
-          offset: offset,
-          overlaps: overlaps,
-          shrink: shrink,
-          stretch: stretch,
-        ),
-        // snap
-        ViewHeaderData(
-          offset: snapOffset,
-          overlaps: snapOverlaps,
-          shrink: snapShrink,
-          stretch: snapStretch,
-        )
-      )
-    );
+        overlaps: snapOverlaps,
+        reservedPadding: reservedPadding,
+        backgroundColor: backgroundColor,
+        overlapsBackgroundColor: overlapsBackgroundColor,
+        overlapsBorderColor: overlapsBorderColor,
+        borderWidth: borderWidth,
+        borderRadius: borderRadius,
+        child: builder(
+            context,
+            // chain
+            ViewHeaderData(
+              offset: offset,
+              overlaps: overlaps,
+              shrink: shrink,
+              stretch: stretch,
+            ),
+            // snap
+            ViewHeaderData(
+              offset: snapOffset,
+              overlaps: snapOverlaps,
+              shrink: snapShrink,
+              stretch: snapStretch,
+            )));
   }
 }
 
 class ViewHeaderDecoration extends StatelessWidget {
-  const ViewHeaderDecoration({
-    Key? key,
-    required this.child,
-    this.overlaps: false,
-    this.backgroundColor,
-    this.overlapsBackgroundColor,
-    this.overlapsBorderColor: Colors.transparent,
-    this.borderWidth:0.5,
-    // this.borderRadius:0.0,
-    this.borderRadius:Radius.zero,
-    this.reservedPadding:0.0
-  }): super(key: key);
+  const ViewHeaderDecoration(
+      {Key? key,
+      required this.child,
+      this.overlaps: false,
+      this.backgroundColor,
+      this.overlapsBackgroundColor,
+      this.overlapsBorderColor: Colors.transparent,
+      this.borderWidth: 0.5,
+      // this.borderRadius:0.0,
+      this.borderRadius: Radius.zero,
+      this.reservedPadding: 0.0})
+      : super(key: key);
 
   final Widget child;
   final bool overlaps;
@@ -194,33 +175,32 @@ class ViewHeaderDecoration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      key: key,
-      decoration: BoxDecoration(
-        // color: (overlaps && backgroundColor != null)?Theme.of(context).primaryColor:Theme.of(context).scaffoldBackgroundColor,
-        color: (overlaps && overlapsBackgroundColor != null)?overlapsBackgroundColor:backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: hasRadius?new BorderRadius.vertical(
-          bottom: borderRadius
-          // bottom: Radius.elliptical(3, 2)
-        ):null,
-        border: (hasRadius == false && overlaps)?Border(
-          // bottom: BorderSide(width: borderWidth, color: Theme.of(context).shadowColor),
-          bottom: BorderSide(width: borderWidth, color: overlapsBorderColor),
-        ):null,
-        boxShadow: [
-          if (overlaps)BoxShadow(
-            color: overlapsBorderColor,
-            // color: Theme.of(context).backgroundColor.withOpacity(overlaps?0.3:0.0),
-            blurRadius: 0,
-            spreadRadius: 0,
-            offset: Offset(0, 0)
-          )
-        ]
-      ),
-      child: Padding(
-        padding: EdgeInsets.only(top: reservedPadding),
-        child: child
-      )
-    );
+        key: key,
+        decoration: BoxDecoration(
+            // color: (overlaps && backgroundColor != null)?Theme.of(context).primaryColor:Theme.of(context).scaffoldBackgroundColor,
+            color: (overlaps && overlapsBackgroundColor != null)
+                ? overlapsBackgroundColor
+                : backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+            borderRadius: hasRadius
+                ? new BorderRadius.vertical(bottom: borderRadius
+                    // bottom: Radius.elliptical(3, 2)
+                    )
+                : null,
+            border: (hasRadius == false && overlaps)
+                ? Border(
+                    // bottom: BorderSide(width: borderWidth, color: Theme.of(context).shadowColor),
+                    bottom: BorderSide(width: borderWidth, color: overlapsBorderColor),
+                  )
+                : null,
+            boxShadow: [
+              if (overlaps)
+                BoxShadow(
+                    color: overlapsBorderColor,
+                    // color: Theme.of(context).backgroundColor.withOpacity(overlaps?0.3:0.0),
+                    blurRadius: 0,
+                    spreadRadius: 0,
+                    offset: Offset(0, 0))
+            ]),
+        child: Padding(padding: EdgeInsets.only(top: reservedPadding), child: child));
   }
 }
-

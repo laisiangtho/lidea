@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-// import 'model.dart';
-import 'notify.dart';
+part of 'main.dart';
 
 // controller = new ScrollController()..addListener(_scrollListener);
 // controller = new ScrollController()..addListener((){

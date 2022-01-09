@@ -1,9 +1,6 @@
-import 'dart:math';
-// import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
+part of 'main.dart';
 
-class ViewScrollNotify extends ChangeNotifier {
+class ViewScrollNotify extends Notify {
   // notification is UserScrollNotification
 
   dynamic _notification;
@@ -29,12 +26,6 @@ class ViewScrollNotify extends ChangeNotifier {
   int _direction = 0;
   int get direction => _direction;
   set direction(int v) => notifyIf<int>(_direction, _direction = v);
-
-  void notifyIf<T>(T element, T value) {
-    if (value != element) {
-      notifyListeners();
-    }
-  }
 
   // NOTE: Navigation
   double bottomPadding = 0.0;

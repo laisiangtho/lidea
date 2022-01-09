@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lidea/widget.dart';
+import 'package:lidea/widget/main.dart';
 
 class DemoDoConfirm extends StatelessWidget {
   const DemoDoConfirm({Key? key}) : super(key: key);

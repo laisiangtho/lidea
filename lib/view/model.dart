@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+part of 'main.dart';
 
 class ViewNavigationModel {
   final int key;
@@ -15,6 +15,7 @@ class ViewNavigationModel {
     this.action,
   });
 }
+// Navigate Navigator NavigationBottomType NavigationArgumentType
 
 /// readonly Navigator
 ///
