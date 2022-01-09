@@ -1,12 +1,4 @@
 {
-  "appZaideih": "Zaideih",
-  "appMyOrdbok": "MyOrdbok",
-  "appLaiSiangtho": "Lai Siangtho",
-
-  "desZaideih": "Zaideih musikkstasjon",
-  "desMyOrdbok": "En omfattende Myanmar online ordbok",
-  "desLaiSiangtho": "Den hellige bibel på språk",
-
   "holyBible":"Bibel",
 
   "bible": "{plural, select, true{Bibler} other{Bibel}}",
@@ -45,7 +37,7 @@
   "search": "{plural, select, true{Søk} other{Søk}}",
   "searchNoMatch":"Ingen treff",
   "searchNoQuery":"Ingen spørring",
-  "recentSearch":"Siste søk",
+  "recentSearch": "{plural, select, true{Nylige søk} other{Nylig søk}}",
   "confirm":"Bekrefte",
   "confirmation":"Bekreftelse",
   "sort":"Sortere",
@@ -55,6 +47,9 @@
   "wouldYouLiketoSignIn":"Vil du logge på",
   "bySigningIn":"...",
   "signOut":"Logg ut",
+  "store": "Butikk",
+
+  "restorePurchase": "{plural, select, true{Gjenopprette kjøp} other{Gjenopprett kjøp}}",
   "aMoment":"Et øyeblikk",
   "noInternet":"Ingen Internett",
   "fontSize":"Skriftstørrelse",
@@ -91,5 +86,8 @@
   "chooseTo": "Velge {to}",
   "compareTo": "Sammenligne med {to}",
   "nextTo": "Neste {to}",
-  "previousTo": "Forrige {to}"
+  "previousTo": "Forrige {to}",
+
+  "definition": "{plural, select, true{Definisjon} other{Definisjon}}",
+  "suggestion": "{plural, select, true{Forslag} other{Forslag}}"
 }

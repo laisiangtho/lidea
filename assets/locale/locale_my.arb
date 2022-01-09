@@ -1,12 +1,4 @@
 {
-  "appZaideih": "Zaideih",
-  "appMyOrdbok": "MyOrdbok",
-  "appLaiSiangtho": "Lai Siangtho",
-
-  "desZaideih": "Zaideih ဂီတဗဟို",
-  "desMyOrdbok": "ပြီးပြည့်စုံသော မြန်မာအွန်လိုင်းအဘိဓာန်",
-  "desLaiSiangtho": "ဘာသာစကားများဖြင့် သမ္မာကျမ်းစာ",
-
   "holyBible": "သမ္မာကျမ်းစာ",
 
   "bible": "{plural, select, true{ကျမ်းစာများ} other{ကျမ်းစာ}}",
@@ -46,7 +38,7 @@
   "restore":"ပြန်လည်ရယူ",
   "searchNoMatch":"ကိုက်ညီမှု မရှိ",
   "searchNoQuery":"မေးမြန်းမှု မရှိ",
-  "recentSearch":"လတ်တလော ရှာဖွေမှု",
+  "recentSearch": "{plural, select, true{လတ်တလော ရှာဖွေမှုများ} other{လတ်တလော ရှာဖွေမှု}}",
 
   "sort":"မျိုးတူစု",
   "download":"ဒေါင်းလုဒ်",
@@ -55,6 +47,8 @@
   "wouldYouLiketoSignIn":"ဆိုင်းအင် လိုပါသလား",
   "bySigningIn":"...",
   "signOut":"ဆိုင်းအောက်",
+  "store": "စတိုး",
+  "restorePurchase": "{plural, select, true{ဝယ်ယူမှုများကို ပြန်လည်ရယူရန်} other{ဝယ်ယူမှုကို ပြန်လည်ရယူရန်}}",
   "aMoment":"ခဏ",
   "noInternet":"အင်တာနက်မရှိ",
   "fontSize":"စာသား အရွယ်အစား",
@@ -92,5 +86,8 @@
   "chooseTo": "{to} ရွေးချယ်ရန်",
   "compareTo": "{to} နှိုင်းယှဉ်ရန်",
   "nextTo": "ရှေ့ {to}",
-  "previousTo": "နောက် {to}"
+  "previousTo": "နောက် {to}",
+
+  "definition": "{plural, select, true{အဓိပ္ပါယ်ဖွင့်ဆိုချက်} other{အဓိပ္ပါယ်}}",
+  "suggestion": "{plural, select, true{အကြံပြုချက်များ} other{အကြံပြုချက်}}"
 }

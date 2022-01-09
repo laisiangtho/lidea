@@ -1,12 +1,4 @@
 {
-  "appZaideih": "Zaideih",
-  "appMyOrdbok": "MyOrdbok",
-  "appLaiSiangtho": "Lai Siangtho",
-
-  "desZaideih": "Zaideih Music Station",
-  "desMyOrdbok": "A comprehensive Myanmar online dictionary",
-  "desLaiSiangtho": "The Holy Bible in languages",
-
   "holyBible": "Holy Bible",
   "@holyBible": {
     "description": "the Holy Bible"
@@ -196,9 +188,13 @@
   "@aWordOrTwo": {
     "description": "a word or two to search"
   },
-  "recentSearch": "Recent search",
+
+  "recentSearch": "{plural, select, true{Recent searches} other{Recent search}}",
   "@recentSearch": {
-    "description": "Recent search"
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
   },
   "cancel": "Cancel",
   "@cancel": {
@@ -243,6 +239,18 @@
   "signOut": "Sign out",
   "@signOut": {
     "description": "Sign out"
+  },
+  "store": "Store",
+  "@store": {
+    "description": "Store"
+  },
+
+  "restorePurchase": "{plural, select, true{Restore purchases} other{Restore purchase}}",
+  "@restorePurchase": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
   },
 
   "aMoment": "a moment",
@@ -333,6 +341,22 @@
     "description": "Previous chapter, previous verse",
     "placeholders": {
       "to": {}
+    }
+  },
+
+  "definition": "{plural, select, true{Definitions} other{Definition}}",
+  "@definition": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+
+  "suggestion": "{plural, select, true{Suggestions} other{Suggestion}}",
+  "@suggestion": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
     }
   },
 
