@@ -2,7 +2,7 @@ import 'package:lidea/hive.dart';
 import 'package:lidea/util/main.dart';
 import 'package:lidea/extension.dart';
 
-part 'env.dart';
+part 'environment.dart';
 part 'query.dart';
 part 'product.dart';
 

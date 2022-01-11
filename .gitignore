@@ -1,6 +1,5 @@
 *.v[0-9].*
-tmp/
-tmp.md
+/tmp.*
 
 # Miscellaneous
 *.class
