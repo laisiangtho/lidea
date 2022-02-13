@@ -45,9 +45,9 @@ class ColorationScheme {
     return ColorScheme(
       brightness: brightness,
       primary: primaryScheme,
-      primaryVariant: light,
+      // primaryVariant: light,
       secondary: primaryScheme,
-      secondaryVariant: light,
+      // secondaryVariant: light,
       background: background,
       surface: background.darken(),
       error: error,
@@ -136,6 +136,7 @@ abstract class ColorationData {
         color: color.primary,
         elevation: 0.5,
         shadowColor: color.shadow,
+        clipBehavior: Clip.antiAlias,
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         shape: RoundedRectangleBorder(
           side: BorderSide(width: 0.2, color: color.shadow),
@@ -170,6 +171,21 @@ abstract class ColorationData {
         brightness: color.brightness,
         // brightness: resolveBrightness,
       ),
+      listTileTheme: ListTileThemeData(
+          // bool? dense,
+          // ShapeBorder? shape,
+          // ListTileStyle? style,
+          // Color? selectedColor,
+          // Color? iconColor,
+          // Color? textColor,
+          // EdgeInsetsGeometry? contentPadding,
+          // Color? tileColor,
+          // Color? selectedTileColor,
+          // double? horizontalTitleGap,
+          // double? minVerticalPadding,
+          // double? minLeadingWidth,
+          // bool? enableFeedback,
+          ),
       cupertinoOverrideTheme: NoDefaultCupertinoThemeData(
         brightness: color.brightness,
         textTheme: const CupertinoTextThemeData(
@@ -211,7 +227,7 @@ abstract class ColorationData {
       ),
       bottomSheetTheme: BottomSheetThemeData(
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(3.5)),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
         ),
         clipBehavior: Clip.hardEdge,
         // clipBehavior: Clip.antiAlias,
@@ -222,7 +238,7 @@ abstract class ColorationData {
         // backgroundColor: color.primary,
         backgroundColor: color.background,
         // backgroundColor: Colors.red,
-        elevation: 0.0,
+        elevation: 2.0,
       ),
       bottomAppBarTheme: const BottomAppBarTheme(color: Colors.cyan),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(backgroundColor: Colors.red),
@@ -255,7 +271,7 @@ abstract class ColorationData {
   // static ColorScheme lightScheme = _lightColor.scheme;
   // static ColorScheme darkScheme = _darkColor.scheme;
 
-  static const _fontWeightSemiThin = FontWeight.w100;
+  // static const _fontWeightSemiThin = FontWeight.w100;
   static const _fontWeightThin = FontWeight.w100;
   static const _fontWeighRegular = FontWeight.w300;
   static const _fontWeighMedium = FontWeight.w400;
@@ -264,23 +280,27 @@ abstract class ColorationData {
 
   static const TextTheme textTheme = TextTheme(
     headline1: TextStyle(
-      fontWeight: _fontWeightSemiThin,
+      fontWeight: _fontWeighRegular,
       fontFamilyFallback: ["Mm3Web", "Lato"],
       height: 1.0,
+      fontSize: 37,
     ),
     headline2: TextStyle(
       fontWeight: _fontWeightThin,
       fontFamilyFallback: ["Mm3Web", "Lato"],
+      fontSize: 32,
       height: 1.0,
     ),
     headline3: TextStyle(
       fontWeight: _fontWeighRegular,
       fontFamilyFallback: ["Mm3Web", "Lato"],
+      fontSize: 27,
       height: 1.0,
     ),
     headline4: TextStyle(
       fontWeight: _fontWeighRegular,
       fontFamilyFallback: ["Mm3Web", "Lato"],
+      fontSize: 25,
       height: 1.0,
     ),
     headline5: TextStyle(

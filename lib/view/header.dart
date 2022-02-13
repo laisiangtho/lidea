@@ -92,14 +92,15 @@ class ViewHeaderSliverSnap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new SliverPersistentHeader(
-        pinned: pinned,
-        floating: floating,
-        delegate: new ViewHeaderDelegate(
-          _bar,
-          maxHeight: maxHeight,
-          minHeight: minHeight,
-        ));
+    return SliverPersistentHeader(
+      pinned: pinned,
+      floating: floating,
+      delegate: ViewHeaderDelegate(
+        _bar,
+        maxHeight: maxHeight,
+        minHeight: minHeight,
+      ),
+    );
   }
 
   Widget _bar(BuildContext context, double offset, bool overlaps, double shrink, double stretch) {
@@ -118,45 +119,47 @@ class ViewHeaderSliverSnap extends StatelessWidget {
             : overlapsForce;
 
     return ViewHeaderDecoration(
-        overlaps: snapOverlaps,
-        reservedPadding: reservedPadding,
-        backgroundColor: backgroundColor,
-        overlapsBackgroundColor: overlapsBackgroundColor,
-        overlapsBorderColor: overlapsBorderColor,
-        borderWidth: borderWidth,
-        borderRadius: borderRadius,
-        child: builder(
-            context,
-            // chain
-            ViewHeaderData(
-              offset: offset,
-              overlaps: overlaps,
-              shrink: shrink,
-              stretch: stretch,
-            ),
-            // snap
-            ViewHeaderData(
-              offset: snapOffset,
-              overlaps: snapOverlaps,
-              shrink: snapShrink,
-              stretch: snapStretch,
-            )));
+      overlaps: snapOverlaps,
+      reservedPadding: reservedPadding,
+      backgroundColor: backgroundColor,
+      overlapsBackgroundColor: overlapsBackgroundColor,
+      overlapsBorderColor: overlapsBorderColor,
+      borderWidth: borderWidth,
+      borderRadius: borderRadius,
+      child: builder(
+        context,
+        // chain
+        ViewHeaderData(
+          offset: offset,
+          overlaps: overlaps,
+          shrink: shrink,
+          stretch: stretch,
+        ),
+        // snap
+        ViewHeaderData(
+          offset: snapOffset,
+          overlaps: snapOverlaps,
+          shrink: snapShrink,
+          stretch: snapStretch,
+        ),
+      ),
+    );
   }
 }
 
 class ViewHeaderDecoration extends StatelessWidget {
-  const ViewHeaderDecoration(
-      {Key? key,
-      required this.child,
-      this.overlaps: false,
-      this.backgroundColor,
-      this.overlapsBackgroundColor,
-      this.overlapsBorderColor: Colors.transparent,
-      this.borderWidth: 0.5,
-      // this.borderRadius:0.0,
-      this.borderRadius: Radius.zero,
-      this.reservedPadding: 0.0})
-      : super(key: key);
+  const ViewHeaderDecoration({
+    Key? key,
+    required this.child,
+    this.overlaps: false,
+    this.backgroundColor,
+    this.overlapsBackgroundColor,
+    this.overlapsBorderColor: Colors.transparent,
+    this.borderWidth: 0.5,
+    // this.borderRadius:0.0,
+    this.borderRadius: Radius.zero,
+    this.reservedPadding: 0.0,
+  }) : super(key: key);
 
   final Widget child;
   final bool overlaps;
@@ -175,32 +178,40 @@ class ViewHeaderDecoration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-        key: key,
-        decoration: BoxDecoration(
-            // color: (overlaps && backgroundColor != null)?Theme.of(context).primaryColor:Theme.of(context).scaffoldBackgroundColor,
-            color: (overlaps && overlapsBackgroundColor != null)
-                ? overlapsBackgroundColor
-                : backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
-            borderRadius: hasRadius
-                ? new BorderRadius.vertical(bottom: borderRadius
-                    // bottom: Radius.elliptical(3, 2)
-                    )
-                : null,
-            border: (hasRadius == false && overlaps)
-                ? Border(
-                    // bottom: BorderSide(width: borderWidth, color: Theme.of(context).shadowColor),
-                    bottom: BorderSide(width: borderWidth, color: overlapsBorderColor),
-                  )
-                : null,
-            boxShadow: [
-              if (overlaps)
-                BoxShadow(
-                    color: overlapsBorderColor,
-                    // color: Theme.of(context).backgroundColor.withOpacity(overlaps?0.3:0.0),
-                    blurRadius: 0,
-                    spreadRadius: 0,
-                    offset: Offset(0, 0))
-            ]),
-        child: Padding(padding: EdgeInsets.only(top: reservedPadding), child: child));
+      key: key,
+      decoration: BoxDecoration(
+        // color: (overlaps && backgroundColor != null)?Theme.of(context).primaryColor:Theme.of(context).scaffoldBackgroundColor,
+        color: (overlaps && overlapsBackgroundColor != null)
+            ? overlapsBackgroundColor
+            : backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: hasRadius
+            ? new BorderRadius.vertical(bottom: borderRadius
+                // bottom: Radius.elliptical(3, 2)
+                )
+            : null,
+        border: (hasRadius == false && overlaps)
+            ? Border(
+                // bottom: BorderSide(width: borderWidth, color: Theme.of(context).shadowColor),
+                bottom: BorderSide(width: borderWidth, color: overlapsBorderColor),
+              )
+            : null,
+        boxShadow: [
+          if (overlaps)
+            BoxShadow(
+                color: overlapsBorderColor,
+                // color: Theme.of(context).backgroundColor.withOpacity(overlaps?0.3:0.0),
+                blurRadius: 0,
+                spreadRadius: 0,
+                offset: Offset(0, 0))
+        ],
+      ),
+      child: Padding(
+        padding: EdgeInsets.only(top: reservedPadding),
+        child: child,
+      ),
+    );
   }
 }
+
+// ViewHeaderSliverSnap
+// ViewHeaderSliverDash

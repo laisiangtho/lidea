@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-
-// import 'package:lidea/intl.dart';
 import 'package:lidea/unit/notify.dart';
-
-// mixin UnitControllerTmp on Notify {}
 
 abstract class UnitController extends Notify {
   late BuildContext context;

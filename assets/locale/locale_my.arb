@@ -6,12 +6,12 @@
   "chapter": "{plural, select, true{အခန်းများ} other{အခန်း}}",
   "verse": "{plural, select, true{ပိုဒ်များ} other{ပိုဒ်}}",
 
-  "headline": "ခေါင်းစဉ်",
-  "subtitle": "ခေါင်းစဉ်ကလေး",
-  "text": "စာသား",
-  "caption": "စာတန်း",
-  "overline": "စာတန်းပေါ်",
-  "button": "ခလုတ်",
+  "headline": "{plural, select, true{ခေါင်းစဉ်များ} other{ခေါင်းစဉ်}}",
+  "subtitle": " {plural, select, true{ခေါင်းစဉ်ကလေးများ} other{ခေါင်းစဉ်ကလေး}}",
+  "text": " {plural, select, true{စာသားများ} other{စာသား}}",
+  "caption": " {plural, select, true{စာတန်းများ} other{စာတန်း}}",
+  "overline": " {plural, select, true{စာတန်းပေါ်များ} other{စာတန်းပေါ်}}",
+  "button": " {plural, select, true{ခလုတ်များ} other{ခလုတ်}}",
 
   "home": "အိမ်",
   "back": "နောက်သို့",
@@ -62,11 +62,7 @@
   "bookmark": "{plural, select, true{စာညှပ်များ} other{စာညှပ်}}",
 
   "bookmarkCount": "{count, plural, =0{စာညှပ် မရှိပါ} =1{{count} စာညှပ်} other{{count} စာညှပ်}}",
-  "@bookmarkCount": {
-    "placeholders": {
-      "count": {}
-    }
-  },
+
 
   "itemCount": "{count, plural, =0{တစ်ခုမှမရှိ} =1{တစ်ခုရှိ} item} other{{count} ခုရှိ}}",
   "itemCountNumber": "{count, plural, =0{တစ်ခုမှမရှိ} =1{{number} ခုရှိ} other{{number} ခုရှိ}}",
@@ -74,20 +70,30 @@
   "confirmation": "အတည်ပြုခြင်း",
 
   "confirmToDelete": "{task, select, all{အားလုံးကို ဖျက်ဖို့ သေချာလား} other{ဖျက်ဖို့ သေချာလား}}?",
-  "@confirmToDelete": {
-    "placeholders": {
-      "task": {
-        "type":"String"
-      }
-    }
-  },
+
   "addTo": "{to} ထည့်ရန်",
   "addMore": "{to} ထပ်ထည့်ရန်",
+  "updateTo": "{to} မွမ်းမံရန်",
+  "renameTo": "{to} အမည်ပြောင်းရန်",
   "chooseTo": "{to} ရွေးချယ်ရန်",
   "compareTo": "{to} နှိုင်းယှဉ်ရန်",
   "nextTo": "ရှေ့ {to}",
   "previousTo": "နောက် {to}",
+  "noItem": "{item} မရှိ",
+  "objContainSub": "{obj} ပါဝင်သော {sub}",
+
 
   "definition": "{plural, select, true{အဓိပ္ပါယ်ဖွင့်ဆိုချက်} other{အဓိပ္ပါယ်}}",
-  "suggestion": "{plural, select, true{အကြံပြုချက်များ} other{အကြံပြုချက်}}"
+  "suggestion": "{plural, select, true{အကြံပြုချက်များ} other{အကြံပြုချက်}}",
+
+  "collection": "{plural, select, true{စုဆောင်းမှုများ} other{စုဆောင်းမှု}}",
+  "library": "{plural, select, true{ပိဋကတ်} other{ပိဋကတ်}}",
+
+  "playlist": "{plural, select, true{အစီအစဉ်များ} other{အစီအစဉ်}}",
+  "track": "{plural, select, true{တေးသံများ} other{တေးသံ}}",
+  "music": "{plural, select, true{ဂီတများ} other{ဂီတ}}",
+  "artist": "{plural, select, true{အဆိုတော်များ} other{အဆိုတော်}}",
+  "album": "{plural, select, true{သီချင်းခွေများ} other{သီချင်းခွေ}}",
+  "recentPlay": "{plural, select, true{လတ်တလော နားထောင်မှုများ} other{လတ်တလော နားထောင်မှု}}"
+
 }

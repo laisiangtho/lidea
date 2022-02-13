@@ -13,8 +13,8 @@ Future<bool?> doConfirmWithDialog({
       useSafeArea: true,
       barrierColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.8),
       builder: (BuildContext context) => AlertDialog(
-        content: Text(message),
         title: Text(title),
+        content: Text(message),
         contentPadding: const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
         actionsPadding: EdgeInsets.zero,
         // buttonPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),

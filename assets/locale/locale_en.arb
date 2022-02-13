@@ -51,29 +51,69 @@
     }
   },
 
-  "headline": "headline",
+  "name": "{plural, select, true{Names} other{Name}}",
+  "@name": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+  "title": "{plural, select, true{Titles} other{Title}}",
+  "@title": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+  "description": "{plural, select, true{Descriptions} other{Description}}",
+  "@description": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+
+  "headline": "{plural, select, true{Headlines} other{Headline}}",
   "@headline": {
-    "description": "headline"
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
   },
-  "subtitle": "subtitle",
+  "subtitle": "{plural, select, true{Subtitles} other{Subtitle}}",
   "@subtitle": {
-    "description": "subtitle"
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
   },
-  "text": "Text",
+  "text": "{plural, select, true{Texts} other{Text}}",
   "@text": {
-    "description": "Text"
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
   },
-  "caption": "Caption",
+  "caption": "{plural, select, true{Captions} other{Caption}}",
   "@caption": {
-    "description": "Caption"
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
   },
-  "overline": "Overline",
+  "overline": "{plural, select, true{Overlines} other{Overline}}",
   "@overline": {
-    "description": "Overline"
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
   },
-  "button": "Button",
+  "button": "{plural, select, true{Buttons} other{Button}}",
   "@button": {
-    "description": "Button"
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
   },
 
   "home": "Home",
@@ -112,6 +152,13 @@
       "plural": {}
     }
   },
+  "play": "{plural, select, true{Plays} other{Play}}",
+  "@play": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
 
   "more": "More",
   "@more": {
@@ -121,8 +168,26 @@
   "@read": {
     "description": "Read"
   },
+  "reset": "Reset",
+  "@reset": {
+    "description": "reset setting"
+  },
   "note": "{plural, select, true{Notes} other{Note}}",
   "@note": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+  "like": "{plural, select, true{Likes} other{Like}}",
+  "@like": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+  "queue": "{plural, select, true{Queues} other{Queue}}",
+  "@queue": {
     "description": "default is singular form. Plural form must provided false",
     "placeholders": {
       "plural": {}
@@ -298,7 +363,7 @@
 
   "addTo": "Add {to}",
   "@addTo": {
-    "description": "Add favorites, add bookmark",
+    "description": "Add favorites, bookmark, playlist",
     "placeholders": {
       "to": {}
     }
@@ -306,7 +371,22 @@
 
   "addMore": "Add more {to}",
   "@addMore": {
-    "description": "Add more favorites, add more bookmark",
+    "description": "Add more favorites, bookmark, playlist",
+    "placeholders": {
+      "to": {}
+    }
+  },
+
+  "updateTo": "Update {to}",
+  "@updateTo": {
+    "description": "Update playlist",
+    "placeholders": {
+      "to": {}
+    }
+  },
+  "renameTo": "Rename {to}",
+  "@renameTo": {
+    "description": "Rename playlist",
     "placeholders": {
       "to": {}
     }
@@ -344,6 +424,23 @@
     }
   },
 
+  "noItem": "No {item}",
+  "@noItem": {
+    "description": "No item, track",
+    "placeholders": {
+      "item": {}
+    }
+  },
+
+  "objContainSub": "{sub} with '{obj}'",
+  "@objContainSub": {
+    "description": "Artist containing love, Album containing love, Title containing love",
+    "placeholders": {
+      "obj": {},
+      "sub": {}
+    }
+  },
+
   "definition": "{plural, select, true{Definitions} other{Definition}}",
   "@definition": {
     "description": "default is singular form. Plural form must provided false",
@@ -354,6 +451,64 @@
 
   "suggestion": "{plural, select, true{Suggestions} other{Suggestion}}",
   "@suggestion": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+
+  "collection": "{plural, select, true{Collections} other{Collection}}",
+  "@collection": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+  "library": "{plural, select, true{Libraries} other{Library}}",
+  "@library": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+
+  "track": "{plural, select, true{Tracks} other{Track}}",
+  "@track": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+  "music": "{plural, select, true{Musics} other{Music}}",
+  "@music": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+  "artist": "{plural, select, true{Artists} other{Artist}}",
+  "@artist": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+  "album": "{plural, select, true{Albums} other{Album}}",
+  "@album": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+  "recentPlay": "{plural, select, true{Recent plays} other{Recent play}}",
+  "@recentPlay": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+  "playlist": "{plural, select, true{Playlists} other{Playlist}}",
+  "@playlist": {
     "description": "default is singular form. Plural form must provided false",
     "placeholders": {
       "plural": {}
@@ -375,6 +530,7 @@
       "count": {}
     }
   },
+
   "formatDate": "{date}",
   "@formatDate": {
     "placeholders": {

@@ -42,7 +42,9 @@ class UnitNavigationNotify extends Notify {
   }
 
   void pop(Route<dynamic> current, Route<dynamic>? previous) {
-    name = previous!.settings.name!;
+    if (previous!.settings.name != null) {
+      name = previous.settings.name;
+    }
     // debugPrint('pop current ${current.settings.name} previous ${previous.settings.name}');
     notify();
   }

@@ -324,6 +324,8 @@ abstract class UnitStore {
   // purchasedItem
   // , Map<String, PurchaseDetails> y
   GooglePlayPurchaseDetails? _getOldSubscription(ProductDetails item) {
+    return null;
+
     // GooglePlayPurchaseDetails? oldSubscription;
     // if (item.id == _silverSubscription && purchasedItem[_goldSubscription] != null) {
     //   oldSubscription = purchasedItem[_goldSubscription] as GooglePlayPurchaseDetails;

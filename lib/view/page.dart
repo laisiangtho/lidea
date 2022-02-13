@@ -25,14 +25,13 @@ class ViewPage extends StatelessWidget {
   final bool Function(ScrollNotification)? onNotification;
 
   /// depth is useful on NestedScrollView
-  ViewPage({
+  const ViewPage({
     Key? key,
     this.controller,
     this.depth: 0,
     this.onNotification,
     required this.child,
-  });
-  // : super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +73,7 @@ class ViewPage extends StatelessWidget {
     // if (controller!.hasClients && scroll.depth == depth) return true;
 
     // While the widget tree was being built, laid out, and painted, a new frame was scheduled to rebuild the widget tree.
+    // final notify = context.read<ViewScrollNotify>();
     final notify = Provider.of<ViewScrollNotify>(context, listen: false);
     // final nav = Provider.of<NotifyNavigationScroll>(context, listen: false);
     Future.microtask(

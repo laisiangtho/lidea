@@ -6,12 +6,12 @@
   "chapter": "{plural, select, true{Kapitler} other{Kapittel}}",
   "verse": "{plural, select, true{Vers} other{Vers}}",
 
-  "headline": "Overskrift",
-  "subtitle": "Teksting",
-  "text": "Tekst",
-  "caption": "Bildetekst",
-  "overline": "Overlinje",
-  "button": "Knapp",
+  "headline": "{plural, select, true{Overskrifter} other{Overskrift}}",
+  "subtitle": "{plural, select, true{Undertekster} other{Undertekst}}",
+  "text": "{plural, select, true{Tekster} other{Tekst}}",
+  "caption": "{plural, select, true{Bildetekster} other{Bildetekst}}",
+  "overline": "{plural, select, true{Overlinjer} other{Overlinje}}",
+  "button": "{plural, select, true{Knapper} other{Knapp}}",
 
   "home": "Hjem",
   "back": "Tilbake",
@@ -83,10 +83,14 @@
 
   "addTo": "Legg til {to}",
   "addMore": "Legg til flere {to}",
+  "updateTo": "Oppdater {to}",
+  "renameTo": "Gi nytt navn til {to}",
   "chooseTo": "Velge {to}",
   "compareTo": "Sammenligne med {to}",
   "nextTo": "Neste {to}",
   "previousTo": "Forrige {to}",
+  "noItem": "Ingen {item}",
+  "objContainSub": "{sub} som inneholder {obj}",
 
   "definition": "{plural, select, true{Definisjon} other{Definisjon}}",
   "suggestion": "{plural, select, true{Forslag} other{Forslag}}"

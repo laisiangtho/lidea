@@ -209,11 +209,12 @@ class APIType {
   /// .uri(name: '2147')
   /// .uri(name: '4354', index: 1, scheme: 'http');
   /// ```
-  Uri uri({Object? name, int index = 0, String scheme = 'https'}) {
+  Uri uri(Object? name, {int index = 0, String scheme = 'https'}) {
     String url = '';
     if (src.isNotEmpty) {
       url = src.length > index ? src.elementAt(index) : src.first;
     }
+
     if (name == null) {
       name = uid;
     }
@@ -222,6 +223,18 @@ class APIType {
       uri = uri.replace(host: 'example.com');
     }
     return uri;
+    // String url = '';
+    // if (src.isNotEmpty) {
+    //   url = src.length > index ? src.elementAt(index) : src.first;
+    // }
+    // if (name == null) {
+    //   name = uid;
+    // }
+    // Uri uri = Uri.parse(url.replaceFirst('!', '$name')).replace(scheme: scheme);
+    // if (uri.hasAuthority == false) {
+    //   uri = uri.replace(host: 'example.com');
+    // }
+    // return uri;
   }
 
   String cache(Object name) {

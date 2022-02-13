@@ -1,10 +1,32 @@
 {
   "my": [
+    "name",
+    "title",
+    "description",
+    "play",
+    "reset",
+    "like",
+    "queue",
     "formatCurrency",
     "formatDate"
   ],
 
   "no": [
+    "name",
+    "title",
+    "description",
+    "play",
+    "reset",
+    "like",
+    "queue",
+    "collection",
+    "library",
+    "track",
+    "music",
+    "artist",
+    "album",
+    "recentPlay",
+    "playlist",
     "formatCurrency",
     "formatDate"
   ]

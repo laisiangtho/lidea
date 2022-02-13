@@ -68,8 +68,8 @@ abstract class ClusterDocket {
     });
   }
 
-  SuggestionType cacheSuggestion = const SuggestionType();
-  ConclusionType cacheConclusion = const ConclusionType();
+  // SuggestionType cacheSuggestion = const SuggestionType();
+  // ConclusionType cacheConclusion = const ConclusionType();
 
   SettingType get setting => boxOfSetting.get(env.settingKey, defaultValue: env.setting)!;
 

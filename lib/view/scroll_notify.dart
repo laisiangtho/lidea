@@ -27,39 +27,42 @@ class ViewScrollNotify extends Notify {
   int get direction => _direction;
   set direction(int v) => notifyIf<int>(_direction, _direction = v);
 
-  // NOTE: Navigation
-  double bottomPadding = 0.0;
+  // NOTE: Navigation ???
+  double bottomPadding = kBottomNavigationBarHeight + 30;
+  double reservedHeight = 0.0;
   double _heightFactor = 1.0;
   double get heightFactor => _heightFactor;
   set heightFactor(double v) => notifyIf<double>(_heightFactor, _heightFactor = v);
 
-  double get height => (kHeight * heightFactor).toDouble();
+  double get height => (kHeightMax * heightFactor).toDouble();
   // double get height => (kHeight*heightFactor).toDouble().clamp(5.0, height);
-  int get milliseconds => [0.0, 1.0].contains(heightFactor) ? 200 : 0;
+  // int get milliseconds => [0.0, 1.0].contains(heightFactor) ? 200 : 0;
 
-  double get kHeight => (kBottomNavigationBarHeight + bottomPadding).toDouble();
+  double get kHeightMax => (kBottomNavigationBarHeight + reservedHeight).toDouble();
+  // final double kHeightMin = 0.0;
 
   double _delta = 0.0;
   double _offset = 0.0;
 
-  double get percentageStretch => (_delta / kHeight).toDouble();
+  double get percentageStretch => (_delta / kHeightMax).toDouble();
   double get percentageShrink => (1.0 - percentageStretch).toDouble();
 
   void scrollUpdate(ScrollMetrics scroll) {
     final pixels = scroll.pixels;
     if (pixels < 0.0) return;
-    // if ([0.0, 1.0].contains(heightFactor)) return;
-    if ((_delta == 0.0 && heightFactor == 0.0) || (_delta == kHeight && heightFactor == 1.0))
+
+    if ((_delta == 0.0 && heightFactor == 0.0) || (_delta == kHeightMax && heightFactor == 1.0))
       return;
-    double maxExtent = scroll.maxScrollExtent, limit = maxExtent - kHeight;
+    double maxExtent = scroll.maxScrollExtent;
+    double limit = maxExtent - kHeightMax;
     if (pixels >= limit) {
       if (_delta > 0.0) {
         _offset = pixels;
-        final _deltaBottom = scroll.extentAfter.clamp(0.0, kHeight);
+        final _deltaBottom = scroll.extentAfter.clamp(0.0, kHeightMax);
         _delta = min(_delta, _deltaBottom);
       }
     } else {
-      _delta = (_delta + pixels - _offset).clamp(0.0, kHeight);
+      _delta = (_delta + pixels - _offset).clamp(0.0, kHeightMax);
       _offset = pixels;
     }
     // if ((_delta == 0.0 && heightFactor == 0.0) || (_delta == heightFactor && heightFactor == 1.0)) return;
@@ -68,11 +71,38 @@ class ViewScrollNotify extends Notify {
 
   void scrollEnd(ScrollMetrics scroll) {
     /// NOTE: do skip for its reached
-    if (_delta == 0.0 || _delta == kHeight) return;
-
+    // if (_delta == 0.0 || _delta == kHeightMax) return;
+    if ([0.0, kHeightMax].contains(_delta)) return;
     if ([0.0, 1.0].contains(percentageShrink)) return;
 
-    _delta = percentageShrink.round() == 1 ? 0.0 : kHeight;
-    heightFactor = percentageShrink;
+    // _delta = percentageShrink.round() == 1.0 ? 0.0 : kHeightMax;
+    // heightFactor = percentageShrink;
+
+    final tmp = (height / kHeightMax * 100).roundToDouble();
+    // print('tmp: $tmp');
+    // final isDown = percentageShrink.round() == 1.0;
+    final isDown = percentageShrink < 0.4;
+
+    Stream<double> sequence = streamCount(tmp, down: isDown);
+
+    sequence.listen((double value) {
+      if ([0.0, 1.0].contains(heightFactor)) {
+        print('sequence: skiped');
+        return;
+      }
+      // _delta = value / 100;
+      heightFactor = value / 100;
+      // _delta = heightFactor * kHeightMax;
+      // print('Xdelta: $xdelta delta: $_delta');
+    });
+  }
+
+  // 55/56*100 height/kHeightMax*100 -> /100
+  //
+  Stream<double> streamCount(double n, {bool down = true}) async* {
+    while (down ? n >= 0.0 : n <= 100) {
+      await Future.delayed(const Duration(microseconds: 0));
+      yield (down ? n-- : n++).roundToDouble();
+    }
   }
 }
