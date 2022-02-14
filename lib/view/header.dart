@@ -11,8 +11,12 @@ class ViewHeaderData {
 }
 
 class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
-  const ViewHeaderDelegate(this.builder,
-      {this.minHeight: kToolbarHeight, this.maxHeight: kToolbarHeight, this.reservedTop: false});
+  const ViewHeaderDelegate(
+    this.builder, {
+    this.minHeight: kToolbarHeight,
+    this.maxHeight: kToolbarHeight,
+    this.reservedTop: false,
+  });
   final double minHeight;
   final double maxHeight;
   final Function builder;
@@ -57,7 +61,7 @@ class ViewHeaderSliverSnap extends StatelessWidget {
     this.floating: true,
     required this.builder,
     required this.heights,
-    this.reservedPadding: 0.0,
+    this.padding: EdgeInsets.zero,
     this.backgroundColor,
     this.overlapsBackgroundColor,
     this.overlapsBorderColor: Colors.transparent,
@@ -69,7 +73,7 @@ class ViewHeaderSliverSnap extends StatelessWidget {
   final bool pinned;
   final bool floating;
 
-  final double reservedPadding;
+  final EdgeInsetsGeometry padding;
 
   final Function builder;
   final List<double> heights;
@@ -87,8 +91,8 @@ class ViewHeaderSliverSnap extends StatelessWidget {
   double get min => heights.first;
 
   // MediaQuery.of(context).padding.top
-  double get maxHeight => max + reservedPadding;
-  double get minHeight => min + reservedPadding;
+  double get maxHeight => max + padding.vertical;
+  double get minHeight => min + padding.vertical;
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +124,7 @@ class ViewHeaderSliverSnap extends StatelessWidget {
 
     return ViewHeaderDecoration(
       overlaps: snapOverlaps,
-      reservedPadding: reservedPadding,
+      padding: padding,
       backgroundColor: backgroundColor,
       overlapsBackgroundColor: overlapsBackgroundColor,
       overlapsBorderColor: overlapsBorderColor,
@@ -158,7 +162,7 @@ class ViewHeaderDecoration extends StatelessWidget {
     this.borderWidth: 0.5,
     // this.borderRadius:0.0,
     this.borderRadius: Radius.zero,
-    this.reservedPadding: 0.0,
+    this.padding: EdgeInsets.zero,
   }) : super(key: key);
 
   final Widget child;
@@ -171,7 +175,7 @@ class ViewHeaderDecoration extends StatelessWidget {
   final double borderWidth;
   final Radius borderRadius;
   // final Radius borderRadiusTmp;
-  final double reservedPadding;
+  final EdgeInsetsGeometry padding;
 
   bool get hasRadius => borderRadius.x > 0.0 || borderRadius.y > 0.0;
 
@@ -198,15 +202,16 @@ class ViewHeaderDecoration extends StatelessWidget {
         boxShadow: [
           if (overlaps)
             BoxShadow(
-                color: overlapsBorderColor,
-                // color: Theme.of(context).backgroundColor.withOpacity(overlaps?0.3:0.0),
-                blurRadius: 0,
-                spreadRadius: 0,
-                offset: Offset(0, 0))
+              color: overlapsBorderColor,
+              // color: Theme.of(context).backgroundColor.withOpacity(overlaps?0.3:0.0),
+              blurRadius: 0,
+              spreadRadius: 0,
+              offset: Offset(0, 0),
+            )
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.only(top: reservedPadding),
+        padding: padding,
         child: child,
       ),
     );
