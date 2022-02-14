@@ -25,9 +25,16 @@ abstract class UnitAudio {
     await player.setLoopMode(LoopMode.all);
     // await queueRefresh();
     // player.playbackEventStream.listen((e) {
-    //   print('playbackEventStream');
+    //   print('??? playbackEventStream');
+    // }, onDone: () {
+    //   print('??? done');
     // }, onError: (Object e, StackTrace stackTrace) {
-    //   // debugPrint('A stream error occurred: $e');
+    //   print('??? errorEventStream: $e $stackTrace');
+    // });
+    // player.playbackEventStream.listen((e) {
+    //   print('??? playbackEventStream $e');
+    // }, onError: (Object e, StackTrace stackTrace) {
+    //   print('??? A stream error occurred: $e $stackTrace');
     // });
     // currentIndexChange
     player.sequenceStream.listen((e) {
@@ -64,11 +71,23 @@ abstract class UnitAudio {
   }
 
   // NOTE: Update Queue
-  Future<void> queueRefresh({bool preload: false, bool force: false}) async {
+  Future<void> queueRefresh({bool preload: true, bool force: false}) async {
     if (force || player.playerState.playing == false) {
-      await player.setAudioSource(queue, preload: preload).catchError((e) {
-        // print('setAudioSource $e');
-      });
+      // await player.setAudioSource(queue, preload: preload).onError((error, stackTrace) {
+      //   print('??? setAudioSource $error $stackTrace');
+      //   return Future.value(null);
+      // });
+      // player.playerState?.processingState;
+      print('??? playing ${player.playerState.playing} ${player.playerState.processingState}');
+      try {
+        await player.setAudioSource(queue, preload: preload);
+      } on PlayerException catch (e) {
+        print('??? PlayerException $e');
+      } on PlayerInterruptedException catch (e) {
+        print('??? PlayerInterruptedException $e');
+      } catch (e) {
+        print('??? errorAudioSource $e');
+      }
     }
   }
 
