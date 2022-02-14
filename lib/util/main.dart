@@ -55,7 +55,7 @@ class UtilDocument {
     try {
       return await rootBundle.loadString(join(assetsFolder, name));
     } catch (e) {
-      debugPrint('$e');
+      // debugPrint('$e');
       return Future.error("Failed to load file");
     }
   }

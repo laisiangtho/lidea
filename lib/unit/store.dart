@@ -124,13 +124,13 @@ abstract class UnitStore {
     }
 
     if (isConsumable(item.id)) {
-      debugPrint('buyConsumable: ${item.id}');
+      // debugPrint('buyConsumable: ${item.id}');
       _api.buyConsumable(
         purchaseParam: param,
         autoConsume: kAutoConsume || Platform.isIOS,
       );
     } else {
-      debugPrint('buyNonConsumable ${item.id}');
+      // debugPrint('buyNonConsumable ${item.id}');
       _api.buyNonConsumable(purchaseParam: param);
     }
   }
@@ -233,7 +233,7 @@ abstract class UnitStore {
           if (isConsumable(item.productID)) {
             final android = _api.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
             await android.consumePurchase(item);
-            debugPrint('auto consumePurchase ${item.productID}');
+            // debugPrint('auto consumePurchase ${item.productID}');
           }
         }
         if (item.pendingCompletePurchase) {
@@ -303,9 +303,9 @@ abstract class UnitStore {
         sku: 'purchaseId',
       );
       if (result.responseCode == BillingResponse.ok) {
-        debugPrint('Price change accepted');
+        // debugPrint('Price change accepted');
       } else {
-        debugPrint("Price change failed with code ${result.responseCode}");
+        // debugPrint("Price change failed with code ${result.responseCode}");
       }
     }
     if (Platform.isIOS) {

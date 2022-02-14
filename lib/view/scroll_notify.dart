@@ -87,7 +87,7 @@ class ViewScrollNotify extends Notify {
 
     sequence.listen((double value) {
       if ([0.0, 1.0].contains(heightFactor)) {
-        print('sequence: skiped');
+        // print('sequence: skiped');
         return;
       }
       // _delta = value / 100;
