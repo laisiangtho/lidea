@@ -31,7 +31,7 @@ class ColorationScheme {
     this.highlight = Colors.orange,
     this.disable = Colors.black12,
     this.background = const Color(0xFFdbdbdb),
-    this.error = Colors.red,
+    this.error = const Color.fromARGB(255, 187, 43, 43),
     this.shadow = const Color(0xFFbdbdbd),
     this.button = const Color(0xFFdedcdc),
     this.primaryScheme = Colors.black,
@@ -159,6 +159,22 @@ abstract class ColorationData {
           ),
         ),
         elevation: 3,
+      ),
+      snackBarTheme: SnackBarThemeData(
+        // Color? backgroundColor,
+        // Color? actionTextColor,
+        // Color? disabledActionTextColor,
+        // TextStyle? contentTextStyle,
+        // double? elevation,
+        // ShapeBorder? shape,
+        // SnackBarBehavior? behavior,
+        backgroundColor: color.dark,
+        elevation: 1,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(8.0),
+          ),
+        ),
       ),
       chipTheme: ChipThemeData(
         backgroundColor: Colors.transparent,
