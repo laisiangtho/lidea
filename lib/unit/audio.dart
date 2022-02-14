@@ -19,12 +19,11 @@ abstract class UnitAudio {
 
   // NOTE: overridable
   Future<void> init() async {
-    // session = await AudioSession.instance;
+    session = await AudioSession.instance;
     // await session.configure(AudioSessionConfiguration.speech());
-    // await player.setShuffleModeEnabled(true);
+    await player.setShuffleModeEnabled(false);
     await player.setLoopMode(LoopMode.all);
     // await queueRefresh();
-
     // player.playbackEventStream.listen((e) {
     //   print('playbackEventStream');
     // }, onError: (Object e, StackTrace stackTrace) {
@@ -37,6 +36,10 @@ abstract class UnitAudio {
 
     // player.processingStateStream.listen((e) {
     //   print('player.processingStateStream ${e.index}');
+    // });
+
+    // player.durationStream.listen((e) {
+    //   print('??? player.durationStream $e');
     // });
 
     player.currentIndexStream.listen((e) {
@@ -61,7 +64,7 @@ abstract class UnitAudio {
   }
 
   // NOTE: Update Queue
-  Future<void> queueRefresh({bool preload: true, bool force: false}) async {
+  Future<void> queueRefresh({bool preload: false, bool force: false}) async {
     if (force || player.playerState.playing == false) {
       await player.setAudioSource(queue, preload: preload).catchError((e) {
         // print('setAudioSource $e');
