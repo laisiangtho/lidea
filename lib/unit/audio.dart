@@ -1,3 +1,6 @@
+// import 'dart:async';
+// import 'dart:io';
+
 import 'package:audio_session/audio_session.dart';
 import 'package:just_audio/just_audio.dart';
 // import 'package:rxdart/rxdart.dart';
@@ -25,11 +28,12 @@ abstract class UnitAudio {
     await player.setLoopMode(LoopMode.all);
     // await queueRefresh();
     // player.playbackEventStream.listen((e) {
-    //   print('??? playbackEventStream');
+    //   // print('??? playbackEventStream');
     // }, onDone: () {
-    //   print('??? done');
+    //   // print('??? done');
     // }, onError: (Object e, StackTrace stackTrace) {
-    //   print('??? errorEventStream: $e $stackTrace');
+    //   print('??? errorEventStream: $e');
+    //   player.stop();
     // });
     // player.playbackEventStream.listen((e) {
     //   print('??? playbackEventStream $e');
@@ -73,20 +77,23 @@ abstract class UnitAudio {
   // NOTE: Update Queue
   Future<void> queueRefresh({bool preload: true, bool force: false}) async {
     if (force || player.playerState.playing == false) {
-      // await player.setAudioSource(queue, preload: preload).onError((error, stackTrace) {
-      //   print('??? setAudioSource $error $stackTrace');
-      //   return Future.value(null);
-      // });
-      // player.playerState?.processingState;
-      print('??? playing ${player.playerState.playing} ${player.playerState.processingState}');
       try {
-        await player.setAudioSource(queue, preload: preload);
-      } on PlayerException catch (e) {
-        print('??? PlayerException $e');
-      } on PlayerInterruptedException catch (e) {
-        print('??? PlayerInterruptedException $e');
+        await player.setAudioSource(queue, preload: preload).then((value) {
+          if (player.playerState.playing == false) {
+            player.play();
+          }
+        }).catchError((e) {
+          if (e is PlayerException) {
+            throw 'No Internet';
+          } else if (e is PlayerInterruptedException) {
+            throw 'Audio interrupted';
+          } else {
+            throw 'No audio';
+          }
+        });
       } catch (e) {
-        print('??? errorAudioSource $e');
+        player.stop();
+        throw e;
       }
     }
   }
@@ -99,7 +106,9 @@ abstract class UnitAudio {
 
   // NOTE: play
   Future<void> queuePlayAtIndex(int index) async {
-    await player.seek(Duration.zero, index: index).then((_) => player.play());
+    await player.seek(Duration.zero, index: index).then((_) => player.play()).catchError((e) {
+      // print('??? player.seek $e');
+    });
   }
 
   // NOTE: play
