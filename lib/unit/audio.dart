@@ -61,7 +61,7 @@ abstract class UnitAudio {
   }
 
   // NOTE: Update Queue
-  Future<void> queueRefresh({bool preload: false, bool force: false}) async {
+  Future<void> queueRefresh({bool preload: true, bool force: false}) async {
     if (force || player.playerState.playing == false) {
       await player.setAudioSource(queue, preload: preload).catchError((e) {
         // print('setAudioSource $e');
