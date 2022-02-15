@@ -119,10 +119,10 @@ abstract class ColorationData {
 
       textTheme: textTheme.apply(
         bodyColor: color.focus,
-        displayColor: color.highlight,
+        displayColor: color.focus.withOpacity(0.6),
         decorationColor: Colors.red,
       ),
-      primaryTextTheme: textTheme,
+      // primaryTextTheme: textTheme,
       appBarTheme: AppBarTheme(
         // backgroundColor: Colors.blue,
         // foregroundColor: Colors.red,
@@ -131,7 +131,7 @@ abstract class ColorationData {
       ),
 
       // iconTheme: IconThemeData(color: color.focus, size: 23),
-      iconTheme: IconThemeData(color: color.focus, size: 26),
+      iconTheme: IconThemeData(color: color.focus, size: 30),
       cardTheme: CardTheme(
         color: color.primary,
         elevation: 0.5,
@@ -151,8 +151,8 @@ abstract class ColorationData {
         // TextStyle? titleTextStyle,
         // TextStyle? contentTextStyle,
         // backgroundColor: Colors.red,
-        titleTextStyle: TextStyle(fontSize: 19, height: 1.0, color: color.focus),
-        contentTextStyle: TextStyle(fontSize: 14, height: 1.0, color: color.focus),
+        titleTextStyle: TextStyle(fontSize: 19, color: color.focus),
+        contentTextStyle: TextStyle(fontSize: 14, color: color.focus),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(12.0),
@@ -182,8 +182,9 @@ abstract class ColorationData {
         selectedColor: Colors.amber,
         secondarySelectedColor: Colors.blueAccent,
         padding: EdgeInsets.zero,
-        labelStyle: TextStyle(color: color.focus),
-        secondaryLabelStyle: TextStyle(color: color.focus),
+        // labelStyle: TextStyle(color: Colors.red),
+        labelStyle: textTheme.labelMedium,
+        // secondaryLabelStyle: TextStyle(color: color.focus),
         brightness: color.brightness,
         // brightness: resolveBrightness,
       ),
@@ -214,13 +215,12 @@ abstract class ColorationData {
         fillColor: color.shadow.withOpacity(0.7),
         // hoverColor: Colors.green,
         // focusColor: Colors.red,
-        hintStyle: TextStyle(
-          color: color.focus.withOpacity(0.7),
-          height: 1.3,
-          fontSize: 15,
-        ),
-        // labelStyle: const TextStyle(height: 1.7),
-        // alignLabelWithHint: true,
+        // hintStyle: TextStyle(
+        //   color: color.focus.withOpacity(0.7),
+        //   fontSize: 15,
+        // ),
+        // labelStyle: const TextStyle(),
+        alignLabelWithHint: true,
 
         suffixStyle: const TextStyle(color: Colors.red),
         contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
@@ -261,7 +261,7 @@ abstract class ColorationData {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
-          textStyle: const TextStyle(fontSize: 19),
+          // textStyle: const TextStyle(fontSize: 19),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -288,94 +288,84 @@ abstract class ColorationData {
   // static ColorScheme darkScheme = _darkColor.scheme;
 
   // static const _fontWeightSemiThin = FontWeight.w100;
-  static const _fontWeightThin = FontWeight.w100;
-  static const _fontWeighRegular = FontWeight.w300;
-  static const _fontWeighMedium = FontWeight.w400;
-  static const _fontWeighSemiBold = FontWeight.w500;
-  // static const _fontWeighBold = FontWeight.w700;
+  // static const _fontWeightThin = FontWeight.w100;
+  static const _fontWeighMedium = FontWeight.normal;
+  static const _fontWeighBold = FontWeight.w500;
 
   static const TextTheme textTheme = TextTheme(
-    headline1: TextStyle(
-      fontWeight: _fontWeighRegular,
-      fontFamilyFallback: ["Mm3Web", "Lato"],
-      height: 1.0,
-      fontSize: 37,
+    displayLarge: const TextStyle(
+      // fontFamilyFallback: ["Mm3Web", "Lato"],
+      fontWeight: _fontWeighMedium,
+      fontSize: 50,
     ),
-    headline2: TextStyle(
-      fontWeight: _fontWeightThin,
-      fontFamilyFallback: ["Mm3Web", "Lato"],
-      fontSize: 32,
-      height: 1.0,
+    displayMedium: const TextStyle(
+      fontWeight: _fontWeighMedium,
+      fontSize: 45,
     ),
-    headline3: TextStyle(
-      fontWeight: _fontWeighRegular,
-      fontFamilyFallback: ["Mm3Web", "Lato"],
-      fontSize: 27,
-      height: 1.0,
+    displaySmall: const TextStyle(
+      fontWeight: _fontWeighMedium,
+      fontSize: 40,
     ),
-    headline4: TextStyle(
-      fontWeight: _fontWeighRegular,
-      fontFamilyFallback: ["Mm3Web", "Lato"],
+    headlineLarge: const TextStyle(
+      fontWeight: _fontWeighBold,
+      fontSize: 35,
+    ),
+    headlineMedium: const TextStyle(
+      fontWeight: _fontWeighMedium,
+      fontSize: 30,
+    ),
+    headlineSmall: const TextStyle(
+      fontWeight: _fontWeighMedium,
       fontSize: 25,
-      height: 1.0,
     ),
-    headline5: TextStyle(
-      fontWeight: _fontWeighRegular,
-      fontFamilyFallback: ["Mm3Web", "Lato"],
-      fontSize: 22,
-      height: 1.2,
-    ),
-    headline6: TextStyle(
-      fontWeight: _fontWeighRegular,
-      fontFamilyFallback: ["Mm3Web", "Lato"],
-      height: 1.2,
-    ),
-
-    /// default: ListTile.title
-    subtitle1: TextStyle(
-      fontWeight: _fontWeighRegular,
-      fontFamilyFallback: ["Mm3Web", "Lato"],
-      // height: 1.4,
-      height: 1.0,
-      fontSize: 20,
-    ),
-    subtitle2: TextStyle(
+    // appbar-title
+    titleLarge: const TextStyle(
       fontWeight: _fontWeighMedium,
-      fontFamilyFallback: ["Mm3Web", "Lato"],
-      height: 1.0,
+      fontSize: 23,
     ),
-    bodyText1: TextStyle(
-      fontWeight: _fontWeighRegular,
-      fontFamilyFallback: [
-        "sans-serif",
-        "Mm3Web",
-      ],
-      fontSize: 20,
-      height: 1.25,
-    ),
-    bodyText2: TextStyle(
+    titleMedium: const TextStyle(
       fontWeight: _fontWeighMedium,
-      fontFamilyFallback: [
-        "sans-serif",
-        "Mm3Web",
-      ],
-      fontSize: 20,
-      height: 1.25,
+      fontSize: 21,
     ),
-    caption: TextStyle(
-      fontWeight: _fontWeighSemiBold,
-      fontFamilyFallback: ["Mm3Web", "Lato"],
-      height: 1.0,
-    ),
-    button: TextStyle(
-      fontWeight: _fontWeightThin,
-      fontFamilyFallback: ["Mm3Web", "Lato"],
-      height: 1.0,
-    ),
-    overline: TextStyle(
+    titleSmall: const TextStyle(
       fontWeight: _fontWeighMedium,
-      fontFamilyFallback: ["Mm3Web", "Lato"],
-      height: 1.0,
+      fontSize: 19,
+    ),
+    bodyLarge: const TextStyle(
+      fontWeight: _fontWeighMedium,
+      fontSize: 23,
+    ),
+    bodyMedium: const TextStyle(
+      fontWeight: _fontWeighMedium,
+      fontSize: 19,
+    ),
+    bodySmall: const TextStyle(
+      fontWeight: _fontWeighMedium,
+      fontSize: 15,
+    ),
+    // bodyLarge: const TextStyle(
+    //   fontWeight: _fontWeighMedium,
+    //   fontSize: 29,
+    // ),
+    // bodyMedium: const TextStyle(
+    //   fontWeight: _fontWeighMedium,
+    //   fontSize: 23,
+    // ),
+    // bodySmall: const TextStyle(
+    //   fontWeight: _fontWeighMedium,
+    //   fontSize: 17,
+    // ),
+    labelLarge: const TextStyle(
+      fontWeight: _fontWeighMedium,
+      fontSize: 23,
+    ),
+    labelMedium: const TextStyle(
+      fontWeight: _fontWeighMedium,
+      fontSize: 19,
+    ),
+    labelSmall: const TextStyle(
+      fontWeight: _fontWeighMedium,
+      fontSize: 15,
     ),
   );
 }
