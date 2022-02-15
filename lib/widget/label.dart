@@ -7,7 +7,7 @@ class WidgetLabel extends StatelessWidget {
     this.label,
     this.overflow = TextOverflow.fade,
     // this.iconLeft = true,
-    this.iconSize = 26.0,
+    this.iconSize, //26.0
     this.iconColor,
     this.message = '',
     this.softWrap = false,
@@ -41,13 +41,16 @@ class WidgetLabel extends StatelessWidget {
     if (message.isNotEmpty) {
       return Tooltip(
         message: message,
-        child: chip,
+        child: chip(context),
       );
     }
-    return chip;
+    return chip(context);
   }
 
-  Widget get chip {
+  Widget chip(BuildContext context) {
+    // Material(
+    //   child: MediaQuery(
+    //     data: MediaQuery.of(context),
     return Container(
       alignment: alignment,
       child: Chip(
@@ -77,7 +80,7 @@ class WidgetLabel extends StatelessWidget {
         //   // style: style,
         //   // style: Theme.of(context).textTheme.bodyText1,
         // ),
-        labelStyle: labelStyle,
+        labelStyle: labelStyle ?? Theme.of(context).textTheme.labelMedium,
         // labelStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
         //       color: enable ? null : Theme.of(context).disabledColor,
         //     ),
