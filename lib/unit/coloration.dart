@@ -297,51 +297,63 @@ abstract class ColorationData {
       // fontFamilyFallback: ["Mm3Web", "Lato"],
       fontWeight: _fontWeighMedium,
       fontSize: 50,
+      height: 1.0,
     ),
     displayMedium: const TextStyle(
       fontWeight: _fontWeighMedium,
       fontSize: 45,
+      height: 1.0,
     ),
     displaySmall: const TextStyle(
       fontWeight: _fontWeighMedium,
       fontSize: 40,
+      height: 1.0,
     ),
     headlineLarge: const TextStyle(
       fontWeight: _fontWeighBold,
       fontSize: 35,
+      height: 1.0,
     ),
     headlineMedium: const TextStyle(
       fontWeight: _fontWeighMedium,
       fontSize: 30,
+      height: 1.0,
     ),
     headlineSmall: const TextStyle(
       fontWeight: _fontWeighMedium,
       fontSize: 25,
+      height: 1.0,
     ),
     // appbar-title
     titleLarge: const TextStyle(
       fontWeight: _fontWeighMedium,
       fontSize: 23,
+      height: 1.0,
     ),
     titleMedium: const TextStyle(
       fontWeight: _fontWeighMedium,
       fontSize: 21,
+      height: 1.0,
     ),
     titleSmall: const TextStyle(
       fontWeight: _fontWeighMedium,
       fontSize: 19,
+      height: 1.0,
     ),
     bodyLarge: const TextStyle(
       fontWeight: _fontWeighMedium,
       fontSize: 23,
+      height: 1.0,
     ),
     bodyMedium: const TextStyle(
       fontWeight: _fontWeighMedium,
       fontSize: 19,
+      height: 1.0,
     ),
     bodySmall: const TextStyle(
       fontWeight: _fontWeighMedium,
       fontSize: 15,
+      height: 1.0,
     ),
     // bodyLarge: const TextStyle(
     //   fontWeight: _fontWeighMedium,
@@ -362,10 +374,12 @@ abstract class ColorationData {
     labelMedium: const TextStyle(
       fontWeight: _fontWeighMedium,
       fontSize: 19,
+      height: 1.3,
     ),
     labelSmall: const TextStyle(
       fontWeight: _fontWeighMedium,
       fontSize: 15,
+      height: 1.0,
     ),
   );
 }
