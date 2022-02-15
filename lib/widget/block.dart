@@ -14,7 +14,7 @@ class WidgetBlockTile extends StatelessWidget {
     this.title,
     this.trailing,
     this.onPressed,
-    this.padding = const EdgeInsets.fromLTRB(25, 0, 25, 0),
+    this.padding = const EdgeInsets.fromLTRB(25, 10, 25, 10),
   }) : super(key: key);
 
   @override
@@ -23,7 +23,7 @@ class WidgetBlockTile extends StatelessWidget {
       contentPadding: padding,
       horizontalTitleGap: 0,
       // minVerticalPadding: 0,
-      visualDensity: VisualDensity.compact,
+      // visualDensity: VisualDensity.compact,
       leading: leading,
       title: title,
       trailing: trailing,
