@@ -22,7 +22,7 @@ abstract class UnitAudio {
 
   // NOTE: overridable
   Future<void> init() async {
-    session = await AudioSession.instance;
+    // session = await AudioSession.instance;
     // await session.configure(AudioSessionConfiguration.speech());
     await player.setShuffleModeEnabled(false);
     await player.setLoopMode(LoopMode.all);
