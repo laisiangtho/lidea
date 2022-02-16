@@ -68,22 +68,11 @@ class WidgetLabel extends StatelessWidget {
                 maxLines: maxLines,
                 overflow: overflow,
                 softWrap: softWrap,
-                // style: style,
-                // style: Theme.of(context).textTheme.bodyText1,
               )
             : avatar,
-        // label: Text(
-        //   label ?? '',
-        //   maxLines: maxLines,
-        //   overflow: overflow,
-        //   softWrap: softWrap,
-        //   // style: style,
-        //   // style: Theme.of(context).textTheme.bodyText1,
-        // ),
+
         labelStyle: labelStyle ?? Theme.of(context).textTheme.labelMedium,
-        // labelStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
-        //       color: enable ? null : Theme.of(context).disabledColor,
-        //     ),
+
         // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         // materialTapTargetSize: MaterialTapTargetSize.padded,
         materialTapTargetSize: materialTapTargetSize,
