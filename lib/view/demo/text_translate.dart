@@ -97,11 +97,9 @@ class _DemoTextTranslateState extends State<DemoTextTranslate> {
   Widget _date() {
     return Column(
       children: [
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
+        Text.rich(
+          TextSpan(
             text: 'formatDate = ',
-            style: Theme.of(context).textTheme.bodyText2,
             children: [
               TextSpan(
                 text: widget.formatDate(
@@ -113,6 +111,7 @@ class _DemoTextTranslateState extends State<DemoTextTranslate> {
               ),
             ],
           ),
+          textAlign: TextAlign.center,
         ),
       ],
     );
@@ -121,11 +120,9 @@ class _DemoTextTranslateState extends State<DemoTextTranslate> {
   Widget _message() {
     return Column(
       children: [
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
+        Text.rich(
+          TextSpan(
             text: 'areYouSureTo = ',
-            style: Theme.of(context).textTheme.bodyText2,
             children: [
               TextSpan(
                 text: widget.confirmToDelete('all'),
@@ -138,6 +135,7 @@ class _DemoTextTranslateState extends State<DemoTextTranslate> {
               ),
             ],
           ),
+          textAlign: TextAlign.center,
         ),
       ],
     );
@@ -146,17 +144,16 @@ class _DemoTextTranslateState extends State<DemoTextTranslate> {
   Widget _percent() {
     return Column(
       children: [
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
+        Text.rich(
+          TextSpan(
             text: '*.percentPattern = ',
-            style: Theme.of(context).textTheme.bodyText2,
             children: [
               TextSpan(
                 text: NumberFormat.percentPattern(locale.languageCode).format(60.23),
               ),
             ],
           ),
+          textAlign: TextAlign.center,
         ),
       ],
     );
@@ -165,53 +162,49 @@ class _DemoTextTranslateState extends State<DemoTextTranslate> {
   Widget _currency() {
     return Column(
       children: [
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
+        Text.rich(
+          TextSpan(
             text: '*.compact = ',
-            style: Theme.of(context).textTheme.bodyText2,
             children: [
               TextSpan(
                 text: NumberFormat.compact(locale: localeName).format(12345678),
               ),
             ],
           ),
-        ),
-        RichText(
           textAlign: TextAlign.center,
-          text: TextSpan(
+        ),
+        Text.rich(
+          TextSpan(
             text: '*.simpleCurrency = ',
-            style: Theme.of(context).textTheme.bodyText2,
             children: [
               TextSpan(
                 text: NumberFormat.simpleCurrency(locale: localeName).format(12345678),
               ),
             ],
           ),
-        ),
-        RichText(
           textAlign: TextAlign.center,
-          text: TextSpan(
+        ),
+        Text.rich(
+          TextSpan(
             text: '*.currency = ',
-            style: Theme.of(context).textTheme.bodyText2,
             children: [
               TextSpan(
                 text: NumberFormat.currency(locale: localeName).format(12345678),
               ),
             ],
           ),
-        ),
-        RichText(
           textAlign: TextAlign.center,
-          text: TextSpan(
+        ),
+        Text.rich(
+          TextSpan(
             text: 'formatCurrency = ',
-            style: Theme.of(context).textTheme.bodyText2,
             children: [
               TextSpan(
                 text: widget.formatCurrency(12345),
               ),
             ],
           ),
+          textAlign: TextAlign.center,
         ),
       ],
     );
@@ -220,17 +213,16 @@ class _DemoTextTranslateState extends State<DemoTextTranslate> {
   Widget _select() {
     return Column(
       children: [
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
+        Text.rich(
+          TextSpan(
             text: '?? = ',
-            style: Theme.of(context).textTheme.bodyText2,
             children: const [
               TextSpan(
                 text: '??',
               ),
             ],
           ),
+          textAlign: TextAlign.center,
         ),
       ],
     );
