@@ -95,7 +95,14 @@ class ColorationScheme {
 }
 
 abstract class ColorationData {
-  static ThemeData theme(TextTheme textTheme, ColorationScheme color) {
+  static ThemeData theme({
+    required TextTheme text,
+    required ColorationScheme color,
+
+    /// Lato, 'Mm3Web', sans-serif
+    String? fontFamily = "Lato",
+    // List<String>? fontFallback = const ['Mm3Web'],
+  }) {
     // final TextTheme textTheme = Theme.of(context).textTheme.merge(_textTheme);
 
     return ThemeData(
@@ -105,7 +112,8 @@ abstract class ColorationData {
       // primarySwatch: color.primarySwatch,
 
       // fontFamily: "Lato, Lato, Mm3Web",
-      fontFamily: "Lato, 'Mm3Web', sans-serif",
+      fontFamily: fontFamily,
+
       primaryColor: color.primary,
       primaryColorLight: color.light,
       primaryColorDark: color.dark,
@@ -117,10 +125,13 @@ abstract class ColorationData {
       disabledColor: color.disable,
       errorColor: color.error,
 
-      textTheme: textTheme.apply(
+      textTheme: text.apply(
+        // fontFamily: "Lato, sans-serif",
+        fontFamily: fontFamily,
         bodyColor: color.focus,
         displayColor: color.focus.withOpacity(0.6),
         decorationColor: Colors.red,
+        decorationStyle: TextDecorationStyle.wavy,
       ),
       // primaryTextTheme: textTheme,
       appBarTheme: AppBarTheme(
@@ -131,7 +142,7 @@ abstract class ColorationData {
       ),
 
       // iconTheme: IconThemeData(color: color.focus, size: 23),
-      iconTheme: IconThemeData(color: color.focus, size: 30),
+      iconTheme: IconThemeData(color: color.focus, size: 26),
       cardTheme: CardTheme(
         color: color.primary,
         elevation: 0.5,
@@ -183,7 +194,7 @@ abstract class ColorationData {
         secondarySelectedColor: Colors.blueAccent,
         padding: EdgeInsets.zero,
         // labelStyle: TextStyle(color: Colors.red),
-        labelStyle: textTheme.labelMedium,
+        labelStyle: text.labelMedium,
         // secondaryLabelStyle: TextStyle(color: color.focus),
         brightness: color.brightness,
         // brightness: resolveBrightness,
@@ -287,101 +298,91 @@ abstract class ColorationData {
   // static ColorScheme lightScheme = _lightColor.scheme;
   // static ColorScheme darkScheme = _darkColor.scheme;
 
-  // static const _fontWeightSemiThin = FontWeight.w100;
-  // static const _fontWeightThin = FontWeight.w100;
-  static const _fontWeighMedium = FontWeight.normal;
-  static const _fontWeighBold = FontWeight.w500;
+  static TextTheme textTheme({
+    List<String>? fontFallback = const ['Mm3Web', 'sans-serif'],
+    FontWeight fontWeightMedium = FontWeight.normal,
+    FontWeight fontWeightBold = FontWeight.w500,
+  }) {
+    return TextTheme(
+      displayLarge: TextStyle(
+        fontFamilyFallback: fontFallback,
+        fontWeight: fontWeightMedium,
+        fontSize: 50,
+      ),
+      displayMedium: TextStyle(
+        fontFamilyFallback: fontFallback,
+        fontWeight: fontWeightMedium,
+        fontSize: 45,
+      ),
+      displaySmall: TextStyle(
+        fontFamilyFallback: fontFallback,
+        fontWeight: fontWeightMedium,
+        fontSize: 40,
+      ),
+      headlineLarge: TextStyle(
+        fontFamilyFallback: fontFallback,
+        fontWeight: fontWeightMedium,
+        fontSize: 35,
+      ),
+      headlineMedium: TextStyle(
+        fontFamilyFallback: fontFallback,
+        fontWeight: fontWeightMedium,
+        fontSize: 30,
+      ),
+      headlineSmall: TextStyle(
+        fontFamilyFallback: fontFallback,
+        fontWeight: fontWeightMedium,
+        fontSize: 25,
+      ),
+      // appbar-title
+      titleLarge: TextStyle(
+        fontFamilyFallback: fontFallback,
+        fontWeight: fontWeightMedium,
+        fontSize: 23,
+      ),
+      titleMedium: TextStyle(
+        fontFamilyFallback: fontFallback,
+        fontWeight: fontWeightMedium,
+        fontSize: 21,
+      ),
+      titleSmall: TextStyle(
+        fontFamilyFallback: fontFallback,
+        fontWeight: fontWeightMedium,
+        fontSize: 19,
+      ),
+      bodyLarge: TextStyle(
+        fontFamilyFallback: fontFallback,
+        fontWeight: fontWeightMedium,
+        fontSize: 23,
+      ),
+      bodyMedium: TextStyle(
+        fontFamilyFallback: fontFallback,
+        fontWeight: fontWeightMedium,
+        fontSize: 19,
+      ),
+      bodySmall: TextStyle(
+        fontFamilyFallback: fontFallback,
+        fontWeight: fontWeightMedium,
+        fontSize: 15,
+      ),
 
-  static const TextTheme textTheme = TextTheme(
-    displayLarge: const TextStyle(
-      // fontFamilyFallback: ["Mm3Web", "Lato"],
-      fontWeight: _fontWeighMedium,
-      fontSize: 50,
-      height: 1.0,
-    ),
-    displayMedium: const TextStyle(
-      fontWeight: _fontWeighMedium,
-      fontSize: 45,
-      height: 1.0,
-    ),
-    displaySmall: const TextStyle(
-      fontWeight: _fontWeighMedium,
-      fontSize: 40,
-      height: 1.0,
-    ),
-    headlineLarge: const TextStyle(
-      fontWeight: _fontWeighBold,
-      fontSize: 35,
-      height: 1.0,
-    ),
-    headlineMedium: const TextStyle(
-      fontWeight: _fontWeighMedium,
-      fontSize: 30,
-      height: 1.0,
-    ),
-    headlineSmall: const TextStyle(
-      fontWeight: _fontWeighMedium,
-      fontSize: 25,
-      height: 1.0,
-    ),
-    // appbar-title
-    titleLarge: const TextStyle(
-      fontWeight: _fontWeighMedium,
-      fontSize: 23,
-      height: 1.0,
-    ),
-    titleMedium: const TextStyle(
-      fontWeight: _fontWeighMedium,
-      fontSize: 21,
-      height: 1.0,
-    ),
-    titleSmall: const TextStyle(
-      fontWeight: _fontWeighMedium,
-      fontSize: 19,
-      height: 1.0,
-    ),
-    bodyLarge: const TextStyle(
-      fontWeight: _fontWeighMedium,
-      fontSize: 23,
-      height: 1.0,
-    ),
-    bodyMedium: const TextStyle(
-      fontWeight: _fontWeighMedium,
-      fontSize: 19,
-      height: 1.0,
-    ),
-    bodySmall: const TextStyle(
-      fontWeight: _fontWeighMedium,
-      fontSize: 15,
-      height: 1.0,
-    ),
-    // bodyLarge: const TextStyle(
-    //   fontWeight: _fontWeighMedium,
-    //   fontSize: 29,
-    // ),
-    // bodyMedium: const TextStyle(
-    //   fontWeight: _fontWeighMedium,
-    //   fontSize: 23,
-    // ),
-    // bodySmall: const TextStyle(
-    //   fontWeight: _fontWeighMedium,
-    //   fontSize: 17,
-    // ),
-    labelLarge: const TextStyle(
-      fontWeight: _fontWeighMedium,
-      fontSize: 23,
-    ),
-    labelMedium: const TextStyle(
-      fontWeight: _fontWeighMedium,
-      fontSize: 19,
-      height: 1.3,
-    ),
-    labelSmall: const TextStyle(
-      fontWeight: _fontWeighMedium,
-      fontSize: 15,
-      height: 1.0,
-    ),
-  );
+      labelLarge: TextStyle(
+        fontFamilyFallback: fontFallback,
+        fontWeight: fontWeightMedium,
+        fontSize: 23,
+      ),
+      labelMedium: TextStyle(
+        fontFamilyFallback: fontFallback,
+        fontWeight: fontWeightMedium,
+        fontSize: 19,
+      ),
+      labelSmall: TextStyle(
+        fontFamilyFallback: fontFallback,
+        fontWeight: fontWeightMedium,
+        fontSize: 15,
+      ),
+    );
+  }
 }
 
 extension ColorDimExtension on Color {
