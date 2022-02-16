@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:lidea/widget/main.dart';
 
 class DemoButtonStyle extends StatelessWidget {
   const DemoButtonStyle({Key? key}) : super(key: key);
@@ -21,6 +22,23 @@ class DemoButtonStyle extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               CupertinoButton(
+                onPressed: () => false,
+                child: const Text('Yes'),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const Text('WidgetButton'),
+              const WidgetButton(
+                onPressed: null,
+                child: Text('No'),
+              ),
+              const SizedBox(height: 5),
+              WidgetButton(
                 onPressed: () => false,
                 child: const Text('Yes'),
               ),
