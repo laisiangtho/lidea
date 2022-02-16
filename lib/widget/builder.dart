@@ -73,17 +73,17 @@ class WidgetGridBuilder extends StatelessWidget {
   }
 
   Widget builder(BuildContext context, int index) {
-    if (itemSnap != null) {
-      return FutureBuilder(
-        // future: Future.microtask(() => true),
-        future: Future.delayed(duration, () => true),
-        builder: (_, snap) {
-          if (snap.hasData == false) return itemSnap!;
-          return itemBuilder(context, index);
-        },
-      );
+    if (itemSnap == null) {
+      return itemBuilder(context, index);
     }
-    return itemBuilder(context, index);
+    return FutureBuilder(
+      // future: Future.microtask(() => true),
+      future: Future.delayed(duration, () => true),
+      builder: (_, snap) {
+        if (snap.hasData == false) return itemSnap!;
+        return itemBuilder(context, index);
+      },
+    );
   }
 }
 
@@ -157,17 +157,17 @@ class WidgetListBuilder extends StatelessWidget {
   }
 
   Widget builder(BuildContext context, int index) {
-    if (itemSnap != null) {
-      return FutureBuilder(
-        // future: Future.microtask(() => true),
-        future: Future.delayed(duration, () => true),
-        builder: (_, snap) {
-          if (snap.hasData == false) return itemSnap!;
-          return itemBuilder(context, index);
-        },
-      );
+    if (itemSnap == null) {
+      return itemBuilder(context, index);
     }
-    return itemBuilder(context, index);
+    return FutureBuilder(
+      // future: Future.microtask(() => true),
+      future: Future.delayed(duration, () => true),
+      builder: (_, snap) {
+        if (snap.hasData == false) return itemSnap!;
+        return itemBuilder(context, index);
+      },
+    );
   }
 }
 
@@ -286,4 +286,3 @@ class WidgetChildBuilder extends StatelessWidget {
 //   }
 // }
 
-// void tmp() {}
