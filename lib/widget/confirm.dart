@@ -47,13 +47,11 @@ Future<bool?> doConfirmWithDialog({
     builder: (BuildContext context) => CupertinoAlertDialog(
       title: Text(
         title,
-        style: Theme.of(context).textTheme.bodyText1!.copyWith(),
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
       content: Text(
         message,
-        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-              fontSize: 15,
-            ),
+        style: Theme.of(context).textTheme.labelLarge,
       ),
       actions: <Widget>[
         CupertinoDialogAction(
