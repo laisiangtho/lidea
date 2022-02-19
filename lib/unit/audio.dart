@@ -210,13 +210,13 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements Au
   @override
   Future<void> skipToNext() async {
     await _player.seekToNext();
-    playIfNotPlay();
+    _playIfNotPlay();
   }
 
   @override
   Future<void> skipToPrevious() async {
     await _player.seekToPrevious();
-    playIfNotPlay();
+    _playIfNotPlay();
   }
 
   @override
@@ -227,7 +227,7 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements Au
       Duration.zero,
       index: _player.shuffleModeEnabled ? _player.shuffleIndices![index] : index,
     );
-    playIfNotPlay();
+    _playIfNotPlay();
   }
 
   Future<void> skipToQueueItemId(String mediaId) async {
@@ -235,7 +235,7 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements Au
     final index = queue.value.indexWhere((item) => item.id == mediaId);
     if (index < 0) return;
     await _player.seek(Duration.zero, index: index);
-    playIfNotPlay();
+    _playIfNotPlay();
   }
 
   @override
@@ -311,6 +311,7 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements Au
         _player.seek(Duration.zero, index: 0);
       }
     }).onError(_onError);
+
     // Broadcast media item changes.
     // _player.currentIndexStream.listen((index) {
     //   // if (index != null) mediaItem.add(queue.value[index]);
@@ -320,17 +321,11 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements Au
     // Propagate all events from the audio player to AudioService clients.
     _player.playbackEventStream.listen(_broadcastState).onError(_onError);
 
-    try {
-      await _player.setAudioSource(_playlist).catchError((e) {
-        _onError(e);
-      });
-    } catch (e) {
-      setMessage('?');
-    }
+    await _setIfNotSet();
   }
 
-  void _onError(dynamic e) {
-    stop();
+  Future<void> _onError(dynamic e) async {
+    await stop();
     if (e is PlayerException) {
       // Source error: No internet, No audio
       setMessage(e.message ?? 'No Internet');
@@ -421,9 +416,23 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements Au
     return Stream.fromIterable(items).asyncMap(generateAudioSourceItem).toList();
   }
 
-  Future<void> playIfNotPlay() async {
+  Future<void> _playIfNotPlay() async {
+    await _setIfNotSet();
     if (!_player.playing) {
       await play();
+    }
+  }
+
+  Future<void> _setIfNotSet() async {
+    try {
+      if (_player.audioSource == null && _playlist.length > 0) {
+        // setMessage('Loading');
+        await _player.setAudioSource(_playlist).catchError((e) {
+          _onError(e);
+        });
+      }
+    } catch (e) {
+      setMessage('?');
     }
   }
 }
