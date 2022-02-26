@@ -14,6 +14,7 @@ class WidgetLabel extends StatelessWidget {
     this.enable = true,
     this.labelPadding = EdgeInsets.zero,
     this.maxLines = 1,
+    this.textAlign,
     this.labelStyle,
     this.padding = EdgeInsets.zero,
     this.alignment,
@@ -31,6 +32,7 @@ class WidgetLabel extends StatelessWidget {
   final TextOverflow overflow;
   final EdgeInsetsGeometry? labelPadding;
   final int? maxLines;
+  final TextAlign? textAlign;
   final TextStyle? labelStyle;
   final EdgeInsetsGeometry? padding;
   final AlignmentGeometry? alignment;
@@ -68,6 +70,7 @@ class WidgetLabel extends StatelessWidget {
                 maxLines: maxLines,
                 overflow: overflow,
                 softWrap: softWrap,
+                textAlign: textAlign,
               )
             : avatar,
 
