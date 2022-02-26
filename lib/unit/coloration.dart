@@ -338,17 +338,17 @@ abstract class ColorationData {
       titleLarge: TextStyle(
         fontFamilyFallback: fontFallback,
         fontWeight: fontWeightMedium,
-        fontSize: 23,
+        fontSize: 21,
       ),
       titleMedium: TextStyle(
         fontFamilyFallback: fontFallback,
         fontWeight: fontWeightMedium,
-        fontSize: 21,
+        fontSize: 19,
       ),
       titleSmall: TextStyle(
         fontFamilyFallback: fontFallback,
         fontWeight: fontWeightMedium,
-        fontSize: 19,
+        fontSize: 17,
       ),
       bodyLarge: TextStyle(
         fontFamilyFallback: fontFallback,
