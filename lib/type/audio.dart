@@ -43,19 +43,50 @@ class AudioQueueStateType {
 
 // To be used in other list
 class AudioMediaStateType {
-  // final List<MediaItem> queue;
+  final dynamic id;
   final int? index;
-  final String? id;
   final bool queued;
   final bool playing;
+  // final double caching;
+  // final bool cached;
+  final AudioCacheType cache;
+  // final bool cached;
 
   const AudioMediaStateType({
     // this.queue,
-    this.index,
     this.id,
+    this.index,
     this.queued = false,
     this.playing = false,
+    // this.caching = 0.0,
+    // this.cached = false,
+    this.cache = const AudioCacheType(),
+    // this.cached = false,
   });
+}
+
+class AudioCacheType {
+  final int id;
+  final double caching;
+  final bool progress;
+
+  const AudioCacheType({
+    this.id = 0,
+    this.caching = 0.0,
+    this.progress = false,
+  });
+
+  AudioCacheType copyWith({
+    int? id,
+    double? caching,
+    bool? progress,
+  }) {
+    return AudioCacheType(
+      id: id ?? this.id,
+      caching: caching ?? this.caching,
+      progress: progress ?? this.progress,
+    );
+  }
 }
 
 class AudioPositionType {
