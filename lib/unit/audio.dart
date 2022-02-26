@@ -1,5 +1,7 @@
 // import 'dart:async';
 
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -68,15 +70,15 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements Au
 
   /// A stream reporting the combined state of the current queue and the current media item within that queue.
   @override
-  Stream<AudioMediaStateType> mediaState(String trackId) {
+  Stream<AudioMediaStateType> mediaState(String sid) {
     return Rx.combineLatest3<List<MediaItem>, PlaybackState, int?, AudioMediaStateType>(
       queue,
       playbackState,
       _player.currentIndexStream,
       (queue, state, index) {
-        final queued = queue.indexWhere((e) => e.id == trackId) >= 0;
+        final queued = queue.indexWhere((e) => e.id == sid) >= 0;
         final id = (index != null && index < queue.length) ? queue[index].id : null;
-        final playing = (id != null && id == trackId) ? state.playing : false;
+        final playing = (id != null && id == sid) ? state.playing : false;
         return AudioMediaStateType(
           index: state.queueIndex,
           id: id,
@@ -267,6 +269,11 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements Au
     // final session = await AudioSession.instance;
     // await session.configure(const AudioSessionConfiguration.speech());
 
+    // await _player.setShuffleModeEnabled(false);
+    // await _player.setLoopMode(LoopMode.all);
+    await setRepeatMode(AudioServiceRepeatMode.all);
+    await setShuffleMode(AudioServiceShuffleMode.none);
+
     // Broadcast speed changes. Debounce so that we don't flood the notification with updates.
     speed.debounceTime(const Duration(milliseconds: 250)).listen((speed) {
       playbackState.add(playbackState.value.copyWith(speed: speed));
@@ -310,7 +317,7 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements Au
         stop();
         _player.seek(Duration.zero, index: 0);
       }
-    }).onError(_onError);
+    }).onError(setMessageOnException);
 
     // Broadcast media item changes.
     // _player.currentIndexStream.listen((index) {
@@ -319,12 +326,13 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements Au
     // });
 
     // Propagate all events from the audio player to AudioService clients.
-    _player.playbackEventStream.listen(_broadcastState).onError(_onError);
+    _player.playbackEventStream.listen(_broadcastState).onError(setMessageOnException);
 
     await _setIfNotSet();
   }
 
-  Future<void> _onError(dynamic e) async {
+  // Handle Exception and notify to UI
+  Future<void> setMessageOnException(dynamic e) async {
     await stop();
     if (e is PlayerException) {
       // Source error: No internet, No audio
@@ -334,6 +342,8 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements Au
       setMessage(e.message ?? 'Audio interrupted');
     } else if (e is PlatformException) {
       setMessage(e.message ?? 'Platform exception');
+    } else if (e is SocketException) {
+      setMessage('No Internet');
     } else {
       if (_playlist.length > 0) {
         setMessage('Unknown error');
@@ -428,7 +438,7 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements Au
       if (_player.audioSource == null && _playlist.length > 0) {
         // setMessage('Loading');
         await _player.setAudioSource(_playlist).catchError((e) {
-          _onError(e);
+          setMessageOnException(e);
         });
       }
     } catch (e) {
