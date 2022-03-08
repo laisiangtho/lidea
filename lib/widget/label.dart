@@ -1,6 +1,24 @@
 part of 'main.dart';
 
 class WidgetLabel extends StatelessWidget {
+  final String? label;
+  final String message;
+  final IconData? icon;
+  // final bool iconLeft;
+  final double? iconSize;
+  final Color? iconColor;
+  final bool softWrap;
+  final bool enable;
+  final TextOverflow overflow;
+  final EdgeInsetsGeometry? labelPadding;
+  final BoxDecoration? decoration;
+  final int? maxLines;
+  final TextAlign? textAlign;
+  final TextStyle? labelStyle;
+  final EdgeInsetsGeometry? padding;
+  final AlignmentGeometry? alignment;
+  final MaterialTapTargetSize? materialTapTargetSize;
+
   const WidgetLabel({
     Key? key,
     this.icon,
@@ -13,6 +31,7 @@ class WidgetLabel extends StatelessWidget {
     this.softWrap = false,
     this.enable = true,
     this.labelPadding = EdgeInsets.zero,
+    this.decoration,
     this.maxLines = 1,
     this.textAlign,
     this.labelStyle,
@@ -20,23 +39,6 @@ class WidgetLabel extends StatelessWidget {
     this.alignment,
     this.materialTapTargetSize = MaterialTapTargetSize.shrinkWrap,
   }) : super(key: key);
-
-  final String? label;
-  final String message;
-  final IconData? icon;
-  // final bool iconLeft;
-  final double? iconSize;
-  final Color? iconColor;
-  final bool softWrap;
-  final bool enable;
-  final TextOverflow overflow;
-  final EdgeInsetsGeometry? labelPadding;
-  final int? maxLines;
-  final TextAlign? textAlign;
-  final TextStyle? labelStyle;
-  final EdgeInsetsGeometry? padding;
-  final AlignmentGeometry? alignment;
-  final MaterialTapTargetSize? materialTapTargetSize;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +57,7 @@ class WidgetLabel extends StatelessWidget {
     //     data: MediaQuery.of(context),
     return Container(
       alignment: alignment,
+      decoration: decoration,
       child: Chip(
         padding: padding,
         avatar: (icon != null)
