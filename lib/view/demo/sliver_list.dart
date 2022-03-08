@@ -15,10 +15,12 @@ class DemoSliverList extends StatelessWidget {
         childCount: 1,
       ),
     );
-    // return SliverList(
-    //   delegate: SliverChildListDelegate(
-    //     <Widget>[],
-    //   ),
-    // );
+    /*
+    return SliverList(
+      delegate: SliverChildListDelegate(
+        <Widget>[],
+      ),
+    );
+    */
   }
 }
