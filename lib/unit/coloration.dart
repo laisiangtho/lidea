@@ -369,12 +369,13 @@ abstract class ColorationData {
       labelLarge: TextStyle(
         fontFamilyFallback: fontFallback,
         fontWeight: fontWeightMedium,
-        fontSize: 23,
+        // fontSize: 23,
+        fontSize: 20,
       ),
       labelMedium: TextStyle(
         fontFamilyFallback: fontFallback,
         fontWeight: fontWeightMedium,
-        fontSize: 19,
+        fontSize: 18,
       ),
       labelSmall: TextStyle(
         fontFamilyFallback: fontFallback,
