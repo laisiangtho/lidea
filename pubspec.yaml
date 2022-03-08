@@ -34,10 +34,10 @@ dependencies:
   cached_network_image: ^3.2.0
 
   # Custom
-  in_app_purchase: ^3.0.0
+  in_app_purchase: ^3.0.1
   sqflite: ^2.0.2
   just_audio: ^0.9.20
-  audio_service: ^0.18.3
+  audio_service: ^0.18.4
   # audio_session: ^0.1.6+1
   # rxdart: ^0.27.3
   # flutter_tts: ^3.3.3
