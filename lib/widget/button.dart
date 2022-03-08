@@ -33,7 +33,7 @@ class WidgetButton extends StatefulWidget {
     this.child,
     this.onPressed,
     this.onLongPress,
-    this.duration = const Duration(milliseconds: 0),
+    this.duration = const Duration(milliseconds: 100),
     this.opacity = 0.3,
     this.margin = const EdgeInsets.all(0.0),
     this.padding = const EdgeInsets.all(0.0),
@@ -55,12 +55,14 @@ class WidgetButton extends StatefulWidget {
 class _WidgetButtonState extends State<WidgetButton> {
   bool down = false;
 
-  void setOptical(bool isDown) {
-    if (mounted) {
-      setState(() {
-        down = isDown;
-      });
-    }
+  Future<void> setOptical(bool isDown) {
+    return Future.microtask(() {
+      if (mounted && down != isDown) {
+        setState(() {
+          down = isDown;
+        });
+      }
+    });
   }
 
   // @override
@@ -100,13 +102,17 @@ class _WidgetButtonState extends State<WidgetButton> {
         //   // widget.onPressed!.call();
         //   widget.onPressed!();
         // }
-        widget.onPressed?.call();
-        setOptical(true);
+        // widget.onPressed?.call();
+        setOptical(true).whenComplete(() {
+          widget.onPressed?.call();
+        });
       },
       onLongPress: widget.onLongPress,
       child: Padding(
         padding: widget.margin,
         child: AnimatedOpacity(
+          duration: widget.duration,
+          opacity: opticityDisabled,
           child: Material(
             // MaterialType type = MaterialType.canvas,
             // double elevation = 0.0,
@@ -133,23 +139,7 @@ class _WidgetButtonState extends State<WidgetButton> {
                 ),
               ),
             ),
-
-            // child: Container(
-            //   // alignment: Alignment.centerLeft,
-            //   padding: widget.padding,
-            //   height: widget.height,
-            //   width: widget.width,
-            //   // constraints: BoxConstraints.expand(),
-            //   // constraints: BoxConstraints(
-            //   //   minHeight: double.maxFinite,
-            //   //   minWidth: double.maxFinite,
-            //   // ),
-            //   decoration: widget.decoration,
-            //   child: widget.child,
-            // ),
           ),
-          duration: widget.duration,
-          opacity: opticityDisabled,
         ),
       ),
     );
