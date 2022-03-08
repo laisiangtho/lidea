@@ -4,13 +4,16 @@ part of 'main.dart';
 class WidgetGridBuilder extends StatelessWidget {
   final Widget Function(BuildContext, int) itemBuilder;
   final int itemCount;
-  final Widget? itemSnap;
+  // final Widget? itemSnap;
+  final Widget Function(BuildContext, int)? itemSnap;
+  final Widget? itemVoid;
   final EdgeInsetsGeometry padding;
   final SliverGridDelegate gridDelegate;
   final Duration duration;
 
   ///const NeverScrollableScrollPhysics()
   final ScrollPhysics? physics;
+  final ScrollController? scrollController;
 
   /// if primary is not provided sliver is use to render
   final bool? primary;
@@ -21,13 +24,17 @@ class WidgetGridBuilder extends StatelessWidget {
     required this.itemCount,
     required this.itemBuilder,
     this.itemSnap,
+    this.itemVoid,
     this.padding = EdgeInsets.zero,
     this.primary,
     this.shrinkWrap = false,
     this.duration = const Duration(milliseconds: 0),
-    this.physics,
+    this.physics = const NeverScrollableScrollPhysics(),
+    this.scrollController,
     required this.gridDelegate,
   }) : super(key: key);
+
+  bool get voided => itemCount == 0;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +46,7 @@ class WidgetGridBuilder extends StatelessWidget {
   }
 
   Widget widgets(BuildContext context) {
-    if (itemCount == 0) return const SizedBox();
+    if (voided) return SizedBox(child: itemVoid);
     return Padding(
       padding: padding,
       child: GridView.builder(
@@ -47,7 +54,8 @@ class WidgetGridBuilder extends StatelessWidget {
         primary: primary,
         shrinkWrap: shrinkWrap,
         padding: EdgeInsets.zero,
-        physics: const NeverScrollableScrollPhysics(),
+        physics: physics,
+        controller: scrollController,
         gridDelegate: gridDelegate,
         itemBuilder: builder,
         itemCount: itemCount,
@@ -57,7 +65,7 @@ class WidgetGridBuilder extends StatelessWidget {
   }
 
   Widget slivers(BuildContext context) {
-    if (itemCount == 0) return const SliverToBoxAdapter();
+    if (voided) return SliverToBoxAdapter(child: itemVoid);
     return SliverPadding(
       key: key,
       padding: padding,
@@ -73,16 +81,18 @@ class WidgetGridBuilder extends StatelessWidget {
   }
 
   Widget builder(BuildContext context, int index) {
-    if (itemSnap == null) {
-      return itemBuilder(context, index);
-    }
-    return FutureBuilder(
-      // future: Future.microtask(() => true),
-      future: Future.delayed(duration, () => true),
-      builder: (_, snap) {
-        if (snap.hasData == false) return itemSnap!;
-        return itemBuilder(context, index);
-      },
+    return Material(
+      key: ValueKey(key),
+      child: FutureBuilder(
+        // future: Future.microtask(() => true),
+        future: Future.delayed(duration, () => true),
+        builder: (_, snap) {
+          if (snap.hasData == false && itemSnap != null) {
+            return itemSnap!(context, index);
+          }
+          return itemBuilder(context, index);
+        },
+      ),
     );
   }
 }
@@ -91,10 +101,13 @@ class WidgetGridBuilder extends StatelessWidget {
 class WidgetListBuilder extends StatelessWidget {
   final int itemCount;
   final Widget Function(BuildContext, int) itemBuilder;
-  final Widget? itemSnap;
+  final void Function(int, int)? itemReorderable;
+  final Widget Function(BuildContext, int)? itemSnap;
+  final Widget? itemVoid;
   final EdgeInsetsGeometry padding;
   final Duration duration;
   final Axis scrollDirection;
+  final ScrollController? scrollController;
 
   ///const NeverScrollableScrollPhysics()
   final ScrollPhysics? physics;
@@ -107,14 +120,20 @@ class WidgetListBuilder extends StatelessWidget {
     Key? key,
     required this.itemBuilder,
     required this.itemCount,
+    this.itemReorderable,
     this.itemSnap,
+    this.itemVoid,
     this.padding = EdgeInsets.zero,
     this.primary,
     this.shrinkWrap = false,
     this.duration = const Duration(milliseconds: 0),
     this.scrollDirection = Axis.vertical,
+    this.scrollController,
     this.physics,
   }) : super(key: key);
+
+  bool get voided => itemCount == 0;
+  bool get reorderable => itemReorderable != null;
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +145,26 @@ class WidgetListBuilder extends StatelessWidget {
   }
 
   Widget widgets(BuildContext context) {
-    if (itemCount == 0) return const SizedBox();
+    if (voided) return SizedBox(child: itemVoid);
+
+    if (reorderable) {
+      return Padding(
+        key: key,
+        padding: padding,
+        child: ReorderableListView.builder(
+          primary: primary,
+          shrinkWrap: shrinkWrap,
+          padding: EdgeInsets.zero,
+          scrollDirection: scrollDirection,
+          scrollController: scrollController,
+          physics: physics,
+          itemBuilder: builder,
+          itemCount: itemCount,
+          onReorder: itemReorderable!,
+        ),
+      );
+    }
+
     return Padding(
       padding: padding,
       child: ListView.builder(
@@ -135,6 +173,7 @@ class WidgetListBuilder extends StatelessWidget {
         shrinkWrap: shrinkWrap,
         padding: EdgeInsets.zero,
         scrollDirection: scrollDirection,
+        controller: scrollController,
         physics: physics,
         itemBuilder: builder,
         itemCount: itemCount,
@@ -143,11 +182,24 @@ class WidgetListBuilder extends StatelessWidget {
   }
 
   Widget slivers(BuildContext context) {
-    if (itemCount == 0) return const SliverToBoxAdapter();
+    if (voided) return SliverToBoxAdapter(child: itemVoid);
+
+    if (reorderable) {
+      return SliverPadding(
+        key: key,
+        padding: padding,
+        sliver: SliverReorderableList(
+          itemBuilder: builder,
+          itemCount: itemCount,
+          onReorder: itemReorderable!,
+        ),
+      );
+    }
+
     return SliverPadding(
-      key: key,
       padding: padding,
       sliver: SliverList(
+        key: key,
         delegate: SliverChildBuilderDelegate(
           builder,
           childCount: itemCount,
@@ -157,16 +209,18 @@ class WidgetListBuilder extends StatelessWidget {
   }
 
   Widget builder(BuildContext context, int index) {
-    if (itemSnap == null) {
-      return itemBuilder(context, index);
-    }
-    return FutureBuilder(
-      // future: Future.microtask(() => true),
-      future: Future.delayed(duration, () => true),
-      builder: (_, snap) {
-        if (snap.hasData == false) return itemSnap!;
-        return itemBuilder(context, index);
-      },
+    return Material(
+      key: ValueKey(key),
+      child: FutureBuilder<bool>(
+        // future: Future.delayed(duration, () => true),
+        future: Future<bool>.microtask(() => true),
+        builder: (_, snap) {
+          if (snap.hasData == false && itemSnap != null) {
+            return itemSnap!(context, index);
+          }
+          return itemBuilder(context, index);
+        },
+      ),
     );
   }
 }
