@@ -1,13 +1,46 @@
 part of 'main.dart';
 
 class ViewHeaderData {
+  final double minHeight;
+  final double maxHeight;
+
   final double offset;
   final bool overlaps;
-  final double shrink;
-  final double stretch;
+  // final double shrink;
+  // final double stretch;
 
-  const ViewHeaderData(
-      {required this.offset, required this.overlaps, required this.shrink, required this.stretch});
+  const ViewHeaderData({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.offset,
+    required this.overlaps,
+    // required this.shrink,
+    // required this.stretch,
+  });
+
+  // double get stretch => (offset / maxHeight).clamp(0.0, 1.0).toDouble();
+  // double get shrink => 1.0 - stretch;
+  double get stretch => stretchOffsetDouble(maxHeight);
+  double get shrink => shrinkOffsetDouble(maxHeight);
+
+  double get snapExtent => maxHeight - minHeight;
+
+  double get snapHeight => snapExtent - offset.clamp(0.0, snapExtent).toDouble();
+
+  // double get snapStretch => (offset / snapExtent).clamp(0.0, 1.0).toDouble();
+  // double get snapShrink => 1.0 - snapStretch;
+  double get snapStretch => stretchOffsetDouble(snapExtent);
+  double get snapShrink => shrinkOffsetDouble(snapExtent);
+
+  /// 0.0 to 1.0
+  double stretchOffsetDouble(double size) {
+    return (offset / size).clamp(0.0, 1.0).toDouble();
+  }
+
+  /// 1.0 to 0.0
+  double shrinkOffsetDouble(double size) {
+    return 1.0 - stretchOffsetDouble(size);
+  }
 }
 
 class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
@@ -17,9 +50,9 @@ class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
     this.maxHeight: kToolbarHeight,
     this.reservedTop: false,
   });
+  final Function(BuildContext, double, bool) builder;
   final double minHeight;
   final double maxHeight;
-  final Function builder;
   final bool reservedTop;
 
   @override
@@ -37,19 +70,12 @@ class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
   // @override
   // OverScrollHeaderStretchConfiguration get stretchConfiguration => OverScrollHeaderStretchConfiguration();
 
-  double stretchDouble(double shrinkOffset) => (shrinkOffset / maxExtent).toDouble();
-  double shrinkDouble(double stretch) => (1.0 - stretch).toDouble();
-
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double offset, bool overlapsContent) {
     // double padding = MediaQuery.of(context).padding.top;
-    double stretch = stretchDouble(shrinkOffset);
-    // double stretch = stretchDouble(shrinkOffset+padding,maxExtent+padding).clamp(0.0,1.0);
-    double shrink = shrinkDouble(stretch);
-    // || shrinkOffset >= minExtent
 
-    return new SizedBox.expand(
-      child: this.builder(context, shrinkOffset, overlapsContent, shrink, stretch),
+    return SizedBox.expand(
+      child: builder(context, offset, overlapsContent),
     );
   }
 }
@@ -59,6 +85,7 @@ class ViewHeaderSliverSnap extends StatelessWidget {
     Key? key,
     this.pinned: true,
     this.floating: true,
+    this.heroTag: 'appbar-primary',
     required this.builder,
     required this.heights,
     this.padding: EdgeInsets.zero,
@@ -72,10 +99,11 @@ class ViewHeaderSliverSnap extends StatelessWidget {
 
   final bool pinned;
   final bool floating;
+  final String heroTag;
 
   final EdgeInsetsGeometry padding;
 
-  final Function builder;
+  final Function(BuildContext, ViewHeaderData) builder;
   final List<double> heights;
 
   final Color? backgroundColor;
@@ -100,24 +128,33 @@ class ViewHeaderSliverSnap extends StatelessWidget {
       pinned: pinned,
       floating: floating,
       delegate: ViewHeaderDelegate(
-        _bar,
+        (BuildContext context, double offset, bool overlaps) {
+          Widget ui = _bar(context, offset, overlaps);
+          if (heroTag.isNotEmpty) {
+            return ui;
+          }
+          return Hero(
+            tag: heroTag,
+            child: ui,
+          );
+        },
         maxHeight: maxHeight,
         minHeight: minHeight,
       ),
     );
   }
 
-  Widget _bar(BuildContext context, double offset, bool overlaps, double shrink, double stretch) {
-    // double snapExtent = _barMaxHeight - (_barHeight + MediaQuery.of(context).padding.top);
-    // double snapShrink = 1.0 - (offset/snapExtent).clamp(0.0, 1.0).toDouble();
-    // double snapOffset = snapExtent-offset.clamp(0.0, snapExtent).toDouble();
+  Widget _bar(BuildContext context, double offset, bool overlaps) {
     final double snapExtent = maxHeight - minHeight;
-    final double snapStretch = (offset / snapExtent).clamp(0.0, 1.0).toDouble();
-    final double snapShrink = 1.0 - snapStretch;
-    final double snapOffset = snapExtent - offset.clamp(0.0, snapExtent).toDouble();
-    // final bool snapOverlaps = overlaps || snapOffset == 0.0;
+
+    // final bool snapOverlaps = (snapExtent > 0.0)
+    //     ? overlaps || snapOffset == 0.0
+    //     : (overlapsForce == false)
+    //         ? offset > 0.0
+    //         : overlapsForce;
+    // offset >= snapExtent
     final bool snapOverlaps = (snapExtent > 0.0)
-        ? overlaps || snapOffset == 0.0
+        ? overlaps || offset >= snapExtent
         : (overlapsForce == false)
             ? offset > 0.0
             : overlapsForce;
@@ -132,19 +169,13 @@ class ViewHeaderSliverSnap extends StatelessWidget {
       borderRadius: borderRadius,
       child: builder(
         context,
-        // chain
         ViewHeaderData(
+          maxHeight: maxHeight,
+          minHeight: minHeight,
           offset: offset,
-          overlaps: overlaps,
-          shrink: shrink,
-          stretch: stretch,
-        ),
-        // snap
-        ViewHeaderData(
-          offset: snapOffset,
           overlaps: snapOverlaps,
-          shrink: snapShrink,
-          stretch: snapStretch,
+          // shrink: shrink,
+          // stretch: stretch,
         ),
       ),
     );

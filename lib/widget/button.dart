@@ -2,6 +2,8 @@ part of 'main.dart';
 
 class WidgetButton extends StatefulWidget {
   final Widget? child;
+  final bool enable;
+  final bool show;
   final void Function()? onPressed;
   final void Function()? onLongPress;
   final Duration duration;
@@ -31,6 +33,8 @@ class WidgetButton extends StatefulWidget {
   const WidgetButton({
     Key? key,
     this.child,
+    this.enable = true,
+    this.show = true,
     this.onPressed,
     this.onLongPress,
     this.duration = const Duration(milliseconds: 100),
@@ -75,7 +79,7 @@ class _WidgetButtonState extends State<WidgetButton> {
   //   super.dispose();
   // }
 
-  bool get enabled => widget.onPressed != null;
+  bool get enabled => widget.enable ? widget.onPressed != null : false;
   double get opticityDisabled {
     // (widget.opacity > 0.2) ? widget.opacity - 0.2 : 0.0;
     if (enabled) {
@@ -88,6 +92,8 @@ class _WidgetButtonState extends State<WidgetButton> {
 
   @override
   Widget build(BuildContext context) {
+    if (!widget.show) return const SizedBox();
+
     return GestureDetector(
       key: widget.key,
       onTapDown: (_) => setOptical(true),
@@ -103,9 +109,11 @@ class _WidgetButtonState extends State<WidgetButton> {
         //   widget.onPressed!();
         // }
         // widget.onPressed?.call();
-        setOptical(true).whenComplete(() {
-          widget.onPressed?.call();
-        });
+        if (enabled) {
+          setOptical(true).whenComplete(() {
+            widget.onPressed?.call();
+          });
+        }
       },
       onLongPress: widget.onLongPress,
       child: Padding(

@@ -39,6 +39,7 @@ class ViewScrollNotify extends Notify {
   // int get milliseconds => [0.0, 1.0].contains(heightFactor) ? 200 : 0;
 
   double get kHeightMax => (kBottomNavigationBarHeight + reservedHeight).toDouble();
+  // double get kStatusHeight => MediaQueryData.fromWindow(window).padding.top;
   // final double kHeightMin = 0.0;
 
   double _delta = 0.0;

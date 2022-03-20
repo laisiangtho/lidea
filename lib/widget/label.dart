@@ -10,12 +10,12 @@ class WidgetLabel extends StatelessWidget {
   final bool softWrap;
   final bool enable;
   final TextOverflow overflow;
-  final EdgeInsetsGeometry? labelPadding;
+  final EdgeInsetsGeometry labelPadding;
   final BoxDecoration? decoration;
   final int? maxLines;
   final TextAlign? textAlign;
   final TextStyle? labelStyle;
-  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry padding;
   final AlignmentGeometry? alignment;
   final MaterialTapTargetSize? materialTapTargetSize;
 
@@ -55,6 +55,7 @@ class WidgetLabel extends StatelessWidget {
     // Material(
     //   child: MediaQuery(
     //     data: MediaQuery.of(context),
+
     return Container(
       alignment: alignment,
       decoration: decoration,
@@ -90,9 +91,37 @@ class WidgetLabel extends StatelessWidget {
         // clipBehavior: Clip.none,
       ),
     );
+
+    // return Container(
+    //   alignment: alignment,
+    //   decoration: decoration,
+    //   child: Padding(
+    //     padding: padding,
+    //     child: Row(
+    //       mainAxisSize: MainAxisSize.min,
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         if (icon != null) avatar,
+    //         Padding(
+    //           padding: labelPadding,
+    //           child: Flexible(
+    //             fit: FlexFit.loose,
+    //             child: Text(
+    //               label ?? '',
+    //               maxLines: maxLines,
+    //               overflow: overflow,
+    //               softWrap: softWrap,
+    //               textAlign: textAlign,
+    //             ),
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 
-  Icon get avatar {
+  Widget get avatar {
     return Icon(
       icon,
       size: iconSize,

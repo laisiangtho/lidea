@@ -1,17 +1,8 @@
 import 'dart:math';
+// import 'dart:ui';
 import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
 import 'package:lidea/provider.dart';
 import 'package:lidea/unit/notify.dart';
-// import 'model.dart';
-// import 'notify.dart';
-// import 'package:flutter/foundation.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
-// export 'view/model.dart';
-// export 'view/notify.dart';
-// export 'view/page.dart';
-// export 'view/header.dart';
 
 part 'model.dart';
 part 'header.dart';
