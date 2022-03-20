@@ -339,6 +339,7 @@ abstract class ColorationData {
         fontFamilyFallback: fontFallback,
         fontWeight: fontWeightMedium,
         fontSize: 21,
+        // height: 1.3,
       ),
       titleMedium: TextStyle(
         fontFamilyFallback: fontFallback,
