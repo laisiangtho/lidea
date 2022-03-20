@@ -94,6 +94,7 @@
   "music": "{plural, select, true{ဂီတများ} other{ဂီတ}}",
   "artist": "{plural, select, true{အဆိုတော်များ} other{အဆိုတော်}}",
   "album": "{plural, select, true{သီချင်းခွေများ} other{သီချင်းခွေ}}",
-  "recentPlay": "{plural, select, true{လတ်တလော နားထောင်မှုများ} other{လတ်တလော နားထောင်မှု}}"
+  "recentPlay": "{plural, select, true{သဒ္ဒါရုံများ} other{သဒ္ဒါရုံ}}",
+  "recentPlayTmp": "{plural, select, true{လတ်တလော နားထောင်မှုများ} other{လတ်တလော နားထောင်မှု}}"
 
 }
