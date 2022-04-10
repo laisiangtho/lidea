@@ -1,4 +1,4 @@
-part of 'main.dart';
+part of lidea.type;
 
 // NOTE: only type, EnvironmentType child
 class ProductsType {

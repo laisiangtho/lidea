@@ -1,4 +1,4 @@
-part of 'main.dart';
+part of lidea.type;
 
 // NOTE: only type
 class EnvironmentType {
@@ -15,7 +15,7 @@ class EnvironmentType {
   Iterable<APIType> api;
 
   List<ProductsType> products;
-  SettingType setting;
+  Map<String, dynamic> settings;
 
   Map<String, Map<String, dynamic>> language;
 
@@ -33,7 +33,7 @@ class EnvironmentType {
     required this.token,
     required this.api,
     required this.products,
-    required this.setting,
+    required this.settings,
     required this.attach,
     required this.language,
   });
@@ -50,7 +50,11 @@ class EnvironmentType {
       token: (o['token'] ?? "[]").map<TokenType>((e) => TokenType.fromJSON(e)).toList(),
       api: (o['api'] ?? "[]").map<APIType>((e) => APIType.fromJSON(e)).toList(),
       products: o['products'].map<ProductsType>((e) => ProductsType.fromJSON(e)).toList(),
-      setting: SettingType.fromJSON(o["setting"]),
+      // settings: SettingType.fromJSON(o["settings"]),
+      // settingsDemo: SettingsDemoType.fromJSONTesting(o["settings"]),
+      // settingsDemo: (o["settings"] ?? {}).map((key, value) => MapEntry(key, value)),
+      // settingsDemo: (o["settings"] ?? {}).cast<Map<String, dynamic>>(),
+      settings: (o["settings"] ?? {}).cast<String, dynamic>(),
       language: (o['language'] ?? {}).cast<String, Map<String, dynamic>>(),
       attach: (o['attach'] ?? {}).map<dynamic, dynamic>((k, v) => MapEntry(k, v)),
     );
@@ -58,7 +62,7 @@ class EnvironmentType {
 
   Map<String, dynamic> toJSON() {
     return {
-      "setting": setting.toString(),
+      "settings": settings.toString(),
     };
   }
 

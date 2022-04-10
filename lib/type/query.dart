@@ -1,4 +1,4 @@
-part of 'main.dart';
+part of lidea.type;
 
 /// This use to format search suggestion type
 /// Map<String, Object?>
@@ -24,6 +24,34 @@ class ConclusionType<T> {
   const ConclusionType({
     this.query = '',
     this.raw = const [],
+  });
+}
+
+/// SuggestionType<Map<String, Object?>>;
+/// ConclusionType<OfRawType>;
+/// ConclusionRawType; SuggestionRawType
+/// type: 0 = track, 1 = album, 2 = artist
+class OfRawType {
+  final String term;
+  final int count;
+  final int limit;
+  final int type;
+
+  /// List of int
+  final List<int> kid;
+
+  /// List of String
+  final List<String> uid;
+
+  // indexs ids uid uid, kid kid
+
+  OfRawType({
+    this.term = '',
+    this.count = 0,
+    this.limit = 0,
+    this.type = 0,
+    this.kid = const [],
+    this.uid = const [],
   });
 }
 
