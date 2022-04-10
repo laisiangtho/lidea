@@ -1,27 +1,28 @@
-// import 'package:flutter/foundation.dart';
+part of lidea.cluster;
 
-import "package:lidea/hive.dart";
-import "package:lidea/extension.dart";
-import "package:lidea/type/main.dart";
-import "package:lidea/util/main.dart";
-
-abstract class ClusterDocket {
-  bool requireInitialized = true;
+class ClusterDocket {
+// retrieve the instance through the app
+  // ClusterDocket.internal();
 
   late EnvironmentType env;
-  late Box<SettingType> boxOfSetting;
-  late Box<PurchaseType> boxOfPurchase;
-  late Box<RecentSearchType> boxOfRecentSearch;
   late GistData gist;
+
+  late bool _isInstalls;
+  late bool _isUpdates;
+  bool get requireInitialized => _isInstalls || _isUpdates;
+
+  late final boxOfSettings = BoxOfSettings<SettingsType>();
+  late final boxOfPurchases = BoxOfPurchases<PurchasesType>();
+  late final boxOfRecentSearch = BoxOfRecentSearch<RecentSearchType>();
 
   // final time = watch..start(); time.elapsedMilliseconds
   // final Stopwatch watch = new Stopwatch();
   /// Initiate primary context
   Future<void> ensureInitialized() async {
     await Hive.initFlutter();
-    Hive.registerAdapter(SettingAdapter());
-    Hive.registerAdapter(PurchaseAdapter());
-    Hive.registerAdapter(RecentSearchAdapter());
+    boxOfSettings.registerAdapter(SettingsAdapter());
+    boxOfPurchases.registerAdapter(PurchasesAdapter());
+    boxOfRecentSearch.registerAdapter(RecentSearchAdapter());
   }
 
   /// Prepare necessary context
@@ -32,32 +33,26 @@ abstract class ClusterDocket {
       ),
     );
 
-    boxOfSetting = await Hive.openBox<SettingType>(env.settingName);
-    SettingType active = setting;
+    await boxOfSettings.open(env.settingName);
 
-    final _installs = boxOfSetting.isEmpty;
-    final _updates = active.version != env.setting.version;
-    requireInitialized = _installs || _updates;
+    _isInstalls = boxOfSettings.box.isEmpty;
 
-    if (_installs) {
-      boxOfSetting.put(
-        env.settingKey,
-        env.setting,
-      );
-    } else if (_updates) {
-      boxOfSetting.put(
-        env.settingKey,
-        active.merge(env.setting),
-      );
-    }
+    // NOTE: delete previous settings
+    // if (!_isInstalls) {
+    //   boxOfSettings.box.delete(env.settingKey);
+    // }
+
+    // if (await boxOfSettings.instance.boxExists('')) {
+    //   boxOfSettings.instance.deleteBoxFromDisk('');
+    // }
+
+    _isUpdates = boxOfSettings.checkVersion(env.settings['version']);
+    boxOfSettings.fromJSON(env.settings);
 
     await tokenUpdate();
 
-    boxOfPurchase = await Hive.openBox<PurchaseType>('purchase-list');
-    // collection.boxOfSetting.clear();
-
-    boxOfRecentSearch = await Hive.openBox<RecentSearchType>('recent-search');
-    // await collection.boxOfRecentSearch.clear();
+    await boxOfPurchases.open('purchase-list');
+    await boxOfRecentSearch.open('recent-search');
   }
 
   Future<void> tokenUpdate({bool force = false, String file = 'token.json'}) {
@@ -71,163 +66,29 @@ abstract class ClusterDocket {
   // SuggestionType cacheSuggestion = const SuggestionType();
   // ConclusionType cacheConclusion = const ConclusionType();
 
-  SettingType get setting => boxOfSetting.get(env.settingKey, defaultValue: env.setting)!;
-
-  Future<void> settingUpdate(SettingType? value) async {
-    if (value != null) {
-      boxOfSetting.put(env.settingKey, value);
-    }
+  SettingsType get searchQuery => boxOfSettings.searchQuery();
+  set searchQuery(Object ord) {
+    boxOfSettings.searchQuery(value: ord);
   }
 
-  String get searchQuery => setting.searchQuery;
-  set searchQuery(String ord) {
-    if (setting.searchQuery != ord) {
-      setting.searchQuery = ord;
-      settingUpdate(setting);
-    }
+  SettingsType get suggestQuery => boxOfSettings.suggestQuery();
+  set suggestQuery(Object ord) {
+    boxOfSettings.suggestQuery(value: ord);
   }
-
-  String suggestQuery = '';
-
-  double get fontSize => setting.fontSize;
-  set fontSize(double size) {
-    if (setting.fontSize != size) {
-      settingUpdate(setting.copyWith(fontSize: size));
-    }
-  }
-
-  String get locale => setting.locale;
-  set locale(String locale) {
-    if (setting.locale != locale) {
-      settingUpdate(setting.copyWith(locale: locale));
-    }
-  }
-
-  bool stringCompare(String? a, String b) => a!.toLowerCase() == b.toLowerCase();
-
-  String screenName(String? str) {
-    return str!.removeNonAlphanumeric().toTitleCase(joiner: '');
-  }
-
-  String screenClass(String? str) {
-    return str!.removeNonAlphanumeric().toTitleCase(joiner: '') + 'State';
-  }
-
-  // boxOfRecentSearch addWordHistory
-  // bool hasNotHistory(String ord) => this.boxOfRecentSearch.values.firstWhere((e) => stringCompare(e,ord),orElse: ()=>'') == null;
-  // bool hasNotHistory(String ord) => this.boxOfRecentSearch.values.firstWhere((e) => stringCompare(e,ord),orElse: () => '')!.isEmpty;
-
-  // MapEntry<dynamic, PurchaseType> boxOfPurchaseExistPurchaseId(String? id) {
-  //   return boxOfPurchase.toMap().entries.firstWhere(
-  //         (e) => stringCompare(e.value.purchaseId, id!),
-  //         orElse: () => MapEntry(null, PurchaseType()),
-  //       );
-  // }
-
-  // bool boxOfPurchaseDeleteByPurchaseId(String id) {
-  //   if (id.isNotEmpty) {
-  //     final purchase = boxOfPurchaseExistPurchaseId(id);
-  //     if (purchase.key != null) {
-  //       // this.boxOfRecentSearch.deleteAt(history.key);
-  //       boxOfPurchase.delete(purchase.key);
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // }
-
-  // void boxOfPurchaseInsert({
-  //   required String productId,
-  //   required String purchaseId,
-  //   bool? completePurchase,
-  //   required String transactionDate,
-  //   bool? consumable,
-  // }) {
-  //   boxOfPurchase.add(PurchaseType(
-  //     productId: productId,
-  //     purchaseId: purchaseId,
-  //     completePurchase: completePurchase,
-  //     transactionDate: transactionDate,
-  //     consumable: consumable,
-  //   ));
-  // }
-
-  // NOTE: History
-  /// get all recentSearches
-  Iterable<MapEntry<dynamic, RecentSearchType>> get recentSearches {
-    return boxOfRecentSearch.toMap().entries;
-  }
-
-  /// recentSearch is EXIST by word
-  MapEntry<dynamic, RecentSearchType> recentSearchExist(String ord) {
-    return recentSearches.firstWhere(
-      (e) => stringCompare(e.value.word, ord),
-      orElse: () => MapEntry(null, RecentSearchType(word: ord)),
-    );
-  }
-
-  /// recentSearch UPDATE on exist, if not INSERT
-  bool recentSearchUpdate(String ord) {
-    if (ord.isNotEmpty) {
-      final ob = recentSearchExist(ord);
-      ob.value.date = DateTime.now();
-      ob.value.hit++;
-      if (ob.key == null) {
-        boxOfRecentSearch.add(ob.value);
-      } else {
-        boxOfRecentSearch.put(ob.key, ob.value);
-      }
-      return true;
-    }
-    return false;
-  }
-
-  /// recentSearch DELETE by word
-  bool recentSearchDelete(String ord) {
-    if (ord.isNotEmpty) {
-      final ob = recentSearchExist(ord);
-      if (ob.key != null) {
-        boxOfRecentSearch.delete(ob.key);
-        return true;
-      }
-    }
-    return false;
-  }
-
-  Iterable<MapEntry<dynamic, RecentSearchType>> recentSearch() {
-    return recentSearches;
-  }
-
-  // recentSearchClear
-  // void boxOfRecentSearchClear() {
-  //   boxOfRecentSearch.clear();
-  // }
-
-  // int _rsIndex(String word) {
-  //   return boxOfRecentSearch.toMap().values.toList().indexWhere((e) => e.word == word);
-  // }
-
-  // Future<void> _rsDelete(int index) => boxOfRecentSearch.deleteAt(index);
-  // Future<void> favoriteSwitch(String word) {
-  //   final index = _rsIndex(word);
-  //   if (index >= 0) {
-  //     return _rsDelete(index);
-  //   } else {
-  //     return boxOfRecentSearch.add(
-  //       RecentSearchType(
-  //         word: word,
-  //         date: DateTime.now(),
-  //       ),
-  //     );
-  //   }
-  // }
 
   /// translate content from env,
   /// if require localeCode can be provided as second param,
   /// it is always withdraw to default if no match
+  /// ```dart
+  /// .language('offlineaccess');
+  /// .language('offlineaccess', localeCode: 'en');
+  /// ```
   String language(String text, {String? localeCode}) {
     // localeName ?? Intl.systemLocale;
-    final lN0 = localeCode ?? locale;
+    // final lN0 = localeCode ?? boxOfSettings.searchQuery().toString();
+    // final lN0 = localeCode ?? locale.asString;
+    final lN0 = localeCode ?? boxOfSettings.locale().asString;
+    // final lN0 = localeCode ?? '';
     final lN1 = 'en';
 
     final l01 = env.language.entries;
@@ -253,10 +114,4 @@ abstract class ClusterDocket {
 
     return l21.value;
   }
-
-  // void tmpInterpret() {
-  //   language('offlineaccess');
-  //   language('offlineaccess', localeCode: 'en');
-  // }
-
 }
