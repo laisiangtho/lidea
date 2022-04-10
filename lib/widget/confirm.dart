@@ -1,4 +1,36 @@
-part of 'main.dart';
+part of lidea.widget;
+
+Future<bool?> doConfirmWithWidget({
+  required BuildContext context,
+  required Widget child,
+  String? barrierLabel,
+  bool barrierDismissible = true,
+  bool useRootNavigator = true,
+  RouteSettings? routeSettings,
+}) {
+  if (Platform.isAndroid) {
+    return showDialog<bool?>(
+      context: context,
+      barrierLabel: barrierLabel,
+      barrierDismissible: barrierDismissible,
+      useRootNavigator: useRootNavigator,
+      routeSettings: routeSettings,
+
+      useSafeArea: true,
+      // barrierColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.8),
+      barrierColor: Theme.of(context).shadowColor.withOpacity(0.6),
+      builder: (BuildContext context) => child,
+    );
+  }
+  return showCupertinoDialog<bool?>(
+    context: context,
+    barrierLabel: barrierLabel,
+    barrierDismissible: barrierDismissible,
+    useRootNavigator: useRootNavigator,
+    routeSettings: routeSettings,
+    builder: (BuildContext context) => child,
+  );
+}
 
 Future<bool?> doConfirmWithDialog({
   required BuildContext context,

@@ -1,4 +1,4 @@
-part of 'main.dart';
+part of lidea.view;
 
 // controller = new ScrollController()..addListener(_scrollListener);
 // controller = new ScrollController()..addListener((){

@@ -12,7 +12,7 @@ dependencies:
   cupertino_icons: ^1.0.4
   intl: ^0.17.0
 
-  archive: ^3.2.2
+  archive: ^3.3.0
   crypto: ^3.0.1
   # Web?
   path_provider: ^2.0.9
@@ -21,13 +21,13 @@ dependencies:
 
   shared_preferences: ^2.0.13
   connectivity_plus: ^2.2.0
-  share_plus: ^4.0.1
+  share_plus: ^4.0.3
 
   hive_flutter: ^1.1.0
 
-  firebase_core: ^1.13.1
-  firebase_analytics: ^9.1.2
-  firebase_auth: ^3.3.11
+  firebase_core: ^1.14.0
+  firebase_analytics: ^9.1.4
+  firebase_auth: ^3.3.13
   google_sign_in: ^5.2.4
   flutter_facebook_auth: ^4.1.2
 

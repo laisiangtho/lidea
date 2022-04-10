@@ -1,10 +1,10 @@
-part of 'main.dart';
+part of lidea.widget;
 
 class WidgetAppbarTitle extends StatelessWidget {
   const WidgetAppbarTitle({
     Key? key,
     required this.label,
-    this.padding = const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+    this.padding = const EdgeInsets.all(0),
     this.alignment,
     this.shrink = 0.0,
   }) : super(key: key);
@@ -16,17 +16,19 @@ class WidgetAppbarTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WidgetLabel(
-      key: key,
-      padding: padding,
-      alignment: alignment,
-      label: label,
-      maxLines: 1,
-      overflow: TextOverflow.fade,
-      labelStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
-            height: 1.1,
-            fontSize: fontSize,
-          ),
+    return Align(
+      alignment: alignment ?? Alignment.center,
+      child: Padding(
+        padding: padding,
+        child: Text(
+          label,
+          maxLines: 1,
+          overflow: TextOverflow.fade,
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                fontSize: fontSize,
+              ),
+        ),
+      ),
     );
   }
 

@@ -1,4 +1,4 @@
-part of 'main.dart';
+part of lidea.view;
 
 class ViewKeepAlive extends StatefulWidget {
   const ViewKeepAlive({Key? key, required this.child}) : super(key: key);

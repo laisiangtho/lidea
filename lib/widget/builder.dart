@@ -1,4 +1,4 @@
-part of 'main.dart';
+part of lidea.widget;
 
 // Grid
 class WidgetGridBuilder extends StatelessWidget {
@@ -7,7 +7,7 @@ class WidgetGridBuilder extends StatelessWidget {
   // final Widget? itemSnap;
   final Widget Function(BuildContext, int)? itemSnap;
   final Widget? itemVoid;
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
   final SliverGridDelegate gridDelegate;
   final Duration duration;
 
@@ -25,10 +25,10 @@ class WidgetGridBuilder extends StatelessWidget {
     required this.itemBuilder,
     this.itemSnap,
     this.itemVoid,
-    this.padding = EdgeInsets.zero,
+    this.padding,
     this.primary,
     this.shrinkWrap = false,
-    this.duration = const Duration(milliseconds: 0),
+    this.duration = Duration.zero,
     this.physics = const NeverScrollableScrollPhysics(),
     this.scrollController,
     required this.gridDelegate,
@@ -48,7 +48,7 @@ class WidgetGridBuilder extends StatelessWidget {
   Widget widgets(BuildContext context) {
     if (voided) return SizedBox(child: itemVoid);
     return Padding(
-      padding: padding,
+      padding: padding ?? const EdgeInsets.fromLTRB(7, 3, 7, 5),
       child: GridView.builder(
         key: key,
         primary: primary,
@@ -67,8 +67,7 @@ class WidgetGridBuilder extends StatelessWidget {
   Widget slivers(BuildContext context) {
     if (voided) return SliverToBoxAdapter(child: itemVoid);
     return SliverPadding(
-      key: key,
-      padding: padding,
+      padding: padding ?? const EdgeInsets.fromLTRB(7, 3, 7, 5),
       sliver: SliverGrid(
         gridDelegate: gridDelegate,
         delegate: SliverChildBuilderDelegate(
@@ -99,17 +98,31 @@ class WidgetGridBuilder extends StatelessWidget {
 
 // List
 class WidgetListBuilder extends StatelessWidget {
-  final int itemCount;
   final Widget Function(BuildContext, int) itemBuilder;
+
+  /// itemSeparator work only with NONE sliver
+  /// ```dart
+  /// return const Padding(
+  ///   padding: EdgeInsets.symmetric(horizontal: 15),
+  ///   child: Divider(height: 0, thickness: 1,),
+  /// );
+  /// ```
+  final Widget Function(BuildContext, int)? itemSeparator;
+  final int itemCount;
   final void Function(int, int)? itemReorderable;
   final Widget Function(BuildContext, int)? itemSnap;
+
+  /// show when itemCount is zero
   final Widget? itemVoid;
   final EdgeInsetsGeometry padding;
   final Duration duration;
   final Axis scrollDirection;
   final ScrollController? scrollController;
 
-  ///const NeverScrollableScrollPhysics()
+  /// to disabled scroll
+  /// ```dart
+  /// const NeverScrollableScrollPhysics()
+  /// ```
   final ScrollPhysics? physics;
 
   /// if primary is not provided sliver is use to render
@@ -119,14 +132,15 @@ class WidgetListBuilder extends StatelessWidget {
   const WidgetListBuilder({
     Key? key,
     required this.itemBuilder,
+    this.itemSeparator,
     required this.itemCount,
     this.itemReorderable,
     this.itemSnap,
     this.itemVoid,
     this.padding = EdgeInsets.zero,
     this.primary,
-    this.shrinkWrap = false,
-    this.duration = const Duration(milliseconds: 0),
+    this.shrinkWrap = true,
+    this.duration = Duration.zero,
     this.scrollDirection = Axis.vertical,
     this.scrollController,
     this.physics,
@@ -145,11 +159,11 @@ class WidgetListBuilder extends StatelessWidget {
   }
 
   Widget widgets(BuildContext context) {
-    if (voided) return SizedBox(child: itemVoid);
+    // if (voided && itemVoid != null) return SizedBox(child: itemVoid);
+    if (voided && itemVoid != null) return itemVoid!;
 
     if (reorderable) {
       return Padding(
-        key: key,
         padding: padding,
         child: ReorderableListView.builder(
           primary: primary,
@@ -164,11 +178,26 @@ class WidgetListBuilder extends StatelessWidget {
         ),
       );
     }
+    if (itemSeparator != null) {
+      return Padding(
+        padding: padding,
+        child: ListView.separated(
+          primary: primary,
+          shrinkWrap: shrinkWrap,
+          padding: EdgeInsets.zero,
+          scrollDirection: scrollDirection,
+          controller: scrollController,
+          physics: physics,
+          itemBuilder: builder,
+          separatorBuilder: itemSeparator!,
+          itemCount: itemCount,
+        ),
+      );
+    }
 
     return Padding(
       padding: padding,
       child: ListView.builder(
-        key: key,
         primary: primary,
         shrinkWrap: shrinkWrap,
         padding: EdgeInsets.zero,
@@ -182,11 +211,11 @@ class WidgetListBuilder extends StatelessWidget {
   }
 
   Widget slivers(BuildContext context) {
-    if (voided) return SliverToBoxAdapter(child: itemVoid);
+    // if (voided) return SliverToBoxAdapter(child: itemVoid);
+    if (voided && itemVoid != null) return itemVoid!;
 
     if (reorderable) {
       return SliverPadding(
-        key: key,
         padding: padding,
         sliver: SliverReorderableList(
           itemBuilder: builder,
@@ -199,7 +228,6 @@ class WidgetListBuilder extends StatelessWidget {
     return SliverPadding(
       padding: padding,
       sliver: SliverList(
-        key: key,
         delegate: SliverChildBuilderDelegate(
           builder,
           childCount: itemCount,
@@ -210,10 +238,11 @@ class WidgetListBuilder extends StatelessWidget {
 
   Widget builder(BuildContext context, int index) {
     return Material(
-      key: ValueKey(key),
+      type: MaterialType.card,
+      key: ValueKey(index),
       child: FutureBuilder<bool>(
-        // future: Future.delayed(duration, () => true),
-        future: Future<bool>.microtask(() => true),
+        future: Future.delayed(duration, () => true),
+        // future: Future<bool>.microtask(() => true),
         builder: (_, snap) {
           if (snap.hasData == false && itemSnap != null) {
             return itemSnap!(context, index);
@@ -230,47 +259,70 @@ class WidgetChildBuilder extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final Widget? child;
 
+  /// placeHolder rendered when placeHolder NOT empty and show is FALSE
+  final Widget? placeHolder;
+
   /// if primary is not provided sliver is use to render
   final bool? primary;
 
+  /// if show is false not widget is render, therefore no space is taken
   final bool show;
 
-  // final bool shrinkWrap;
+  /// how long should the ui wait to be rendered
+  final Duration duration;
 
   const WidgetChildBuilder({
     Key? key,
-    this.child,
     this.padding = EdgeInsets.zero,
+    this.child,
+    this.placeHolder,
     this.primary,
-    // this.shrinkWrap = false,
     this.show = true,
+    this.duration = Duration.zero,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (primary == null) {
-      return slivers();
-    }
-
-    return widgets();
+    return FutureBuilder<bool>(
+      future: Future.delayed(duration, () => true),
+      builder: (_, snap) {
+        if (snap.hasData == false && placeHolder != null) {
+          return placeHolder!;
+        }
+        if (primary == null) {
+          return slivers();
+        }
+        return widgets();
+      },
+    );
   }
 
   Widget widgets() {
     return Padding(
-      key: key,
-      padding: padding,
-      child: show ? child : null,
+      // key: key,
+      padding: show ? padding : EdgeInsets.zero,
+      child: showPlaceHolder ?? showChild,
     );
   }
 
   Widget slivers() {
     return SliverPadding(
-      key: key,
-      padding: padding,
-      sliver: SliverToBoxAdapter(
-        child: show ? child : null,
-      ),
+      // key: key,
+      padding: show ? padding : EdgeInsets.zero,
+      sliver: showPlaceHolder ?? SliverToBoxAdapter(child: showChild),
     );
+  }
+
+  Widget? get showPlaceHolder {
+    if (show == false && placeHolder != null) {
+      return placeHolder;
+    }
+    return null;
+  }
+
+  Widget? get showChild {
+    if (show == false) return null;
+    return child;
   }
 }
 

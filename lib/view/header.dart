@@ -1,47 +1,4 @@
-part of 'main.dart';
-
-class ViewHeaderData {
-  final double minHeight;
-  final double maxHeight;
-
-  final double offset;
-  final bool overlaps;
-  // final double shrink;
-  // final double stretch;
-
-  const ViewHeaderData({
-    required this.minHeight,
-    required this.maxHeight,
-    required this.offset,
-    required this.overlaps,
-    // required this.shrink,
-    // required this.stretch,
-  });
-
-  // double get stretch => (offset / maxHeight).clamp(0.0, 1.0).toDouble();
-  // double get shrink => 1.0 - stretch;
-  double get stretch => stretchOffsetDouble(maxHeight);
-  double get shrink => shrinkOffsetDouble(maxHeight);
-
-  double get snapExtent => maxHeight - minHeight;
-
-  double get snapHeight => snapExtent - offset.clamp(0.0, snapExtent).toDouble();
-
-  // double get snapStretch => (offset / snapExtent).clamp(0.0, 1.0).toDouble();
-  // double get snapShrink => 1.0 - snapStretch;
-  double get snapStretch => stretchOffsetDouble(snapExtent);
-  double get snapShrink => shrinkOffsetDouble(snapExtent);
-
-  /// 0.0 to 1.0
-  double stretchOffsetDouble(double size) {
-    return (offset / size).clamp(0.0, 1.0).toDouble();
-  }
-
-  /// 1.0 to 0.0
-  double shrinkOffsetDouble(double size) {
-    return 1.0 - stretchOffsetDouble(size);
-  }
-}
+part of lidea.view;
 
 class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
   const ViewHeaderDelegate(
@@ -72,8 +29,6 @@ class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(BuildContext context, double offset, bool overlapsContent) {
-    // double padding = MediaQuery.of(context).padding.top;
-
     return SizedBox.expand(
       child: builder(context, offset, overlapsContent),
     );
@@ -115,12 +70,12 @@ class ViewHeaderSliverSnap extends StatelessWidget {
   final Radius borderRadius;
 
   // [65] [65, 100]
-  double get max => heights.reduce((a, b) => a + b);
-  double get min => heights.first;
+  double get maxExpanded => heights.reduce((a, b) => a + b);
+  double get minExpanded => heights.first;
 
   // MediaQuery.of(context).padding.top
-  double get maxHeight => max + padding.vertical;
-  double get minHeight => min + padding.vertical;
+  double get maxHeight => maxExpanded + padding.vertical;
+  double get minHeight => minExpanded + padding.vertical;
 
   @override
   Widget build(BuildContext context) {
@@ -153,11 +108,16 @@ class ViewHeaderSliverSnap extends StatelessWidget {
     //         ? offset > 0.0
     //         : overlapsForce;
     // offset >= snapExtent
-    final bool snapOverlaps = (snapExtent > 0.0)
-        ? overlaps || offset >= snapExtent
-        : (overlapsForce == false)
-            ? offset > 0.0
-            : overlapsForce;
+    // final bool snapOverlaps = (snapExtent > 0.0)
+    //     ? overlaps || offset >= snapExtent
+    //     : (overlapsForce == false)
+    //         ? offset > 0.0
+    //         : overlapsForce;
+    final bool snapOverlaps = overlapsForce
+        ? overlapsForce
+        : (snapExtent > 0.0)
+            ? overlaps || offset >= snapExtent
+            : offset > 0.0;
 
     return ViewHeaderDecoration(
       overlaps: snapOverlaps,
@@ -190,22 +150,19 @@ class ViewHeaderDecoration extends StatelessWidget {
     this.backgroundColor,
     this.overlapsBackgroundColor,
     this.overlapsBorderColor: Colors.transparent,
-    this.borderWidth: 0.5,
-    // this.borderRadius:0.0,
+    this.borderWidth: 0.7,
     this.borderRadius: Radius.zero,
     this.padding: EdgeInsets.zero,
   }) : super(key: key);
 
   final Widget child;
   final bool overlaps;
-  // final bool overlapsColor;
 
   final Color? backgroundColor;
   final Color? overlapsBackgroundColor;
   final Color overlapsBorderColor;
   final double borderWidth;
   final Radius borderRadius;
-  // final Radius borderRadiusTmp;
   final EdgeInsetsGeometry padding;
 
   bool get hasRadius => borderRadius.x > 0.0 || borderRadius.y > 0.0;
@@ -213,20 +170,19 @@ class ViewHeaderDecoration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      key: key,
       decoration: BoxDecoration(
         // color: (overlaps && backgroundColor != null)?Theme.of(context).primaryColor:Theme.of(context).scaffoldBackgroundColor,
         color: (overlaps && overlapsBackgroundColor != null)
             ? overlapsBackgroundColor
             : backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+        // : backgroundColor ?? Colors.transparent,
         borderRadius: hasRadius
-            ? new BorderRadius.vertical(bottom: borderRadius
-                // bottom: Radius.elliptical(3, 2)
-                )
+            ? BorderRadius.vertical(
+                bottom: borderRadius,
+              )
             : null,
         border: (hasRadius == false && overlaps)
             ? Border(
-                // bottom: BorderSide(width: borderWidth, color: Theme.of(context).shadowColor),
                 bottom: BorderSide(width: borderWidth, color: overlapsBorderColor),
               )
             : null,
@@ -234,7 +190,6 @@ class ViewHeaderDecoration extends StatelessWidget {
           if (overlaps)
             BoxShadow(
               color: overlapsBorderColor,
-              // color: Theme.of(context).backgroundColor.withOpacity(overlaps?0.3:0.0),
               blurRadius: 0,
               spreadRadius: 0,
               offset: Offset(0, 0),
@@ -248,6 +203,3 @@ class ViewHeaderDecoration extends StatelessWidget {
     );
   }
 }
-
-// ViewHeaderSliverSnap
-// ViewHeaderSliverDash

@@ -1,4 +1,4 @@
-part of 'main.dart';
+part of lidea.view;
 
 class ViewScrollNotify extends Notify {
   // notification is UserScrollNotification
@@ -27,80 +27,128 @@ class ViewScrollNotify extends Notify {
   int get direction => _direction;
   set direction(int v) => notifyIf<int>(_direction, _direction = v);
 
+  /// Status bar height
+  late final kHeightStatusBar = MediaQueryData.fromWindow(window).padding.top;
+
   // NOTE: Navigation ???
-  double bottomPadding = kBottomNavigationBarHeight + 30;
-  double reservedHeight = 0.0;
-  double _heightFactor = 1.0;
-  double get heightFactor => _heightFactor;
-  set heightFactor(double v) => notifyIf<double>(_heightFactor, _heightFactor = v);
+  final double kHeight = kBottomNavigationBarHeight;
 
-  double get height => (kHeightMax * heightFactor).toDouble();
-  // double get height => (kHeight*heightFactor).toDouble().clamp(5.0, height);
-  // int get milliseconds => [0.0, 1.0].contains(heightFactor) ? 200 : 0;
+  double _factor = 1.0;
+  double get factor => _factor;
+  set factor(double v) {
+    if (0.0 <= v && v <= 1.0) {
+      notifyIf<double>(_factor, _factor = v);
+    }
+  }
 
-  double get kHeightMax => (kBottomNavigationBarHeight + reservedHeight).toDouble();
-  // double get kStatusHeight => MediaQueryData.fromWindow(window).padding.top;
-  // final double kHeightMin = 0.0;
+  /// disable/enable size notification
+  bool _locked = false;
+
+  /// check lock status
+  bool get lock => _locked;
+
+  /// set lock to disable/enable size notification
+  set lock(bool v) => notifyIf<bool>(_locked, _locked = v);
 
   double _delta = 0.0;
   double _offset = 0.0;
 
-  double get percentageStretch => (_delta / kHeightMax).toDouble();
-  double get percentageShrink => (1.0 - percentageStretch).toDouble();
+  // [56,0]
+  double get heightStretch => (kHeight * factor).toDouble();
+  double get heightShrink => (1.0 - heightStretch).toDouble();
+
+  // [1,0]
+  double get factorStretch => (_delta / kHeight).toDouble();
+  double get factorShrink => (1.0 - factorStretch).toDouble();
+
+  /*
+  void _scrollUpdate(ScrollMetrics scroll) {
+    final pixels = scroll.pixels;
+
+    _delta = (_delta + pixels - _offset).clamp(0.0, kHeight);
+    _offset = pixels;
+
+    // If scrolled down, size-notifiers value should be zero.
+    // Can be imagined as [zero - false] | [one - true].
+    if (scroll.axisDirection == AxisDirection.down && scroll.extentAfter == 0.0) {
+      if (factor == 0.0) return;
+
+      factor = 0.0;
+      return;
+    }
+
+    // If scrolled up, size-notifiers value should be one.
+    // Can be imagined as [zero - false] | [one - true].
+    if (scroll.axisDirection == AxisDirection.up && scroll.extentBefore == 0.0) {
+      if (factor == 1.0) return;
+
+      factor = 1.0;
+      return;
+    }
+
+    final isZeroValued = _delta == 0.0 && factor == 0.0;
+    if (isZeroValued || (_delta == kHeight && factor == 1.0)) return;
+
+    factor = percentageShrink;
+  }
+  */
 
   void scrollUpdate(ScrollMetrics scroll) {
+    if (lock) {
+      return _resetPosition();
+    }
+
     final pixels = scroll.pixels;
     if (pixels < 0.0) return;
 
-    if ((_delta == 0.0 && heightFactor == 0.0) || (_delta == kHeightMax && heightFactor == 1.0))
-      return;
     double maxExtent = scroll.maxScrollExtent;
-    double limit = maxExtent - kHeightMax;
+
+    double limit = maxExtent - kHeight;
     if (pixels >= limit) {
-      if (_delta > 0.0) {
-        _offset = pixels;
-        final _deltaBottom = scroll.extentAfter.clamp(0.0, kHeightMax);
-        _delta = min(_delta, _deltaBottom);
-      }
-    } else {
-      _delta = (_delta + pixels - _offset).clamp(0.0, kHeightMax);
-      _offset = pixels;
+      // NOTE: getting to min height bottom
+      final _minExtent = scroll.extentAfter.clamp(0.0, kHeight);
+      _delta = min(_delta, _minExtent);
+    } else if (_offset > 0.0) {
+      _delta = (_delta + pixels - _offset).clamp(0.0, kHeight);
     }
-    // if ((_delta == 0.0 && heightFactor == 0.0) || (_delta == heightFactor && heightFactor == 1.0)) return;
-    heightFactor = percentageShrink;
+
+    _offset = pixels;
+    factor = factorShrink;
   }
 
   void scrollEnd(ScrollMetrics scroll) {
+    if (lock) return;
+
     /// NOTE: do skip for its reached
-    // if (_delta == 0.0 || _delta == kHeightMax) return;
-    if ([0.0, kHeightMax].contains(_delta)) return;
-    if ([0.0, 1.0].contains(percentageShrink)) return;
+    // if (_delta == 0.0 || _delta == kHeight) return;
+    if ([0.0, kHeight].contains(_delta)) return;
+    if ([0.0, 1.0].contains(factorShrink)) return;
 
-    // _delta = percentageShrink.round() == 1.0 ? 0.0 : kHeightMax;
-    // heightFactor = percentageShrink;
+    final _hgt = (heightStretch / kHeight * 100).roundToDouble();
 
-    final tmp = (height / kHeightMax * 100).roundToDouble();
-    // print('tmp: $tmp');
-    // final isDown = percentageShrink.round() == 1.0;
-    final isDown = percentageShrink < 0.4;
+    final isDown = factorShrink < 0.4;
 
-    Stream<double> sequence = streamCount(tmp, down: isDown);
+    _streamCount(_hgt, down: isDown).listen((double value) {
+      if ([0.0, 1.0].contains(factor)) return;
 
-    sequence.listen((double value) {
-      if ([0.0, 1.0].contains(heightFactor)) {
-        // print('sequence: skiped');
-        return;
-      }
-      // _delta = value / 100;
-      heightFactor = value / 100;
-      // _delta = heightFactor * kHeightMax;
-      // print('Xdelta: $xdelta delta: $_delta');
+      factor = value / 100;
     });
+    _resetPosition();
   }
 
-  // 55/56*100 height/kHeightMax*100 -> /100
+  /// NOTE: session offset and delta need to reset to have smooth scrolling
+  void _resetPosition() {
+    if (_offset != 0.0) {
+      _offset = 0.0;
+    }
+    if (_delta != 0.0) {
+      _delta = 0.0;
+    }
+  }
+
+  // 55/56*100 height/kHeight*100 -> /100
   //
-  Stream<double> streamCount(double n, {bool down = true}) async* {
+  Stream<double> _streamCount(double n, {bool down = true}) async* {
     while (down ? n >= 0.0 : n <= 100) {
       await Future.delayed(const Duration(microseconds: 0));
       yield (down ? n-- : n++).roundToDouble();

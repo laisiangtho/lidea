@@ -1,8 +1,13 @@
-part of 'main.dart';
+part of lidea.widget;
 
 /// Used in MyOrdbok search result
 class Highlight extends StatelessWidget {
-  Highlight({
+  final String str;
+  final TextStyle style;
+  final void Function(String word) search;
+  final ScrollPhysics scrollPhysics;
+
+  const Highlight({
     Key? key,
     required this.str,
     required this.style,
@@ -10,18 +15,16 @@ class Highlight extends StatelessWidget {
     this.scrollPhysics = const NeverScrollableScrollPhysics(),
   }) : super(key: key);
 
-  final String str;
-  final TextStyle style;
-  final void Function(String word) search;
-  final ScrollPhysics scrollPhysics;
+  RegExp get regExp =>
+      RegExp(r'\((.*?)\)|\[(.*?)\]', multiLine: true, dotAll: false, unicode: true);
 
-  final regExp = RegExp(r'\((.*?)\)|\[(.*?)\]', multiLine: true, dotAll: false, unicode: true);
+  // TextStyle get textStyle => style ?? const TextStyle();
 
   @override
   Widget build(BuildContext context) {
     final span = TextSpan(
       style: style,
-      children: <InlineSpan>[].toList(),
+      children: <InlineSpan>[],
     );
     // span.children = [];
     str.splitMapJoin(
@@ -51,6 +54,7 @@ class Highlight extends StatelessWidget {
                 TextSpan(
                   text: "$name ",
                   style: TextStyle(
+                    fontWeight: FontWeight.w300,
                     color: Theme.of(context).primaryColorDark,
                   ),
                   children: asGesture(context, href),
@@ -73,20 +77,21 @@ class Highlight extends StatelessWidget {
 
     return SelectableText.rich(
       span,
-      key: key,
       scrollPhysics: scrollPhysics,
-      strutStyle: const StrutStyle(
-        forceStrutHeight: true,
-      ),
+      // strutStyle: const StrutStyle(
+      //   forceStrutHeight: true,
+      // ),
     );
   }
 
   TextSpan inParentheses(BuildContext context, String term) => TextSpan(
         text: term,
         style: TextStyle(
-          fontSize: (style.fontSize! - 3).toDouble(),
-          fontWeight: FontWeight.w400,
-          // color: Theme.of(context).backgroundColor,
+          fontSize: (style.fontSize! - 2).toDouble(),
+          // fontStyle: FontStyle.italic,
+          fontWeight: FontWeight.w300,
+          // color: style.color,
+          color: Theme.of(context).primaryColorDark,
         ),
       );
 
@@ -96,7 +101,7 @@ class Highlight extends StatelessWidget {
       style: TextStyle(
         fontSize: (style.fontSize! - 2).toDouble(),
         // fontStyle: FontStyle.italic,
-        fontWeight: FontWeight.w300,
+        // fontWeight: FontWeight.w700,
         // color: Theme.of(context).backgroundColor,
       ),
     );
