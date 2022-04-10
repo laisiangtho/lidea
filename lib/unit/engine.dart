@@ -5,9 +5,9 @@ abstract class UnitEngine extends Notify {
   String get message => _message;
   set message(String value) => notifyIf<String>(_message, _message = value);
 
-  bool _nodeFocus = false;
-  bool get nodeFocus => _nodeFocus;
-  set nodeFocus(bool value) => notifyIf<bool>(_nodeFocus, _nodeFocus = value);
+  // bool _nodeFocus = false;
+  // bool get nodeFocus => _nodeFocus;
+  // set nodeFocus(bool value) => notifyIf<bool>(_nodeFocus, _nodeFocus = value);
 
   // String _searchQuery = '';
   // String get searchQuery => _searchQuery;

@@ -1,5 +1,3 @@
-library lidea;
-
 import 'package:flutter/foundation.dart';
 
 abstract class Notify with ChangeNotifier {

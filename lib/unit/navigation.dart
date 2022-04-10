@@ -7,45 +7,49 @@ class UnitNavigationObserver extends NavigatorObserver {
   final UnitNavigationNotify _changeNotifier;
 
   @override
-  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+  void didPush(Route<dynamic> route, Route<dynamic>? previous) {
     Future.microtask(() {
-      _changeNotifier.push(route, previousRoute);
+      _changeNotifier.push(route, previous);
     });
   }
 
   @override
-  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    _changeNotifier.pop(route, previousRoute);
+  void didPop(Route<dynamic> route, Route<dynamic>? previous) {
+    _changeNotifier.pop(route, previous);
   }
 }
 
 class UnitNavigationNotify extends Notify {
-  String? name = '/';
   int _index = 0;
-
   int get index => _index;
   set index(int value) {
     notifyIf<int>(index, _index = value);
   }
 
-  //  route.settings.name
-  void push(Route<dynamic> current, Route<dynamic>? previous) {
-    if (current.settings.name != null) {
-      name = current.settings.name!;
-      // debugPrint('push current ${current.settings.name}');
-
+  String _name = '/';
+  String get name => _name;
+  set name(String? value) {
+    if (value != null) {
+      notifyIf<String>(name, _name = value);
     }
-    // if (previous != null) {
-    //   debugPrint('push previous ${previous.settings.name}');
-    // }
-    notify();
   }
 
-  void pop(Route<dynamic> current, Route<dynamic>? previous) {
-    if (previous != null && previous.settings.name != null) {
-      name = previous.settings.name;
+  String _previous = '/';
+  String get previous => _previous;
+  set previous(String? value) {
+    if (value != null) {
+      notifyIf<String>(previous, _previous = value);
     }
-    // debugPrint('pop current ${current.settings.name} previous ${previous.settings.name}');
-    notify();
+  }
+
+  //  route.settings.name
+  void push(Route<dynamic> currentRoute, Route<dynamic>? previousRoute) {
+    name = currentRoute.settings.name;
+    previous = previousRoute?.settings.name;
+  }
+
+  void pop(Route<dynamic> previousRoute, Route<dynamic>? currentRoute) {
+    name = currentRoute?.settings.name;
+    previous = previousRoute.settings.name;
   }
 }

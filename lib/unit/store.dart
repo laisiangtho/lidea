@@ -46,8 +46,8 @@ abstract class UnitStore {
   bool isConsumable(String productId) => _kConsumableIds.contains(productId);
 
   /// @override to check Purchase by PurchaseId
-  MapEntry<dynamic, PurchaseType> purchaseDataExist(String? purchaseId) {
-    return MapEntry(null, PurchaseType());
+  MapEntry<dynamic, PurchasesType> purchaseDataExist(String? purchaseId) {
+    return MapEntry(null, PurchasesType());
   }
 
   /// @override to delete Purchase by PurchaseId
@@ -56,7 +56,7 @@ abstract class UnitStore {
   }
 
   /// @override to add Purchase data
-  void purchaseDataInsert(PurchaseType value) {}
+  void purchaseDataInsert(PurchasesType value) {}
 
   /// @override to clear Purchase data, use only when restore
   /// to reset test purchase data, refund
@@ -272,7 +272,7 @@ abstract class UnitStore {
 
     final hasPurchased = purchaseDataExist(item.purchaseID);
     if (hasPurchased.key == null) {
-      purchaseDataInsert(PurchaseType(
+      purchaseDataInsert(PurchasesType(
         productId: item.productID,
         purchaseId: item.purchaseID,
         completePurchase: complete,

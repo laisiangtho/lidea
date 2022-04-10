@@ -16,6 +16,7 @@ class ColorationScheme {
   final Color background;
   final Color error;
   final Color shadow;
+  final Color divider;
   final Color button;
 
   final Color primaryScheme;
@@ -33,6 +34,7 @@ class ColorationScheme {
     this.background = const Color(0xFFdbdbdb),
     this.error = const Color.fromARGB(255, 187, 43, 43),
     this.shadow = const Color(0xFFbdbdbd),
+    this.divider = const Color(0xFFbdbdbd),
     this.button = const Color(0xFFdedcdc),
     this.primaryScheme = Colors.black,
     this.primarySwatch = Colors.grey,
@@ -71,6 +73,7 @@ class ColorationScheme {
     Color background = const Color(0xFFbdbdbd),
     Color error = Colors.red,
     Color shadow = const Color(0xFF8f8f8f),
+    Color divider = const Color(0xFF8f8f8f),
     Color button = const Color(0xFFd9d9d9),
     Color primaryScheme = Colors.white,
     MaterialColor primarySwatch = Colors.grey,
@@ -87,6 +90,7 @@ class ColorationScheme {
       background: background,
       error: error,
       shadow: shadow,
+      divider: divider,
       button: button,
       primaryScheme: primaryScheme,
       primarySwatch: primarySwatch,
@@ -124,6 +128,7 @@ abstract class ColorationData {
       highlightColor: color.highlight,
       disabledColor: color.disable,
       errorColor: color.error,
+      dividerColor: color.divider,
 
       textTheme: text.apply(
         // fontFamily: "Lato, sans-serif",
@@ -145,13 +150,12 @@ abstract class ColorationData {
       iconTheme: IconThemeData(color: color.focus, size: 26),
       cardTheme: CardTheme(
         color: color.primary,
-        elevation: 0.5,
+        elevation: 0.8,
         shadowColor: color.shadow,
-        clipBehavior: Clip.antiAlias,
+        clipBehavior: Clip.hardEdge,
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         shape: RoundedRectangleBorder(
-          side: BorderSide(width: 0.2, color: color.shadow),
-          // BorderRadius.circular(5)
+          side: BorderSide(width: 0.2, color: color.divider),
           borderRadius: const BorderRadius.all(Radius.circular(12)),
         ),
       ),
@@ -257,8 +261,6 @@ abstract class ColorationData {
           borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
         ),
         clipBehavior: Clip.hardEdge,
-        // clipBehavior: Clip.antiAlias,
-        // clipBehavior: Clip.antiAliasWithSaveLayer,
         // modalBackgroundColor: color.background,
         modalBackgroundColor: color.primary,
         modalElevation: 2.0,

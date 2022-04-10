@@ -1,12 +1,14 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
 
+// String queryCountTable = "SELECT count(*) as count FROM sqlite_master WHERE type = 'table';";
 abstract class UnitSQLite {
-  // String queryCountTable = "SELECT count(*) as count FROM sqlite_master WHERE type = 'table';";
   String queryDatabaseList = "PRAGMA database_list;";
 
   Database? _instance;
+  Database get client => _instance!;
 
   Future<Database> get db async {
     _instance ??= await init();
@@ -17,6 +19,7 @@ abstract class UnitSQLite {
   Future<int> get version async => 1;
 
   FutureOr<Database> init() async {
+    debugPrint('??? db.init ');
     return await openDatabase(
       await file,
       version: await version,
@@ -29,12 +32,12 @@ abstract class UnitSQLite {
     );
   }
 
-  FutureOr<void> onConfigure(Database db) {
+  FutureOr<void> onConfigure(Database e) {
     // ALTER TABLE table_name ADD PRIMARY KEY(col1, col2,...)
   }
 
-  FutureOr<void> onCreate(Database db, int v) async {
-    // await db.transaction((txn) async {
+  FutureOr<void> onCreate(Database e, int v) async {
+    // await e.transaction((txn) async {
     //   Batch batch = txn.batch();
     //   batch.execute(_wordContext.createIndex!);
     //   debugPrint('db.onCreate');
@@ -42,20 +45,20 @@ abstract class UnitSQLite {
     // });
   }
 
-  FutureOr<void> onUpgrade(Database db, int ov, int nv) async {
-    // await db.transaction((txn) async {
+  FutureOr<void> onUpgrade(Database e, int ov, int nv) async {
+    // await e.transaction((txn) async {
     //   Batch batch = txn.batch();
     //   batch.execute(_wordContext.createIndex!);
-    //   debugPrint('db.onUpgrade');
+    //   debugPrint('e.onUpgrade');
     //   await batch.commit(noResult: true);
     // });
   }
 
-  FutureOr<void> onDowngrade(Database db, int ov, int nv) async {
-    // await db.transaction((txn) async {
+  FutureOr<void> onDowngrade(Database e, int ov, int nv) async {
+    // await e.transaction((txn) async {
     //   Batch batch = txn.batch();
     //   batch.execute(_wordContext.createIndex!);
-    //   debugPrint('db.onDowngrade');
+    //   debugPrint('e.onDowngrade');
     //   await batch.commit(noResult: true);
     // });
   }
@@ -63,9 +66,9 @@ abstract class UnitSQLite {
   /// `PRAGMA database_list;`
   /// `{seq: 0, name: main, file: /}`
   /// `DETACH DATABASE ?;` `ATTACH DATABASE / as ?;`
-  FutureOr<void> onOpen(Database db) async {
-    // final ath = await db.rawQuery(queryDatabaseList);
-    // Batch batch = db.batch();
+  FutureOr<void> onOpen(Database e) async {
+    // final ath = await e.rawQuery(queryDatabaseList);
+    // Batch batch = e.batch();
     // for (var item in collection.secondary) {
     //   // final bool notAttached = ath.firstWhere((e) => e['name'] == item.uid, orElse:()=> null) == null;
     //   final notAttached = ath.firstWhere(
