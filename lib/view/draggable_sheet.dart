@@ -44,12 +44,18 @@ class ViewDraggableSheetState<T extends StatefulWidget> extends State<T>
     // switchController.dispose();
   }
 
+  BorderRadius get borderRadius => const BorderRadius.vertical(
+        top: Radius.circular(10),
+        // top: Radius.elliptical(15, 15),
+      );
+
   // NOTE: device height and width
   late final _dHeight = MediaQuery.of(context).size.height;
   late final _bPadding = MediaQuery.of(context).padding.bottom;
 
   // late final kHeight = scrollNotify.kHeight;
   double get kHeight => scrollNotify.kHeight;
+  Color get backgroundColor => theme.primaryColor;
 
   // NOTE: update when scroll notify
   double _initialSize = 0.0;
@@ -63,8 +69,8 @@ class ViewDraggableSheetState<T extends StatefulWidget> extends State<T>
   /// default size is fullscreen - statusbar
   double get maxSize => (_dHeight - scrollNotify.kHeightStatusBar) / _dHeight;
 
-  bool get _isSizeDefault => initialSize <= minSize;
-  // bool get _isSizeShrink => initialSize < midSize;
+  bool get isSizeDefault => initialSize <= minSize;
+  bool get isSizeShrink => initialSize < midSize;
 
   // late final _actualInitialSize = minSize * scrollNotify.factor;
   late final _actualInitialSize = persistent ? (minSize * scrollNotify.factor) : initialSize;
@@ -156,7 +162,7 @@ class ViewDraggableSheetState<T extends StatefulWidget> extends State<T>
   }
 
   void _switchControllerWatch() {
-    if (_isSizeDefault) {
+    if (isSizeDefault) {
       switchController.reverse();
     } else if (switchController.isDismissed) {
       switchController.forward();
@@ -195,7 +201,9 @@ class ViewDraggableSheetState<T extends StatefulWidget> extends State<T>
 
   Widget body() {
     return CustomScrollView(
+      key: const ValueKey<String>('csvbs'),
       controller: scrollController,
+      scrollBehavior: const ViewScrollBehavior(),
       slivers: sliverWidgets(),
     );
   }
@@ -254,20 +262,20 @@ class ViewDraggableSheetState<T extends StatefulWidget> extends State<T>
   }
 
   Widget sheetDecoration({Widget? child}) {
+    // Material
     return Container(
-      // margin: const EdgeInsets.only(top: 23),
-      // padding: const EdgeInsets.only(bottom: 30),
-      // padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
       decoration: BoxDecoration(
-        color: persistent ? theme.scaffoldBackgroundColor.withOpacity(0.5) : theme.primaryColor,
+        // color: persistent ? theme.scaffoldBackgroundColor.withOpacity(0.5) : theme.primaryColor,
         // color: theme.primaryColor,
+        color: backgroundColor,
         // color: Colors.red,
         // color: Colors.transparent,
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(12),
-          // top: Radius.circular(2)
-          // top: Radius.elliptical(15, 15),
-        ),
+        borderRadius: borderRadius,
+
+        // borderRadius: const BorderRadius.vertical(
+        //   top: Radius.circular(10),
+        //   // top: Radius.elliptical(15, 15),
+        // ),
         // border: Border.all(color: Colors.blueAccent),
         // border: Border(
         //   top: BorderSide(width: 0.5, color: theme.shadowColor),
@@ -275,10 +283,11 @@ class ViewDraggableSheetState<T extends StatefulWidget> extends State<T>
         boxShadow: [
           BoxShadow(
             color: theme.shadowColor,
+
             // color: theme.shadowColor.withOpacity(0.9),
             // color: theme.backgroundColor.withOpacity(0.6),
-            blurRadius: 0.2,
-            spreadRadius: 0,
+            blurRadius: 0.5,
+            spreadRadius: 0.0,
             offset: const Offset(0, 0),
           )
         ],
