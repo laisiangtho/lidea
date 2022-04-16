@@ -151,7 +151,7 @@ class WidgetBlockCard extends StatelessWidget {
   const WidgetBlockCard({
     Key? key,
     this.child,
-    this.margin = const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+    this.margin = const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
   }) : super(key: key);
 
   @override
@@ -169,7 +169,7 @@ class WidgetBlockCard extends StatelessWidget {
     //   clipBehavior: Clip.hardEdge,
     // );
     return Container(
-      margin: margin ?? const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      margin: margin ?? const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
