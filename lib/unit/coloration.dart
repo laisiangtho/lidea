@@ -153,7 +153,7 @@ abstract class ColorationData {
         elevation: 0.8,
         shadowColor: color.shadow,
         clipBehavior: Clip.hardEdge,
-        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         shape: RoundedRectangleBorder(
           side: BorderSide(width: 0.2, color: color.divider),
           borderRadius: const BorderRadius.all(Radius.circular(12)),
