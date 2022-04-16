@@ -115,3 +115,21 @@ class UtilString {
     return str!.removeNonAlphanumeric().toTitleCase(joiner: '') + 'State';
   }
 }
+
+class UtilNumber {
+  // NumberFormat.simpleCurrency(
+  //       locale: localeName,
+  //       name: '',
+  //       decimalDigits: 0,
+  //     ).format(i)
+
+  static String simple(BuildContext context, int number) {
+    // return NumberFormat.numberOfIntegerDigits(number).toString();
+    return NumberFormat.simpleCurrency(
+      // locale: localeName,
+      locale: Localizations.localeOf(context).languageCode,
+      name: '',
+      decimalDigits: 0,
+    ).format(number);
+  }
+}
