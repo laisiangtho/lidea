@@ -1,6 +1,8 @@
 *.v[0-9].*
 /tmp.*
 
+pubspec.lock
+
 # Miscellaneous
 *.class
 *.log
