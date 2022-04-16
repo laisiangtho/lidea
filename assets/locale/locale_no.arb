@@ -16,6 +16,7 @@
   "home": "Hjem",
   "back": "Tilbake",
   "share": "Dele",
+  "other": "Annet",
   "filter": "{plural, select, true{Filtre} other{Filter}}",
   "setting": "{plural, select, true{Innstillinger} other{Innstilling}}",
   "option": "{plural, select, true{Alternativer} other{Alternativ}}",
@@ -32,8 +33,15 @@
 
   "parallel": "Parallel",
   "history": "{plural, select, true{Historier} other{Historie}}",
+  "playlist": "{plural, select, true{Spillelister} other{Spilleliste}}",
   "recent": "{plural, select, true{Nylig} other{Nylig}}",
+  "recentPlay": "{plural, select, true{Nylige spiller} other{Nylige spille}}",
+  "recentVerbNoun": "Nylig {verb} {noun}",
+  "mostVerbNoun": "Mest {verb} {noun}",
+
   "restore":"Restaurere",
+  "recommended": "Anbefalt",
+  "related": "Relaterte",
   "search": "{plural, select, true{Søk} other{Søk}}",
   "searchNoMatch":"Ingen treff",
   "searchNoQuery":"Ingen spørring",
@@ -90,7 +98,9 @@
   "nextTo": "Neste {to}",
   "previousTo": "Forrige {to}",
   "noItem": "Ingen {item}",
-  "objContainSub": "{sub} som inneholder {obj}",
+  "objContainSub": "{sub} som inneholder “{obj}”",
+  "artistInLanguage": "{artist} med {language}",
+  "moreOfTotal": "Mer ({of}/{total})",
 
   "definition": "{plural, select, true{Definisjon} other{Definisjon}}",
   "suggestion": "{plural, select, true{Forslag} other{Forslag}}"

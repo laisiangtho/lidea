@@ -128,6 +128,10 @@
   "@share": {
     "description": "Share"
   },
+  "other": "Other",
+  "@other": {
+    "description": "Other"
+  },
 
   "filter": "{plural, select, true{Filters} other{Filter}}",
   "@filter": {
@@ -159,11 +163,19 @@
       "plural": {}
     }
   },
+  "playMusic": "{plural, select, true{Plays} other{Play}}",
+  "@playMusic": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
 
   "more": "More",
   "@more": {
     "description": "More info"
   },
+
   "read": "Read",
   "@read": {
     "description": "Read"
@@ -232,6 +244,14 @@
   "restore": "Restore",
   "@restore": {
     "description": "Restore"
+  },
+  "recommended": "Recommended",
+  "@recommended": {
+    "description": "Recommended post, track, artist"
+  },
+  "related": "Related",
+  "@related": {
+    "description": "Related post, track, artist"
   },
   "search": "{plural, select, true{Searches} other{Search}}",
   "@search": {
@@ -432,12 +452,28 @@
     }
   },
 
-  "objContainSub": "{sub} with '{obj}'",
+  "objContainSub": "{sub} with “{obj}”",
   "@objContainSub": {
     "description": "Artist containing love, Album containing love, Title containing love",
     "placeholders": {
       "obj": {},
       "sub": {}
+    }
+  },
+  "artistInLanguage": "{artist} in {language}",
+  "@artistInLanguage": {
+    "description": "Artists in Zola",
+    "placeholders": {
+      "artist": {},
+      "language": {}
+    }
+  },
+  "moreOfTotal": "More ({of}/{total})",
+  "@moreOfTotal": {
+    "description": "More (4/10)",
+    "placeholders": {
+      "of": {},
+      "total": {}
     }
   },
 
@@ -500,6 +536,13 @@
       "plural": {}
     }
   },
+  "playlist": "{plural, select, true{Playlists} other{Playlist}}",
+  "@playlist": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
   "recentPlay": "{plural, select, true{Recent plays} other{Recent play}}",
   "@recentPlay": {
     "description": "default is singular form. Plural form must provided false",
@@ -507,11 +550,21 @@
       "plural": {}
     }
   },
-  "playlist": "{plural, select, true{Playlists} other{Playlist}}",
-  "@playlist": {
-    "description": "default is singular form. Plural form must provided false",
+
+  "recentVerbNoun": "Recent {verb} {noun}",
+  "@recentVerbNoun": {
+    "description": "Recent play track",
     "placeholders": {
-      "plural": {}
+      "verb": {},
+      "noun": {}
+    }
+  },
+  "mostVerbNoun": "Most {verb} {noun}",
+  "@mostVerbNoun": {
+    "description": "Most play album",
+    "placeholders": {
+      "verb": {},
+      "noun": {}
     }
   },
 

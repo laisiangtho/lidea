@@ -16,6 +16,7 @@
     "title",
     "description",
     "play",
+    "playMusic",
     "reset",
     "like",
     "queue",
@@ -25,8 +26,6 @@
     "music",
     "artist",
     "album",
-    "recentPlay",
-    "playlist",
     "formatCurrency",
     "formatDate"
   ]

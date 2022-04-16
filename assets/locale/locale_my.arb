@@ -16,9 +16,11 @@
   "home": "အိမ်",
   "back": "နောက်သို့",
   "share": "မျှဝေရန်",
+  "other": "အခြား",
   "filter": "{plural, select, true{စီစစ်မှုများ} other{စီစစ်ရန်}}",
   "setting": "{plural, select, true{ချိန်ညှိခြင်း} other{ချိန်ညှိခြင်း}}",
   "option": "{plural, select, true{ရွေးချယ်မှုများ} other{ရွေးချယ်မှု}}",
+  "playMusic": "{plural, select, true{နားထောင်} other{နားထောင်}}",
   "search": "{plural, select, true{ရှာဖွေမှုများ} other{ရှာဖွေရန်}}",
   "cancel": "ပယ်ဖျက်ရန်",
   "confirm": "အတည်ပြုရန်",
@@ -36,6 +38,8 @@
   "history": "{plural, select, true{မှတ်တမ်းများ} other{မှတ်တမ်း}}",
   "recent": "{plural, select, true{မကြာမီကများ} other{မကြာမီက}}",
   "restore":"ပြန်လည်ရယူ",
+  "recommended": "အကြံပြုချက်",
+  "related": "ဆက်စပ်ချက်",
   "searchNoMatch":"ကိုက်ညီမှု မရှိ",
   "searchNoQuery":"မေးမြန်းမှု မရှိ",
   "recentSearch": "{plural, select, true{လတ်တလော ရှာဖွေမှုများ} other{လတ်တလော ရှာဖွေမှု}}",
@@ -80,7 +84,9 @@
   "nextTo": "ရှေ့ {to}",
   "previousTo": "နောက် {to}",
   "noItem": "{item} မရှိ",
-  "objContainSub": "{obj} ပါဝင်သော {sub}",
+  "objContainSub": "“{obj}” ပါဝင်သော {sub}",
+  "artistInLanguage": "{language} {artist}",
+  "moreOfTotal": "နောက်ထပ် ({of}/{total})",
 
 
   "definition": "{plural, select, true{အဓိပ္ပါယ်ဖွင့်ဆိုချက်} other{အဓိပ္ပါယ်}}",
@@ -95,6 +101,8 @@
   "artist": "{plural, select, true{အဆိုတော်များ} other{အဆိုတော်}}",
   "album": "{plural, select, true{သီချင်းခွေများ} other{သီချင်းခွေ}}",
   "recentPlay": "{plural, select, true{သဒ္ဒါရုံများ} other{သဒ္ဒါရုံ}}",
+  "recentVerbNoun": "လတ်တလော {verb}သော {noun}",
+  "mostVerbNoun": "အများဆုံး {verb}သော {noun}",
   "recentPlayTmp": "{plural, select, true{လတ်တလော နားထောင်မှုများ} other{လတ်တလော နားထောင်မှု}}"
 
 }
