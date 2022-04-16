@@ -4,10 +4,16 @@
       "path": "."
     },
     {
-      "path": "..\\fleth"
+      "path": "../fleth"
     },
     {
-      "path": "..\\scripture"
+      "path": "../scripture"
+    },
+    {
+      "path": "../dictionary"
+    },
+    {
+      "path": "../music"
     }
   ],
   "settings": {
