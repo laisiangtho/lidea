@@ -27,7 +27,7 @@ class WidgetGridBuilder extends StatelessWidget {
     this.itemVoid,
     this.padding,
     this.primary,
-    this.shrinkWrap = false,
+    this.shrinkWrap = true,
     this.duration = Duration.zero,
     this.physics = const NeverScrollableScrollPhysics(),
     this.scrollController,
@@ -149,6 +149,10 @@ class WidgetListBuilder extends StatelessWidget {
   bool get voided => itemCount == 0;
   bool get reorderable => itemReorderable != null;
 
+  ScrollPhysics? get adjustedPhysics {
+    return (physics == null && primary != null) ? const NeverScrollableScrollPhysics() : physics;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (primary == null) {
@@ -171,7 +175,7 @@ class WidgetListBuilder extends StatelessWidget {
           padding: EdgeInsets.zero,
           scrollDirection: scrollDirection,
           scrollController: scrollController,
-          physics: physics,
+          physics: adjustedPhysics,
           itemBuilder: builder,
           itemCount: itemCount,
           onReorder: itemReorderable!,
@@ -187,7 +191,7 @@ class WidgetListBuilder extends StatelessWidget {
           padding: EdgeInsets.zero,
           scrollDirection: scrollDirection,
           controller: scrollController,
-          physics: physics,
+          physics: adjustedPhysics,
           itemBuilder: builder,
           separatorBuilder: itemSeparator!,
           itemCount: itemCount,
@@ -203,7 +207,7 @@ class WidgetListBuilder extends StatelessWidget {
         padding: EdgeInsets.zero,
         scrollDirection: scrollDirection,
         controller: scrollController,
-        physics: physics,
+        physics: adjustedPhysics,
         itemBuilder: builder,
         itemCount: itemCount,
       ),
@@ -239,6 +243,7 @@ class WidgetListBuilder extends StatelessWidget {
   Widget builder(BuildContext context, int index) {
     return Material(
       type: MaterialType.card,
+      color: Colors.transparent,
       key: ValueKey(index),
       child: FutureBuilder<bool>(
         future: Future.delayed(duration, () => true),
