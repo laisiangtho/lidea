@@ -35,7 +35,7 @@ class ViewDraggableSheetState<T extends StatefulWidget> extends State<T>
     end: 1.0,
   ).animate(switchController);
 
-  late final ThemeData theme = Theme.of(context);
+  ThemeData get theme => Theme.of(context);
 
   @override
   void dispose() {
