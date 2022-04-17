@@ -5,7 +5,7 @@ import 'package:lidea/crypto.dart';
 import 'package:lidea/firebase_core.dart';
 import 'package:lidea/firebase_auth.dart';
 import 'package:lidea/google_signin.dart';
-import 'package:lidea/facebook_signin.dart';
+// import 'package:lidea/facebook_signin.dart';
 import 'package:lidea/unit/notify.dart';
 
 abstract class UnitAuthentication extends Notify {
@@ -108,27 +108,27 @@ abstract class UnitAuthentication extends Notify {
   }
 
   Future<void> signInWithFacebook() async {
-    amoment = true;
-    final LoginResult res = await FacebookAuth.instance.login();
-    if (res.status == LoginStatus.success) {
-      try {
-        await app.signInWithCredential(
-          FacebookAuthProvider.credential(res.accessToken!.token),
-        );
-      } on PlatformException catch (e) {
-        message = e.toString();
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'account-exists-with-different-credential') {
-          await signInAccountAlreadyExistsHandler(e);
-        } else if (e.code == 'invalid-credential') {
-          message = 'Invalid credential';
-        } else {
-          message = 'Error occurred';
-        }
-      } catch (e) {
-        message = 'Error occurred using Facebook';
-      }
-    }
+    // amoment = true;
+    // final LoginResult res = await FacebookAuth.instance.login();
+    // if (res.status == LoginStatus.success) {
+    //   try {
+    //     await app.signInWithCredential(
+    //       FacebookAuthProvider.credential(res.accessToken!.token),
+    //     );
+    //   } on PlatformException catch (e) {
+    //     message = e.toString();
+    //   } on FirebaseAuthException catch (e) {
+    //     if (e.code == 'account-exists-with-different-credential') {
+    //       await signInAccountAlreadyExistsHandler(e);
+    //     } else if (e.code == 'invalid-credential') {
+    //       message = 'Invalid credential';
+    //     } else {
+    //       message = 'Error occurred';
+    //     }
+    //   } catch (e) {
+    //     message = 'Error occurred using Facebook';
+    //   }
+    // }
     amoment = false;
   }
 
