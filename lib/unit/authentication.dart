@@ -1,11 +1,13 @@
+import 'dart:io';
 import 'package:flutter/services.dart';
 // import 'package:flutter/widgets.dart';
 // import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:lidea/crypto.dart';
 import 'package:lidea/firebase_core.dart';
 import 'package:lidea/firebase_auth.dart';
-import 'package:lidea/google_signin.dart';
-// import 'package:lidea/facebook_signin.dart';
+import 'package:lidea/signin_with_google.dart';
+import 'package:lidea/signin_with_apple.dart';
+// import 'package:lidea/signin_with_facebook.dart';
 import 'package:lidea/unit/notify.dart';
 
 abstract class UnitAuthentication extends Notify {
@@ -20,6 +22,7 @@ abstract class UnitAuthentication extends Notify {
   UnitAuthentication({this.name, this.options});
 
   late final GoogleSignIn _google = GoogleSignIn();
+
   bool _amoment = false;
   bool get amoment => _amoment;
   set amoment(bool value) => notifyIf<bool>(_amoment, _amoment = value);
@@ -129,6 +132,53 @@ abstract class UnitAuthentication extends Notify {
     //     message = 'Error occurred using Facebook';
     //   }
     // }
+    amoment = false;
+  }
+
+  Future<bool> get signInWithAppleAvailable => SignInWithApple.isAvailable();
+
+  Future<void> signInWithApple() async {
+    // !Platform.isIOS ||
+    if (await signInWithAppleAvailable == false) {
+      amoment = false;
+      return;
+    }
+    amoment = true;
+
+    try {
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        webAuthenticationOptions: WebAuthenticationOptions(
+          // TODO: Set the `clientId` and `redirectUri` arguments to the values you entered in the Apple Developer portal during the setup
+          clientId: 'com.zaideih.app.serviceid',
+
+          redirectUri: Uri.parse(
+            'https://zaideih-app.firebaseapp.com/__/auth/handler',
+          ),
+        ),
+      );
+      await app.signInWithCredential(
+        OAuthProvider('apple.com').credential(
+          accessToken: appleCredential.authorizationCode,
+          idToken: appleCredential.identityToken,
+        ),
+      );
+    } on PlatformException catch (e) {
+      message = e.toString();
+    } on SignInWithAppleException catch (e) {
+      message = e.toString();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'account-exists-with-different-credential') {
+        await signInAccountAlreadyExistsHandler(e);
+      } else if (e.code == 'invalid-credential') {
+        message = 'Invalid credential';
+      } else {
+        message = 'Error occurred';
+      }
+    }
     amoment = false;
   }
 
