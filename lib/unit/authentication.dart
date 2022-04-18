@@ -18,8 +18,15 @@ abstract class UnitAuthentication extends Notify {
   // late void Function(User? user)? observer;
   final String? name;
   final FirebaseOptions? options;
+  final String? appleServiceId;
+  final String? redirectUri;
 
-  UnitAuthentication({this.name, this.options});
+  UnitAuthentication({
+    this.name,
+    this.options,
+    this.appleServiceId,
+    this.redirectUri,
+  });
 
   late final GoogleSignIn _google = GoogleSignIn();
 
@@ -138,9 +145,12 @@ abstract class UnitAuthentication extends Notify {
   Future<bool> get signInWithAppleAvailable => SignInWithApple.isAvailable();
 
   Future<void> signInWithApple() async {
-    // !Platform.isIOS ||
-    if (await signInWithAppleAvailable == false) {
-      amoment = false;
+    if (appleServiceId == null || redirectUri == null) {
+      message = "Incomplete config";
+      return;
+    }
+    if (!Platform.isIOS || await signInWithAppleAvailable == false) {
+      message = "Not supported";
       return;
     }
     amoment = true;
@@ -152,12 +162,12 @@ abstract class UnitAuthentication extends Notify {
           AppleIDAuthorizationScopes.fullName,
         ],
         webAuthenticationOptions: WebAuthenticationOptions(
-          // TODO: Set the `clientId` and `redirectUri` arguments to the values you entered in the Apple Developer portal during the setup
-          clientId: 'com.zaideih.app.serviceid',
+          // TODO: Set the `clientId` and `redirectUri`
+          // arguments to the values you entered in the
+          // Apple Developer portal during the setup
+          clientId: appleServiceId!,
 
-          redirectUri: Uri.parse(
-            'https://zaideih-app.firebaseapp.com/__/auth/handler',
-          ),
+          redirectUri: Uri.parse(redirectUri!),
         ),
       );
       await app.signInWithCredential(
@@ -168,9 +178,15 @@ abstract class UnitAuthentication extends Notify {
       );
     } on PlatformException catch (e) {
       message = e.toString();
+      print(e);
     } on SignInWithAppleException catch (e) {
       message = e.toString();
+      print(e);
+      // } on SignInWithAppleAuthorizationException catch (e) {
+      //   message = e.toString();
+      //   print(e);
     } on FirebaseAuthException catch (e) {
+      print(e);
       if (e.code == 'account-exists-with-different-credential') {
         await signInAccountAlreadyExistsHandler(e);
       } else if (e.code == 'invalid-credential') {
