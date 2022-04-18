@@ -31,10 +31,10 @@ class ViewScrollNotify extends Notify {
   late final kHeightStatusBar = MediaQueryData.fromWindow(window).padding.top;
 
   // NOTE: Navigation ???
-  double bottomPadding = kBottomNavigationBarHeight;
+  double bottomPadding = 0;
 
   // NOTE: Navigation ???
-  final double kHeight = kBottomNavigationBarHeight;
+  double get kHeight => bottomPadding + kBottomNavigationBarHeight;
 
   double _factor = 1.0;
   double get factor => _factor;
