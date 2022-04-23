@@ -12,6 +12,7 @@ part 'label.dart';
 part 'button.dart';
 part 'appbar.dart';
 
+part 'sign_in_button.dart';
 part 'confirm.dart';
 part 'popup.dart';
 part 'highlight.dart';
