@@ -2,9 +2,58 @@
 
 Loading, reading and writing file logic with dart plus flutter theme scope
 
-```bash
+![alt text][license]
+
+## Flutter
+
+create, analyze, test, and run an app:
+
+```sh
+# create
+flutter create app_name
+cd app_name
+
+# analyze
+flutter analyze
+
+# test
+flutter test
+
+# run
+flutter run lib/main.dart
+
+# package
+flutter pub get
+# check outdated
 flutter pub outdated
-flutter pub upgrade --major-versions
+
+# upgrade
+flutter pub upgrade
+# upgrade dependencies
+flutter pub upgrade --major-version
+
+# To view all commands that flutter supports
+flutter --help --verbose
+
+# See the current version of the Flutter SDK, framework, engine & tools
+flutter --version
+
+# build
+flutter build appbundle --release
+```
+
+> Flutter SDK command line tools
+
+```shell
+flutter channel stable
+flutter upgrade
+flutter config --enable-web
+cd into project directory
+flutter create .
+flutter run -d chrome
+
+# Update dependencies
+flutter pub upgrade
 ```
 
 ## Extension
@@ -17,37 +66,50 @@ flutter pub upgrade --major-versions
 ''.token('0');
 ```
 
-## for iOS
+## Android
 
-...
+- [Config](Platform-android.md#config)
+- [Build](Platform-android.md#build)
 
-Size
+## iOS
 
-... 6.5in
+- [Config](Platform-ios.md#config)
+- [Build](Platform-ios.md#build)
 
-- iPhone XS Max
-- iPhone 12 Pro Max
-- iPhone 11 Pro Max
+## Tools
 
-... 5.5in
+- [Firebase](TOOL.md#firebase)
+- Path
+  - [JAVA_HOME](TOOL.md#path-java_home)
+  - [keytool](TOOL.md#path-keytool)
+  - [flutter](TOOL.md#path-flutter)
+- [gradlew](TOOL.md#gradlew)
 
-- iPhone 8 Plus Size
-- iPhone 7 Plus Size
-- iPhone 6s Plus
-- iPhone 6 Plus
-- iPhone 12 mini
+See [Path configuration](TOOL.md#path-keytool) and [keytool](TOOL.md#keytool) cli.
 
-... 12.9"
+- [keytool](TOOL.md#keytool)
+  - [Generate](TOOL.md#keytool-generate)
+  - [List](TOOL.md#keytool-list)
+  - [Export](TOOL.md#keytool-export)
+- [git](TOOL.md#git)
+  
+## config(windows-android)
 
-- iPad Pro (5th gen)
-- iPad Pro (4th gen)
-- iPad Pro (3rd gen)
-- iPad Pro (2nd gen)
-- iPad Pro (1st gen)
+- Powershell: `$env:UserProfile`
+- Command Prompt: `%UserProfile%`
 
-## for Android
+```sh
+# flutter config --android-studio-dir <android-studio-dir>
+# flutter config --android-sdk <android-sdk-path>
 
-...
+# Powershell
+flutter config --android-studio-dir="$env:ProgramFiles/Android/Android Studio"
+# Command Prompt
+flutter config --android-studio-dir="%ProgramFiles%/Android/Android Studio"
 
-```bash
+flutter config --android-sdk="$env:UserProfile/.dev/sdk"
+flutter config --android-sdk="%UserProfile%/.dev/sdk"
+flutter config --android-sdk="$ANDROID_SDK"
 ```
+
+[license]: https://img.shields.io/badge/License-MIT-yellow.svg "License"
