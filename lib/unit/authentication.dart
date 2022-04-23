@@ -5,10 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:lidea/crypto.dart';
 import 'package:lidea/firebase_core.dart';
 import 'package:lidea/firebase_auth.dart';
-import 'package:lidea/signin_with_google.dart';
-import 'package:lidea/signin_with_apple.dart';
-import 'package:lidea/signin_with_facebook.dart';
 import 'package:lidea/unit/notify.dart';
+
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 abstract class UnitAuthentication extends Notify {
   final String? name;
@@ -29,13 +30,16 @@ abstract class UnitAuthentication extends Notify {
   bool get amoment => _amoment;
   set amoment(bool value) => notifyIf<bool>(_amoment, _amoment = value);
 
-  String _message = 'Not signed';
+  String _message = '';
   String get message => _message;
   set message(String value) => notifyIf<String>(_message, _message = value);
 
-  bool _isAvailableApple = false;
-  bool get isAvailableApple => _isAvailableApple;
-  set isAvailableApple(bool value) => _isAvailableApple = value;
+  // bool _isAvailableApple = false;
+  // bool get isAvailableApple => _isAvailableApple;
+  // set isAvailableApple(bool value) => _isAvailableApple = value;
+
+  late bool showApple;
+  late bool showFacebook;
 
   FirebaseAuth get app => FirebaseAuth.instance;
   User? get user => app.currentUser;
@@ -98,10 +102,12 @@ abstract class UnitAuthentication extends Notify {
   // user.email
   // user.photoURL
   Future<void> ensureInitialized() async {
-    isAvailableApple = await SignInWithApple.isAvailable();
-    if (isAvailableApple) {
-      isAvailableApple = Platform.isIOS && appleServiceId != null && redirectUri != null;
-    }
+    showFacebook = !Platform.isIOS;
+    showApple = Platform.isIOS && appleServiceId != null && redirectUri != null;
+    // if (showApple) {
+    //   showApple = await SignInWithApple.isAvailable();
+    // }
+
     await Firebase.initializeApp(name: name, options: options);
     FirebaseAuth.instanceFor(app: Firebase.app());
     _stateObserver();
@@ -144,7 +150,7 @@ abstract class UnitAuthentication extends Notify {
     //   try {
     //     await app.signInWithPopup(authProvider);
     //   } catch (e) {
-    //     message = 'kIsWeb Error occurred using Google';
+    //     'kIsWeb Error occurred using Google';
     //   }
     // }
     GoogleSignInAccount? res = await _google.signInSilently();
@@ -176,49 +182,35 @@ abstract class UnitAuthentication extends Notify {
   }
 
   Future<void> signInWithFacebook() async {
-    amoment = true;
-    final LoginResult res =
-        await FacebookAuth.instance.login(permissions: const ['email', 'public_profile']);
+    // amoment = true;
+    // final LoginResult res =
+    //     await FacebookAuth.instance.login(permissions: const ['email', 'public_profile']);
 
-    if (res.status == LoginStatus.success) {
-      try {
-        // final facebookAuth = FacebookAuthProvider();
-        final facebookAuthCredential = FacebookAuthProvider.credential(res.accessToken!.token);
-        print('token: ${res.accessToken!.token}');
-
-        // final appleCredential = res.accessToken!;
-        // appleCredential.accessToken
-        // appleCredential.accessToken;
-        // appleCredential.idToken;
-        // OAuthProvider('facebook.com').credential(
-        //     accessToken: appleCredential.accessToken,
-        //     idToken: appleCredential.idToken,
-        //   ),
-
-        await app.signInWithCredential(facebookAuthCredential);
-      } on PlatformException catch (e) {
-        message = e.toString();
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'account-exists-with-different-credential') {
-          await signInAccountAlreadyExistsHandler(e);
-        } else if (e.code == 'invalid-credential') {
-          message = 'Invalid credential';
-        } else {
-          message = 'Error occurred';
-        }
-      } catch (e) {
-        message = 'Error occurred using Facebook';
-      }
-      print('message: $message');
-    }
-    print(res.status);
-    amoment = false;
+    // if (res.status == LoginStatus.success) {
+    //   try {
+    //     final facebookAuthCredential = FacebookAuthProvider.credential(res.accessToken!.token);
+    //     await app.signInWithCredential(facebookAuthCredential);
+    //   } on PlatformException catch (e) {
+    //     message = e.toString();
+    //   } on FirebaseAuthException catch (e) {
+    //     if (e.code == 'account-exists-with-different-credential') {
+    //       await signInAccountAlreadyExistsHandler(e);
+    //     } else if (e.code == 'invalid-credential') {
+    //       message = 'Invalid credential';
+    //     } else {
+    //       message = 'Error occurred';
+    //     }
+    //   } catch (e) {
+    //     message = 'Error occurred using Facebook';
+    //   }
+    // }
+    // amoment = false;
   }
 
   Future<void> signInWithApple() async {
-    if (!isAvailableApple) {
-      return;
-    }
+    // if (!isAvailableApple) {
+    //   return;
+    // }
     amoment = true;
 
     try {
@@ -248,17 +240,19 @@ abstract class UnitAuthentication extends Notify {
           idToken: appleAuthCredential.identityToken,
         ),
       );
+    } on SignInWithAppleNotSupportedException catch (e) {
+      message = e.message;
+    } on SignInWithAppleAuthorizationException catch (e) {
+      message = e.message;
     } on PlatformException catch (e) {
-      message = e.toString();
-      print(e);
+      if (e.message != null && e.message!.isNotEmpty) {
+        message = e.message!;
+      } else {
+        message = e.toString();
+      }
     } on SignInWithAppleException catch (e) {
       message = e.toString();
-      print(e);
-      // } on SignInWithAppleAuthorizationException catch (e) {
-      //   message = e.toString();
-      //   print(e);
     } on FirebaseAuthException catch (e) {
-      print(e);
       if (e.code == 'account-exists-with-different-credential') {
         await signInAccountAlreadyExistsHandler(e);
       } else if (e.code == 'invalid-credential') {
