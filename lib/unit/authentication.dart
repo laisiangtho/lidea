@@ -7,15 +7,10 @@ import 'package:lidea/firebase_core.dart';
 import 'package:lidea/firebase_auth.dart';
 import 'package:lidea/signin_with_google.dart';
 import 'package:lidea/signin_with_apple.dart';
-// import 'package:lidea/signin_with_facebook.dart';
+import 'package:lidea/signin_with_facebook.dart';
 import 'package:lidea/unit/notify.dart';
 
 abstract class UnitAuthentication extends Notify {
-  // static Authentication of(BuildContext context) {
-  //   return Authentication.of(context);
-  // }
-
-  // late void Function(User? user)? observer;
   final String? name;
   final FirebaseOptions? options;
   final String? appleServiceId;
@@ -38,11 +33,64 @@ abstract class UnitAuthentication extends Notify {
   String get message => _message;
   set message(String value) => notifyIf<String>(_message, _message = value);
 
+  bool _isAvailableApple = false;
+  bool get isAvailableApple => _isAvailableApple;
+  set isAvailableApple(bool value) => _isAvailableApple = value;
+
   FirebaseAuth get app => FirebaseAuth.instance;
   User? get user => app.currentUser;
   bool get hasUser => user != null;
-  String get userEmail => (hasUser && user!.email != null) ? user!.email! : '';
+
   String get id => userEmail.isNotEmpty ? getMd5(userEmail) : '';
+
+  // TODO: all changes need to update to music, dictionary
+
+  String get userDisplayname {
+    String value = '';
+    if (hasUser) {
+      if (user!.displayName != null) {
+        value = user!.displayName!;
+      } else {
+        final index = user!.providerData.indexWhere((e) => e.displayName != null);
+        if (index >= 0) {
+          final ob = user!.providerData.elementAt(index);
+          value = ob.displayName!;
+        }
+      }
+    }
+    return value;
+  }
+
+  String get userEmail {
+    String value = '';
+    if (hasUser) {
+      if (user!.email != null) {
+        value = user!.email!;
+      } else {
+        final index = user!.providerData.indexWhere((e) => e.email != null);
+        if (index >= 0) {
+          final ob = user!.providerData.elementAt(index);
+          value = ob.email!;
+        }
+      }
+    }
+    return value;
+  }
+
+  String? get userPhotoURL {
+    if (hasUser) {
+      if (user!.photoURL != null) {
+        return user!.photoURL!;
+      } else {
+        final index = user!.providerData.indexWhere((e) => e.photoURL != null);
+        if (index >= 0) {
+          final ob = user!.providerData.elementAt(index);
+          return ob.photoURL!;
+        }
+      }
+    }
+    return null;
+  }
 
   // user.uid;
   // user.phoneNumber;
@@ -50,11 +98,16 @@ abstract class UnitAuthentication extends Notify {
   // user.email
   // user.photoURL
   Future<void> ensureInitialized() async {
+    isAvailableApple = await SignInWithApple.isAvailable();
+    if (isAvailableApple) {
+      isAvailableApple = Platform.isIOS && appleServiceId != null && redirectUri != null;
+    }
     await Firebase.initializeApp(name: name, options: options);
     FirebaseAuth.instanceFor(app: Firebase.app());
+    _stateObserver();
   }
 
-  Future<void> stateObserver([void Function(User? user)? observe]) async {
+  void _stateObserver() {
     // app.authStateChanges().listen((User? o) {});
     // app.idTokenChanges().listen((User? user) {});
     // if (hasUser) {
@@ -64,11 +117,7 @@ abstract class UnitAuthentication extends Notify {
     //   final photoURL = user!.photoURL;
     // }
     app.userChanges().listen((o) {
-      _message = (o == null) ? 'Not signed' : 'Signed';
-      // notify();
-      if (observe != null) {
-        observe.call(o);
-      }
+      notify();
     });
     // app.idTokenChanges().listen((User? user) {});
     // if (hasUser) {
@@ -78,6 +127,15 @@ abstract class UnitAuthentication extends Notify {
     //   final photoURL = user!.photoURL;
     // }
   }
+  // Future<void> stateObserver([void Function(User? user)? observe]) async {
+  //   app.userChanges().listen((o) {
+  //     _message = (o == null) ? 'Not signed' : 'Signed';
+  //     // notify();
+  //     if (observe != null) {
+  //       observe.call(o);
+  //     }
+  //   });
+  // }
 
   Future<void> signInWithGoogle() async {
     amoment = true;
@@ -118,45 +176,53 @@ abstract class UnitAuthentication extends Notify {
   }
 
   Future<void> signInWithFacebook() async {
-    // amoment = true;
-    // final LoginResult res = await FacebookAuth.instance.login();
-    // if (res.status == LoginStatus.success) {
-    //   try {
-    //     await app.signInWithCredential(
-    //       FacebookAuthProvider.credential(res.accessToken!.token),
-    //     );
-    //   } on PlatformException catch (e) {
-    //     message = e.toString();
-    //   } on FirebaseAuthException catch (e) {
-    //     if (e.code == 'account-exists-with-different-credential') {
-    //       await signInAccountAlreadyExistsHandler(e);
-    //     } else if (e.code == 'invalid-credential') {
-    //       message = 'Invalid credential';
-    //     } else {
-    //       message = 'Error occurred';
-    //     }
-    //   } catch (e) {
-    //     message = 'Error occurred using Facebook';
-    //   }
-    // }
+    amoment = true;
+    final LoginResult res =
+        await FacebookAuth.instance.login(permissions: const ['email', 'public_profile']);
+
+    if (res.status == LoginStatus.success) {
+      try {
+        // final facebookAuth = FacebookAuthProvider();
+        final facebookAuthCredential = FacebookAuthProvider.credential(res.accessToken!.token);
+        print('token: ${res.accessToken!.token}');
+
+        // final appleCredential = res.accessToken!;
+        // appleCredential.accessToken
+        // appleCredential.accessToken;
+        // appleCredential.idToken;
+        // OAuthProvider('facebook.com').credential(
+        //     accessToken: appleCredential.accessToken,
+        //     idToken: appleCredential.idToken,
+        //   ),
+
+        await app.signInWithCredential(facebookAuthCredential);
+      } on PlatformException catch (e) {
+        message = e.toString();
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'account-exists-with-different-credential') {
+          await signInAccountAlreadyExistsHandler(e);
+        } else if (e.code == 'invalid-credential') {
+          message = 'Invalid credential';
+        } else {
+          message = 'Error occurred';
+        }
+      } catch (e) {
+        message = 'Error occurred using Facebook';
+      }
+      print('message: $message');
+    }
+    print(res.status);
     amoment = false;
   }
 
-  Future<bool> get signInWithAppleAvailable => SignInWithApple.isAvailable();
-
   Future<void> signInWithApple() async {
-    if (appleServiceId == null || redirectUri == null) {
-      message = "Incomplete config";
-      return;
-    }
-    if (!Platform.isIOS || await signInWithAppleAvailable == false) {
-      message = "Not supported";
+    if (!isAvailableApple) {
       return;
     }
     amoment = true;
 
     try {
-      final appleCredential = await SignInWithApple.getAppleIDCredential(
+      final appleAuthCredential = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,
           AppleIDAuthorizationScopes.fullName,
@@ -170,10 +236,16 @@ abstract class UnitAuthentication extends Notify {
           redirectUri: Uri.parse(redirectUri!),
         ),
       );
+
+      // final appleAuth = OAuthProvider('apple.com').credential(
+      //   accessToken: appleCredential.authorizationCode,
+      //   idToken: appleCredential.identityToken,
+      // );
+
       await app.signInWithCredential(
         OAuthProvider('apple.com').credential(
-          accessToken: appleCredential.authorizationCode,
-          idToken: appleCredential.identityToken,
+          accessToken: appleAuthCredential.authorizationCode,
+          idToken: appleAuthCredential.identityToken,
         ),
       );
     } on PlatformException catch (e) {
@@ -257,7 +329,6 @@ abstract class UnitAuthentication extends Notify {
     try {
       await app.signOut();
       // await FacebookAuth.instance.logOut();
-      message = 'Signed out';
     } catch (e) {
       message = 'Error signing out. Try again.';
     }
