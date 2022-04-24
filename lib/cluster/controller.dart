@@ -1,6 +1,5 @@
 part of lidea.cluster;
 
-// TODO: locale need to be tested
 abstract class ClusterController with ChangeNotifier {
   late BuildContext context;
   late ClusterDocket _docket;
@@ -13,25 +12,39 @@ abstract class ClusterController with ChangeNotifier {
   ThemeMode get themeMode => _themeMode;
 
   /// `AppLocalizations.of(context)!`;
-  // AppLocalizations get text => AppLocalizations.of(_context)!;
+  dynamic get text => Object();
 
-  // List<Locale> get supportedLocales => AppLocalizations.supportedLocales;
+  /// `AppLocalizations.supportedLocales`
+  Iterable<Locale> get listOfLocale => const [
+        Locale('en', 'GB'),
+        Locale('no', 'NO'),
+        Locale('my', ''),
+      ];
 
-  // late final Iterable<LocalizationsDelegate<dynamic>> localeDelegates = const [
-  //   AppLocalizations.delegate,
-  //   GlobalMaterialLocalizations.delegate,
-  //   GlobalWidgetsLocalizations.delegate,
-  //   GlobalCupertinoLocalizations.delegate,
-  // ];
+  String nameOfTheme(int index) {
+    switch (index) {
+      case 1:
+        return text.light;
+      case 2:
+        return text.dark;
+      default:
+        return text.automatic;
+    }
+  }
 
-  // late final Iterable<Locale> localeSupports = const [
-  //   // English
-  //   Locale('en', 'GB'),
-  //   // Norwegian
-  //   Locale('no', 'NO'),
-  //   // Myanmar
-  //   Locale('my', ''),
-  // ];
+  String nameOfLocale(String languageCode) {
+    // Intl.shortLocale(Intl.systemLocale)
+    switch (languageCode) {
+      case 'en':
+        return 'English';
+      case 'my':
+        return 'မြန်မာ';
+      case 'no':
+        return 'Norsk';
+      default:
+        return 'Other';
+    }
+  }
 
   /// env language
   String language(String text) => _docket.language(text);
