@@ -47,19 +47,19 @@ extension LideaStringCasingExtension on String {
   }
 }
 
-extension LideaLocale on Locale {
-  String get nativeName {
-    switch (this.languageCode) {
-      case 'en':
-        return 'English';
-      case 'my':
-        return 'မြန်မာ';
-      case 'no':
-        return 'Norsk';
-    }
-    return 'Other';
-  }
-}
+// extension LideaLocale on Locale {
+//   String get nativeName {
+//     switch (this.languageCode) {
+//       case 'en':
+//         return 'English';
+//       case 'my':
+//         return 'မြန်မာ';
+//       case 'no':
+//         return 'Norsk';
+//     }
+//     return 'Other';
+//   }
+// }
 
 extension LideaContext on BuildContext {
   /// Status bar height
