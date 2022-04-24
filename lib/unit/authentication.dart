@@ -9,7 +9,7 @@ import 'package:lidea/unit/notify.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 abstract class UnitAuthentication extends Notify {
   final String? name;
@@ -46,8 +46,6 @@ abstract class UnitAuthentication extends Notify {
   bool get hasUser => user != null;
 
   String get id => userEmail.isNotEmpty ? getMd5(userEmail) : '';
-
-  // TODO: all changes need to update to music, dictionary
 
   String get userDisplayname {
     String value = '';
@@ -182,39 +180,38 @@ abstract class UnitAuthentication extends Notify {
   }
 
   Future<void> signInWithFacebook() async {
-    // amoment = true;
-    // final LoginResult res =
-    //     await FacebookAuth.instance.login(permissions: const ['email', 'public_profile']);
+    amoment = true;
+    final LoginResult res = await FacebookAuth.instance.login(
+      permissions: const ['email', 'public_profile'],
+    );
 
-    // if (res.status == LoginStatus.success) {
-    //   try {
-    //     final facebookAuthCredential = FacebookAuthProvider.credential(res.accessToken!.token);
-    //     await app.signInWithCredential(facebookAuthCredential);
-    //   } on PlatformException catch (e) {
-    //     message = e.toString();
-    //   } on FirebaseAuthException catch (e) {
-    //     if (e.code == 'account-exists-with-different-credential') {
-    //       await signInAccountAlreadyExistsHandler(e);
-    //     } else if (e.code == 'invalid-credential') {
-    //       message = 'Invalid credential';
-    //     } else {
-    //       message = 'Error occurred';
-    //     }
-    //   } catch (e) {
-    //     message = 'Error occurred using Facebook';
-    //   }
-    // }
-    // amoment = false;
+    if (res.status == LoginStatus.success) {
+      final facebookCredential = FacebookAuthProvider.credential(res.accessToken!.token);
+      try {
+        await app.signInWithCredential(facebookCredential);
+      } on PlatformException catch (e) {
+        message = e.toString();
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'account-exists-with-different-credential') {
+          await signInAccountAlreadyExistsHandler(e);
+        } else if (e.code == 'invalid-credential') {
+          message = 'Invalid credential';
+        } else {
+          message = 'Error occurred';
+        }
+      } catch (e) {
+        message = 'Error occurred using Facebook';
+      }
+    }
+    print(message);
+    print(res.status);
+    amoment = false;
   }
 
   Future<void> signInWithApple() async {
-    // if (!isAvailableApple) {
-    //   return;
-    // }
     amoment = true;
-
     try {
-      final appleAuthCredential = await SignInWithApple.getAppleIDCredential(
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,
           AppleIDAuthorizationScopes.fullName,
@@ -236,8 +233,8 @@ abstract class UnitAuthentication extends Notify {
 
       await app.signInWithCredential(
         OAuthProvider('apple.com').credential(
-          accessToken: appleAuthCredential.authorizationCode,
-          idToken: appleAuthCredential.identityToken,
+          accessToken: appleCredential.authorizationCode,
+          idToken: appleCredential.identityToken,
         ),
       );
     } on SignInWithAppleNotSupportedException catch (e) {
@@ -268,10 +265,9 @@ abstract class UnitAuthentication extends Notify {
   // The account already exists with a different credential
   // An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.
   Future<void> signInAccountAlreadyExistsHandler(FirebaseAuthException e) async {
-    String email = e.email!;
+    // String email = e.email!;
     AuthCredential? pendingCredential = e.credential;
     // Fetch a list of what sign-in methods exist for the conflicting user
-    List<String> userSignInMethods = await app.fetchSignInMethodsForEmail(email);
 
     // If the user has several sign-in methods,
     // the first method in the list will be the "recommended" method to use.
@@ -287,35 +283,28 @@ abstract class UnitAuthentication extends Notify {
     //   await userCredential.user!.linkWithCredential(pendingCredential!);
     // }
 
+    // List<String> userSignInMethods = await app.fetchSignInMethodsForEmail(email);
     // Since other providers are now external, you must now sign the user in with another
-    if (userSignInMethods.first == 'google.com') {
-      GoogleSignInAccount? account = await _google.signInSilently();
-      if (account == null) {
-        account = await _google.signIn();
-      }
+    // if (userSignInMethods.first == 'google.com') {}
+    // if (userSignInMethods.first == 'facebook.com') {}
 
-      // Obtain the auth details from the request.
-      final auth = await account!.authentication;
-      // Create a new credential.
-      final credential = GoogleAuthProvider.credential(
-        accessToken: auth.accessToken,
-        idToken: auth.idToken,
-      );
-
-      await app.signInWithCredential(credential);
-      if (pendingCredential != null) {
-        await user!.linkWithCredential(pendingCredential);
-      }
+    GoogleSignInAccount? account = await _google.signInSilently();
+    if (account == null) {
+      account = await _google.signIn();
     }
 
-    // if (userSignInMethods.first == 'facebook.com') {
-    //   final token = await FacebookAuth.instance.accessToken;
-    //   final credential = FacebookAuthProvider.credential(token as String);
-    //   // Sign the user in with the credential
-    //   UserCredential userCredential = await app.signInWithCredential(credential);
-    //   // Link the pending credential with the existing account
-    //   await userCredential.user!.linkWithCredential(pendingCredential!);
-    // }
+    // Obtain the auth details from the request.
+    final auth = await account!.authentication;
+    // Create a new credential.
+    final credential = GoogleAuthProvider.credential(
+      accessToken: auth.accessToken,
+      idToken: auth.idToken,
+    );
+
+    await app.signInWithCredential(credential);
+    if (pendingCredential != null) {
+      await user!.linkWithCredential(pendingCredential);
+    }
   }
 
   Future<void> signOut() async {
@@ -323,6 +312,7 @@ abstract class UnitAuthentication extends Notify {
     try {
       await app.signOut();
       // await FacebookAuth.instance.logOut();
+      message = '';
     } catch (e) {
       message = 'Error signing out. Try again.';
     }
