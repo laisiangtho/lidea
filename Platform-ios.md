@@ -17,29 +17,84 @@ If `pod install` gives any error then try this
 
 - Runner->Project->Configurations
 
-```sh
-Debug
-  Runner: Generated
-    Runner: Pods-Runner.debug
-Release
-  Runner: Generated
-    Runner: Pods-Runner.Release
-Profile
-  Runner: Generated
-    Runner: Pods-Runner.Profile
-```
+  - Debug
+    - Runner: Generated
+      - Runner: Pods-Runner.debug
+  - Release
+    - Runner: Generated
+      - Runner: Pods-Runner.Release
+  - Profile
+    - Runner: Generated
+      - Runner: Pods-Runner.Profile
 
 - Runner->Project->Localizations
 
 Add English, Burmese and Norwegian
 
+- Clean & Build
+
 ```sh
 flutter clean && flutter pub get
-rm ios/Podfile && install pod
+rm ios/Podfile.lock && pod install
+# rm ios/Podfile && install pod
 cd .. && flutter build ios
 ```
 
-```bash
+## Updating gem and installing xcode clt
+
+```sh
+# install Xcode Command Line Tools
+xcode-select --install
+sudo xcodebuild -license accept
+# curl -L https://get.rvm.io | bash -s stable
+unset GEM_HOME ; \curl -sSL https://get.rvm.io | bash -s stable
+
+rvm install ruby-2.6
+
+# install without generating the documentation for each gem (faster):
+gem install <gemname> --no-document
+gem list
+gem outdated
+gem update <gemname>
+
+sudo gem install cocoapods
+pod install 
+
+# update gem
+sudo gem update --system
+# sudo gem install activesupport -v 4.2.6
+
+# sudo gem install cocoapods
+# gem install cocoapods --user-install
+# sudo gem install -n /usr/local/bin cocoapods
+```
+
+## Installing Cocoapods
+
+add in `nano ~/.zshrc`
+
+```sh
+export PATH="$PATH:$HOME/sdk/flutter/bin"
+# export GEM_HOME=$HOME/.gem
+# export PATH=$GEM_HOME/bin:$PATH
+```
+
+then
+
+```sh
+# update
+source $HOME/.zshrc
+
+# install cocoapods
+gem install cocoapods --user-install
+gem which cocoapods
+```
+
+[more on](https://guides.cocoapods.org/using/getting-started.html#sudo-less-installation)
+
+## ???
+
+```sh
 # flutter path
 nano .bash_profile
 export PATH="$PATH:/Users/Shared/Developer/flutter/bin"
@@ -70,26 +125,26 @@ pod update
 rm Podfile.lock && pod install
 ```
 
-## size
+## Screen size
 
 ... 6.5in
 
-- iPhone XS Max
-- iPhone 12 Pro Max
-- iPhone 11 Pro Max
+- [x] iPhone XS Max
+- [ ] iPhone 12 Pro Max
+- [ ] iPhone 11 Pro Max
 
 ... 5.5in
 
-- iPhone 8 Plus Size
-- iPhone 7 Plus Size
-- iPhone 6s Plus
-- iPhone 6 Plus
-- iPhone 12 mini
+- [ ] iPhone 8 Plus Size
+- [ ] iPhone 7 Plus Size
+- [ ] iPhone 6s Plus
+- [ ] iPhone 6 Plus
+- [x] iPhone 12 mini
 
 ... 12.9"
 
-- iPad Pro (5th gen)
-- iPad Pro (4th gen)
-- iPad Pro (3rd gen)
-- iPad Pro (2nd gen)
-- iPad Pro (1st gen)
+- [ ] iPad Pro (5th gen)
+- [ ] iPad Pro (4th gen)
+- [x] iPad Pro (3rd gen)
+- [x] iPad Pro (2nd gen)
+- [ ] iPad Pro (1st gen)
