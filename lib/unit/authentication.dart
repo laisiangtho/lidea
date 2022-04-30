@@ -100,7 +100,7 @@ abstract class UnitAuthentication extends Notify {
   // user.email
   // user.photoURL
   Future<void> ensureInitialized() async {
-    showFacebook = !Platform.isIOS;
+    showFacebook = true;
     showApple = Platform.isIOS && appleServiceId != null && redirectUri != null;
     // if (showApple) {
     //   showApple = await SignInWithApple.isAvailable();
