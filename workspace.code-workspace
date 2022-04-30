@@ -18,15 +18,15 @@
   ],
   "settings": {
     "workbench.colorCustomizations": {
-      "activityBar.background": "#d1cfcf",
+      "activityBar.background": "#dedcdc",
       "activityBar.foreground": "#585858",
       "textLink.foreground": "#ff0000",
       "activityBar.inactiveForeground": "#aaaaac",
-      "statusBar.background": "#a0a0a0"
+      "statusBar.background": "#b9b8b8"
     },
     "workbench.colorTheme": "Default Light+",
     "editor.tabSize": 2,
-    "editor.fontSize": 13,
+    "editor.fontSize": 12,
     "[markdown]": {
       "files.trimTrailingWhitespace": false,
       "editor.formatOnSave": true,
