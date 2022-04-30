@@ -127,24 +127,24 @@ rm Podfile.lock && pod install
 
 ## Screen size
 
-... 6.5in
+... `6.5"` (3 App Previous, 10 Screenshots) [1242x2688]
 
 - [x] iPhone XS Max
 - [ ] iPhone 12 Pro Max
 - [ ] iPhone 11 Pro Max
 
-... 5.5in
+... `5.5"` (3 App Previous, 10 Screenshots) [1242x2208]
 
-- [ ] iPhone 8 Plus Size
+- [x] iPhone 8 Plus Size
 - [ ] iPhone 7 Plus Size
 - [ ] iPhone 6s Plus
 - [ ] iPhone 6 Plus
-- [x] iPhone 12 mini
+- [ ] iPhone 12 mini
 
-... 12.9"
+... `12.9"` (3 App Previous, 10 Screenshots) [2048x2732]
 
 - [ ] iPad Pro (5th gen)
-- [ ] iPad Pro (4th gen)
-- [x] iPad Pro (3rd gen)
-- [x] iPad Pro (2nd gen)
+- [x] iPad Pro (4th gen)
+- [ ] iPad Pro (3rd gen)
+- [ ] iPad Pro (2nd gen)
 - [ ] iPad Pro (1st gen)
