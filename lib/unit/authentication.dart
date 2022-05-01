@@ -217,7 +217,7 @@ abstract class UnitAuthentication extends Notify {
           AppleIDAuthorizationScopes.fullName,
         ],
         webAuthenticationOptions: WebAuthenticationOptions(
-          // TODO: Set the `clientId` and `redirectUri`
+          // NOTE: Set the `clientId` and `redirectUri`
           // arguments to the values you entered in the
           // Apple Developer portal during the setup
           clientId: appleServiceId!,

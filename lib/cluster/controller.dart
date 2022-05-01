@@ -61,7 +61,6 @@ abstract class ClusterController with ChangeNotifier {
   /// set BuildContext, use in controller
   void setContext(BuildContext _context) {
     context = _context;
-    // TODO: add locale after Initialized
     _docket.boxOfSettings.locale(value: Localizations.localeOf(context).languageCode);
   }
 
