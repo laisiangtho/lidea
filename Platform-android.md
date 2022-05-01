@@ -17,12 +17,12 @@ flutter build appbundle --release
 ... minSdkVersion=21
 
 ```sh
-flutter build appbundle --release --target-platform=android-arm64
-flutter build apk --release --target-platform=android-arm64
-flutter run --target-platform=android-arm64
-flutter run --enable-software-rendering --target-platform=android-arm64
-flutter build appbundle --release --target-platform=android-arm64
-flutter build apk --split-per-abi --release
+# flutter build appbundle --release --target-platform=android-arm64
+# flutter build apk --release --target-platform=android-arm64
+# flutter run --target-platform=android-arm64
+# flutter run --enable-software-rendering --target-platform=android-arm64
+# flutter build appbundle --release --target-platform=android-arm64
+# flutter build apk --split-per-abi --release
 ```
 
 ## Config
