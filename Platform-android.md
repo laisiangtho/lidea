@@ -37,3 +37,16 @@ cd %UserProfile%/.dev/sdk/platform-tools
 
 adb shell setprop debug.firebase.analytics.app "com.laisiangtho.bible"
 ```
+
+## Keytools
+
+```sh
+# 'keytool' is not recognized as an internal or external command,
+# operable program or batch file.
+# Command Prompt: set Path temporary
+set PATH=%ProgramFiles%\Android\Android Studio\jre\bin
+
+# Command Prompt: check key
+cd [key directory]
+keytool -v -list -keystore keystore.jks
+```
