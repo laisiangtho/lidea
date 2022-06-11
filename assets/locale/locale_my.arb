@@ -51,6 +51,11 @@
   "wouldYouLiketoSignIn":"ဆိုင်းအင် လိုပါသလား",
   "bySigningIn":"...",
   "signOut":"ဆိုင်းအောက်",
+  "userAccount": "သင့်အကောင့်",
+  "deleteAccount": "အကောင့်ဖျက်ရန်",
+  "account": "အကောင့်",
+  "user": "အသုံးပြုသူ",
+
   "store": "စတိုး",
   "restorePurchase": "{plural, select, true{ဝယ်ယူမှုများကို ပြန်လည်ရယူရန်} other{ဝယ်ယူမှုကို ပြန်လည်ရယူရန်}}",
   "aMoment":"ခဏ",
@@ -73,7 +78,7 @@
 
   "confirmation": "အတည်ပြုခြင်း",
 
-  "confirmToDelete": "{task, select, all{အားလုံးကို ဖျက်ဖို့ သေချာလား} other{ဖျက်ဖို့ သေချာလား}}?",
+  "confirmToDelete": "သေချာလား {task, select, all{အားလုံး} other{သည်အရာ} yourAccount{သင့်အကောင့်}}ကို ဖျက်ဖို့?",
 
   "addTo": "{to} ထည့်ရန်",
   "addMore": "{to} ထပ်ထည့်ရန်",

@@ -325,6 +325,22 @@
   "@signOut": {
     "description": "Sign out"
   },
+  "userAccount": "User account",
+  "@userAccount": {
+    "description": "User account"
+  },
+  "deleteAccount": "Delete account",
+  "@deleteAccount": {
+    "description": "deleteAccount"
+  },
+  "account": "Account",
+  "@account": {
+    "description": "deleteAccount"
+  },
+  "user": "User",
+  "@user": {
+    "description": "User"
+  },
   "store": "Store",
   "@store": {
     "description": "Store"
@@ -371,9 +387,9 @@
     "description": "Light theme"
   },
 
-  "confirmToDelete": "Are you sure to delete{task, select, all{ all} this{ this} other{}}?",
+  "confirmToDelete": "Are you sure to delete {task, select, all{all} this{this} other{} yourAccount{your Account}}?",
   "@confirmToDelete": {
-    "description": "{task, select, all{ all} this{ this} word{ item} other{}}?",
+    "description": "{task, select, all{all} this{this} yourAccount{item} other{}}?",
     "placeholders": {
       "task": {
         "type":"String"
