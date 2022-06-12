@@ -17,8 +17,9 @@ Future<bool?> doConfirmWithWidget({
       routeSettings: routeSettings,
 
       useSafeArea: true,
+
       // barrierColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.8),
-      barrierColor: Theme.of(context).shadowColor.withOpacity(0.6),
+      barrierColor: Theme.of(context).shadowColor.withOpacity(0.8),
       builder: (BuildContext context) => child,
     );
   }
@@ -29,6 +30,38 @@ Future<bool?> doConfirmWithWidget({
     useRootNavigator: useRootNavigator,
     routeSettings: routeSettings,
     builder: (BuildContext context) => child,
+  );
+}
+
+Future<bool?> doConfirmWithSimple({
+  required BuildContext context,
+  required String message,
+  String title = 'Confirm',
+}) {
+  if (Platform.isAndroid) {
+    return doConfirmWithWidget(
+      context: context,
+      child: AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        // contentPadding: const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
+        actionsPadding: EdgeInsets.zero,
+        actionsAlignment: MainAxisAlignment.spaceAround,
+      ),
+    );
+  }
+  return doConfirmWithWidget(
+    context: context,
+    child: CupertinoAlertDialog(
+      title: Text(
+        title,
+        style: Theme.of(context).textTheme.bodyLarge,
+      ),
+      content: Text(
+        message,
+        style: Theme.of(context).textTheme.labelLarge,
+      ),
+    ),
   );
 }
 
@@ -44,6 +77,7 @@ Future<bool?> doConfirmWithDialog({
       context: context,
       useSafeArea: true,
       barrierColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.8),
+      // barrierColor: Theme.of(context).shadowColor.withOpacity(0.8),
       builder: (BuildContext context) => AlertDialog(
         title: Text(title),
         content: Text(message),

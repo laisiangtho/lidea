@@ -49,13 +49,14 @@ class ClusterDocket {
     _isUpdates = boxOfSettings.checkVersion(env.settings['version']);
     boxOfSettings.fromJSON(env.settings);
 
-    await tokenUpdate();
+    await updateToken(force: requireInitialized);
 
     await boxOfPurchases.open('purchase-list');
     await boxOfRecentSearch.open('recent-search');
   }
 
-  Future<void> tokenUpdate({bool force = false, String file = 'token.json'}) {
+  // gist
+  Future<void> updateToken({bool force = false, String file = 'token.json'}) {
     return env.updateToken(force: force, file: file).then((_) {
       gist = env.client;
     }).catchError((e) {

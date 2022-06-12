@@ -102,6 +102,24 @@ class UtilDocument {
 
   /// Map to JSON
   static String encodeJSON<T>(dynamic response) => json.encode(response);
+
+  // CSV to JSON
+  static Iterable<Map<String, String>> parseCSVSimple(String response) {
+    List<String> rawSrc = response.split('\n');
+    rawSrc.removeWhere((item) => item.isEmpty);
+
+    List<String> header = rawSrc.removeAt(0).split(',');
+
+    return rawSrc.map((o) {
+      List<String> val = o.split(',');
+      return val.asMap().map((idx, e) {
+        return MapEntry(header.elementAt(idx), e);
+      });
+    });
+
+    // final json = rawMap.map((e) => encodeJSON(e)).toList().toString();
+    // return json;
+  }
 }
 
 class UtilString {

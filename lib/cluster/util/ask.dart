@@ -1,6 +1,6 @@
 part of lidea.cluster;
 
-class UtilClient {
+class UtilAsk {
   // static Future<dynamic> request(String url) => null;
   // static Future<dynamic> get(Uri uri, {Map<String, String> headers}) => null;
   // // static Future<dynamic> put(Uri uri, {Map<String, String> headers}) => null;
@@ -13,14 +13,14 @@ class UtilClient {
   late Uri uri;
 
   /// `url` String, Uri...
-  UtilClient(dynamic url) {
+  UtilAsk(dynamic url) {
     this.uri = this.urlParse(url);
   }
 
   Uri urlParse(dynamic url) => (url is Uri) ? url : Uri.parse(url);
-  HttpClient get client => new HttpClient();
+  HttpClient get client => HttpClient();
 
-  /// ` await UtilClient(item).get<Uint8List>().catchError((e) => null);`
+  /// ` await UtilAsk(item).get<Uint8List>().catchError((e) => null);`
   Future<T> get<T>({Map<String, Object>? headers, String? body}) => open<T>(
         this.uri,
         method: 'GET',
@@ -72,10 +72,13 @@ class UtilClient {
       // Check the res.statusCode
       // Status: 201 gist comment Created
       if (res.statusCode == 200 || res.statusCode == 201) {
+        // debugPrint(res.headers.toString());
         if (T == String) {
-          return await _responseToString(res) as T;
+          return await responseToString(res) as T;
         } else if (T == Uint8List) {
-          return await _responseToBytes(res) as T;
+          return await responseToBytes(res) as T;
+        } else if (<String, dynamic>{} is T) {
+          return await responseToMap(res) as T;
         } else {
           return res as T;
         }
@@ -102,25 +105,43 @@ class UtilClient {
         return Future<T>.error("Failed host lookup");
       }
     } on Error catch (e) {
+      debugPrint('$e');
       return Future<T>.error("Error", e.stackTrace);
     } catch (e) {
       return Future<T>.error(e);
     }
   }
+
+  Future<String> responseToString(HttpClientResponse response) async {
+    return await response.transform(utf8.decoder).join();
+    // final completer = Completer<String>();
+    // final data = StringBuffer();
+    // this.response.transform(utf8.decoder).listen((e) {
+    //   data.write(e);
+    // }, onDone: () => completer.complete(data.toString()));
+    // return completer.future;
+  }
+
+  Future<Map<String, dynamic>> responseToMap(HttpClientResponse response) async {
+    Map<String, dynamic> sd = {};
+    response.headers.forEach((name, values) => sd[name] = values);
+    // response.headers.value(name)
+    // return {
+    //   'header': response.headers,
+    //   'body': UtilDocument.decodeJSON<Map<String, dynamic>>(await responseToString(response)),
+    // };
+    final str = await responseToString(response);
+    sd['body'] = UtilDocument.decodeJSON<Map<String, dynamic>>(str);
+    return sd;
+  }
+
+  Future<Uint8List> responseToBytes(HttpClientResponse response) async {
+    return await consolidateHttpClientResponseBytes(response);
+  }
 }
 
-Future<String> _responseToString(HttpClientResponse response) async {
-  return await response.transform(utf8.decoder).join();
-  // final completer = Completer<String>();
-  // final data = StringBuffer();
-  // this.response.transform(utf8.decoder).listen((e) {
-  //   data.write(e);
-  // }, onDone: () => completer.complete(data.toString()));
-  // return completer.future;
-}
 
-Future<Uint8List> _responseToBytes(HttpClientResponse response) async =>
-    await consolidateHttpClientResponseBytes(response);
+
 
 /*
   // Future<List<int>> download(String url) async {
@@ -139,7 +160,7 @@ Future<Uint8List> _responseToBytes(HttpClientResponse response) async =>
   //       'data': {'apikey': '12345678901234567890'},
   //   };
 
-class UtilClient {
+class UtilAsk {
   /// Request data over HTTP `...errorHandler(?).then().catchError();`
   static Future<http.Response> errorHandler(Future<http.Response> a) async {
     try {
@@ -169,7 +190,7 @@ class UtilClient {
   /// get
   // static Future<http.Response> get(Uri uri, {Map<String, String> headers}) async => await http.get(uri, headers: headers);
   static Future<http.Response> get(Uri uri, {Map<String, String> headers}) {
-    // return await UtilClient.errorHandler(http.get(uri, headers: headers)).catchError((error, stackTrace) => null);
+    // return await UtilAsk.errorHandler(http.get(uri, headers: headers)).catchError((error, stackTrace) => null);
       return http.get(uri, headers: headers).catchError((e) {
         throw Future.error("No internet");
       });
@@ -177,24 +198,24 @@ class UtilClient {
 
   /// patch
   static Future<http.Response> patch(Uri uri, {Map<String, String> headers, Object body}) async {
-    return await UtilClient.errorHandler(http.patch(uri,headers: headers,body: body)).catchError((error, stackTrace) => null);
+    return await UtilAsk.errorHandler(http.patch(uri,headers: headers,body: body)).catchError((error, stackTrace) => null);
     // return await http.patch(uri,headers: headers,body: body);
   }
 
   static Future<String> request(String url) async {
-    return await UtilClient.get(Uri.parse(url)).then((response)=>response.body).catchError((error, stackTrace) => null);
+    return await UtilAsk.get(Uri.parse(url)).then((response)=>response.body).catchError((error, stackTrace) => null);
   }
 
   // Future<String> requestString(String url) async {
-  //   // return await UtilClient.get(Uri.parse(url)).then((response)=>response.body).catchError((error, stackTrace) => null);
-  //   return await UtilClient.get(Uri.parse(url)).then((response)=>response.body);
+  //   // return await UtilAsk.get(Uri.parse(url)).then((response)=>response.body).catchError((error, stackTrace) => null);
+  //   return await UtilAsk.get(Uri.parse(url)).then((response)=>response.body);
   // }
 
   // await consolidateHttpClientResponseBytes(data);
   // await data.transform(utf8.decoder).join();
   // Future<List<int>> requestByte(String url) async {
-  //   // return await UtilClient.get(Uri.parse(url)).then((response)=>response.bodyBytes).catchError((error, stackTrace) => null);
-  //   return await UtilClient.get(Uri.parse(url)).then((response)=>response.bodyBytes);
+  //   // return await UtilAsk.get(Uri.parse(url)).then((response)=>response.bodyBytes).catchError((error, stackTrace) => null);
+  //   return await UtilAsk.get(Uri.parse(url)).then((response)=>response.bodyBytes);
   // }
 }
 */

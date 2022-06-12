@@ -1,8 +1,9 @@
 part of lidea.widget;
 
 // PullForAction PullForTask PullToRefreshState Pull
-class PullToAny extends StatefulWidget {
-  /// refreshTriggerPullDistance  = 100
+// PullToActivate
+class PullToActivate extends StatefulWidget {
+  /// refreshTriggerPullDistance  = 130
   final double? distance;
 
   /// refreshIndicatorExtent = 70
@@ -10,7 +11,7 @@ class PullToAny extends StatefulWidget {
 
   final Future<void> Function()? onUpdate;
 
-  const PullToAny({
+  const PullToActivate({
     Key? key,
     this.distance,
     this.extent,
@@ -18,15 +19,15 @@ class PullToAny extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<PullToAny> createState() => PullOfState();
+  State<PullToActivate> createState() => PullOfState();
 }
 
-class PullOfState<T extends StatefulWidget> extends State<PullToAny> {
+class PullOfState<T extends StatefulWidget> extends State<PullToActivate> {
   String _message = '';
   @override
   Widget build(BuildContext context) {
     return CupertinoSliverRefreshControl(
-      refreshTriggerPullDistance: widget.distance ?? 100,
+      refreshTriggerPullDistance: widget.distance ?? 130,
       refreshIndicatorExtent: widget.extent ?? 70,
       builder: (
         BuildContext _,

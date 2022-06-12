@@ -173,8 +173,9 @@ class WidgetListBuilder extends StatelessWidget {
           primary: primary,
           shrinkWrap: shrinkWrap,
           padding: EdgeInsets.zero,
-          scrollDirection: scrollDirection,
+          // scrollDirection: scrollDirection,
           scrollController: scrollController,
+          // buildDefaultDragHandles: false,
           physics: adjustedPhysics,
           itemBuilder: builder,
           itemCount: itemCount,
@@ -241,20 +242,32 @@ class WidgetListBuilder extends StatelessWidget {
   }
 
   Widget builder(BuildContext context, int index) {
-    return Material(
-      type: MaterialType.card,
-      color: Colors.transparent,
+    // return Material(
+    //   type: MaterialType.transparency,
+    //   // color: Colors.transparent,
+    //   shadowColor: Colors.transparent,
+    //   key: ValueKey(index),
+    //   child: FutureBuilder<bool>(
+    //     future: Future.delayed(duration, () => true),
+    //     // future: Future<bool>.microtask(() => true),
+    //     builder: (_, snap) {
+    //       if (snap.hasData == false && itemSnap != null) {
+    //         return itemSnap!(context, index);
+    //       }
+    //       return itemBuilder(context, index);
+    //     },
+    //   ),
+    // );
+    return FutureBuilder<bool>(
       key: ValueKey(index),
-      child: FutureBuilder<bool>(
-        future: Future.delayed(duration, () => true),
-        // future: Future<bool>.microtask(() => true),
-        builder: (_, snap) {
-          if (snap.hasData == false && itemSnap != null) {
-            return itemSnap!(context, index);
-          }
-          return itemBuilder(context, index);
-        },
-      ),
+      future: Future.delayed(duration, () => true),
+      // future: Future<bool>.microtask(() => true),
+      builder: (_, snap) {
+        if (snap.hasData == false && itemSnap != null) {
+          return itemSnap!(context, index);
+        }
+        return itemBuilder(context, index);
+      },
     );
   }
 }

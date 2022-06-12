@@ -12,6 +12,8 @@ class WidgetLabel extends StatelessWidget {
   final bool show;
   final TextOverflow overflow;
   final EdgeInsetsGeometry labelPadding;
+
+  /// BoxDecoration()
   final BoxDecoration? decoration;
   final BoxConstraints constraints;
   final int? maxLines;

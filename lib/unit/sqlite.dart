@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
 
 // String queryCountTable = "SELECT count(*) as count FROM sqlite_master WHERE type = 'table';";
@@ -19,7 +18,6 @@ abstract class UnitSQLite {
   Future<int> get version async => 1;
 
   FutureOr<Database> init() async {
-    debugPrint('??? db.init ');
     return await openDatabase(
       await file,
       version: await version,
@@ -28,33 +26,29 @@ abstract class UnitSQLite {
       onUpgrade: onUpgrade,
       onDowngrade: onDowngrade,
       onOpen: onOpen,
-      singleInstance: true,
+      // singleInstance: false,
     );
   }
 
-  FutureOr<void> onConfigure(Database e) {
+  FutureOr<void> onConfigure(Database e) async {
     // ALTER TABLE table_name ADD PRIMARY KEY(col1, col2,...)
+    await doIndex(e);
   }
 
   FutureOr<void> onCreate(Database e, int v) async {
-    // await e.transaction((txn) async {
-    //   Batch batch = txn.batch();
-    //   batch.execute(_wordContext.createIndex!);
-    //   debugPrint('db.onCreate');
-    //   await batch.commit(noResult: true);
-    // });
+    await doIndex(e);
   }
 
   FutureOr<void> onUpgrade(Database e, int ov, int nv) async {
-    // await e.transaction((txn) async {
-    //   Batch batch = txn.batch();
-    //   batch.execute(_wordContext.createIndex!);
-    //   debugPrint('e.onUpgrade');
-    //   await batch.commit(noResult: true);
-    // });
+    await doIndex(e);
   }
 
   FutureOr<void> onDowngrade(Database e, int ov, int nv) async {
+    await doIndex(e);
+  }
+
+  /// doIndex executed onConfigure, onCreate, onUpgrade and onDowngrade by default
+  FutureOr<void> doIndex(Database e) async {
     // await e.transaction((txn) async {
     //   Batch batch = txn.batch();
     //   batch.execute(_wordContext.createIndex!);

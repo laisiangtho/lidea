@@ -24,10 +24,12 @@ class ColorationScheme {
 
   const ColorationScheme({
     this.brightness = Brightness.light,
-    this.focus = Colors.black,
+    // this.focus = Colors.black12,
+    // this.primary = const Color(0xFFffffff),
+    this.focus = const Color(0xFFd5d5d5),
     this.primary = const Color(0xFFffffff),
-    this.light = Colors.grey,
-    this.dark = Colors.grey,
+    this.light = Colors.white,
+    this.dark = Colors.black45,
     this.scaffold = const Color(0xFFf7f7f7),
     this.highlight = Colors.orange,
     this.disable = Colors.black12,
@@ -37,7 +39,7 @@ class ColorationScheme {
     this.divider = const Color(0xFFbdbdbd),
     this.button = const Color(0xFFdedcdc),
     this.primaryScheme = Colors.black,
-    this.primarySwatch = Colors.grey,
+    this.primarySwatch = Colors.blue,
   });
 
   Color get canvas => Colors.transparent;
@@ -63,20 +65,21 @@ class ColorationScheme {
 
   static ColorationScheme darkColor({
     Brightness brightness = Brightness.dark,
-    Color focus = Colors.white,
+    // Color focus = Color.fromARGB(255, 185, 183, 183),
+    Color focus = const Color(0xFF959595),
     Color primary = const Color(0xFF9c9c9c),
-    Color light = Colors.grey,
-    Color dark = Colors.blue,
+    Color light = Colors.white,
+    Color dark = Colors.black45,
     Color scaffold = const Color(0xFFa6a6a6),
-    Color highlight = Colors.orange,
-    Color disable = Colors.white30,
+    Color highlight = Colors.white,
+    Color disable = Colors.white12,
     Color background = const Color(0xFFbdbdbd),
-    Color error = Colors.red,
+    Color error = const Color.fromARGB(255, 138, 52, 52),
     Color shadow = const Color(0xFF8f8f8f),
     Color divider = const Color(0xFF8f8f8f),
     Color button = const Color(0xFFd9d9d9),
     Color primaryScheme = Colors.white,
-    MaterialColor primarySwatch = Colors.grey,
+    MaterialColor primarySwatch = Colors.blue,
   }) {
     return ColorationScheme(
       brightness: brightness,
@@ -129,12 +132,13 @@ abstract class ColorationData {
       disabledColor: color.disable,
       errorColor: color.error,
       dividerColor: color.divider,
+      focusColor: color.focus,
 
       textTheme: text.apply(
         // fontFamily: "Lato, sans-serif",
         fontFamily: fontFamily,
-        bodyColor: color.focus,
-        displayColor: color.focus.withOpacity(0.6),
+        bodyColor: color.primaryScheme,
+        displayColor: color.primaryScheme.withOpacity(0.6),
         decorationColor: Colors.red,
         decorationStyle: TextDecorationStyle.wavy,
       ),
@@ -143,11 +147,11 @@ abstract class ColorationData {
         // backgroundColor: Colors.blue,
         // foregroundColor: Colors.red,
         backgroundColor: color.primary,
-        foregroundColor: color.focus,
+        foregroundColor: color.primaryScheme,
       ),
 
       // iconTheme: IconThemeData(color: color.focus, size: 23),
-      iconTheme: IconThemeData(color: color.focus, size: 26),
+      iconTheme: IconThemeData(color: color.primaryScheme, size: 26),
       cardTheme: CardTheme(
         color: color.primary,
         elevation: 0.8,
@@ -166,8 +170,8 @@ abstract class ColorationData {
         // TextStyle? titleTextStyle,
         // TextStyle? contentTextStyle,
         // backgroundColor: Colors.red,
-        titleTextStyle: TextStyle(fontSize: 19, color: color.focus),
-        contentTextStyle: TextStyle(fontSize: 14, color: color.focus),
+        titleTextStyle: TextStyle(fontSize: 19, color: color.primaryScheme),
+        contentTextStyle: TextStyle(fontSize: 14, color: color.primaryScheme),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(12.0),
@@ -199,7 +203,7 @@ abstract class ColorationData {
         padding: EdgeInsets.zero,
         // labelStyle: TextStyle(color: Colors.red),
         labelStyle: text.labelMedium,
-        // secondaryLabelStyle: TextStyle(color: color.focus),
+        // secondaryLabelStyle: TextStyle(color: color.primaryScheme),
         brightness: color.brightness,
         // brightness: resolveBrightness,
       ),
@@ -231,7 +235,7 @@ abstract class ColorationData {
         // hoverColor: Colors.green,
         // focusColor: Colors.red,
         // hintStyle: TextStyle(
-        //   color: color.focus.withOpacity(0.7),
+        //   color: color.primaryScheme.withOpacity(0.7),
         //   fontSize: 15,
         // ),
         // labelStyle: const TextStyle(),
@@ -279,13 +283,13 @@ abstract class ColorationData {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.all<Color>(color.focus),
+          foregroundColor: MaterialStateProperty.all<Color>(color.primaryScheme),
           backgroundColor: MaterialStateProperty.all<Color>(color.primary),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.all<Color>(color.focus),
+          foregroundColor: MaterialStateProperty.all<Color>(color.primaryScheme),
           backgroundColor: MaterialStateProperty.all<Color>(color.primary),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(

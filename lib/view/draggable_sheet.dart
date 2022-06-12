@@ -37,6 +37,10 @@ class ViewDraggableSheetState<T extends StatefulWidget> extends State<T>
 
   ThemeData get theme => Theme.of(context);
 
+  // NOTE: device height and width
+  late double _dHeight;
+  late double _bPadding;
+
   @override
   void dispose() {
     super.dispose();
@@ -44,14 +48,17 @@ class ViewDraggableSheetState<T extends StatefulWidget> extends State<T>
     // switchController.dispose();
   }
 
+  @override
+  void didChangeDependencies() {
+    _dHeight = MediaQuery.of(context).size.height;
+    _bPadding = MediaQuery.of(context).padding.bottom;
+    super.didChangeDependencies();
+  }
+
   BorderRadius get borderRadius => const BorderRadius.vertical(
         top: Radius.circular(10),
         // top: Radius.elliptical(15, 15),
       );
-
-  // NOTE: device height and width
-  late final _dHeight = MediaQuery.of(context).size.height;
-  late final _bPadding = MediaQuery.of(context).padding.bottom;
 
   // late final kHeight = scrollNotify.kHeight;
   double get kHeight => scrollNotify.kHeight;
@@ -63,11 +70,28 @@ class ViewDraggableSheetState<T extends StatefulWidget> extends State<T>
   // NOTE: Overridable for modal sheet
   bool get persistent => true;
   double get initialSize => _initialSize;
-  double get minSize => (kHeight + _bPadding) / _dHeight;
+  double get minSize {
+    final size = (kHeight + _bPadding) / _dHeight;
+    // _dHeight and _bPadding returned 0.0 value when save changed
+    if (size == double.infinity) {
+      return 0.0;
+    }
+    return size;
+  }
+
   double get midSize => 0.5;
 
   /// default size is fullscreen - statusbar
-  double get maxSize => (_dHeight - scrollNotify.kHeightStatusBar) / _dHeight;
+  // double get maxSize => (_dHeight - scrollNotify.kHeightStatusBar) / _dHeight;
+  double get maxSize {
+    final size = (_dHeight - scrollNotify.kHeightStatusBar) / _dHeight;
+
+    if (size <= 1.0) {
+      return size;
+    }
+    // _dHeight and _bPadding returned 0.0 value when save changed
+    return midSize;
+  }
 
   bool get isSizeDefault => initialSize <= minSize;
   bool get isSizeShrink => initialSize < midSize;

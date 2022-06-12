@@ -7,7 +7,7 @@ class UtilArchive {
     // final bytes = await UtilDocument.byteToListInt(data);
     try {
       final archive = ZipDecoder().decodeBytes(bytes);
-      for (final file in archive) {
+      for (var file in archive) {
         if (file.isFile) {
           await UtilDocument.writeAsByte(file.name, file.content as List<int>, true);
         }
@@ -18,16 +18,25 @@ class UtilArchive {
     }
   }
 
-  static Future<List<String>> extractBundle(String file) async {
+  static Future<List<String>> extractBundle(String file, {bool noneArchive = false}) async {
     List<int>? bytes = await UtilDocument.loadBundleAsByte(file)
         .then((data) => UtilDocument.byteToListInt(data).catchError((_) => null))
         .catchError((e) => null);
     if (bytes != null && bytes.isNotEmpty) {
       final res = await UtilArchive.extract(bytes).catchError((_) => null);
-      if (res != null) {
+      if (res == null) {
+        if (noneArchive) {
+          return await UtilDocument.writeAsByte(file, bytes, true).then((value) {
+            return [file];
+          });
+        }
+        throw ('ExtractingBundleException');
+      } else {
         return res;
       }
+      // throw ('ExtractingBundleException');
     }
-    return Future.error("Failed to load");
+    // return Future.error("Extracting bundle failed");
+    throw ('LoadingBundleException');
   }
 }

@@ -16,9 +16,9 @@ abstract class ClusterController with ChangeNotifier {
 
   /// `AppLocalizations.supportedLocales`
   Iterable<Locale> get listOfLocale => const [
-        Locale('en', 'GB'),
         Locale('no', 'NO'),
         Locale('my', ''),
+        Locale('en', 'GB'),
       ];
 
   String nameOfTheme(int index) {
@@ -131,7 +131,7 @@ abstract class ClusterController with ChangeNotifier {
         brightness = Brightness.dark;
         break;
       default:
-        brightness = WidgetsBinding.instance!.window.platformBrightness;
+        brightness = WidgetsBinding.instance.window.platformBrightness;
     }
     return brightness;
   }

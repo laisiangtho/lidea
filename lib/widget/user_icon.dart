@@ -1,4 +1,4 @@
-part of 'main.dart';
+part of lidea.widget;
 
 // ProfileIcon Profile
 class UserIcon extends StatelessWidget {

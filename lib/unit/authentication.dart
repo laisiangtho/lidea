@@ -47,6 +47,21 @@ abstract class UnitAuthentication extends Notify {
 
   String get id => userEmail.isNotEmpty ? getMd5(userEmail) : '';
 
+  Future<void> deleteAccount() async {
+    if (user == null) return;
+
+    try {
+      await user?.delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        message = e.message!;
+      } else {
+        message = 'Error occurred';
+      }
+      return Future.error(e);
+    }
+  }
+
   String get userDisplayname {
     String value = '';
     if (hasUser) {
@@ -131,6 +146,7 @@ abstract class UnitAuthentication extends Notify {
     //   final photoURL = user!.photoURL;
     // }
   }
+
   // Future<void> stateObserver([void Function(User? user)? observe]) async {
   //   app.userChanges().listen((o) {
   //     _message = (o == null) ? 'Not signed' : 'Signed';
@@ -203,8 +219,6 @@ abstract class UnitAuthentication extends Notify {
         message = 'Error occurred using Facebook';
       }
     }
-    print(message);
-    print(res.status);
     amoment = false;
   }
 

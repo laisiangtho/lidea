@@ -1,11 +1,12 @@
-// import 'dart:async';
-
 import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:lidea/audio.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:audio_service/audio_service.dart';
+// import 'package:audio_session/audio_session.dart';
+
 import 'package:lidea/type/main.dart';
 
 /// The implementation of [AudioPlayerHandler].
@@ -13,64 +14,51 @@ import 'package:lidea/type/main.dart';
 /// This handler is backed by a just_audio player. The player's effective
 /// sequence is mapped onto the handler's queue, and the player's state is
 /// mapped onto the handler's state.
-abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements AudioHandlerType {
+abstract class UnitAudio extends BaseAudioHandler with SeekHandler {
   final _player = AudioPlayer();
   final _playlist = ConcatenatingAudioSource(children: []);
   final BehaviorSubject<List<MediaItem>> _recentSubject = BehaviorSubject.seeded([]);
   final expandoMediaItem = Expando<MediaItem>();
 
-  @override
-  // ignore: close_sinks
   final BehaviorSubject<String> message = BehaviorSubject.seeded('');
 
-  @override
-  final BehaviorSubject<double> speed = BehaviorSubject.seeded(1.0);
-
-  @override
-  // ignore: close_sinks
-  final BehaviorSubject<double> volume = BehaviorSubject.seeded(1.0);
-
-  @override
-  Stream<Duration> get bufferedPositionStream {
-    return playbackState.map((state) => state.bufferedPosition).distinct();
+  void dispose() {
+    message.close();
   }
 
-  @override
-  Stream<Duration?> get durationStream {
-    return mediaItem.map((item) => item?.duration).distinct();
-  }
-
-  @override
-  Stream<AudioPositionType> get positionDataStream {
-    return Rx.combineLatest3<Duration, Duration, Duration?, AudioPositionType>(
+  // positionDataStream
+  Stream<AudioPositionType> get streamPositionData {
+    return Rx.combineLatest3<Duration, Duration, Duration, AudioPositionType>(
       AudioService.position,
-      bufferedPositionStream,
-      durationStream,
-      (position, bufferedPosition, duration) =>
-          AudioPositionType(position, bufferedPosition, duration ?? Duration.zero),
+      playbackState.map((e) => e.bufferedPosition).distinct(),
+      mediaItem.map((e) => e?.duration ?? Duration.zero).distinct(),
+      (position, buffered, duration) => AudioPositionType(
+        position: position,
+        buffered: buffered,
+        duration: duration,
+      ),
     );
   }
 
   /// A stream reporting the combined state of the current queue and the current media item within that queue.
-  @override
-  Stream<AudioQueueStateType> get queueState {
+  Stream<AudioQueueStateType> get streamQueueState {
     return Rx.combineLatest3<List<MediaItem>, PlaybackState, List<int>, AudioQueueStateType>(
+      queue,
+      playbackState,
+      _player.shuffleIndicesStream.whereType<List<int>>(),
+      (queue, state, shuffleIndices) => AudioQueueStateType(
         queue,
-        playbackState,
-        _player.shuffleIndicesStream.whereType<List<int>>(),
-        (queue, state, shuffleIndices) => AudioQueueStateType(
-              queue,
-              state.queueIndex,
-              state.shuffleMode == AudioServiceShuffleMode.all ? shuffleIndices : null,
-              state.repeatMode,
-            )).where((state) {
+        state.queueIndex,
+        state.shuffleMode == AudioServiceShuffleMode.all ? shuffleIndices : null,
+        state.repeatMode,
+      ),
+    ).where((state) {
       return state.shuffleIndices == null || state.queue.length == state.shuffleIndices!.length;
     });
   }
 
   /// A stream reporting the combined state of the current queue and the current media item within that queue.
-  @override
-  Stream<AudioMediaStateType> mediaState(String sid) {
+  Stream<AudioMediaStateType> streamMediaState(String sid) {
     return Rx.combineLatest3<List<MediaItem>, PlaybackState, int?, AudioMediaStateType>(
       queue,
       playbackState,
@@ -107,17 +95,13 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements Au
 
   @override
   Future<void> setSpeed(double speed) async {
-    this.speed.add(speed);
     await _player.setSpeed(speed);
   }
 
-  @override
   Future<void> setVolume(double volume) async {
-    this.volume.add(volume);
     await _player.setVolume(volume);
   }
 
-  @override
   void setMessage(String value) {
     message.value = value;
   }
@@ -204,7 +188,6 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements Au
     await _playlist.removeAt(index);
   }
 
-  @override
   Future<void> moveQueueItem(int currentIndex, int newIndex) async {
     await _playlist.move(currentIndex, newIndex);
   }
@@ -275,7 +258,7 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler implements Au
     await setShuffleMode(AudioServiceShuffleMode.none);
 
     // Broadcast speed changes. Debounce so that we don't flood the notification with updates.
-    speed.debounceTime(const Duration(milliseconds: 250)).listen((speed) {
+    _player.speedStream.debounceTime(const Duration(milliseconds: 250)).listen((speed) {
       playbackState.add(playbackState.value.copyWith(speed: speed));
     });
 

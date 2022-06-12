@@ -1,4 +1,4 @@
-part of 'main.dart';
+part of lidea.widget;
 
 class WidgetUserLocale extends StatelessWidget {
   final ClusterController preference;
@@ -40,7 +40,7 @@ class WidgetUserLocale extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
                 alignment: Alignment.centerLeft,
                 icon: Icons.check_rounded,
-                iconColor: active ? null : Theme.of(context).focusColor,
+                iconColor: active ? null : Theme.of(context).disabledColor,
                 label: localeName,
                 labelPadding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                 labelStyle: Theme.of(context).textTheme.bodyLarge,

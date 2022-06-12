@@ -1,4 +1,4 @@
-part of 'main.dart';
+part of lidea.widget;
 
 class SignInButton extends StatelessWidget {
   final IconData? icon;

@@ -115,6 +115,11 @@ class _WidgetButtonState extends State<WidgetButton> {
         },
         onLongPress: widget.onLongPress,
         child: rowChild(),
+
+        // child: DefaultTextStyle.merge(
+        //   child: rowChild(),
+        //   style: TextStyle(color: Colors.red),
+        // ),
       ),
     );
   }
@@ -162,5 +167,42 @@ class _WidgetButtonState extends State<WidgetButton> {
       );
     }
     return content;
+  }
+
+  Widget rowChildTmp() {
+    return AnimatedOpacity(
+      duration: widget.duration,
+      opacity: opticityDisabled,
+      child: ConstrainedBox(
+        constraints: widget.constraints,
+        child: Material(
+          // MaterialType type = MaterialType.canvas,
+          // double elevation = 0.0,
+          // Color? color,
+          // Color? shadowColor,
+          // TextStyle? textStyle,
+          // BorderRadiusGeometry? borderRadius,
+          // ShapeBorder? shape,
+          // bool borderOnForeground = true,
+          // Clip clipBehavior = Clip.none,
+          // Duration animationDuration = kThemeChangeDuration,
+          elevation: widget.elevation,
+          color: widget.color,
+          shadowColor: widget.shadowColor,
+          borderRadius: widget.borderRadius,
+          clipBehavior: widget.clipBehavior,
+          textStyle: widget.textStyle,
+          child: SizedBox(
+            child: DecoratedBox(
+              decoration: widget.decoration,
+              child: Padding(
+                padding: widget.padding,
+                child: widget.child,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

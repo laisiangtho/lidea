@@ -16,29 +16,26 @@ part of lidea.cluster;
 ///
 /// ```
 class GistData {
-  late final _gitContentTemp = Uri.https('gist.githubusercontent.com', '/owner/repo/raw/id/file');
-  late final _gitListTemp = Uri.https('api.github.com', '/gists/repo');
-  late final _rawContentTemp = Uri.https('raw.githubusercontent.com', '/owner/repo/master/file');
+  late final urlRawGist = Uri.https('gist.githubusercontent.com', '/owner/repo/raw/id/file');
+  // https://api.github.com/rate_limit
+  late final urlGistBlock = Uri.https('api.github.com', '/gists/repo');
+  late final urlRawRepo = Uri.https('raw.githubusercontent.com', '/owner/repo/master/file');
 
-  late UtilClient _client;
-
-  String owner;
-  String repo;
-  String? token;
+  final TokenType token;
   String? file;
 
   /// api.github.com/gists/repo
   /// create default client
-  GistData({required this.owner, required this.repo, this.token, this.file}) {
-    _client = UtilClient(_gitListTemp.replace(path: '/gists/$repo'));
-  }
+  GistData({required this.token, this.file});
+
+  UtilAsk get _ask => UtilAsk(urlGistBlock.replace(path: '/gists/${token.name}'));
 
   Uri uri({String? owner, String? repo, Map<String, dynamic>? args}) {
     if (owner == null) {
-      owner = this.owner;
+      owner = token.owns;
     }
     if (repo == null) {
-      repo = this.repo;
+      repo = token.name;
     }
     return Uri.https(owner, repo, args);
   }
@@ -54,20 +51,20 @@ class GistData {
   /// ```
   Uri gitContentUri({String? owner, String? repo, String? file}) {
     if (owner == null) {
-      owner = this.owner;
+      owner = token.owns;
     }
     if (repo == null) {
-      repo = this.repo;
+      repo = token.name;
     }
     if (file != null && file.isNotEmpty) {
-      return _gitContentTemp.replace(path: '/$owner/$repo/raw/$file');
+      return urlRawGist.replace(path: '/$owner/$repo/raw/$file');
     }
-    return _gitContentTemp.replace(path: '/$owner/$repo/raw/');
+    return urlRawGist.replace(path: '/$owner/$repo/raw/');
   }
 
   Future<T> gitContent<T>({String? owner, String? repo, String? file, bool url = false}) async {
     if (file != null && file.isNotEmpty) {
-      return UtilClient(gitContentUri(owner: owner, repo: repo, file: file)).get<T>();
+      return UtilAsk(gitContentUri(owner: owner, repo: repo, file: file)).get<T>();
     }
     return Future<T>.error("No identity");
   }
@@ -83,40 +80,43 @@ class GistData {
   /// ```
   Uri rawContentUri({String? owner, String? repo, String? file}) {
     if (owner == null) {
-      owner = this.owner;
+      owner = token.owns;
     }
     if (repo == null) {
-      repo = this.repo;
+      repo = token.name;
     }
     if (file != null && file.isNotEmpty) {
-      return _rawContentTemp.replace(path: '/$owner/$repo/master/$file');
+      return urlRawRepo.replace(path: '/$owner/$repo/master/$file');
     }
-    return _rawContentTemp.replace(path: '/$owner/$repo/master/');
+    return urlRawRepo.replace(path: '/$owner/$repo/master/');
   }
 
   Future<T> rawContent<T>({String? owner, String? repo, String? file}) async {
     if (owner == null) {
-      owner = this.owner;
+      owner = token.owns;
     }
     if (repo == null) {
-      repo = this.repo;
+      repo = token.name;
     }
     if (file == null && this.file != null) {
       file = this.file;
     }
     if (file != null && file.isNotEmpty) {
-      return UtilClient(rawContentUri(owner: owner, repo: repo, file: file)).get<T>();
+      return UtilAsk(rawContentUri(owner: owner, repo: repo, file: file)).get<T>();
     }
     return Future<T>.error("No identity");
   }
 
-  Map<String, String> header({String? authorization}) {
-    if (authorization != null) {
-      token = authorization;
+  // header for post, delete, patch
+  Map<String, String> header({String? key}) {
+    if (key == null) {
+      key = token.key;
     }
     return {
       'Accept': 'application/vnd.github.v3+json',
-      if (token != null) 'Authorization': 'token $token',
+      if (token.hasClient) '${token.clientId}': '${token.clientSecret}',
+      if (key.isNotEmpty) 'Authorization': 'token $key',
+      // 'Authorization': 'Basic a:b',
       // 'Content-type': 'application/json',
       'User-Agent': 'lidea',
     };
@@ -136,7 +136,7 @@ class GistData {
           final bytes = await UtilDocument.strToListInt(item['content']);
           await UtilArchive.extract(bytes);
         } else {
-          await UtilClient(item['url']).get<Uint8List>().then((res) {
+          await UtilAsk(item['url']).get<Uint8List>().then((res) {
             UtilArchive.extract(res).then((arc) {
               arc!.forEach((fileName) async {
                 final isExists = await UtilDocument.exists(fileName);
@@ -153,16 +153,90 @@ class GistData {
   /// get list of Gist files
   /// ```dart
   /// final gist = GistData(repo:?);
+  /// gist.listFile();
+  /// ```
+  // {bool forceTruncated = false}
+  // Future<GistFileListType> listFile() {
+  //   return _ask.get<String>(headers: header()).then<GistFileListType>(
+  //     (res) {
+  //       final src = UtilDocument.decodeJSON<Map<String, dynamic>>(res);
+  //       // gistId, dataId
+  //       Map<String, dynamic> raw = {
+  //         'gistId': src['id'],
+  //         'dataId': token.id,
+  //         'comments': src['comments'],
+  //         'description': src['description'],
+  //       };
+  //       raw['files'] = src['files'].values;
+  //       // raw['files'] = await src['files'].values.map((entry) async {
+  //       //   if (entry['truncated'] == true) {
+  //       //     if (forceTruncated) {
+  //       //       entry['content'] = await UtilAsk(entry['raw_url']).get<String>();
+  //       //     }
+  //       //     entry['content'] = '';
+  //       //   }
+  //       //   return entry;
+  //       // });
+  //       // raw['description'] = src['description'];
+  //       // raw['comments'] = src['comments'];
+  //       // raw['id'] = src['id'];
+  //       return GistFileListType.fromJSON(raw);
+  //     },
+  //   );
+  // }
+  // updateFile
+  //  fileList listFile updateFile
+  Future<GistFileListType> listFile() {
+    return _ask.get<Map<String, dynamic>>(headers: header()).then<GistFileListType>(gistFileList);
+  }
+
+  GistFileListType gistFileList(Map<String, dynamic> res) {
+    final src = res['body'];
+    // gistId, dataId
+    Map<String, dynamic> raw = {
+      // 'gistId': src['id'],
+      // 'dataId': token.id,
+      'comments': src['comments'],
+      'description': src['description'],
+      'limit': res['x-ratelimit-limit'].first,
+      'remaining': res['x-ratelimit-remaining'].first,
+      'reset': res['x-ratelimit-reset'].first,
+      'used': res['x-ratelimit-used'].first,
+    };
+    raw['files'] = src['files'].values;
+    return GistFileListType.fromJSON(raw);
+  }
+
+  // void tmp() {
+  //   _ask.get<HttpClientResponse>(headers: header()).then<GistFileListType>(
+  //     (response) async{
+  //       final res = await _ask.responseToString(response);
+  //       final result = UtilDocument.decodeJSON<Map<String, dynamic>>(res);
+  //       return GistFileListType.fromJSON({
+  //         'gistId': result['id'],
+  //         'dataId': token.id,
+  //         'comments': result['comments'],
+  //         'description': result['description'],
+  //         'files': result['files'].values,
+  //       });
+  //     },
+  //   );
+  // }
+
+  /// get list of Gist files
+  /// ```dart
+  /// final gist = GistData(repo:?);
   /// gist.gitFiles();
   /// ```
   Future<List<Map<String, dynamic>>> gitFiles() {
-    return _client.get<String>().then<List<Map<String, dynamic>>>(
+    return _ask.get<String>(headers: header()).then<List<Map<String, dynamic>>>(
       (res) {
         return UtilDocument.decodeJSON<Map<String, dynamic>>(res)['files']
             .values
             .map((entry) => {
                   'file': entry['filename'],
                   'type': entry['type'],
+                  'language': entry['language'],
                   'url': entry['raw_url'],
                   'size': entry['size'],
                   'truncated': entry['truncated'],
@@ -195,7 +269,7 @@ class GistData {
       file = this.file;
     }
     if (file != null && file.isNotEmpty) {
-      return _client.patch<T>(
+      return _ask.patch<T>(
         headers: header(),
         body: UtilDocument.encodeJSON<Object>(
           {
@@ -226,7 +300,7 @@ class GistData {
       file = this.file;
     }
     if (file != null && file.isNotEmpty) {
-      return _client.patch<T>(
+      return _ask.patch<T>(
         headers: header(),
         body: UtilDocument.encodeJSON<Object>(
           {
@@ -242,18 +316,18 @@ class GistData {
 
   // tmp: working
   Future<T> comment<T>({String? file, required Object content}) {
-    final tmp = UtilClient(_gitListTemp.replace(path: '/gists/$repo/comments'));
-    // final tmp = UtilClient(_client.uri.replace(path: '/gists/$repo/comments'));
+    final tmp = UtilAsk(urlGistBlock.replace(path: '/gists/${token.name}/comments'));
+    // final tmp = UtilAsk(_ask.uri.replace(path: '/gists/$repo/comments'));
     if (file == null && this.file != null) {
       file = this.file;
     }
-    debugPrint(tmp.uri.toString());
+    // debugPrint(tmp.uri.toString());
     if (file != null && file.isNotEmpty) {
       return tmp.post<T>(
         headers: header(),
         body: UtilDocument.encodeJSON<Object>(
           {
-            "gist_id": "gist_id",
+            "gist_id": "GIST_ID",
             "body": content,
           },
         ),

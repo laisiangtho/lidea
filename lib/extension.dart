@@ -1,7 +1,7 @@
 library lidea;
 
-import 'dart:ui';
-import 'package:flutter/material.dart';
+// import 'dart:ui';
+// import 'package:flutter/material.dart';
 
 // .split('').reverse().join('');
 // .replaceAll('0','~');
@@ -61,24 +61,24 @@ extension LideaStringCasingExtension on String {
 //   }
 // }
 
-extension LideaContext on BuildContext {
-  /// Status bar height
-  double get statusBarHeight => MediaQueryData.fromWindow(window).padding.top;
+// extension LideaContext on BuildContext {
+//   /// Status bar height
+//   double get statusBarHeight => MediaQueryData.fromWindow(window).padding.top;
 
-  /// Full screen width
-  // double get screenWidget => MediaQuery.of(this).size.width;
+//   /// Full screen width
+//   // double get screenWidget => MediaQuery.of(this).size.width;
 
-  /// Full screen height
-  // double get screenHeight => MediaQuery.of(this).size.height;
+//   /// Full screen height
+//   // double get screenHeight => MediaQuery.of(this).size.height;
 
-//   EdgeInsets get padding => MediaQuery.of(this).viewPadding;
+// //   EdgeInsets get padding => MediaQuery.of(this).viewPadding;
 
-// // Height (without SafeArea)
-//   double get screenHeightNoneSafeArea => screenHeight - padding.top - padding.bottom;
+// // // Height (without SafeArea)
+// //   double get screenHeightNoneSafeArea => screenHeight - padding.top - padding.bottom;
 
-// // Height (without status bar)
-//   double get screenHeightNoneStatusBar => screenHeight - padding.top;
+// // // Height (without status bar)
+// //   double get screenHeightNoneStatusBar => screenHeight - padding.top;
 
-// // Height (without status and toolbar)
-//   double get screenHeightNoneToolbar => screenHeight - padding.top - kToolbarHeight;
-}
+// // // Height (without status and toolbar)
+// //   double get screenHeightNoneToolbar => screenHeight - padding.top - kToolbarHeight;
+// }

@@ -2,24 +2,26 @@ part of 'main.dart';
 
 /// An [AudioHandler] for playing a list of podcast episodes.
 /// This class exposes the interface and not the implementation.
-abstract class AudioHandlerType implements AudioHandler {
-  ValueStream<String> get message;
-  void setMessage(String value);
-  ValueStream<double> get speed;
-  // Future<void> setSpeed(double volume);
-  ValueStream<double> get volume;
-  Future<void> setVolume(double volume);
-  Future<void> moveQueueItem(int currentIndex, int newIndex);
-  Stream<AudioPositionType> get positionDataStream;
-  Stream<Duration> get bufferedPositionStream;
-  Stream<Duration?> get durationStream;
-  Stream<AudioQueueStateType> get queueState;
-  Stream<AudioMediaStateType> mediaState(String trackId);
-}
+// abstract class AudioHandlerType implements AudioHandler {
+//   ValueStream<String> get message;
+//   void setMessage(String value);
+//   ValueStream<double> get speed;
+//   // Future<void> setSpeed(double volume);
+//   ValueStream<double> get volume;
+//   Future<void> setVolume(double volume);
+//   Future<void> moveQueueItem(int currentIndex, int newIndex);
+//   Stream<AudioPositionType> get positionDataStream;
+//   Stream<Duration> get bufferedPositionStream;
+//   Stream<Duration?> get durationStream;
+//   Stream<AudioQueueStateType> get queueState;
+//   Stream<AudioMediaStateType> mediaState(String trackId);
+// }
 
 class AudioQueueStateType {
-  static const AudioQueueStateType empty =
-      AudioQueueStateType([], null, [], AudioServiceRepeatMode.none);
+  static const empty = AudioQueueStateType([], null, [], AudioServiceRepeatMode.none);
+
+  //  final List<MediaItem> queue;
+  // final MediaItem? mediaItem;
 
   final List<MediaItem> queue;
   final int? queueIndex;
@@ -90,9 +92,34 @@ class AudioCacheType {
 }
 
 class AudioPositionType {
+  // final Duration position;
+  // final Duration bufferedPosition;
+  // final Duration duration;
+
+  // AudioPositionType(this.position, this.bufferedPosition, this.duration);
+  /// default values
+  static const AudioPositionType none = AudioPositionType(
+    position: Duration.zero,
+    buffered: Duration.zero,
+    duration: Duration.zero,
+  );
+
   final Duration position;
-  final Duration bufferedPosition;
+  final Duration buffered;
   final Duration duration;
 
-  AudioPositionType(this.position, this.bufferedPosition, this.duration);
+  const AudioPositionType({
+    this.position = Duration.zero,
+    this.buffered = Duration.zero,
+    this.duration = Duration.zero,
+  });
+}
+
+/// ?
+class AudioCustomEvent {
+  /// ?
+  final int handlerIndex;
+
+  /// ?
+  AudioCustomEvent(this.handlerIndex);
 }

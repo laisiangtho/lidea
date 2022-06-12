@@ -11,7 +11,7 @@ class EnvironmentType {
   String settingName;
   String settingKey;
 
-  List<TokenType> token;
+  List<TokenType> _token = const [];
   Iterable<APIType> api;
 
   List<ProductsType> products;
@@ -30,13 +30,18 @@ class EnvironmentType {
     required this.buildNumber,
     required this.settingName,
     required this.settingKey,
-    required this.token,
+    // required this.token,
+    List<TokenType>? token,
     required this.api,
     required this.products,
     required this.settings,
     required this.attach,
     required this.language,
-  });
+  }) {
+    if (token != null) {
+      _token = token;
+    }
+  }
 
   factory EnvironmentType.fromJSON(Map<String, dynamic> o) {
     return EnvironmentType(
@@ -80,43 +85,75 @@ class EnvironmentType {
   }
 
   /// Update api based on token
+  // void updateAPI() {
+  //   api = api.map((e) {
+  //     if (e.src.isNotEmpty) {
+  //       e.src = e.src.map((e) => _srcConfigure(e));
+  //     }
+  //     return e;
+  //   });
+  // }
+
+  // // patch Square Bracket
+  // String _srcConfigure(String brackets) {
+  //   return brackets.replaceAllMapped(
+  //     RegExp(r'\[(.*?)\]'),
+  //     (Match i) {
+  //       final name = i.group(1);
+  //       final lt = _token.where((o) => o.id == name);
+  //       if (lt.isNotEmpty) {
+  //         final url = GistData(owner: lt.first.owns, repo: lt.first.name);
+
+  //         if (lt.first.type == 'repo') {
+  //           return url.rawContentUri().toString();
+  //         } else if (lt.first.type == 'gist') {
+  //           return url.gitContentUri().toString();
+  //         } else if (lt.first.type == 'url') {
+  //           return url.uri().toString();
+  //         }
+  //       }
+  //       return name.toString();
+  //     },
+  //   );
+  // }
+
+  /// Update api based on token
   void updateAPI() {
     api = api.map((e) {
       if (e.src.isNotEmpty) {
-        e.src = e.src.map((e) => _srcConfigure(e));
+        e.src = e.src.map((e) {
+          // patch Square Bracket
+          return e.replaceAllMapped(
+            RegExp(r'\[(.*?)\]'),
+            (Match i) {
+              final name = i.group(1);
+              final lt = _token.where((o) => o.id == name);
+              if (lt.isNotEmpty) {
+                final o = lt.first;
+
+                final url = GistData(token: o);
+
+                if (o.type == 'repo') {
+                  return url.rawContentUri().toString();
+                } else if (o.type == 'gist') {
+                  return url.gitContentUri().toString();
+                } else if (o.type == 'url') {
+                  return url.uri().toString();
+                }
+              }
+              return name.toString();
+            },
+          );
+        });
       }
       return e;
     });
-  }
-
-  // patch Square Bracket
-  String _srcConfigure(String brackets) {
-    return brackets.replaceAllMapped(
-      RegExp(r'\[(.*?)\]'),
-      (Match i) {
-        final name = i.group(1);
-        final lt = token.where((e) => e.id == name);
-        if (lt.isNotEmpty) {
-          final url = GistData(owner: lt.first.owns, repo: lt.first.name);
-
-          if (lt.first.type == 'repo') {
-            return url.rawContentUri().toString();
-          } else if (lt.first.type == 'gist') {
-            return url.gitContentUri().toString();
-          } else if (lt.first.type == 'url') {
-            return url.uri().toString();
-          }
-        }
-        return name.toString();
-      },
-    );
   }
 
   Future<void> updateToken({bool force = false, String file = 'token.json'}) {
     return UtilDocument.exists(file).then((String e) async {
       if (e.isEmpty || force == true) {
         final String id = name.toLowerCase().replaceAll(' ', '');
-
         await configure.gitContent<String>(file: file.replaceAll('token', id)).then((String e) {
           UtilDocument.writeAsString(file, e);
         }).onError((e, stackTrace) {
@@ -125,11 +162,23 @@ class EnvironmentType {
       }
 
       await UtilDocument.readAsString(file).then((e) {
-        token.addAll(
-          UtilDocument.decodeJSON<List<dynamic>>(e).map(
-            (e) => TokenType.fromJSON(e),
-          ),
+        // _token.addAll(
+        //   UtilDocument.decodeJSON<List<dynamic>>(e).map(
+        //     (e) => TokenType.fromJSON(e),
+        //   ),
+        // );
+
+        final tok = UtilDocument.decodeJSON<List<dynamic>>(e).map(
+          (e) => TokenType.fromJSON(e),
         );
+        for (var item in tok) {
+          final index = _token.indexWhere((elem) => elem.id == item.id);
+          if (index == -1) {
+            _token.add(item);
+          } else {
+            _token[index] = item;
+          }
+        }
         updateAPI();
       }).onError((e, stackTrace) {
         return Future.error(e.toString());
@@ -137,28 +186,31 @@ class EnvironmentType {
     });
   }
 
-  TokenType get _tokenConfigure => token.lastWhere((e) => e.id == 'configure');
-
-  /// GistData gist without token using TokenType id
+  /// GistData by TokenType.id without token
   /// To fetch data
   GistData get configure {
-    return GistData(
-      owner: _tokenConfigure.owns,
-      repo: _tokenConfigure.name,
-    );
+    return openGistData('configure');
   }
 
-  TokenType get _tokenClient => token.lastWhere((e) => e.id == 'client' && e.key.isNotEmpty);
-
-  /// GistData gist with token using TokenType id
+  /// GistData by TokenType.id using token
   /// To push data
   GistData get client {
-    return GistData(
-      owner: _tokenClient.owns,
-      repo: _tokenClient.name,
-      token: _tokenClient.key,
-      // file: '${authentication.id}.json',
-    );
+    return openGistData('client');
+  }
+
+  /// Initiate 'GistData' by 'TokenType.id'
+  /// _token.lastWhere((e) => e.id == 'configure');
+  /// _token.lastWhere((e) => e.id == 'client' && e.hasKey);
+  GistData openGistData(String id) {
+    TokenType o = _token.firstWhere((e) => e.id == id, orElse: () => TokenType());
+    // return GistData(id: o.id, owner: o.owns, repo: o.name, token: o.key);
+    return GistData(token: o);
+  }
+
+  /// everything from `_token` except `_token.id != [configure,client]`
+  Iterable<TokenType> get getSession {
+    // return _token.where((e) => e.id != 'configure' || e.id != 'client' || e.id != 'repo');
+    return _token.where((e) => e.id != 'configure' && e.id != 'client' && e.id != 'repo');
   }
 }
 
@@ -279,14 +331,18 @@ class TokenType {
   final String owns;
   final String name;
   final String key;
+  final String clientId;
+  final String clientSecret;
 
   const TokenType({
-    required this.id,
-    required this.type,
-    required this.tag,
-    required this.owns,
-    required this.name,
-    required this.key,
+    this.id = '',
+    this.type = '',
+    this.tag = '',
+    this.owns = '',
+    this.name = '',
+    this.key = '',
+    this.clientId = '',
+    this.clientSecret = '',
   });
 
   factory TokenType.fromJSON(Map<String, dynamic> o) {
@@ -298,8 +354,12 @@ class TokenType {
       owns: (o["owns"] ?? '').toString().bracketsHack(key: tag),
       name: (o["name"] ?? '').toString().bracketsHack(key: tag),
       key: (o["key"] ?? '').toString().bracketsHack(key: tag),
+      clientId: (o["client-id"] ?? '').toString().bracketsHack(key: tag),
+      clientSecret: (o["client-secret"] ?? '').toString().bracketsHack(key: tag),
     );
   }
 
+  bool get hasId => id.isNotEmpty;
   bool get hasKey => key.isNotEmpty;
+  bool get hasClient => clientId.isNotEmpty && clientSecret.isNotEmpty;
 }
