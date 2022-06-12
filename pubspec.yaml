@@ -1,6 +1,6 @@
 name: lidea
 description: Loading, reading, writing file logic
-version: 0.2.5+41
+version: 0.2.6+42
 homepage:
 
 environment:
@@ -9,42 +9,42 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.4
+  cupertino_icons: ^1.0.5
   intl: ^0.17.0
 
   archive: ^3.3.0
-  crypto: ^3.0.1
+  crypto: ^3.0.2
   # Web?
-  path_provider: ^2.0.9
+  path_provider: ^2.0.11
 
-  provider: ^6.0.2
+  provider: ^6.0.3
 
-  shared_preferences: ^2.0.13
-  connectivity_plus: ^2.2.0
-  share_plus: ^4.0.3
+  shared_preferences: ^2.0.15
+  connectivity_plus: ^2.3.3
+  share_plus: ^4.0.7
 
   hive_flutter: ^1.1.0
 
-  firebase_core: ^1.14.0
-  firebase_analytics: ^9.1.4
-  firebase_auth: ^3.3.13
-  google_sign_in: ^5.2.4
-  sign_in_with_apple: ^3.3.0
-  flutter_facebook_auth: ^4.3.0
+  firebase_core: ^1.17.1
+  firebase_analytics: ^9.1.9
+  firebase_auth: ^3.3.19
+  google_sign_in: ^5.3.3
+  sign_in_with_apple: ^4.0.0
+  flutter_facebook_auth: ^4.3.4+2
 
-  cached_network_image: ^3.2.0
+  cached_network_image: ^3.2.1
 
   # Custom
-  in_app_purchase: ^3.0.2
-  sqflite: ^2.0.2
-  just_audio: ^0.9.20
+  in_app_purchase: ^3.0.5
+  sqflite: ^2.0.2+1
+  just_audio: ^0.9.24
   audio_service: ^0.18.4
   # audio_session: ^0.1.6+1
-  # rxdart: ^0.27.3
-  # flutter_tts: ^3.3.3
+  rxdart: ^0.27.4
+  flutter_tts: ^3.4.0
   # sliver_tools: ^0.2.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.4
+  flutter_lints: ^2.0.1
