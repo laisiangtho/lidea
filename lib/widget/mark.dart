@@ -122,7 +122,7 @@ class WidgetMark extends StatelessWidget {
                 child: SizedBox(
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: Colors.red,
+                      color: theme.errorColor,
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                       boxShadow: [
                         BoxShadow(
