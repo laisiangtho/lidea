@@ -101,12 +101,11 @@ class _WidgetUserAccountState extends State<WidgetUserAccount> {
       title: widget.preference.text.deleteAccount,
       message: widget.preference.text.confirmToDelete('yourAccount'),
     ).then((bool? confirmation) async {
-      // if (confirmation != null && confirmation == true) {
-      //   await widget.authenticate.deleteAccount().catchError((e) {
-      //     doNotify(widget.authenticate.message);
-      //   });
-      // }
-      debugPrint('?????????');
+      if (confirmation != null && confirmation == true) {
+        await widget.authenticate.deleteAccount().catchError((e) {
+          doNotify(widget.authenticate.message);
+        });
+      }
     });
   }
 
