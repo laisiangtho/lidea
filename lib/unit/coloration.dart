@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 
 // Default color configuration is light, and translated into
 // how human mind can interpreted the material color
@@ -142,15 +142,11 @@ abstract class ColorationData {
         decorationColor: Colors.red,
         decorationStyle: TextDecorationStyle.wavy,
       ),
-      // primaryTextTheme: textTheme,
       appBarTheme: AppBarTheme(
-        // backgroundColor: Colors.blue,
-        // foregroundColor: Colors.red,
         backgroundColor: color.primary,
         foregroundColor: color.primaryScheme,
       ),
 
-      // iconTheme: IconThemeData(color: color.focus, size: 23),
       iconTheme: IconThemeData(color: color.primaryScheme, size: 26),
       cardTheme: CardTheme(
         color: color.primary,
@@ -222,13 +218,13 @@ abstract class ColorationData {
           // double? minLeadingWidth,
           // bool? enableFeedback,
           ),
-      cupertinoOverrideTheme: NoDefaultCupertinoThemeData(
-        brightness: color.brightness,
-        textTheme: const CupertinoTextThemeData(
-          primaryColor: Colors.red,
-          actionTextStyle: TextStyle(color: Colors.orange),
-        ),
-      ),
+      // cupertinoOverrideTheme: NoDefaultCupertinoThemeData(
+      //   brightness: color.brightness,
+      //   textTheme: const CupertinoTextThemeData(
+      //     primaryColor: Colors.red,
+      //     actionTextStyle: TextStyle(color: Colors.orange),
+      //   ),
+      // ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: color.shadow.withOpacity(0.7),
