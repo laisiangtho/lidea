@@ -12,6 +12,8 @@ class WidgetButton extends StatefulWidget {
   final double opacity;
   final EdgeInsetsGeometry margin;
 
+  final String? badge;
+
   // Container
   final EdgeInsetsGeometry padding;
   // final double? height;
@@ -45,6 +47,7 @@ class WidgetButton extends StatefulWidget {
     this.duration = kThemeChangeDuration,
     this.opacity = 0.3,
     this.margin = const EdgeInsets.all(0.0),
+    this.badge,
     this.padding = const EdgeInsets.all(0.0),
     this.constraints = const BoxConstraints(),
     // this.height,
@@ -64,6 +67,8 @@ class WidgetButton extends StatefulWidget {
 
 class _WidgetButtonState extends State<WidgetButton> {
   bool down = false;
+
+  String? get badge => widget.badge;
 
   Future<void> setOptical(bool isDown) {
     return Future.microtask(() {
@@ -114,17 +119,31 @@ class _WidgetButtonState extends State<WidgetButton> {
           }
         },
         onLongPress: widget.onLongPress,
-        child: rowChild(),
+        // child: rowChild(),
 
         // child: DefaultTextStyle.merge(
         //   child: rowChild(),
         //   style: TextStyle(color: Colors.red),
         // ),
+        child: Stack(
+          fit: StackFit.passthrough,
+          clipBehavior: Clip.none,
+          alignment: AlignmentDirectional.center,
+          children: [
+            _rowContent,
+            WidgetBadage(
+              badge: badge,
+              top: 0,
+              right: 5,
+              show: badge != null && badge!.isNotEmpty,
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget rowChild() {
+  Widget get _rowContent {
     final content = AnimatedOpacity(
       duration: widget.duration,
       opacity: opticityDisabled,

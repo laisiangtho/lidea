@@ -13,6 +13,7 @@ import 'package:lidea/unit/authentication.dart';
 part 'builder.dart';
 part 'mark.dart';
 part 'label.dart';
+part 'badge.dart';
 part 'button.dart';
 part 'appbar.dart';
 

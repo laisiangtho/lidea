@@ -115,38 +115,12 @@ class WidgetMark extends StatelessWidget {
                 child: rowChild,
               ),
             ),
-            if (badge != null && badge!.isNotEmpty)
-              Positioned(
-                top: -1,
-                right: 5,
-                child: SizedBox(
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: theme.errorColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: theme.backgroundColor.withOpacity(0.5),
-                          offset: const Offset(0, .2),
-                          blurRadius: 1,
-                          spreadRadius: 1,
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
-                      child: Text(
-                        badge!,
-                        style: theme.textTheme.labelSmall!.copyWith(
-                          fontSize: 13,
-                          letterSpacing: 0.1,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+            WidgetBadage(
+              badge: badge,
+              top: 0,
+              right: 5,
+              show: badge != null && badge!.isNotEmpty,
+            ),
           ],
         ),
       ),
