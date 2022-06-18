@@ -98,6 +98,13 @@ keytool -list -alias androiddebugkey -keystore "%UserProfile%/.android/debug.key
 keytool -list -v -alias lethil -keystore "%OneDrive%/env/dev/laisiangtho/keystore.jks"
 ```
 
+## keytool: App signing key certificate
+
+```sh
+# Git Bash
+echo 25:B5:97:94:C0:84:90:50:AF:00:8F:3F:87:FC:44:B5:81:83:A4:B6 | xxd -r -p | openssl base64
+```
+
 ## keytool: export
 
 ```sh

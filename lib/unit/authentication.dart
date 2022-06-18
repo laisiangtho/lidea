@@ -147,6 +147,8 @@ abstract class UnitAuthentication extends Notify {
     // }
   }
 
+  Stream<User?> get stream => app.authStateChanges();
+
   // Future<void> stateObserver([void Function(User? user)? observe]) async {
   //   app.userChanges().listen((o) {
   //     _message = (o == null) ? 'Not signed' : 'Signed';
@@ -167,17 +169,24 @@ abstract class UnitAuthentication extends Notify {
     //     'kIsWeb Error occurred using Google';
     //   }
     // }
-    GoogleSignInAccount? res = await _google.signInSilently();
-    if (res == null) {
-      res = await _google.signIn();
+    GoogleSignInAccount? google = await _google.signInSilently();
+    if (google == null) {
+      google = await _google.signIn();
     }
-    if (res != null) {
-      final GoogleSignInAuthentication auth = await res.authentication;
+    if (google != null) {
+      final GoogleSignInAuthentication auth = await google.authentication;
       try {
         await app.signInWithCredential(GoogleAuthProvider.credential(
           accessToken: auth.accessToken,
           idToken: auth.idToken,
         ));
+
+        if (hasUser) {
+          if (google.photoUrl != user!.photoURL) {
+            await user!.updatePhotoURL(google.photoUrl);
+            user!.reload();
+          }
+        }
       } on PlatformException catch (e) {
         message = e.toString();
       } on FirebaseAuthException catch (e) {
@@ -205,6 +214,18 @@ abstract class UnitAuthentication extends Notify {
       final facebookCredential = FacebookAuthProvider.credential(res.accessToken!.token);
       try {
         await app.signInWithCredential(facebookCredential);
+
+        final facebook = await FacebookAuth.instance.getUserData(
+          fields: "name,email,picture.width(300)",
+        );
+        if (hasUser) {
+          final photo = facebook['picture']['data']['url'];
+          // final photo = '${user!.photoURL}?height=100&access_token=${res.accessToken!.token}';
+          if (photo != null) {
+            await user!.updatePhotoURL(photo);
+            user!.reload();
+          }
+        }
       } on PlatformException catch (e) {
         message = e.toString();
       } on FirebaseAuthException catch (e) {
@@ -216,6 +237,7 @@ abstract class UnitAuthentication extends Notify {
           message = 'Error occurred';
         }
       } catch (e) {
+        print(e);
         message = 'Error occurred using Facebook';
       }
     }

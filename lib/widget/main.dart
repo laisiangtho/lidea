@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 // import 'package:lidea/extension.dart';
+// import 'package:lidea/provider.dart';
 import 'package:lidea/cached_network_image.dart';
 import 'package:lidea/cluster/main.dart';
 import 'package:lidea/unit/authentication.dart';
