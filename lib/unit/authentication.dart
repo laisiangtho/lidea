@@ -207,7 +207,8 @@ abstract class UnitAuthentication extends Notify {
   Future<void> signInWithFacebook() async {
     amoment = true;
     final LoginResult res = await FacebookAuth.instance.login(
-      permissions: const ['email', 'public_profile'],
+      permissions: const ['email', 'public_profile', 'user_hometown', 'user_birthday'],
+      // permissions: const ['email', 'public_profile'],
     );
 
     if (res.status == LoginStatus.success) {
@@ -216,10 +217,13 @@ abstract class UnitAuthentication extends Notify {
         await app.signInWithCredential(facebookCredential);
 
         final facebook = await FacebookAuth.instance.getUserData(
-          fields: "name,email,picture.width(300)",
+          fields: "name,email,picture.width(300),hometown,birthday",
+          // fields: "name,email,picture.width(300)",
         );
         if (hasUser) {
           final photo = facebook['picture']['data']['url'];
+
+          print(facebook.toString());
           // final photo = '${user!.photoURL}?height=100&access_token=${res.accessToken!.token}';
           if (photo != null) {
             await user!.updatePhotoURL(photo);
