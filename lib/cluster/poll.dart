@@ -60,8 +60,11 @@ class ClusterPoll {
     if (email.isEmpty) {
       return [];
     }
+
     return listOfPoll.where((poll) {
-      return poll.member.where((member) => member.email == email).isNotEmpty;
+      // poll.member.first.email.contains(email)
+      // return poll.member.where((member) => member.email == email).isNotEmpty;
+      return poll.member.where((member) => member.email.contains(email)).isNotEmpty;
     }).toList();
   }
 
@@ -224,7 +227,8 @@ class PollBoard {
   }
 
   int memberId(String email) {
-    int index = member.indexWhere((e) => e.email == email);
+    // int index = member.indexWhere((e) => e.email == email);
+    int index = member.indexWhere((e) => e.email.contains(email));
     if (index >= 0) {
       return member.elementAt(index).memberId;
     }

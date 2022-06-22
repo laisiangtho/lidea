@@ -4,11 +4,13 @@ class SignInButton extends StatelessWidget {
   final IconData? icon;
   final String? label;
   final void Function()? onPressed;
+  final void Function()? whenComplete;
   const SignInButton({
     Key? key,
     this.icon,
     this.label,
     this.onPressed,
+    this.whenComplete,
   }) : super(key: key);
 
   @override

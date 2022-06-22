@@ -100,9 +100,13 @@ keytool -list -v -alias lethil -keystore "%OneDrive%/env/dev/laisiangtho/keystor
 
 ## keytool: App signing key certificate
 
+Git Bash
+
 ```sh
-# Git Bash
+# get Base64 from sha1
 echo 25:B5:97:94:C0:84:90:50:AF:00:8F:3F:87:FC:44:B5:81:83:A4:B6 | xxd -r -p | openssl base64
+# get Base64 from androiddebugkey file
+keytool -exportcert -alias androiddebugkey -keystore  ~/.android/debug.keystore | openssl sha1 -binary | openssl base64
 ```
 
 ## keytool: export

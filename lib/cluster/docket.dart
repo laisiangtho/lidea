@@ -15,14 +15,71 @@ class ClusterDocket {
   late final boxOfPurchases = BoxOfPurchases<PurchasesType>();
   late final boxOfRecentSearch = BoxOfRecentSearch<RecentSearchType>();
 
-  // final time = watch..start(); time.elapsedMilliseconds
+  late final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  // final Stopwatch watch = Stopwatch()..start();
   // final Stopwatch watch = new Stopwatch();
+  // final time = watch..start(); time.elapsedMilliseconds
   /// Initiate primary context
+  // Future<void> ensureWhat() async {
+  //   await Firebase.initializeApp(name: 'Lai Siangtho');
+  //   await Hive.initFlutter();
+  // }
+
+  ClusterDocket();
+
   Future<void> ensureInitialized() async {
     await Hive.initFlutter();
+
     boxOfSettings.registerAdapter(SettingsAdapter());
     boxOfPurchases.registerAdapter(PurchasesAdapter());
     boxOfRecentSearch.registerAdapter(RecentSearchAdapter());
+  }
+
+  CollectionReference<Map<String, dynamic>> get userCollection {
+    return firestore.collection('user');
+  }
+
+  CollectionReference<UserType> get userReference {
+    return userCollection.withConverter<UserType>(
+      fromFirestore: (snapshots, _) => UserType.fromJSON(snapshots.data()!),
+      toFirestore: (user, _) => user.toJSON(),
+    );
+  }
+
+  void firebaseTest() async {
+    // final asdf = userRef.queryBy(query).snapshots();
+    // final asdf = userRef.snapshots();
+    // final movies = await userRef.get();
+    // final asdf = userCollection.where("email", {isEqualTo}, 'emailamai');
+    // final asdf = userCollection.where("email", isEqualTo: 'asdfad').withConverter<UserType>(
+    //       fromFirestore: (snapshots, _) => UserType.fromJSON(snapshots.data()!),
+    //       toFirestore: (user, _) => user.toJSON(),
+    //     );
+    // final asdf = userCollection.where("email", isEqualTo: 'asdfad');
+    // final aswf = userCollection.doc('dfasdf');
+
+    // userCollection.doc('47f4dfd25f762ed024eee89bb4beb4a6').set({
+    //   "name": "Khen Solomon, Lethil",
+    //   "email": "khensolomon@gmail.com",
+    //   "mobile": 91719216,
+    // });
+
+    // asdf.get().then((snap) {
+    //   snap.;
+    // });
+    // userCollection.doc(['id']);
+//     const asdfasdf = userCollection.doc();
+//     final sfes = userRef.get()
+//   .then((docSnapshot) => {
+//     if (docSnapshot.exists) {
+//       usersRef.onSnapshot((doc) => {
+//         // do stuff with the data
+//       });
+//     } else {
+//       usersRef.set({...}) // create the document
+//     }
+// });
   }
 
   /// Prepare necessary context

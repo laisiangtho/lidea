@@ -4,25 +4,28 @@ part of 'main.dart';
 class PollMemberType {
   final int memberId;
   final String name;
-  final String email;
+  final List<String> email;
   final int candidate;
   final int committee;
+  final String category;
 
   PollMemberType({
     this.memberId = 0,
     this.name = '',
-    this.email = '',
+    this.email = const [],
     this.candidate = 0,
     this.committee = 0,
+    this.category = '',
   });
 
   factory PollMemberType.fromJSON(Map<String, dynamic> o) {
     return PollMemberType(
       memberId: int.parse(o['memberId'].isEmpty ? '0' : o['memberId'] ?? '0'),
       name: o['name'],
-      email: o['email'],
+      email: o['email'].split(';').map<String>((e) => e.toString().trim()).toList(),
       candidate: int.parse(o['candidate'].isEmpty ? '0' : o['candidate'] ?? '0'),
       committee: int.parse(o['committee'].isEmpty ? '0' : o['committee'] ?? '0'),
+      category: (o['category'] ?? ''),
     );
   }
 
@@ -44,10 +47,10 @@ class PollResultType {
 
   factory PollResultType.fromJSON(Map<String, dynamic> o) {
     return PollResultType(
-      candidateId: int.parse(o['candidateId'].isEmpty ? '0' : o['candidateId'] ?? '0'),
+      candidateId: int.parse(o['candidateId'].isEmpty ? '0' : o['candidateId']),
       // _TypeError (type 'MappedListIterable<String, dynamic>' is not a subtype of type 'Iterable<int>')
       memberId: o['memberId'].split(' ').map<int>((e) {
-        return int.parse(e.isEmpty ? '0' : e ?? '0');
+        return int.parse(e.isEmpty ? '0' : e);
       }).toList(),
       rank: int.parse(o['rank'].isEmpty ? '0' : o['rank'] ?? '0'),
     );

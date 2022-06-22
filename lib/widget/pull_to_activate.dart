@@ -28,7 +28,7 @@ class PullOfState<T extends StatefulWidget> extends State<PullToActivate> {
   Widget build(BuildContext context) {
     return CupertinoSliverRefreshControl(
       refreshTriggerPullDistance: widget.distance ?? 130,
-      refreshIndicatorExtent: widget.extent ?? 70,
+      refreshIndicatorExtent: widget.extent ?? 100,
       builder: (
         BuildContext _,
         RefreshIndicatorMode mode,
@@ -73,6 +73,7 @@ class PullOfState<T extends StatefulWidget> extends State<PullToActivate> {
         // );
         return _refreshIndicator(percentage, percentage);
       case RefreshIndicatorMode.armed:
+        return _refreshIndicator(percentage, percentage);
       case RefreshIndicatorMode.refresh:
         // Once we're armed or performing the refresh, we just show the normal spinner.
         // return CupertinoActivityIndicator(radius: radius);

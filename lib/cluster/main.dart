@@ -33,6 +33,8 @@ import "package:lidea/hive.dart";
 import "package:lidea/extension.dart";
 import "package:lidea/type/main.dart";
 import 'package:lidea/intl.dart';
+// import 'package:lidea/firebase/core.dart';
+// import 'package:lidea/firebase/firestore.dart';
 
 part 'docket.dart';
 part 'controller.dart';
