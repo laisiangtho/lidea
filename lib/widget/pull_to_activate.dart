@@ -28,7 +28,7 @@ class PullOfState<T extends StatefulWidget> extends State<PullToActivate> {
   Widget build(BuildContext context) {
     return CupertinoSliverRefreshControl(
       refreshTriggerPullDistance: widget.distance ?? 130,
-      refreshIndicatorExtent: widget.extent ?? 100,
+      refreshIndicatorExtent: widget.extent ?? 130,
       builder: (
         BuildContext _,
         RefreshIndicatorMode mode,

@@ -1,6 +1,6 @@
 name: lidea
 description: Loading, reading, writing file logic
-version: 0.2.6+42
+version: 0.2.7+43
 homepage:
 
 environment:
@@ -19,6 +19,7 @@ dependencies:
 
   provider: ^6.0.3
 
+  url_launcher: ^6.1.4
   shared_preferences: ^2.0.15
   connectivity_plus: ^2.3.5
   share_plus: ^4.0.9

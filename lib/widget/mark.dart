@@ -42,7 +42,7 @@ class WidgetMark extends StatelessWidget {
     this.iconSize,
     this.iconColor,
     this.label,
-    this.overflow = TextOverflow.fade,
+    this.overflow = TextOverflow.clip,
     this.labelPadding = EdgeInsets.zero,
     this.softWrap = false,
     this.maxLines = 1,

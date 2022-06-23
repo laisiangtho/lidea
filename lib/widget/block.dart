@@ -170,7 +170,7 @@ class WidgetBlockCard extends StatelessWidget {
     // );
     return Container(
       margin: margin ?? const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      clipBehavior: Clip.hardEdge,
+      // clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
         borderRadius: const BorderRadius.all(Radius.circular(12)),
@@ -200,6 +200,7 @@ class WidgetBlockFill extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 0.7),
+      clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
         boxShadow: <BoxShadow>[

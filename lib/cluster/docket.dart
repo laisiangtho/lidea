@@ -5,7 +5,7 @@ class ClusterDocket {
   // ClusterDocket.internal();
 
   late EnvironmentType env;
-  late GistData gist;
+  // late GistData gist;
 
   late bool _isInstalls;
   late bool _isUpdates;
@@ -47,41 +47,6 @@ class ClusterDocket {
     );
   }
 
-  void firebaseTest() async {
-    // final asdf = userRef.queryBy(query).snapshots();
-    // final asdf = userRef.snapshots();
-    // final movies = await userRef.get();
-    // final asdf = userCollection.where("email", {isEqualTo}, 'emailamai');
-    // final asdf = userCollection.where("email", isEqualTo: 'asdfad').withConverter<UserType>(
-    //       fromFirestore: (snapshots, _) => UserType.fromJSON(snapshots.data()!),
-    //       toFirestore: (user, _) => user.toJSON(),
-    //     );
-    // final asdf = userCollection.where("email", isEqualTo: 'asdfad');
-    // final aswf = userCollection.doc('dfasdf');
-
-    // userCollection.doc('47f4dfd25f762ed024eee89bb4beb4a6').set({
-    //   "name": "Khen Solomon, Lethil",
-    //   "email": "khensolomon@gmail.com",
-    //   "mobile": 91719216,
-    // });
-
-    // asdf.get().then((snap) {
-    //   snap.;
-    // });
-    // userCollection.doc(['id']);
-//     const asdfasdf = userCollection.doc();
-//     final sfes = userRef.get()
-//   .then((docSnapshot) => {
-//     if (docSnapshot.exists) {
-//       usersRef.onSnapshot((doc) => {
-//         // do stuff with the data
-//       });
-//     } else {
-//       usersRef.set({...}) // create the document
-//     }
-// });
-  }
-
   /// Prepare necessary context
   Future<void> prepareInitialized() async {
     env = EnvironmentType.fromJSON(
@@ -113,11 +78,11 @@ class ClusterDocket {
   }
 
   // gist
-  Future<void> updateToken({bool force = false, String file = 'token.json'}) {
-    return env.updateToken(force: force, file: file).then((_) {
-      gist = env.client;
+  Future<void> updateToken({bool force = false}) {
+    return env.updateToken(force: force, file: 'env.json').then((_) {
+      // gist = env.client;
     }).catchError((e) {
-      gist = env.configure;
+      // gist = env.configure;
     });
   }
 

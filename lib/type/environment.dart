@@ -118,7 +118,7 @@ class EnvironmentType {
   // }
 
   /// Update api based on token
-  void updateAPI() {
+  void _updateAPI() {
     api = api.map((e) {
       if (e.src.isNotEmpty) {
         e.src = e.src.map((e) {
@@ -150,39 +150,121 @@ class EnvironmentType {
     });
   }
 
-  Future<void> updateToken({bool force = false, String file = 'token.json'}) {
+  Future<void> updateToken({bool force = false, String file = 'env.json'}) async {
+    final prev = await UtilDocument.exists(file);
+    final String id = name.toLowerCase().replaceAll(' ', '');
+    // final fileName = file.replaceAll('env', id);
+
+    String raw = '';
+    if (prev.isEmpty || force == true) {
+      // delete previous version
+      await UtilDocument.exists('token.json').then((String e) async {
+        if (e.isNotEmpty) await UtilDocument.delete(e);
+      });
+
+      final res = await configure.gitContent<String>(file: file.replaceAll('env', id)).then((v) {
+        return UtilDocument.decodeJSON<Map<String, dynamic>>(v);
+      }).onError((error, stackTrace) {
+        debugPrint(error.toString());
+        return {};
+      });
+
+      if (res.isEmpty) return Future.error('working');
+
+      raw = await configure.gitContent<String>(file: res['env']).onError((error, stackTrace) {
+        return '';
+      });
+
+      await UtilDocument.writeAsString(file, raw);
+    } else {
+      raw = await UtilDocument.readAsString(file);
+    }
+
+    if (raw.isEmpty) return Future.error('empty');
+
+    final row = UtilDocument.decodeJSON<Map<String, dynamic>>(raw);
+
+    final tok = (row['token']! as List).cast<dynamic>().map(
+          (e) => TokenType.fromJSON(e),
+        );
+    for (var item in tok) {
+      final index = _token.indexWhere((e) => e.id == item.id);
+      if (index == -1) {
+        _token.add(item);
+      } else {
+        _token[index] = item;
+      }
+    }
+    _updateAPI();
+
+    final lag = ((row['language'] ?? {}) as Map).cast<String, Map<String, dynamic>>();
+    for (var entry in lag.entries) {
+      // Add an empty `Map` to `mergedMap` if the key doesn't already exist
+      // and then merge the `Map`s.
+      (language[entry.key] ??= {}).addAll(entry.value);
+    }
+  }
+
+  Future<void> updateTokenWorking({bool force = false, String file = 'token.json'}) {
     return UtilDocument.exists(file).then((String e) async {
+      String tk = '';
       if (e.isEmpty || force == true) {
         final String id = name.toLowerCase().replaceAll(' ', '');
         await configure.gitContent<String>(file: file.replaceAll('token', id)).then((String e) {
-          UtilDocument.writeAsString(file, e);
+          // tk = e;
+          UtilDocument.writeAsString(file, tk = e);
         }).onError((e, stackTrace) {
           return Future.error(e.toString());
         });
       }
 
-      await UtilDocument.readAsString(file).then((e) {
-        // _token.addAll(
-        //   UtilDocument.decodeJSON<List<dynamic>>(e).map(
-        //     (e) => TokenType.fromJSON(e),
-        //   ),
-        // );
+      debugPrint('updateToken???');
 
-        final tok = UtilDocument.decodeJSON<List<dynamic>>(e).map(
-          (e) => TokenType.fromJSON(e),
-        );
-        for (var item in tok) {
-          final index = _token.indexWhere((elem) => elem.id == item.id);
-          if (index == -1) {
-            _token.add(item);
-          } else {
-            _token[index] = item;
-          }
+      try {
+        if (tk.isEmpty) {
+          tk = await UtilDocument.readAsString(file);
         }
-        updateAPI();
-      }).onError((e, stackTrace) {
+      } catch (e) {
         return Future.error(e.toString());
-      });
+      } finally {
+        if (tk.isNotEmpty) {
+          final tok = UtilDocument.decodeJSON<List<dynamic>>(tk).map(
+            (e) => TokenType.fromJSON(e),
+          );
+          for (var item in tok) {
+            final index = _token.indexWhere((elem) => elem.id == item.id);
+            if (index == -1) {
+              _token.add(item);
+            } else {
+              _token[index] = item;
+            }
+          }
+          _updateAPI();
+        }
+      }
+
+      // await UtilDocument.readAsString(file).then((e) {
+      //   // _token.addAll(
+      //   //   UtilDocument.decodeJSON<List<dynamic>>(e).map(
+      //   //     (e) => TokenType.fromJSON(e),
+      //   //   ),
+      //   // );
+
+      //   final tok = UtilDocument.decodeJSON<List<dynamic>>(e).map(
+      //     (e) => TokenType.fromJSON(e),
+      //   );
+      //   for (var item in tok) {
+      //     final index = _token.indexWhere((elem) => elem.id == item.id);
+      //     if (index == -1) {
+      //       _token.add(item);
+      //     } else {
+      //       _token[index] = item;
+      //     }
+      //   }
+      //   _updateAPI();
+      // }).onError((e, stackTrace) {
+      //   return Future.error(e.toString());
+      // });
     });
   }
 

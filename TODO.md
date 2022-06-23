@@ -2,6 +2,7 @@
 
 Back to [Readme](README.md).
 
+- [x] Fetch env for updated structure
 - [ ] Cancelable Pull to activate
 - [ ] HTTP Progress
 - Firebase

@@ -16,17 +16,13 @@ abstract class ViewDraggableSheetWidget extends StatefulWidget {
 // class _SheetWidgetState extends ViewDraggableSheetState<_SheetWidget>
 
 class ViewDraggableSheetState<T extends StatefulWidget> extends State<T>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   late final draggableController = DraggableScrollableController();
   late ScrollController scrollController;
 
   late final ViewScrollNotify scrollNotify = Provider.of<ViewScrollNotify>(context, listen: false);
 
   late final AnimationController switchController = AnimationController(
-    duration: const Duration(milliseconds: 100),
-    vsync: this,
-  );
-  late final AnimationController tmpController = AnimationController(
     duration: const Duration(milliseconds: 100),
     vsync: this,
   );
@@ -38,22 +34,25 @@ class ViewDraggableSheetState<T extends StatefulWidget> extends State<T>
   ThemeData get theme => Theme.of(context);
 
   // NOTE: device height and width
-  late double _dHeight;
-  late double _bPadding;
+  // late double _dHeight;
+  // late double _bPadding;
+  double get _dHeight => MediaQuery.of(context).size.height;
+  double get _bPadding => MediaQuery.of(context).padding.bottom;
 
   @override
   void dispose() {
-    super.dispose();
+    // scrollNotify.dispose();
     // scrollController.dispose();
     // switchController.dispose();
+    super.dispose();
   }
 
-  @override
-  void didChangeDependencies() {
-    _dHeight = MediaQuery.of(context).size.height;
-    _bPadding = MediaQuery.of(context).padding.bottom;
-    super.didChangeDependencies();
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   _dHeight = MediaQuery.of(context).size.height;
+  //   _bPadding = MediaQuery.of(context).padding.bottom;
+  //   super.didChangeDependencies();
+  // }
 
   BorderRadius get borderRadius => const BorderRadius.vertical(
         top: Radius.circular(10),

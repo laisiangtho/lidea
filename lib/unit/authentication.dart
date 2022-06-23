@@ -207,18 +207,20 @@ abstract class UnitAuthentication extends Notify {
   Future<void> signInWithFacebook() async {
     amoment = true;
     final LoginResult res = await FacebookAuth.instance.login(
-      permissions: const ['email', 'public_profile', 'user_hometown', 'user_birthday'],
-      // permissions: const ['email', 'public_profile'],
+      // permissions: const ['email', 'public_profile', 'user_hometown', 'user_birthday'],
+      permissions: const ['email', 'public_profile'],
     );
 
     if (res.status == LoginStatus.success) {
       final facebookCredential = FacebookAuthProvider.credential(res.accessToken!.token);
+
+      print(res.accessToken!.token);
       try {
         await app.signInWithCredential(facebookCredential);
 
         final facebook = await FacebookAuth.instance.getUserData(
-          fields: "name,email,picture.width(300),hometown,birthday",
-          // fields: "name,email,picture.width(300)",
+          // fields: "name,email,picture.width(300),hometown,birthday",
+          fields: "name,email,picture.width(300)",
         );
         if (hasUser) {
           final photo = facebook['picture']['data']['url'];
