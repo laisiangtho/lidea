@@ -1,7 +1,23 @@
 import 'package:url_launcher/url_launcher.dart';
 
 class Launcher {
-  static Future<void> launchInBrowser(Uri url) async {
+  static Future<bool> canLaunch(Uri uri) async {
+    return canLaunchUrl(uri);
+  }
+
+  static Future<bool> inNativeApp(Uri uri) async {
+    return launchUrl(uri, mode: LaunchMode.externalNonBrowserApplication);
+  }
+
+  static Future<void> universalLink(String url) async {
+    Uri uri = Uri.parse(url);
+    final bool isNativeAppLaunched = await inNativeApp(uri);
+    if (!isNativeAppLaunched) {
+      await launchUrl(uri, mode: LaunchMode.inAppWebView);
+    }
+  }
+
+  static Future<void> inBrowser(Uri url) async {
     // mode: LaunchMode.inAppWebView,
     //   webViewConfiguration: const WebViewConfiguration(
     //       headers: <String, String>{'my_header_key': 'my_header_value'})
@@ -17,15 +33,4 @@ class Launcher {
       throw 'Could not launch $url';
     }
   }
-
-  // static Uri url(String url) => Uri.parse(url);
-  // Future<void> launchUniversalLinkIos(String url) async {
-  //   final link = Uri.parse(url);
-  //   if (await canLaunchUrl(link)) {
-  //     final bool test = await launchUrl(link);
-  //     if (!test) {
-  //       await launchUrl(link);
-  //     }
-  //   }
-  // }
 }
