@@ -31,7 +31,7 @@ class ColorationScheme {
     this.light = Colors.white,
     this.dark = Colors.black45,
     this.scaffold = const Color(0xFFf7f7f7),
-    this.highlight = Colors.orange,
+    this.highlight = Colors.blue,
     this.disable = Colors.black12,
     this.background = const Color(0xFFdbdbdb),
     this.error = const Color.fromARGB(255, 187, 43, 43),
@@ -71,7 +71,7 @@ class ColorationScheme {
     Color light = Colors.white,
     Color dark = Colors.black45,
     Color scaffold = const Color(0xFFa6a6a6),
-    Color highlight = Colors.white,
+    Color highlight = Colors.black38,
     Color disable = Colors.white12,
     // const Color(0xFFdbdbdb),
     // Color background = const Color(0xFFbdbdbd),
@@ -83,7 +83,7 @@ class ColorationScheme {
     Color divider = const Color(0xFF8f8f8f),
     Color button = const Color(0xFFd9d9d9),
     Color primaryScheme = Colors.white,
-    MaterialColor primarySwatch = Colors.blue,
+    MaterialColor primarySwatch = Colors.grey,
   }) {
     return ColorationScheme(
       brightness: brightness,

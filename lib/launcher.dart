@@ -7,10 +7,12 @@ class Launcher {
     //       headers: <String, String>{'my_header_key': 'my_header_value'})
     // webViewConfiguration: const WebViewConfiguration(enableJavaScript: false),
     // webViewConfiguration: const WebViewConfiguration(enableDomStorage: false)
+
     if (!await launchUrl(
       url,
       // mode: LaunchMode.externalApplication,
-      mode: LaunchMode.inAppWebView,
+      mode: LaunchMode.platformDefault,
+      // mode: LaunchMode.inAppWebView,
     )) {
       throw 'Could not launch $url';
     }
