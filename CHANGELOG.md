@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.2.7+43
+
+Improve
+
+- Locale
+- Color
+- PullToActivate
+- EnvironmentType
+- CluserUtil
+
+Update
+
+- Flutter 3, Lidea and dependencies
+- ask <Map<String, dynamic>> return headers & body
+
+Add
+
+- Account delete
+- Text-to-Speech (Platforms native)
+- Poll
+
 ## 0.2.6+42
 
 Improve
