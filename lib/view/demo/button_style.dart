@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:lidea/widget/main.dart';
+// import 'package:lidea/main.dart';
+import 'package:lidea/view/main.dart';
 
 class DemoButtonStyle extends StatelessWidget {
   const DemoButtonStyle({Key? key}) : super(key: key);
@@ -33,12 +34,12 @@ class DemoButtonStyle extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               const Text('WidgetButton'),
-              const WidgetButton(
+              const ViewButton(
                 onPressed: null,
                 child: Text('No'),
               ),
               const SizedBox(height: 5),
-              WidgetButton(
+              ViewButton(
                 onPressed: () => false,
                 child: const Text('Yes'),
               ),

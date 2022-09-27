@@ -14,6 +14,9 @@ class SuggestionType<T> {
     this.type = 0,
     this.raw = const [],
   });
+
+  bool get emptyQuery => query.isEmpty;
+  bool get emptyResult => raw.isEmpty;
 }
 
 /// This use to format search result type
@@ -25,6 +28,9 @@ class ConclusionType<T> {
     this.query = '',
     this.raw = const [],
   });
+
+  bool get emptyQuery => query.isEmpty;
+  bool get emptyResult => raw.isEmpty;
 }
 
 /// SuggestionType<Map<String, Object?>>;

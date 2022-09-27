@@ -281,6 +281,14 @@
       "plural": {}
     }
   },
+
+  "recentSearchCount": "{count, plural, =0{No recent search} =1{{count} recent search} other{{count} recent searches}}",
+  "@recentSearchCount": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+
   "cancel": "Cancel",
   "@cancel": {
     "description": "Cancel task"
@@ -462,7 +470,7 @@
 
   "noItem": "No {item}",
   "@noItem": {
-    "description": "No item, track",
+    "description": "No item, track, match",
     "placeholders": {
       "item": {}
     }

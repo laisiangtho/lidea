@@ -43,7 +43,7 @@ class BoxOfPurchases<E> extends BoxOfAbstract<PurchasesType> {
 // transactionDate
 // pendingCompletePurchase
 
-@HiveType(typeId: 3)
+@HiveType(typeId: 103)
 class PurchasesType {
   @HiveField(0)
   String productId;
@@ -91,7 +91,7 @@ class PurchasesType {
 
 class PurchasesAdapter extends TypeAdapter<PurchasesType> {
   @override
-  final int typeId = 3;
+  final int typeId = 103;
 
   @override
   PurchasesType read(BinaryReader reader) {

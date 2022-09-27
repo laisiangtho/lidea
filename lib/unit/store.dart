@@ -1,22 +1,25 @@
 import 'dart:async';
-import 'dart:io';
 
-// import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/billing_client_wrappers.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 
+import 'package:lidea/nest/main.dart';
 import "package:lidea/type/main.dart";
 
 // enum productDetail { item, hasPurchased, title, description }
 
 abstract class UnitStore {
-  late void Function() notify;
+  final DataNest data;
 
   late bool kAutoConsume;
+
+  UnitStore({required this.data, this.kAutoConsume = true});
+
   late List<ProductsType> kProducts;
+  late final List<String> supportedPlatform = ['ios', 'android'];
 
   // String get offlineAccessId => kProducts.firstWhere((e) => e.name == "offline").cart;
   // org: _kConsumableId: consumable
@@ -71,13 +74,13 @@ abstract class UnitStore {
     // // setState(() { });
     // _consumables = consumables;
     purchaseDataDelete(purchaseId);
-    notify();
+    data.notify();
   }
 
   Future<void> doRestore() async {
+    if (!isSupported) return;
     await purchaseDataClear();
     await _api.restorePurchases();
-    // notify();
   }
 
   ProductDetails? productItem(String productId) {
@@ -103,7 +106,7 @@ abstract class UnitStore {
 
     _processing(item.id);
 
-    if (Platform.isAndroid) {
+    if (data.isPlatform('android')) {
       // NOTE: If you are making a subscription purchase/upgrade/downgrade, we recommend you to
       // verify the latest status of you your subscription by using server side receipt validation
       // and update the UI accordingly. The subscription purchase status shown
@@ -127,7 +130,7 @@ abstract class UnitStore {
       // debugPrint('buyConsumable: ${item.id}');
       _api.buyConsumable(
         purchaseParam: param,
-        autoConsume: kAutoConsume || Platform.isIOS,
+        autoConsume: kAutoConsume || data.isPlatform('ios'),
       );
     } else {
       // debugPrint('buyNonConsumable ${item.id}');
@@ -155,8 +158,6 @@ abstract class UnitStore {
     return purchasedItem[productId] != null;
   }
 
-  UnitStore({required this.notify, this.kAutoConsume = true});
-
   final InAppPurchase _api = InAppPurchase.instance;
   late StreamSubscription<List<PurchaseDetails>> _listener;
   late ProductDetailsResponse _response;
@@ -176,7 +177,24 @@ abstract class UnitStore {
   final List<String> listOfProcess = [];
   bool isAvailable = false;
 
+  /// kProducts is not empty or Platform is web
+  /// Platform.isAndroid
+  bool get isSupported {
+    // kIsWeb || kProducts.isNotEmpty || !Platform.isAndroid;
+    supportedPlatform.contains(data.platform);
+    if (kProducts.isEmpty || !supportedPlatform.contains(data.platform)) {
+      return false;
+    }
+    // return Platform.isAndroid || Platform.isIOS;
+    return supportedPlatform.contains(data.platform);
+  }
+
   Future<void> init() async {
+    if (!isSupported) {
+      isLoading = false;
+      isAvailable = false;
+      return;
+    }
     final Stream<List<PurchaseDetails>> purchaseUpdated = _api.purchaseStream;
     _listener = purchaseUpdated.listen((purchaseDetailsList) {
       _listenPurchaseUpdated(purchaseDetailsList);
@@ -190,7 +208,7 @@ abstract class UnitStore {
     isLoading = false;
 
     if (isAvailable) {
-      if (Platform.isIOS) {
+      if (data.isPlatform('ios')) {
         final ios = _api.getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
         await ios.setDelegate(ExamplePaymentQueueDelegate());
       }
@@ -198,11 +216,12 @@ abstract class UnitStore {
       _response = await _api.queryProductDetails(_kProductIds.toSet());
     }
 
-    notify();
+    data.notify();
   }
 
   void dispose() {
-    if (Platform.isIOS) {
+    if (!isSupported) return;
+    if (data.isPlatform('ios')) {
       final ios = _api.getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
       ios.setDelegate(null);
     }
@@ -227,7 +246,7 @@ abstract class UnitStore {
             invalidPurchase(item);
           }
         }
-        if (Platform.isAndroid) {
+        if (data.isPlatform('android')) {
           // if (kAutoConsume && isConsumable(item.productID)) {}
           // working
           if (isConsumable(item.productID)) {
@@ -249,12 +268,12 @@ abstract class UnitStore {
       listOfProcess.add(productId);
     }
 
-    notify();
+    data.notify();
   }
 
   void _processed() {
     listOfProcess.clear();
-    notify();
+    data.notify();
   }
 
   void handlePending(String productId) {}
@@ -282,7 +301,7 @@ abstract class UnitStore {
       ));
     }
 
-    notify();
+    data.notify();
   }
 
   /// @override to verify purchase. Always verify a purchase before delivering the product.
@@ -297,7 +316,7 @@ abstract class UnitStore {
 
   /// Useless method for real world app
   Future<void> doConfirmPriceChange() async {
-    if (Platform.isAndroid) {
+    if (data.isPlatform('android')) {
       final android = _api.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
       var result = await android.launchPriceChangeConfirmationFlow(
         sku: 'purchaseId',
@@ -308,7 +327,7 @@ abstract class UnitStore {
         // debugPrint("Price change failed with code ${result.responseCode}");
       }
     }
-    if (Platform.isIOS) {
+    if (data.isPlatform('ios')) {
       final ios = _api.getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
       await ios.showPriceConsentIfNeeded();
     }

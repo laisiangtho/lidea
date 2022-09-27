@@ -1,13 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/services.dart';
+
 import 'package:rxdart/rxdart.dart';
 
 import 'package:just_audio/just_audio.dart';
 import 'package:audio_service/audio_service.dart';
 // import 'package:audio_session/audio_session.dart';
 
-import 'package:lidea/type/main.dart';
+import 'package:lidea/main.dart';
 
 /// The implementation of [AudioPlayerHandler].
 ///
@@ -15,6 +14,8 @@ import 'package:lidea/type/main.dart';
 /// sequence is mapped onto the handler's queue, and the player's state is
 /// mapped onto the handler's state.
 abstract class UnitAudio extends BaseAudioHandler with SeekHandler {
+  final DataNest data;
+
   final _player = AudioPlayer();
   final _playlist = ConcatenatingAudioSource(children: []);
   final BehaviorSubject<List<MediaItem>> _recentSubject = BehaviorSubject.seeded([]);
@@ -244,7 +245,7 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler {
     await playbackState.firstWhere((state) => state.processingState == AudioProcessingState.idle);
   }
 
-  UnitAudio() {
+  UnitAudio({required this.data}) {
     prepareInitialized();
   }
 
@@ -325,11 +326,12 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler {
       setMessage(e.message ?? 'Audio interrupted');
     } else if (e is PlatformException) {
       setMessage(e.message ?? 'Platform exception');
-    } else if (e is SocketException) {
-      setMessage('No Internet');
     } else {
       if (_playlist.length > 0) {
         setMessage('Unknown error');
+      } else {
+        // SocketException
+        setMessage('No Internet');
       }
     }
   }

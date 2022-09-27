@@ -46,6 +46,8 @@
   "searchNoMatch":"Ingen treff",
   "searchNoQuery":"Ingen spørring",
   "recentSearch": "{plural, select, true{Nylige søk} other{Nylig søk}}",
+  "recentSearchCount": "{count, plural, =0{Ingen nylige søk} =1{{count} nylige søk} other{{count} nylige søk}}",
+
   "confirm":"Bekrefte",
   "confirmation":"Bekreftelse",
   "sort":"Sortere",

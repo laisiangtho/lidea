@@ -1,11 +1,17 @@
-part of lidea.view;
+import 'package:flutter/material.dart';
+
+// class _MainState extends State<Main> {
+// class _View extends _State with _Header {}
+// abstract class _State extends StateAbstract {}
+// mixin _Header on _State {}
+// abstract class WidgetState<T extends StatefulWidget> extends State<T> {}
 
 class ViewKeepAlive extends StatefulWidget {
   const ViewKeepAlive({Key? key, required this.child}) : super(key: key);
   final Widget child;
 
   @override
-  _KeepAliveState createState() => _KeepAliveState();
+  State<ViewKeepAlive> createState() => _KeepAliveState();
 }
 
 class _KeepAliveState extends State<ViewKeepAlive> with AutomaticKeepAliveClientMixin {

@@ -1,17 +1,23 @@
-library lidea.view;
+// button, badage
+export 'action/main.dart';
+// pop
+export 'dialog/main.dart';
+// appbar
+export 'headers/main.dart';
+// Highlight
+export 'highlight/main.dart';
+// section, block...
+export 'layout/main.dart';
 
-import 'dart:math';
-import 'dart:ui';
-import 'package:flutter/material.dart';
-import 'package:lidea/provider.dart';
-import 'package:lidea/unit/notify.dart';
-
-part 'model.dart';
-part 'header.dart';
-part 'header_data.dart';
-part 'header_layout.dart';
-part 'scroll_notify.dart';
-part 'page.dart';
-part 'keep_alive.dart';
-part 'draggable_sheet.dart';
-part 'draggable_modal.dart';
+// Pull to activate
+export 'pull/main.dart';
+// scroll
+export 'scrolls/main.dart';
+// sheets
+export 'sheets/main.dart';
+// Popup Shaped Arrow
+export 'pop/main.dart';
+// swipe
+export 'swipe/main.dart';
+// state
+export 'state/main.dart';

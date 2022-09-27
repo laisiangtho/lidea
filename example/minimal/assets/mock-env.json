@@ -1,0 +1,63 @@
+{
+  "name":"MyOrdbok",
+  "description":"the Holy Bible in languages",
+  "package":"",
+  "version":"1.0.4",
+  "buildNumber":"44",
+  "settingName": "",
+  "settingKey": "",
+  "settings":{
+    "version": 0,
+    "mode": 0,
+    "locale": "",
+    "fontSize": 24.0,
+    "searchQuery": "",
+
+    "identify": "",
+    "bookId": 1,
+    "chapterId": 1,
+    "verseId": 1,
+    "parallel": ""
+  },
+  "products":[],
+  "token": [
+    {
+      "id": "configure",
+      "type": "gist",
+      "tag": "0",
+      "owns": "<nomolosnehk>",
+      "name": "<8bd8b19e~9b4ec6a23bb~~811d69be29>"
+    },
+    {
+      "id": "repo",
+      "type": "repo",
+      "tag": "0",
+      "owns": "<ohtgnaisial>",
+      "name": "<elbib>"
+    },
+    {
+      "id": "com",
+      "type": "url",
+      "tag": "0",
+      "owns": "<moc.hiediaz.www>",
+      "name": "</ipa>"
+    }
+  ],
+  "api": [
+    {
+      "uid": "bible",
+      "asset": "<nosj.?>",
+      "local": "<nosj.?>",
+      "src": [
+        "[repo]<nosj.!/nosj>"
+      ]
+    },
+    {
+      "uid": "book",
+      "local": "<nosj.?>",
+      "src":[
+        "[repo]<nosj.!>"
+      ]
+    }
+  ]
+}

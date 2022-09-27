@@ -77,6 +77,34 @@ abstract class BoxOfAbstract<E> {
   }
 
   void tmp() {}
+
+  bool get plural => values.length > 1;
+
+  bool get isEmpty => values.isEmpty;
+  bool get isNotEmpty => values.isNotEmpty;
+
+  /// if box should be reorderable, should provide old and new index
+  /// where to switch
+  void reorderable(int oldIndex, int newIndex) {
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    if (oldIndex == newIndex) return;
+
+    final items = values.toList();
+    items.insert(newIndex, items.removeAt(oldIndex));
+    box.putAll(items.asMap());
+
+    // final oldItem = box.getAt(oldIndex)!.copyWith(order:oldIndex);
+    // final newItem = box.getAt(newIndex)!.copyWith(order:newIndex);
+    // box.putAt(oldIndex, newItem);
+    // box.putAt(newIndex, oldItem);
+
+    // final items = box.toMap().values.toList();
+    // final items = box.values.toList();
+    // items.insert(newIndex, items.removeAt(oldIndex));
+    // box.putAll(items.asMap());
+  }
 }
 
 // abstract class BoxOfAbstract<E> {

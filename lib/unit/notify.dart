@@ -7,5 +7,7 @@ abstract class Notify with ChangeNotifier {
     }
   }
 
-  void notify() => notifyListeners();
+  void notify() {
+    notifyListeners();
+  }
 }

@@ -1,0 +1,56 @@
+name: scripture
+description: the Holy Bible in languages
+
+# Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.17.6 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+
+  lidea:
+    # When depending on this package from a real application you should use:
+    #   lidea: ^x.y.z
+    path: ../../
+
+  # cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.1
+
+
+flutter:
+  uses-material-design: true
+
+  # Enable generation of localized Strings from arb files.
+  generate: true
+
+  # Add assets
+  assets:
+    - assets/env.json
+
+  # fonts from lidea
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: packages/lidea/fonts/Lato-Regular.ttf
+        - asset: packages/lidea/fonts/Lato-Thin.ttf
+        - asset: packages/lidea/fonts/Lato-Light.ttf
+        - asset: packages/lidea/fonts/Lato-Bold.ttf
+
+    - family: Lidea
+      fonts:
+        - asset: packages/lidea/fonts/Lidea.ttf
+
+    - family: Mm3Web
+      fonts:
+        - asset: packages/lidea/fonts/Mm3Web.ttf

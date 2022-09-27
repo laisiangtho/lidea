@@ -1,0 +1,35 @@
+part of data.core;
+
+abstract class _Search extends _Mock {
+  // SuggestionType? _cacheSuggestion;
+  SuggestionType _cacheSuggestion = const SuggestionType();
+  ConclusionType _cacheConclusion = const ConclusionType();
+
+  // SuggestionType get cacheSuggestion => const SuggestionType();
+  // ConclusionType get cacheConclusion => const ConclusionType();
+  /// ```dart
+  /// [query: String, raw: List<Map<String, Object?>>]
+  /// ```
+  /// typeof [SuggestionType]
+  // Future<void> suggestionGenerate() async {}
+  Future<void> suggestionGenerate() async {
+    _cacheSuggestion = SuggestionType(
+      query: suggestQuery,
+    );
+  }
+
+  SuggestionType get cacheSuggestion {
+    return _cacheSuggestion;
+  }
+
+  Future<void> conclusionGenerate() async {
+    _cacheConclusion = ConclusionType(
+      query: searchQuery,
+    );
+    data.boxOfRecentSearch.update(searchQuery);
+  }
+
+  ConclusionType get cacheConclusion {
+    return _cacheConclusion;
+  }
+}

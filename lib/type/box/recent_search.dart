@@ -71,7 +71,7 @@ class BoxOfRecentSearch<E> extends BoxOfAbstract<RecentSearchType> {
 }
 
 // RecentSearch
-@HiveType(typeId: 1)
+@HiveType(typeId: 101)
 class RecentSearchType {
   @HiveField(0)
   String word;
@@ -108,7 +108,7 @@ class RecentSearchType {
 
 class RecentSearchAdapter extends TypeAdapter<RecentSearchType> {
   @override
-  final int typeId = 1;
+  final int typeId = 101;
 
   @override
   RecentSearchType read(BinaryReader reader) {

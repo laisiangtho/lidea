@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Lai Siangtho</string>
+  <string name="facebook_app_id">725599822088831</string>
+  <string name="fb_login_protocol_scheme">fb725599822088831</string>
+  <string name="facebook_client_token">82bb67531c3f674b5d8db635baaf494c</string>
+</resources>

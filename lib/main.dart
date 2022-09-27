@@ -1,5 +1,5 @@
-/// Included cluster and type
+/// Included Nest and Type
 library lidea;
 
-export 'cluster/main.dart';
+export 'nest/main.dart';
 export 'type/main.dart';

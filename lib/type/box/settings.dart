@@ -113,7 +113,7 @@ class BoxOfSettings<E> extends BoxOfAbstract<SettingsType> {
   }
 }
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 100)
 class SettingsType extends HiveObject {
   @HiveField(0)
   Object? value;
@@ -183,7 +183,7 @@ class SettingsType extends HiveObject {
 
 class SettingsAdapter extends TypeAdapter<SettingsType> {
   @override
-  final int typeId = 0;
+  final int typeId = 100;
 
   @override
   SettingsType read(BinaryReader reader) {

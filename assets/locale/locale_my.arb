@@ -43,6 +43,8 @@
   "searchNoMatch":"ကိုက်ညီမှု မရှိ",
   "searchNoQuery":"မေးမြန်းမှု မရှိ",
   "recentSearch": "{plural, select, true{လတ်တလော ရှာဖွေမှုများ} other{လတ်တလော ရှာဖွေမှု}}",
+  "recentSearchCount": "{count, plural, =0{လတ်တလော ရှာဖွေမှု မရှိ} =1{{count} လတ်တလော ရှာဖွေမှု} other{{count} လတ်တလော ရှာဖွေမှုများ}}",
+
 
   "sort":"မျိုးတူစု",
   "download":"ဒေါင်းလုဒ်",
@@ -70,13 +72,13 @@
 
   "bookmark": "{plural, select, true{စာညှပ်များ} other{စာညှပ်}}",
 
-  "bookmarkCount": "{count, plural, =0{စာညှပ် မရှိပါ} =1{{count} စာညှပ်} other{{count} စာညှပ်}}",
+  "bookmarkCount": "{count, plural, =0{စာညှပ် မရှိ} =1{{count} စာညှပ်} other{{count} စာညှပ်}}",
 
 
   "itemCount": "{count, plural, =0{တစ်ခုမှမရှိ} =1{တစ်ခုရှိ} item} other{{count} ခုရှိ}}",
   "itemCountNumber": "{count, plural, =0{တစ်ခုမှမရှိ} =1{{number} ခုရှိ} other{{number} ခုရှိ}}",
 
-  "confirmation": "အတည်ပြုခြင်း",
+  "confirmation": "အတည်ပြုချက်",
 
   "confirmToDelete": "သေချာလား {task, select, all{အားလုံး} other{သည်အရာ} yourAccount{သင့်အကောင့်}}ကို ဖျက်ဖို့?",
 
