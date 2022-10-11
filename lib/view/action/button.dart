@@ -285,7 +285,7 @@ class _ViewButtonState extends State<ViewButton> with SingleTickerProviderStateM
                       .withOpacity(enabled ? backgroundColor.opacity : 0.4),
                   spreadRadius: 0.2,
                   blurRadius: 0.3,
-                  offset: Offset(0, 0.7),
+                  offset: const Offset(0, 0.7),
                 ),
             ],
             // color: backgroundColor != null && !enabled

@@ -63,7 +63,7 @@ mixin _Header on _State {
                     decoration: BoxDecoration(
                       color: Theme.of(context).scaffoldBackgroundColor,
                       borderRadius: const BorderRadius.all(
-                        Radius.circular(6),
+                        Radius.circular(4),
                       ),
                       boxShadow: [
                         BoxShadow(

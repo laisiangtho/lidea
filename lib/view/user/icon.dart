@@ -2,30 +2,6 @@ part of view.user;
 
 // ProfileIcon Profile
 
-class TmpWorking extends StatelessWidget {
-  final bool user;
-  final String? photoURL;
-  const TmpWorking({Key? key, this.user = false, this.photoURL}) : super(key: key);
-
-  bool get hasUser => user;
-  String? get userPhotoURL => photoURL;
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text('abc');
-  }
-}
-
-class AbcWorking extends TmpWorking {
-  bool get hasUser => true;
-  String? get userPhotoURL => 'asdf';
-
-  @override
-  Widget build(BuildContext context) {
-    return super.build(context);
-  }
-}
-
 class UserIconWidget extends StatelessWidget {
   final bool signedIn;
   final String? photoURL;

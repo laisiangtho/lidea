@@ -5,11 +5,12 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 /// Firebase Analytics API.
 abstract class UnitAnalytics {
   // static final FirebaseAnalytics _analytics = FirebaseAnalytics();
-  static FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-  static FirebaseAnalyticsObserver _observer = FirebaseAnalyticsObserver(analytics: _analytics);
+  static final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+  static final FirebaseAnalyticsObserver _observer =
+      FirebaseAnalyticsObserver(analytics: _analytics);
 
   FirebaseAnalytics get seed => _analytics;
-  get observer => _observer;
+  FirebaseAnalyticsObserver get observer => _observer;
 
   Future<void> search(String searchTerm) async {
     if (searchTerm.isNotEmpty) await _analytics.logSearch(searchTerm: searchTerm);

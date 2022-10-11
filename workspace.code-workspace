@@ -4,21 +4,10 @@
       "path": "."
     },
     {
-      "path": "../fleth"
-    },
-    {
-      "path": "../explorer"
+      "path": "../scripture"
     }
   ],
   "settings": {
-    "workbench.colorCustomizations": {
-      "activityBar.background": "#dedcdc",
-      "activityBar.foreground": "#585858",
-      "textLink.foreground": "#ff0000",
-      "activityBar.inactiveForeground": "#aaaaac",
-      "statusBar.background": "#b9b8b8"
-    },
-    "workbench.colorTheme": "Default Light+",
     "editor.tabSize": 2,
     "editor.fontSize": 12,
     "[markdown]": {

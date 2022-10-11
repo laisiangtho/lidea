@@ -1,11 +1,11 @@
 name: lidea
 description: Loading, reading, writing file logic
-version: 0.3.0+44
+version: 0.3.2+45
 homepage:
 
 environment:
-  sdk: ">=2.17.6 <3.0.0"
-  flutter: ">=2.5.0"
+  sdk: '>=2.18.2 <3.0.0'
+  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
@@ -25,29 +25,34 @@ dependencies:
 
   url_launcher: ^6.1.5
   shared_preferences: ^2.0.15
-  connectivity_plus: ^2.3.7
-  share_plus: ^4.1.0
+  connectivity_plus: ^2.3.9
+  share_plus: ^5.0.0
 
 
   firebase_core: ^1.22.0
-  firebase_analytics: ^9.3.5
-  firebase_auth: ^3.9.0
-  cloud_firestore: ^3.4.8
+  firebase_analytics: ^9.3.8
+  firebase_auth: ^3.11.2
+  cloud_firestore: ^3.5.1
   google_sign_in: ^5.4.1
   sign_in_with_apple: ^4.1.0
   flutter_facebook_auth: ^4.4.1+1
 
   # Custom
   in_app_purchase: ^3.0.7
-  sqflite: ^2.0.3+1
+  sqflite: ^2.1.0+1
   just_audio: ^0.9.29
   audio_service: ^0.18.7
-  # audio_session: ^0.1.10
   rxdart: ^0.27.5
   flutter_tts: ^3.5.3
   # sliver_tools: ^0.2.5
 
+  # Dependable on referenced packages
+  path: ^1.8.2
+  hive: ^2.2.3
+  audio_session: ^0.1.10
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  flutter_lints: ^2.0.0

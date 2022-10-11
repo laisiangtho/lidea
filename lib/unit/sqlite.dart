@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 // String queryCountTable = "SELECT count(*) as count FROM sqlite_master WHERE type = 'table';";
 abstract class UnitSQLite {
-  String queryDatabaseList = "PRAGMA database_list;";
+  String queryDatabaseList = 'PRAGMA database_list;';
 
   Database? _instance;
   Database get client => _instance!;

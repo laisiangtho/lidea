@@ -1,4 +1,6 @@
 {
+  "digit": "0123456789",
+
   "holyBible": "Holy Bible",
   "@holyBible": {
     "description": "the Holy Bible"
@@ -349,6 +351,15 @@
   "@user": {
     "description": "User"
   },
+  "about": "About",
+  "@about": {
+    "description": "About app"
+  },
+  "privacy": "Privacy",
+  "@privacy": {
+    "description": "privacy policy"
+  },
+
   "store": "Store",
   "@store": {
     "description": "Store"

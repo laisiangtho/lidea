@@ -30,7 +30,7 @@ class _View extends _State with _Header {
       body: Views(
         scrollBottom: ScrollBottomNavigation(
           listener: _controller.bottom,
-          notifier: App.view.bottom,
+          notifier: App.viewData.bottom,
         ),
         // child: CustomScrollView(
         //   controller: _controller,
@@ -75,7 +75,10 @@ class _View extends _State with _Header {
       itemVoid: SliverFillRemaining(
         hasScrollBody: false,
         child: Center(
-          child: Text(App.preference.text.bookmarkCount(0)),
+          child: Text(
+            App.preference.text.bookmarkCount(0),
+            style: state.textTheme.caption,
+          ),
         ),
       ),
       itemReorderable: boxOfBookmarks.reorderable,

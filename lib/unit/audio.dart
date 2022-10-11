@@ -8,7 +8,7 @@ import 'package:audio_service/audio_service.dart';
 
 import 'package:lidea/main.dart';
 
-/// The implementation of [AudioPlayerHandler].
+/// The implementation of AudioPlayerHandler.
 ///
 /// This handler is backed by a just_audio player. The player's effective
 /// sequence is mapped onto the handler's queue, and the player's state is
@@ -162,13 +162,13 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler {
   }
 
   @override
-  Future<void> addQueueItems(List<MediaItem> items) async {
-    await _playlist.addAll(await generateAudioSourceList(items));
+  Future<void> addQueueItems(List<MediaItem> mediaItems) async {
+    await _playlist.addAll(await generateAudioSourceList(mediaItems));
   }
 
   @override
-  Future<void> insertQueueItem(int index, MediaItem item) async {
-    await _playlist.insert(index, await generateAudioSourceItem(item));
+  Future<void> insertQueueItem(int index, MediaItem mediaItem) async {
+    await _playlist.insert(index, await generateAudioSourceItem(mediaItem));
   }
 
   @override
@@ -178,14 +178,14 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler {
   }
 
   @override
-  Future<void> updateMediaItem(MediaItem item) async {
-    final index = queue.value.indexWhere((e) => e.id == item.id);
-    expandoMediaItem[_player.sequence![index]] = item;
+  Future<void> updateMediaItem(MediaItem mediaItem) async {
+    final index = queue.value.indexWhere((e) => e.id == mediaItem.id);
+    expandoMediaItem[_player.sequence![index]] = mediaItem;
   }
 
   @override
-  Future<void> removeQueueItem(MediaItem item) async {
-    final index = queue.value.indexOf(item);
+  Future<void> removeQueueItem(MediaItem mediaItem) async {
+    final index = queue.value.indexOf(mediaItem);
     await _playlist.removeAt(index);
   }
 

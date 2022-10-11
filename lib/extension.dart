@@ -8,7 +8,7 @@ library lidea;
 // .replaceAll('0','~').split('').reverse().join('');
 extension LideaStringHackExtension on String {
   String bracketsHack({String? key}) {
-    String id = this.replaceAllMapped(
+    String id = replaceAllMapped(
       RegExp(r'\<(.*?)\>'),
       (Match i) => i.group(1).toString().split('').reversed.join(),
     );
@@ -16,9 +16,8 @@ extension LideaStringHackExtension on String {
   }
 
   String gitHack({String? url}) {
-    return this
-        .replaceFirst('git+http', 'http')
-        .replaceFirst('com+', url ?? "")
+    return replaceFirst('git+http', 'http')
+        .replaceFirst('com+', url ?? '')
         .replaceFirst('git+', '<moc.tnetnocresubuhtig.war//:sptth>')
         .bracketsHack();
     // moc.tnetnocresubuhtig.war//:sptth
@@ -26,13 +25,13 @@ extension LideaStringHackExtension on String {
   }
 
   String token(String key) {
-    return this.replaceAll('~', key);
+    return replaceAll('~', key);
   }
 }
 
 extension LideaStringCasingExtension on String {
   String removeNonAlphanumeric({String joiner = ' '}) {
-    return this.replaceAll(
+    return replaceAll(
       RegExp(r'[^\w]+'),
       joiner,
     );

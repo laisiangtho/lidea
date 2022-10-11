@@ -137,7 +137,7 @@ abstract class ThemeNest {
     required ColorNest color,
 
     /// Lato, 'Mm3Web', sans-serif
-    String? fontFamily = "Lato",
+    String? fontFamily = 'Lato',
     // List<String>? fontFallback = const ['Mm3Web'],
   }) {
     // final TextTheme textTheme = Theme.of(context).textTheme.merge(_textTheme);
@@ -272,6 +272,9 @@ abstract class ThemeNest {
         // selectedColor: Colors.red,
         // iconColor: color.focus,
       ),
+      expansionTileTheme: ExpansionTileThemeData(
+        collapsedIconColor: color.divider,
+      ),
 
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
@@ -308,7 +311,7 @@ abstract class ThemeNest {
       ),
 
       bottomSheetTheme: BottomSheetThemeData(
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           maxWidth: 600,
         ),
         shape: const RoundedRectangleBorder(

@@ -35,11 +35,11 @@ abstract class ScrollsController {
   double get pixels => position.pixels;
 
   /// The quantity of content conceptually "above" the viewport in the scrollable.
-  /// This is the content above the content described by [extentInside].
+  /// This is the content above the content described by extentInside.
   double get extentBefore => position.extentBefore;
 
   /// The quantity of content conceptually "below" the viewport in the scrollable.
-  /// This is the content below the content described by [extentInside].
+  /// This is the content below the content described by extentInside.
   double get extentAfter => position.extentAfter;
 
   /// Down(forward): 1, Up(reverse): 2

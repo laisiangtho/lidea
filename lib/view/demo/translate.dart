@@ -20,7 +20,7 @@ class DemoTranslate extends StatefulWidget {
   final String Function(double value) formatCurrency;
 
   @override
-  _DemoTranslateState createState() => _DemoTranslateState();
+  State<DemoTranslate> createState() => _DemoTranslateState();
 }
 
 class _DemoTranslateState extends State<DemoTranslate> {
@@ -212,11 +212,11 @@ class _DemoTranslateState extends State<DemoTranslate> {
 
   Widget _select() {
     return Column(
-      children: [
+      children: const [
         Text.rich(
           TextSpan(
             text: '?? = ',
-            children: const [
+            children: [
               TextSpan(
                 text: '??',
               ),

@@ -1,16 +1,14 @@
 part of lidea.nest;
 
-/// The implementation of [Poll].
+/// The implementation of Poll.
 class PollNest {
-  late DataNest _docket;
+  late DataNest data;
   final List<PollBoard> listOfPoll = [];
   late String tokenId = '';
 
-  PollNest(DataNest docket) {
-    _docket = docket;
-  }
+  PollNest({required this.data});
 
-  Iterable<TokenType> get session => _docket.env.getSession;
+  Iterable<TokenType> get session => data.env.getSession;
 
   bool get hasSession => session.isNotEmpty;
 
@@ -18,7 +16,7 @@ class PollNest {
   Future<void> init() async {
     await _openPoll();
     for (var poll in listOfPoll) {
-      if (poll.data.files.isEmpty) {
+      if (poll.listicle.files.isEmpty) {
         await poll.readLocal();
       }
     }
@@ -40,7 +38,7 @@ class PollNest {
 
   /// Update token
   Future<void> updateToken() async {
-    await _docket.updateToken(force: true);
+    await data.updateToken(force: true);
     await _openPoll();
   }
 
@@ -49,7 +47,7 @@ class PollNest {
       int index = listOfPoll.indexWhere((e) => e.gist.token.id == gist.id);
       if (index == -1) {
         listOfPoll.add(PollBoard(
-          gist: _docket.env.openGistData(gist.id),
+          gist: data.env.openGistData(gist.id),
         ));
       }
     }
@@ -78,23 +76,23 @@ class PollBoard {
 
   /// user selected candidate
   final List<int> selection = [];
-  late GistFileListType data = GistFileListType();
+  late GistListicleType listicle = const GistListicleType();
 
   PollBoard({required this.gist});
 
   String get _fileName => '${gist.token.id}.json';
 
   int get _indexMember {
-    return data.files.indexWhere((e) => e.file.endsWith('-member.csv'));
-    // return data.files.where((e) => e.file.endsWith('-member.csv'));
+    return listicle.files.indexWhere((e) => e.file.endsWith('-member.csv'));
+    // return listicle.files.where((e) => e.file.endsWith('-member.csv'));
   }
 
   int get _indexResult {
-    return data.files.indexWhere((e) => e.file.endsWith('-result.csv'));
+    return listicle.files.indexWhere((e) => e.file.endsWith('-result.csv'));
   }
 
   int get _indexInfo {
-    return data.files.indexWhere((e) => e.file.endsWith('-info.json'));
+    return listicle.files.indexWhere((e) => e.file.endsWith('-info.json'));
   }
 
   Future<void> init() async {}
@@ -102,7 +100,7 @@ class PollBoard {
   /// read local json
   Future<void> readLocal() async {
     await UtilDocument.readAsJSON(_fileName).then((value) {
-      data = GistFileListType.fromJSON(value);
+      listicle = GistListicleType.fromJSON(value);
     }).catchError((e) async {
       debugPrint('poll-10: $e');
       await readLive();
@@ -116,7 +114,7 @@ class PollBoard {
     await gist.listFile().then((response) async {
       await response.save(_fileName);
       // debugPrint(response.files.map((e) => e.content).toString());
-      data = response;
+      listicle = response;
     }).catchError((e) {
       debugPrint('poll-12: $e');
     });
@@ -125,7 +123,7 @@ class PollBoard {
   /// read `*-member.csv`
   List<PollMemberType> get member {
     if (_indexMember >= 0) {
-      return data.files.elementAt(_indexMember).parseCSV2JSON().map<PollMemberType>((e) {
+      return listicle.files.elementAt(_indexMember).parseCSV2JSON().map<PollMemberType>((e) {
         return PollMemberType.fromJSON(e);
       }).toList();
     }
@@ -135,7 +133,7 @@ class PollBoard {
   /// read `*-result.csv`
   List<PollResultType> get result {
     if (_indexResult >= 0) {
-      return data.files.elementAt(_indexResult).parseCSV2JSON().map<PollResultType>((e) {
+      return listicle.files.elementAt(_indexResult).parseCSV2JSON().map<PollResultType>((e) {
         return PollResultType.fromJSON(e);
       }).toList();
     }
@@ -145,7 +143,7 @@ class PollBoard {
   /// read `*-info.json`
   PollInfoType get info {
     if (_indexInfo >= 0) {
-      final json = data.files.elementAt(_indexInfo).parseContent2JSON<Map<String, dynamic>>();
+      final json = listicle.files.elementAt(_indexInfo).parseContent2JSON<Map<String, dynamic>>();
       return PollInfoType.fromJSON(json);
     }
     return PollInfoType.empty;
@@ -153,17 +151,19 @@ class PollBoard {
 
   // int userId = 99, List<int> candidateId = const [1, 2, 3, 7, 10, 8, 9]
   Future<void> postVote(int userId) async {
-    // get fresh data from live
+    // get fresh listicle from live
     await readLive();
 
     if (_indexResult >= 0) {
-      final result = data.files.elementAt(_indexResult);
+      final result = listicle.files.elementAt(_indexResult);
 
       final rawAlter = result.parseCSV2JSON().map<PollResultType>((e) {
         return PollResultType.fromJSON(e);
       }).toList();
 
-      for (var row in rawAlter) row.memberId.removeWhere((e) => e == userId);
+      for (var row in rawAlter) {
+        row.memberId.removeWhere((e) => e == userId);
+      }
 
       rawAlter.removeWhere((e) => e.memberId.isEmpty);
 
@@ -191,12 +191,12 @@ class PollBoard {
       String csv = [rawAlter.first.header, ...rawAlter.map((e) => e.csv)].join('\n');
       await gist.updateFile<Map<String, dynamic>>(file: result.file, content: csv).then(
         (res) async {
-          data = gist.gistFileList(res);
-          await data.save(_fileName);
+          listicle = gist.gistFileList(res);
+          await listicle.save(_fileName);
 
-          final index = data.files.indexWhere((e) => e.file.endsWith('-result.csv'));
+          final index = listicle.files.indexWhere((e) => e.file.endsWith('-result.csv'));
           if (index >= 0) {
-            final raw = data.files.elementAt(index);
+            final raw = listicle.files.elementAt(index);
             final rawUpdate = raw.parseCSV2JSON().map<PollResultType>((e) {
               return PollResultType.fromJSON(e);
             }).toList();

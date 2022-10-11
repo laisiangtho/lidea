@@ -8,7 +8,7 @@ class UserType {
   final List<String> mobile;
   final List<String> phone;
 
-  UserType({
+  const UserType({
     required this.identify,
     required this.name,
     required this.email,

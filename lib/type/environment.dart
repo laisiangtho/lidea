@@ -45,21 +45,21 @@ class EnvironmentType {
 
   factory EnvironmentType.fromJSON(Map<String, dynamic> o) {
     return EnvironmentType(
-      name: o["name"],
-      description: o["description"],
-      package: o["package"] ?? "",
-      version: o["version"] ?? "1.0.0",
-      buildNumber: o["buildNumber"] ?? "0",
-      settingName: o["settingName"] ?? "s00",
-      settingKey: o["settingKey"] ?? "s01",
-      token: (o['token'] ?? "[]").map<TokenType>((e) => TokenType.fromJSON(e)).toList(),
-      api: (o['api'] ?? "[]").map<APIType>((e) => APIType.fromJSON(e)).toList(),
+      name: o['name'],
+      description: o['description'],
+      package: o['package'] ?? '',
+      version: o['version'] ?? '1.0.0',
+      buildNumber: o['buildNumber'] ?? '0',
+      settingName: o['settingName'] ?? 's00',
+      settingKey: o['settingKey'] ?? 's01',
+      token: (o['token'] ?? '[]').map<TokenType>((e) => TokenType.fromJSON(e)).toList(),
+      api: (o['api'] ?? '[]').map<APIType>((e) => APIType.fromJSON(e)).toList(),
       products: o['products'].map<ProductsType>((e) => ProductsType.fromJSON(e)).toList(),
       // settings: SettingType.fromJSON(o["settings"]),
       // settingsDemo: SettingsDemoType.fromJSONTesting(o["settings"]),
       // settingsDemo: (o["settings"] ?? {}).map((key, value) => MapEntry(key, value)),
       // settingsDemo: (o["settings"] ?? {}).cast<Map<String, dynamic>>(),
-      settings: (o["settings"] ?? {}).cast<String, dynamic>(),
+      settings: (o['settings'] ?? {}).cast<String, dynamic>(),
       language: (o['language'] ?? {}).cast<String, Map<String, dynamic>>(),
       attach: (o['attach'] ?? {}).map<dynamic, dynamic>((k, v) => MapEntry(k, v)),
     );
@@ -67,7 +67,7 @@ class EnvironmentType {
 
   Map<String, dynamic> toJSON() {
     return {
-      "settings": settings.toString(),
+      'settings': settings.toString(),
     };
   }
 
@@ -284,7 +284,7 @@ class EnvironmentType {
   /// _token.lastWhere((e) => e.id == 'configure');
   /// _token.lastWhere((e) => e.id == 'client' && e.hasKey);
   GistData openGistData(String id) {
-    TokenType o = _token.firstWhere((e) => e.id == id, orElse: () => TokenType());
+    TokenType o = _token.firstWhere((e) => e.id == id, orElse: () => const TokenType());
     // return GistData(id: o.id, owner: o.owns, repo: o.name, token: o.key);
     return GistData(token: o);
   }
@@ -316,13 +316,13 @@ class APIType {
 
   factory APIType.fromJSON(Map<String, dynamic> o) {
     return APIType(
-      uid: o["uid"] as String,
-      assetName: (o['asset'] ?? "").toString().gitHack(),
-      localName: (o['local'] ?? "").toString().gitHack(),
+      uid: o['uid'] as String,
+      assetName: (o['asset'] ?? '').toString().gitHack(),
+      localName: (o['local'] ?? '').toString().gitHack(),
       src: List.from(
         (o['src'] ?? []).map<String>((e) => e.toString().gitHack()),
       ),
-      name: (o['name'] ?? "").toString().gitHack(),
+      name: (o['name'] ?? '').toString().gitHack(),
       query: (o['query'] ?? {}).map<dynamic, String>((k, v) => MapEntry(k, v.toString())),
       // query: (o['query']??{}).map<dynamic, String>(
       //   (k, v) => MapEntry(k, v.toString().replaceFirst('??', _tableName))
@@ -347,16 +347,14 @@ class APIType {
   /// .uri(name: '2147')
   /// .uri(name: '4354', index: 1, scheme: 'http');
   /// ```
-  Uri uri(Object? name, {int index = 0, String scheme = 'https'}) {
+  Uri uri({String? name, int index = 0, String scheme = 'https'}) {
     String url = '';
     if (src.isNotEmpty) {
       url = src.length > index ? src.elementAt(index) : src.first;
     }
 
-    if (name == null) {
-      name = uid;
-    }
-    Uri uri = Uri.parse(url.replaceFirst('!', '$name')).replace(scheme: scheme);
+    name ??= uid;
+    Uri uri = Uri.parse(url.replaceFirst('!', name)).replace(scheme: scheme);
     if (uri.hasAuthority == false) {
       uri = uri.replace(host: 'example.com');
     }
@@ -374,6 +372,31 @@ class APIType {
     // }
     // return uri;
   }
+  // Uri uri(Object? name, {int index = 0, String scheme = 'https'}) {
+  //   String url = '';
+  //   if (src.isNotEmpty) {
+  //     url = src.length > index ? src.elementAt(index) : src.first;
+  //   }
+
+  //   name ??= uid;
+  //   Uri uri = Uri.parse(url.replaceFirst('!', '$name')).replace(scheme: scheme);
+  //   if (uri.hasAuthority == false) {
+  //     uri = uri.replace(host: 'example.com');
+  //   }
+  //   return uri;
+  //   // String url = '';
+  //   // if (src.isNotEmpty) {
+  //   //   url = src.length > index ? src.elementAt(index) : src.first;
+  //   // }
+  //   // if (name == null) {
+  //   //   name = uid;
+  //   // }
+  //   // Uri uri = Uri.parse(url.replaceFirst('!', '$name')).replace(scheme: scheme);
+  //   // if (uri.hasAuthority == false) {
+  //   //   uri = uri.replace(host: 'example.com');
+  //   // }
+  //   // return uri;
+  // }
 
   String cache(Object name) {
     return localName.replaceFirst('?', '$name');
@@ -428,16 +451,16 @@ class TokenType {
   });
 
   factory TokenType.fromJSON(Map<String, dynamic> o) {
-    String tag = (o["tag"] ?? '').toString();
+    String tag = (o['tag'] ?? '').toString();
     return TokenType(
-      id: (o["id"] ?? '').toString().bracketsHack(key: tag),
-      type: (o["type"] ?? ''),
+      id: (o['id'] ?? '').toString().bracketsHack(key: tag),
+      type: (o['type'] ?? ''),
       tag: tag,
-      owns: (o["owns"] ?? '').toString().bracketsHack(key: tag),
-      name: (o["name"] ?? '').toString().bracketsHack(key: tag),
-      key: (o["key"] ?? '').toString().bracketsHack(key: tag),
-      clientId: (o["client-id"] ?? '').toString().bracketsHack(key: tag),
-      clientSecret: (o["client-secret"] ?? '').toString().bracketsHack(key: tag),
+      owns: (o['owns'] ?? '').toString().bracketsHack(key: tag),
+      name: (o['name'] ?? '').toString().bracketsHack(key: tag),
+      key: (o['key'] ?? '').toString().bracketsHack(key: tag),
+      clientId: (o['client-id'] ?? '').toString().bracketsHack(key: tag),
+      clientSecret: (o['client-secret'] ?? '').toString().bracketsHack(key: tag),
     );
   }
 

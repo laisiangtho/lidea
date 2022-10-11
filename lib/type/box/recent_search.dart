@@ -94,15 +94,15 @@ class RecentSearchType {
 
   factory RecentSearchType.fromJSON(Map<String, dynamic> o) {
     return RecentSearchType(
-      word: o["word"] as String,
-      hit: o["hit"] as int,
-      date: o["date"] as DateTime,
-      lang: (o["lang"] ?? const <String>[]) as List<String>,
+      word: o['word'] as String,
+      hit: o['hit'] as int,
+      date: o['date'] as DateTime,
+      lang: (o['lang'] ?? const <String>[]) as List<String>,
     );
   }
 
   Map<String, dynamic> toJSON() {
-    return {"word": word, "hit": hit, "date": date, "lang": lang};
+    return {'word': word, 'hit': hit, 'date': date, 'lang': lang};
   }
 }
 

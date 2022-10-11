@@ -15,7 +15,7 @@ class App {
 
   /// Scroll notifier for factor, toggle
   /// + MediaQueryData, since modal bottom sheet does nothing
-  static final ViewData view = core.viewData;
+  static final ViewData viewData = core.viewData;
 
   /// Route core delegate (routeDelegate)
   static final RouteDelegate routeDelegate = core.routeDelegate;
@@ -35,6 +35,15 @@ class App {
 
 abstract class StateAbstract<T extends StatefulWidget> extends ViewStateWidget<T> {
   late final Map<String, dynamic>? args = state.asMap;
+
+  final ViewData viewData = App.viewData;
+  final RouteDelegate routeDelegate = App.routeDelegate;
+  final RouteNotifier route = App.route;
+
+  final Core core = App.core;
+  final Data data = App.data;
+  final Preference preference = App.preference;
+  final Authenticate authenticate = App.authenticate;
 }
 
 class StateAlive extends ViewKeepAlive {

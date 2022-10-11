@@ -12,11 +12,11 @@ part 'messenger.dart';
 
 /// Todo
 /// * [ ] passing arguments
-/// * [x] add dynamic pages on parent
+/// * [ ] add dynamic pages on parent
 /// * [ ] keepAlive
-/// * [x] Deep Link
-/// * [x] Remain on current state when switching bottom navigation
-/// * [x] RouteType regex `{:int :string :any}
+/// * [ ] Deep Link
+/// * [ ] Remain on current state when switching bottom navigation
+/// * [ ] RouteType regex `{:int :string :any}
 
 // class NavigatorRouteManager {
 //   final NavigatorRouterMainDelegate delegate;

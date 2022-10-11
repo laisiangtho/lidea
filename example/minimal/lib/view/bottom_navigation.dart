@@ -9,14 +9,14 @@ class BottomNavigationBarWidget extends StatelessWidget {
     // App.scroll.bottomNavigation
     return ValueListenableBuilder<double>(
       // valueListenable: App.scroll.bottomFactor,
-      valueListenable: App.view.bottom.factor,
+      valueListenable: App.viewData.bottom.factor,
       builder: (_, factor, child) {
         // scrollNavigation.bottomPadding = MediaQuery.of(context).viewPadding.bottom;
         return Align(
           alignment: const Alignment(0, -1),
           heightFactor: factor,
           child: Padding(
-            padding: EdgeInsets.only(bottom: App.view.fromContext.viewPadding.bottom),
+            padding: EdgeInsets.only(bottom: App.viewData.fromContext.viewPadding.bottom),
             child: bottomNavigationToggle(),
           ),
         );
@@ -26,7 +26,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
 
   Widget bottomNavigationToggle() {
     return ValueListenableBuilder<double>(
-      valueListenable: App.view.bottom.toggle,
+      valueListenable: App.viewData.bottom.toggle,
       builder: (context, toggle, child) {
         return Align(
           alignment: const Alignment(0, -1),

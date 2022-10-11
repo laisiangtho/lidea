@@ -294,6 +294,7 @@ class _MainState extends StateAbstract<Main> with TickerProviderStateMixin {
       },
       child: Text(
         chapterId.toString(),
+        textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: Theme.of(context).textTheme.labelLarge!.fontSize,
         ),

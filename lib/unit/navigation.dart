@@ -7,15 +7,15 @@ class UnitNavigationObserver extends NavigatorObserver {
   final UnitNavigationNotify _changeNotifier;
 
   @override
-  void didPush(Route<dynamic> route, Route<dynamic>? previous) {
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     Future.microtask(() {
-      _changeNotifier.push(route, previous);
+      _changeNotifier.push(route, previousRoute);
     });
   }
 
   @override
-  void didPop(Route<dynamic> route, Route<dynamic>? previous) {
-    _changeNotifier.pop(route, previous);
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    _changeNotifier.pop(route, previousRoute);
   }
 }
 

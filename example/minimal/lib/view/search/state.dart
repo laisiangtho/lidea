@@ -33,14 +33,14 @@ abstract class _State extends StateAbstract<Main> with TickerProviderStateMixin 
   //   curve: Curves.fastOutSlowIn,
   // );
 
-  String get searchQuery => App.core.searchQuery;
+  String get searchQuery => data.searchQuery;
   set searchQuery(String ord) {
-    App.core.searchQuery = ord;
+    data.searchQuery = ord;
   }
 
-  String get suggestQuery => App.core.suggestQuery;
+  String get suggestQuery => data.suggestQuery;
   set suggestQuery(String ord) {
-    App.core.suggestQuery = ord;
+    data.suggestQuery = ord;
   }
 
   final ValueNotifier<bool> _focusNotifier = ValueNotifier(false);
@@ -125,6 +125,16 @@ abstract class _State extends StateAbstract<Main> with TickerProviderStateMixin 
     _controller.bottom.dispose();
   }
 
+  Widget message(String msg) {
+    return SliverFillRemaining(
+      hasScrollBody: false,
+      fillOverscroll: true,
+      child: Center(
+        child: Text(msg),
+      ),
+    );
+  }
+
   // void onQuery() async {
   //   Future.microtask(() {
   //     _textController.text = searchQuery;
@@ -203,5 +213,5 @@ abstract class _State extends StateAbstract<Main> with TickerProviderStateMixin 
     // });
   }
 
-  bool onDelete(String str) => App.core.data.boxOfRecentSearch.delete(str);
+  // bool onDelete(String str) => App.core.data.boxOfRecentSearch.delete(str);
 }

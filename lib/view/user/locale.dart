@@ -61,7 +61,7 @@ class UserLocaleWidget extends StatelessWidget {
             return ListTile(
               selected: active,
               contentPadding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-              leading: Icon(
+              leading: const Icon(
                 Icons.check_rounded,
               ),
               title: Text(

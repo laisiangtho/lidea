@@ -1,7 +1,67 @@
 part of 'main.dart';
 
-mixin _Recent on _State {
-  // recentBuilder
+class _Recents extends StatefulWidget {
+  const _Recents({Key? key}) : super(key: key);
+
+  @override
+  State<_Recents> createState() => _RecentView();
+}
+
+abstract class _RecentState extends StateAbstract<_Recents> {
+  String get suggestQuery => data.suggestQuery;
+  set suggestQuery(String ord) {
+    data.suggestQuery = ord;
+  }
+
+  int get lengths => suggestQuery.length;
+
+  void onSuggest(String str) {
+    suggestQuery = str;
+    // on recentHistory select
+    // if (_textController.text != str) {
+    //   _textController.text = str;
+    //   if (_focusNode.hasFocus == false) {
+    //     Future.delayed(const Duration(milliseconds: 400), () {
+    //       _focusNode.requestFocus();
+    //     });
+    //   }
+    // }
+    Future.microtask(() {
+      core.suggestionGenerate();
+    });
+  }
+
+  bool onDelete(String str) => data.boxOfRecentSearch.delete(str);
+}
+
+class _RecentView extends _RecentState {
+  @override
+  Widget build(BuildContext context) {
+    return Selector<Core, Iterable<MapEntry<dynamic, RecentSearchType>>>(
+      selector: (_, e) => e.data.boxOfRecentSearch.entries,
+      builder: (BuildContext _, Iterable<MapEntry<dynamic, RecentSearchType>> items, Widget? __) {
+        return ViewSection(
+          show: items.isNotEmpty,
+          // duration: const Duration(milliseconds: 270),
+          headerTitle: ViewLabel(
+            alignment: Alignment.centerLeft,
+            label: preference.text.recentSearch(items.length > 1),
+          ),
+          placeHolder: SliverFillRemaining(
+            hasScrollBody: false,
+            fillOverscroll: true,
+            child: Center(
+              child: Text(preference.text.aWordOrTwo),
+            ),
+          ),
+          child: ViewBlockCard.fill(
+            child: _recentBlock(items),
+          ),
+        );
+      },
+    );
+  }
+
   Widget _recentBlock(Iterable<MapEntry<dynamic, RecentSearchType>> items) {
     return ViewListBuilder(
       primary: false,
@@ -82,7 +142,7 @@ mixin _Recent on _State {
   }
 
   Widget _recentItem(String word) {
-    int hightlight = suggestQuery.length < word.length ? suggestQuery.length : word.length;
+    int hightlight = lengths < word.length ? lengths : word.length;
     return Text.rich(
       TextSpan(
         text: word.substring(0, hightlight),
@@ -112,7 +172,7 @@ mixin _Recent on _State {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Text(
-          App.preference.text.delete,
+          preference.text.delete,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ),

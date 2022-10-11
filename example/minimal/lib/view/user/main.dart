@@ -7,7 +7,7 @@ import 'package:lidea/icon.dart';
 import 'package:lidea/launcher.dart';
 
 import 'package:lidea/view/user/main.dart';
-import 'package:lidea/view/demo/translate.dart';
+// import 'package:lidea/view/demo/translate.dart';
 
 import '../../app.dart';
 import '/widget/button.dart';
@@ -34,7 +34,7 @@ class _View extends _State with _Header {
       body: Views(
         scrollBottom: ScrollBottomNavigation(
           listener: _controller.bottom,
-          notifier: App.view.bottom,
+          notifier: App.viewData.bottom,
         ),
         child: Consumer<Authenticate>(
           builder: middleware,
@@ -71,13 +71,13 @@ class _View extends _State with _Header {
         overlapsBorderColor: state.theme.dividerColor,
         builder: _header,
       ),
-      DemoTranslate(
-        itemCount: App.preference.text.itemCount,
-        itemCountNumber: App.preference.text.itemCountNumber,
-        formatDate: App.preference.text.formatDate,
-        confirmToDelete: App.preference.text.confirmToDelete,
-        formatCurrency: App.preference.text.formatCurrency,
-      ),
+      // DemoTranslate(
+      //   itemCount: App.preference.text.itemCount,
+      //   itemCountNumber: App.preference.text.itemCountNumber,
+      //   formatDate: App.preference.text.formatDate,
+      //   confirmToDelete: App.preference.text.confirmToDelete,
+      //   formatCurrency: App.preference.text.formatCurrency,
+      // ),
       // PullToActivate(
       //   onUpdate: () async {
       //     // await core.poll.updateAll();

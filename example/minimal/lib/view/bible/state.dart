@@ -24,16 +24,16 @@ abstract class _State extends StateAbstract<Main> with SingleTickerProviderState
   }
 
   void onSort() {
-    boxOfBooks.box.add(
-      BooksType(
-        identify: App.core.data.randomString(5),
-        name: App.core.data.randomString(15),
-        shortname: App.core.data.randomString(3),
-        year: 2000,
-        langCode: 'EN',
-        langName: 'English',
-      ),
-    );
+    // boxOfBooks.box.add(
+    //   BooksType(
+    //     identify: App.core.data.randomString(5),
+    //     name: App.core.data.randomString(15),
+    //     shortname: App.core.data.randomString(3),
+    //     year: 2000,
+    //     langCode: 'EN',
+    //     langName: 'English',
+    //   ),
+    // );
     if (_dragController.isCompleted) {
       _dragController.reverse();
     } else {

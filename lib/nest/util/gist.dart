@@ -1,6 +1,6 @@
 part of lidea.nest;
 
-/// https://gist.github.com/[?]/[id]
+/// https://gist.github.com/[?]/
 ///
 /// token: Personal access token
 /// download and extract zip from Gist files which are truncated: true
@@ -31,12 +31,8 @@ class GistData {
   AskNest get _ask => AskNest(urlGistBlock.replace(path: '/gists/${token.name}'));
 
   Uri uri({String? owner, String? repo, Map<String, dynamic>? args}) {
-    if (owner == null) {
-      owner = token.owns;
-    }
-    if (repo == null) {
-      repo = token.name;
-    }
+    owner ??= token.owns;
+    repo ??= token.name;
     return Uri.https(owner, repo, args);
   }
 
@@ -50,12 +46,8 @@ class GistData {
   /// });
   /// ```
   Uri gitContentUri({String? owner, String? repo, String? file}) {
-    if (owner == null) {
-      owner = token.owns;
-    }
-    if (repo == null) {
-      repo = token.name;
-    }
+    owner ??= token.owns;
+    repo ??= token.name;
     if (file != null && file.isNotEmpty) {
       return urlRawGist.replace(path: '/$owner/$repo/raw/$file');
     }
@@ -66,7 +58,7 @@ class GistData {
     if (file != null && file.isNotEmpty) {
       return AskNest(gitContentUri(owner: owner, repo: repo, file: file)).get<T>();
     }
-    return Future<T>.error("No identity");
+    return Future<T>.error('No identity');
   }
 
   /// raw.githubusercontent.com/owner/repo/master/file
@@ -79,12 +71,8 @@ class GistData {
   /// });
   /// ```
   Uri rawContentUri({String? owner, String? repo, String? file}) {
-    if (owner == null) {
-      owner = token.owns;
-    }
-    if (repo == null) {
-      repo = token.name;
-    }
+    owner ??= token.owns;
+    repo ??= token.name;
     if (file != null && file.isNotEmpty) {
       return urlRawRepo.replace(path: '/$owner/$repo/master/$file');
     }
@@ -92,29 +80,24 @@ class GistData {
   }
 
   Future<T> rawContent<T>({String? owner, String? repo, String? file}) async {
-    if (owner == null) {
-      owner = token.owns;
-    }
-    if (repo == null) {
-      repo = token.name;
-    }
+    owner ??= token.owns;
+    repo ??= token.name;
     if (file == null && this.file != null) {
       file = this.file;
     }
     if (file != null && file.isNotEmpty) {
       return AskNest(rawContentUri(owner: owner, repo: repo, file: file)).get<T>();
     }
-    return Future<T>.error("No identity");
+    return Future<T>.error('No identity');
   }
 
   // header for post, delete, patch
   Map<String, String> header({String? key}) {
-    if (key == null) {
-      key = token.key;
-    }
+    key ??= token.key;
     return {
       'Accept': 'application/vnd.github.v3+json',
-      if (token.hasClient) '${token.clientId}': '${token.clientSecret}',
+      if (token.hasClient) token.clientId: token.clientSecret,
+      // if (token.hasClient) '${token.clientId}': '${token.clientSecret}',
       if (key.isNotEmpty) 'Authorization': 'token $key',
       // 'Authorization': 'Basic a:b',
       // 'Content-type': 'application/json',
@@ -128,20 +111,24 @@ class GistData {
   /// gist.testDownloadAndExtract();
   /// ```
   Future<List<String>> testDownloadAndExtract() {
-    return this.gitFiles().then((res) async {
+    return gitFiles().then((res) async {
       final List<String> result = [];
-      final files = res.where((e) => e['type'] == "application/zip");
+      final files = res.where((e) => e['type'] == 'application/zip');
       for (var item in files) {
         if (item['truncated'] == false) {
           final bytes = await UtilDocument.strToListInt(item['content']);
           await ArchiveNest.extract(bytes);
         } else {
-          await AskNest(item['url']).get<Uint8List>().then((res) {
-            ArchiveNest.extract(res).then((arc) {
-              arc!.forEach((fileName) async {
+          await AskNest(item['url']).get<Uint8List>().then((res) async {
+            ArchiveNest.extract(res).then((arc) async {
+              for (var fileName in arc!) {
                 final isExists = await UtilDocument.exists(fileName);
                 debugPrint('$fileName added: $isExists');
-              });
+              }
+              // arc!.forEach((fileName) async {
+              //   final isExists = await UtilDocument.exists(fileName);
+              //   debugPrint('$fileName added: $isExists');
+              // });
             });
           });
         }
@@ -156,8 +143,8 @@ class GistData {
   /// gist.listFile();
   /// ```
   // {bool forceTruncated = false}
-  // Future<GistFileListType> listFile() {
-  //   return _ask.get<String>(headers: header()).then<GistFileListType>(
+  // Future<GistListicleType> listFile() {
+  //   return _ask.get<String>(headers: header()).then<GistListicleType>(
   //     (res) {
   //       final src = UtilDocument.decodeJSON<Map<String, dynamic>>(res);
   //       // gistId, dataId
@@ -180,17 +167,17 @@ class GistData {
   //       // raw['description'] = src['description'];
   //       // raw['comments'] = src['comments'];
   //       // raw['id'] = src['id'];
-  //       return GistFileListType.fromJSON(raw);
+  //       return GistListicleType.fromJSON(raw);
   //     },
   //   );
   // }
   // updateFile
   //  fileList listFile updateFile
-  Future<GistFileListType> listFile() {
-    return _ask.get<Map<String, dynamic>>(headers: header()).then<GistFileListType>(gistFileList);
+  Future<GistListicleType> listFile() {
+    return _ask.get<Map<String, dynamic>>(headers: header()).then<GistListicleType>(gistFileList);
   }
 
-  GistFileListType gistFileList(Map<String, dynamic> res) {
+  GistListicleType gistFileList(Map<String, dynamic> res) {
     final src = res['body'];
     // gistId, dataId
     Map<String, dynamic> raw = {
@@ -204,15 +191,15 @@ class GistData {
       'used': res['x-ratelimit-used'].first,
     };
     raw['files'] = src['files'].values;
-    return GistFileListType.fromJSON(raw);
+    return GistListicleType.fromJSON(raw);
   }
 
   // void tmp() {
-  //   _ask.get<HttpClientResponse>(headers: header()).then<GistFileListType>(
+  //   _ask.get<HttpClientResponse>(headers: header()).then<GistListicleType>(
   //     (response) async{
   //       final res = await _ask.responseToString(response);
   //       final result = UtilDocument.decodeJSON<Map<String, dynamic>>(res);
-  //       return GistFileListType.fromJSON({
+  //       return GistListicleType.fromJSON({
   //         'gistId': result['id'],
   //         'dataId': token.id,
   //         'comments': result['comments'],
@@ -273,14 +260,14 @@ class GistData {
         headers: header(),
         body: UtilDocument.encodeJSON<Object>(
           {
-            "files": {
-              "$file": {"content": content}
+            'files': {
+              file: {'content': content}
             }
           },
         ),
       );
     }
-    return Future<T>.error("No identity");
+    return Future<T>.error('No identity');
   }
 
   /// Delete a file, token is required
@@ -304,14 +291,14 @@ class GistData {
         headers: header(),
         body: UtilDocument.encodeJSON<Object>(
           {
-            "files": {
-              "$file": {"content": ""}
+            'files': {
+              file: {'content': ''}
             }
           },
         ),
       );
     }
-    return Future<T>.error("No identity");
+    return Future<T>.error('No identity');
   }
 
   // tmp: working
@@ -327,12 +314,12 @@ class GistData {
         headers: header(),
         body: UtilDocument.encodeJSON<Object>(
           {
-            "gist_id": "GIST_ID",
-            "body": content,
+            'gist_id': 'GIST_ID',
+            'body': content,
           },
         ),
       );
     }
-    return Future<T>.error("No identity");
+    return Future<T>.error('No identity');
   }
 }

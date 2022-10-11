@@ -21,7 +21,7 @@ class Main extends SheetsDraggable {
 
 class _State extends SheetsDraggableState<Main> {
   @override
-  ViewData get view => App.view;
+  ViewData get viewData => App.viewData;
 
   late final BooksType book = state.as<BooksType>();
 

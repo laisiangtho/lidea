@@ -40,15 +40,22 @@ abstract class PreferenceNest with ChangeNotifier {
   String nameOfLocale(String languageCode) {
     // Intl.shortLocale(Intl.systemLocale)
     switch (languageCode) {
-      case 'en':
-        return 'English';
       case 'my':
         return 'မြန်မာ';
       case 'no':
         return 'Norsk';
       default:
-        return 'Other';
+        return 'English';
     }
+  }
+
+  /// convert number to current locale digit
+  /// [0-9] r'\b\w+\b' [^0-9]
+  String digit(String str) {
+    final src = text.digit.split('') as List<String>;
+    return str.replaceAllMapped(RegExp('[0-9]'), (e) {
+      return src.elementAt(int.parse(e.group(0)!));
+    });
   }
 
   /// env language
@@ -64,8 +71,8 @@ abstract class PreferenceNest with ChangeNotifier {
   }
 
   /// set BuildContext, use in controller
-  void setContext(BuildContext _context) {
-    context = _context;
+  void setContext(BuildContext newContext) {
+    context = newContext;
     _data.boxOfSettings.locale(value: Localizations.localeOf(context).languageCode);
   }
 
@@ -174,7 +181,7 @@ abstract class PreferenceNest with ChangeNotifier {
       text: Theme.of(context).textTheme.merge(
             ThemeNest.textTheme(),
           ),
-      color: ColorNest.dark(),
+      color: const ColorNest.dark(),
     );
   }
 }

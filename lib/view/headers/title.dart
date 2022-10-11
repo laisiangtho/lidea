@@ -4,13 +4,13 @@ class ViewHeaderTitle extends StatelessWidget {
   const ViewHeaderTitle({
     Key? key,
     required this.label,
-    // this.padding = EdgeInsets.zero,
     this.padding = const EdgeInsets.symmetric(
       vertical: 0.0,
       horizontal: 50.0,
     ),
     this.alignment,
-    // this.shrink = 0.0,
+    this.shrinkMin = 21,
+    this.shrinkMax = 30,
     this.data,
   }) : super(key: key);
 
@@ -19,8 +19,8 @@ class ViewHeaderTitle extends StatelessWidget {
   final AlignmentGeometry? alignment;
   // final double shrink;
   final ViewHeaderData? data;
-
-  // ViewHeaderData get abc =>
+  final int shrinkMin;
+  final int shrinkMax;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class ViewHeaderTitle extends StatelessWidget {
   // Custom 30px to labelMedium: 18px
   double? get fontSize {
     if (data != null) {
-      return (30 * data!.shrink).clamp(21, 30).toDouble();
+      return (30 * data!.snapShrink).clamp(shrinkMin, shrinkMax).toDouble();
     }
     return null;
     // return (30 * shrink).clamp(21, 30).toDouble();

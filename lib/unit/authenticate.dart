@@ -66,19 +66,18 @@ abstract class AuthenticateUnit extends Notify {
   }
 
   String get userDisplayname {
-    String value = '';
     if (hasUser) {
       if (user!.displayName != null) {
-        value = user!.displayName!;
+        return user!.displayName!;
       } else {
         final index = user!.providerData.indexWhere((e) => e.displayName != null);
         if (index >= 0) {
           final ob = user!.providerData.elementAt(index);
-          value = ob.displayName!;
+          return ob.displayName!;
         }
       }
     }
-    return value;
+    return '';
   }
 
   String get userEmail {
@@ -177,9 +176,7 @@ abstract class AuthenticateUnit extends Notify {
     //   }
     // }
     GoogleSignInAccount? google = await _google.signInSilently();
-    if (google == null) {
-      google = await _google.signIn();
-    }
+    google ??= await _google.signIn();
     if (google != null) {
       final GoogleSignInAuthentication auth = await google.authentication;
       try {
@@ -221,18 +218,18 @@ abstract class AuthenticateUnit extends Notify {
     if (res.status == LoginStatus.success) {
       final facebookCredential = FacebookAuthProvider.credential(res.accessToken!.token);
 
-      print(res.accessToken!.token);
+      // print(res.accessToken!.token);
       try {
         await app.signInWithCredential(facebookCredential);
 
         final facebook = await FacebookAuth.instance.getUserData(
           // fields: "name,email,picture.width(300),hometown,birthday",
-          fields: "name,email,picture.width(300)",
+          fields: 'name,email,picture.width(300)',
         );
         if (hasUser) {
           final photo = facebook['picture']['data']['url'];
 
-          print(facebook.toString());
+          // print(facebook.toString());
           // final photo = '${user!.photoURL}?height=100&access_token=${res.accessToken!.token}';
           if (photo != null) {
             await user!.updatePhotoURL(photo);
@@ -250,7 +247,7 @@ abstract class AuthenticateUnit extends Notify {
           message = 'Error occurred';
         }
       } catch (e) {
-        print(e);
+        // print(e);
         message = 'Error occurred using Facebook';
       }
     }
@@ -338,9 +335,7 @@ abstract class AuthenticateUnit extends Notify {
     // if (userSignInMethods.first == 'facebook.com') {}
 
     GoogleSignInAccount? account = await _google.signInSilently();
-    if (account == null) {
-      account = await _google.signIn();
-    }
+    account ??= await _google.signIn();
 
     // Obtain the auth details from the request.
     final auth = await account!.authentication;

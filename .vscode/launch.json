@@ -4,21 +4,48 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-
     {
-      "name": "Flutter",
+      "name": "lidea",
       "request": "launch",
-      "type": "dart",
-      "flutterMode": "debug",
-      "program": "${workspaceFolder}/lib/main.dart"
+      "type": "dart"
     },
     {
-      "name": "Minimal",
+      "name": "lidea (profile mode)",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "debug",
-      // "flutterMode": "release",
-      "program": "${workspaceFolder}/example/minimal/lib/main.dart"
+      "flutterMode": "profile"
+    },
+    {
+      "name": "lidea (release mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "minimal",
+      "cwd": "example/minimal",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "minimal (profile mode)",
+      "cwd": "example/minimal",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "minimal (release mode)",
+      "cwd": "example/minimal",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "scripture",
+      "cwd": "scripture",
+      "request": "launch",
+      "type": "dart"
     }
   ]
 }

@@ -52,7 +52,7 @@ class Highlight extends StatelessWidget {
               // [*:*]
               span.children!.add(
                 TextSpan(
-                  text: "$name ",
+                  text: '$name ',
                   style: TextStyle(
                     fontWeight: FontWeight.w300,
                     color: Theme.of(context).primaryColorDark,
@@ -111,7 +111,7 @@ class Highlight extends StatelessWidget {
     return mapIndexed(
       href,
       (int index, String item, String comma) => TextSpan(
-        text: "$item$comma",
+        text: '$item$comma',
         style: TextStyle(
           inherit: false,
           // color: Colors.blue,

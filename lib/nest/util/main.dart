@@ -14,7 +14,7 @@ class UtilDocument {
   // static Future<String> assets(String fileName) async => join(await directory.then((e) => e.path),assetsFolder, fileName);
 
   static Future<File> file(String name) async {
-    return new File(await fileName(name));
+    return File(await fileName(name));
   }
 
   // static Future<String> loadBundleAsString(String fileName) async => await rootBundle.loadString(join(assetsFolder,fileName));
@@ -29,7 +29,7 @@ class UtilDocument {
       return await rootBundle.loadString(join(assetsFolder, name));
     } catch (e) {
       // debugPrint('$e');
-      return Future.error("Failed to load file");
+      return Future.error('Failed to load file');
     }
   }
 
@@ -37,7 +37,7 @@ class UtilDocument {
     try {
       return await rootBundle.load(join(assetsFolder, name));
     } catch (e) {
-      return Future.error("Failed to load file");
+      return Future.error('Failed to load file');
     }
   }
 
@@ -95,7 +95,7 @@ class UtilDocument {
     );
   }
 
-  static pathJoin(String a, String b) => join(a, b);
+  static String pathJoin(String a, String b) => join(a, b);
 
   /// JSON to Map
   static T decodeJSON<T>(String response) => json.decode(response);
@@ -130,7 +130,8 @@ class UtilString {
   }
 
   static String screenClass(String? str) {
-    return str!.removeNonAlphanumeric().toTitleCase(joiner: '') + 'State';
+    return '${str!.removeNonAlphanumeric().toTitleCase(joiner: '')}State';
+    // return str!.removeNonAlphanumeric().toTitleCase(joiner: '') + 'State';
   }
 }
 

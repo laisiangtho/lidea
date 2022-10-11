@@ -11,7 +11,7 @@ void main() {
     expect(calculator.addOne(0), 1);
   });
   test('adds one to input values', () {
-    final _formattedNumber = intl.NumberFormat.compact().format(1500);
-    expect(_formattedNumber, '1.5K');
+    final formattedNumber = intl.NumberFormat.compact().format(1500);
+    expect(formattedNumber, '1.5K');
   });
 }

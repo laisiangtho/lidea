@@ -70,21 +70,21 @@ class PurchasesType {
 
   factory PurchasesType.fromJSON(Map<String, dynamic> o) {
     return PurchasesType(
-      productId: o["productId"] as String,
-      purchaseId: o["purchaseId"] as String,
-      completePurchase: o["completePurchase"] as bool,
-      transactionDate: o["transactionDate"] as String,
-      consumable: o["consumable"] as bool,
+      productId: o['productId'] as String,
+      purchaseId: o['purchaseId'] as String,
+      completePurchase: o['completePurchase'] as bool,
+      transactionDate: o['transactionDate'] as String,
+      consumable: o['consumable'] as bool,
     );
   }
 
   Map<String, dynamic> toJSON() {
     return {
-      "productId": productId,
-      "purchaseId": purchaseId,
-      "completePurchase": completePurchase,
-      "transactionDate": transactionDate,
-      "consumable": consumable
+      'productId': productId,
+      'purchaseId': purchaseId,
+      'completePurchase': completePurchase,
+      'transactionDate': transactionDate,
+      'consumable': consumable
     };
   }
 }

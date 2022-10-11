@@ -43,17 +43,4 @@ abstract class _Abstract extends UnitCore {
 
     debugPrint('ensureInitialized in ${initWatch.elapsedMilliseconds} ms');
   }
-
-  Future<void> prepareInitialized() async {}
-
-  String get searchQuery => data.searchQuery.asString;
-  set searchQuery(String ord) {
-    notifyIf<String>(searchQuery, data.searchQuery = ord);
-  }
-
-  String get suggestQuery => data.suggestQuery.asString;
-  set suggestQuery(String ord) {
-    final word = ord.replaceAll(RegExp(' +'), ' ').trim();
-    notifyIf<String>(suggestQuery, data.suggestQuery = word);
-  }
 }

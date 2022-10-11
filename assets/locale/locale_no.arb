@@ -61,9 +61,12 @@
   "deleteAccount": "Slett konto",
   "account": "Konto",
   "user": "Bruker",
-  "store": "Butikk",
+  "about": "Om",
+  "privacy": "Personvern",
 
+  "store": "Butikk",
   "restorePurchase": "{plural, select, true{Gjenopprette kjøp} other{Gjenopprett kjøp}}",
+
   "aMoment":"Et øyeblikk",
   "noInternet":"Ingen Internett",
   "fontSize":"Skriftstørrelse",

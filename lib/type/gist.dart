@@ -4,7 +4,8 @@ part of 'main.dart';
 /// raw['description'] = src['description'];
 // raw['comments'] = src['comments'];
 // raw['id'] = src['id'];
-class GistFileListType {
+// GistListicleType
+class GistListicleType {
   // final String gistId;
   // final String dataId;
   final List<GistFileItemType> files;
@@ -16,7 +17,7 @@ class GistFileListType {
   final int reset;
   final String used;
 
-  const GistFileListType({
+  const GistListicleType({
     // this.gistId = '',
     // this.dataId = '',
     this.files = const [],
@@ -28,8 +29,8 @@ class GistFileListType {
     this.used = '',
   });
 
-  factory GistFileListType.fromJSON(Map<String, dynamic> o) {
-    return GistFileListType(
+  factory GistListicleType.fromJSON(Map<String, dynamic> o) {
+    return GistListicleType(
       // gistId: o['gistId'],
       // dataId: o['dataId'],
       files: (o['files'] ?? {})
@@ -51,8 +52,8 @@ class GistFileListType {
       DateTime.fromMillisecondsSinceEpoch(reset * 1000),
     );
   }
-  // factory GistFileListType.fromString(String id, String res) {
-  //   return GistFileListType(
+  // factory GistListicleType.fromString(String id, String res) {
+  //   return GistListicleType(
   //     id: id,
   //     files: UtilDocument.decodeJSON<Map<String, dynamic>>(res)['files'].values.map(
   //       (entry) {

@@ -49,7 +49,7 @@ mixin _Header on _State {
                 onTap: () {
                   App.route.pushNamed(
                     'home/search',
-                    arguments: {'focus': true, 'keyword': App.core.searchQuery},
+                    arguments: {'focus': true, 'keyword': App.data.searchQuery},
                   );
                   // core.navigate(to: '/search');
                   // args?.currentState!.pushNamed('/search');

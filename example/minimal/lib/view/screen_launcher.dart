@@ -35,7 +35,7 @@ class _ScreenLauncherState extends ViewStateWidget<ScreenLauncher> {
 
   // Todo: might not needed
   void _mediaData(Duration timestamp) {
-    App.view.fromContext = MediaQuery.of(context);
+    App.viewData.fromContext = MediaQuery.of(context);
   }
 
   // Deep link
@@ -76,7 +76,7 @@ class _ScreenLauncherState extends ViewStateWidget<ScreenLauncher> {
     // ).whenComplete(() {
     //   App.scroll.bottom.update();
     // });
-    App.view.bottom.refresh();
+    App.viewData.bottom.refresh();
     // Future.microtask(() {
     //   App.scroll.bottom.animationTesting();
     // }).whenComplete(() {
@@ -132,7 +132,7 @@ class _ScreenLauncherState extends ViewStateWidget<ScreenLauncher> {
             case ConnectionState.done:
               return OrientationBuilder(
                 builder: (context, orientation) {
-                  if (MediaQuery.of(context).orientation != App.view.fromContext.orientation) {
+                  if (MediaQuery.of(context).orientation != App.viewData.fromContext.orientation) {
                     _mediaData(const Duration(microseconds: 1));
                   }
                   return launched();

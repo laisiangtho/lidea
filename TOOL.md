@@ -95,6 +95,7 @@ keytool -list -alias androiddebugkey -keystore "$env:UserProfile/.android/debug.
 keytool -list -v -alias lethil -keystore "$env:OneDrive/env/dev/laisiangtho/keystore.jks"
 # Command Prompt
 keytool -list -alias androiddebugkey -keystore "%UserProfile%/.android/debug.keystore"
+keytool -list -v -alias androiddebugkey -keystore "%UserProfile%/.android/debug.keystore"
 keytool -list -v -alias lethil -keystore "%OneDrive%/env/dev/laisiangtho/keystore.jks"
 ```
 

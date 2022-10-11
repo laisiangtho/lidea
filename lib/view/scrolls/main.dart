@@ -20,7 +20,7 @@ part 'controller.dart';
 /// Useful to control glitch PrimaryViewPage ViewScrollSnap
 
 class ViewScroll<T> extends StatefulWidget {
-  /// to disable scrollNotification from page remove one of [notify]
+  /// to disable scrollNotification from page remove one of notify
   final ScrollBehavior? behavior;
 
   /// to disable scrollNotification from page remove one of [notify, controller]

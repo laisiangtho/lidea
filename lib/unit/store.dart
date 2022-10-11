@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 
 import 'package:in_app_purchase/in_app_purchase.dart';
@@ -7,7 +9,7 @@ import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 
 import 'package:lidea/nest/main.dart';
-import "package:lidea/type/main.dart";
+import 'package:lidea/type/main.dart';
 
 // enum productDetail { item, hasPurchased, title, description }
 
@@ -39,7 +41,7 @@ abstract class UnitStore {
   /// List of consumable ProductId NOT PurchaseId
   late final _kConsumableIds = kProducts
       .where(
-        (e) => e.type == "consumable",
+        (e) => e.type == 'consumable',
       )
       .map(
         (e) => e.cart,
@@ -228,9 +230,9 @@ abstract class UnitStore {
     _listener.cancel();
   }
 
-  void _listenPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
+  void _listenPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) async {
     isPending = false;
-    purchaseDetailsList.forEach((PurchaseDetails item) async {
+    for (var item in purchaseDetailsList) {
       if (item.status == PurchaseStatus.pending) {
         isPending = true;
         handlePending(item.productID);
@@ -260,7 +262,38 @@ abstract class UnitStore {
         }
       }
       _processed();
-    });
+    }
+    // purchaseDetailsList.forEach((PurchaseDetails item) async {
+    //   if (item.status == PurchaseStatus.pending) {
+    //     isPending = true;
+    //     handlePending(item.productID);
+    //   } else {
+    //     if (item.status == PurchaseStatus.error) {
+    //       handleError(item.error!);
+    //     } else if (item.status == PurchaseStatus.purchased ||
+    //         item.status == PurchaseStatus.restored) {
+    //       bool valid = await verifyPurchase(item);
+    //       if (valid) {
+    //         handleDeliverProduct(item);
+    //       } else {
+    //         invalidPurchase(item);
+    //       }
+    //     }
+    //     if (data.isPlatform('android')) {
+    //       // if (kAutoConsume && isConsumable(item.productID)) {}
+    //       // working
+    //       if (isConsumable(item.productID)) {
+    //         final android = _api.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+    //         await android.consumePurchase(item);
+    //         // debugPrint('auto consumePurchase ${item.productID}');
+    //       }
+    //     }
+    //     if (item.pendingCompletePurchase) {
+    //       await _api.completePurchase(item);
+    //     }
+    //   }
+    //   _processed();
+    // });
   }
 
   void _processing(String productId) {

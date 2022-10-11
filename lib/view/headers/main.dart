@@ -64,7 +64,7 @@ class ViewHeaderSliver extends StatelessWidget {
     this.floating = true,
     this.heroTag = 'appbar-primary',
     required this.builder,
-    required this.heights,
+    this.heights = const [kToolbarHeight],
     this.padding = EdgeInsets.zero,
     this.backgroundColor,
     this.overlapsBackgroundColor,

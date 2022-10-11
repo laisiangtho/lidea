@@ -31,7 +31,7 @@ class _View extends _State with _Header {
       body: Views(
         scrollBottom: ScrollBottomNavigation(
           listener: _controller.bottom,
-          notifier: App.view.bottom,
+          notifier: App.viewData.bottom,
           height: 120,
           pointer: 20,
         ),

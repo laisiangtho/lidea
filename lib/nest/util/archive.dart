@@ -15,7 +15,7 @@ class ArchiveNest {
       }
       return archive.map((e) => e.name).toList();
     } catch (e) {
-      return Future.error("Error", StackTrace.fromString(e.toString()));
+      return Future.error('Error', StackTrace.fromString(e.toString()));
     }
   }
 
@@ -31,13 +31,15 @@ class ArchiveNest {
             return [file];
           });
         }
-        throw ('ExtractingBundleException');
+        // throw ('ExtractingBundleException');
+        throw ArgumentError('ExtractingBundleException');
       } else {
         return res;
       }
       // throw ('ExtractingBundleException');
     }
     // return Future.error("Extracting bundle failed");
-    throw ('LoadingBundleException');
+    // throw ('LoadingBundleException');
+    throw ArgumentError('LoadingBundleException');
   }
 }

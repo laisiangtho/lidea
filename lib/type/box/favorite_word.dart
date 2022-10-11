@@ -17,15 +17,15 @@ class FavoriteWordType {
 
   factory FavoriteWordType.fromJSON(Map<String, dynamic> o) {
     return FavoriteWordType(
-      word: o["word"] as String,
-      date: o["date"] as DateTime,
+      word: o['word'] as String,
+      date: o['date'] as DateTime,
     );
   }
 
   Map<String, dynamic> toJSON() {
     return {
-      "word": word,
-      "date": date,
+      'word': word,
+      'date': date,
     };
   }
 }

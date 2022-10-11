@@ -30,7 +30,8 @@ class Launcher {
       mode: LaunchMode.platformDefault,
       // mode: LaunchMode.inAppWebView,
     )) {
-      throw 'Could not launch $url';
+      // throw 'Could not launch $url';
+      throw ArgumentError('Could not launch $url');
     }
   }
 }

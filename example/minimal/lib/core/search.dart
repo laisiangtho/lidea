@@ -14,7 +14,7 @@ abstract class _Search extends _Mock {
   // Future<void> suggestionGenerate() async {}
   Future<void> suggestionGenerate() async {
     _cacheSuggestion = SuggestionType(
-      query: suggestQuery,
+      query: data.suggestQuery,
     );
   }
 
@@ -24,9 +24,9 @@ abstract class _Search extends _Mock {
 
   Future<void> conclusionGenerate() async {
     _cacheConclusion = ConclusionType(
-      query: searchQuery,
+      query: data.searchQuery,
     );
-    data.boxOfRecentSearch.update(searchQuery);
+    data.boxOfRecentSearch.update(data.searchQuery);
   }
 
   ConclusionType get cacheConclusion {

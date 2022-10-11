@@ -14,7 +14,7 @@ class AskNest {
 
   /// `url` String, Uri...
   AskNest(dynamic url) {
-    this.uri = this.urlParse(url);
+    uri = urlParse(url);
   }
 
   Uri urlParse(dynamic url) => (url is Uri) ? url : Uri.parse(url);
@@ -22,28 +22,28 @@ class AskNest {
 
   /// ` await AskNest(item).get<Uint8List>().catchError((e) => null);`
   Future<T> get<T>({Map<String, Object>? headers, String? body}) => open<T>(
-        this.uri,
+        uri,
         method: 'GET',
         headers: headers,
         body: body,
       );
 
   Future<T> put<T>({Map<String, Object>? headers, String? body}) => open<T>(
-        this.uri,
+        uri,
         method: 'PUT',
         headers: headers,
         body: body,
       );
 
   Future<T> patch<T>({Map<String, Object>? headers, String? body}) => open<T>(
-        this.uri,
+        uri,
         method: 'PATCH',
         headers: headers,
         body: body,
       );
 
   Future<T> post<T>({Map<String, Object>? headers, String? body}) => open<T>(
-        this.uri,
+        uri,
         method: 'POST',
         headers: headers,
         body: body,
@@ -85,7 +85,7 @@ class AskNest {
       } else {
         debugPrint('${res.statusCode}');
         // debugPrint('${res.compressionState}');
-        return Future<T>.error("Failed to load");
+        return Future<T>.error('Failed to load');
         // return Future.error("Failed to load", StackTrace.fromString("code: ${res.statusCode}"));
       }
 
@@ -100,13 +100,13 @@ class AskNest {
       return Future<T>.error(e.message!);
     } on SocketException catch (e) {
       if (e.port == null || e.address == null) {
-        return Future<T>.error("No internet");
+        return Future<T>.error('No internet');
       } else {
-        return Future<T>.error("Failed host lookup");
+        return Future<T>.error('Failed host lookup');
       }
     } on Error catch (e) {
       debugPrint('$e');
-      return Future<T>.error("Error", e.stackTrace);
+      return Future<T>.error('Error', e.stackTrace);
     } catch (e) {
       return Future<T>.error(e);
     }

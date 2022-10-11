@@ -1,4 +1,6 @@
 {
+  "digit": "၀၁၂၃၄၅၆၇၈၉",
+
   "holyBible": "သမ္မာကျမ်းစာ",
 
   "bible": "{plural, select, true{ကျမ်းစာများ} other{ကျမ်းစာ}}",
@@ -57,9 +59,12 @@
   "deleteAccount": "အကောင့်ဖျက်ရန်",
   "account": "အကောင့်",
   "user": "အသုံးပြုသူ",
+  "about": "အကြောင်းအရာ",
+  "privacy": "ကိုယ်ရေးကိုယ်တာ",
 
   "store": "စတိုး",
   "restorePurchase": "{plural, select, true{ဝယ်ယူမှုများကို ပြန်လည်ရယူရန်} other{ဝယ်ယူမှုကို ပြန်လည်ရယူရန်}}",
+
   "aMoment":"ခဏ",
   "noInternet":"အင်တာနက်မရှိ",
   "fontSize":"စာသား အရွယ်အစား",

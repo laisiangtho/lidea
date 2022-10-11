@@ -1,6 +1,6 @@
 part of view.layout;
 
-// Header of Section
+/// Header of Section
 class ViewSectionTitle extends StatelessWidget {
   final Widget? leading;
   final Widget? title;
@@ -28,9 +28,9 @@ class ViewSectionTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     if (!show) return const SizedBox();
     return ListTile(
-      contentPadding: padding,
+      contentPadding: (leading == null) ? const EdgeInsets.only(left: 25, right: 10) : padding,
       horizontalTitleGap: 0,
-      // minVerticalPadding: 0,
+      minVerticalPadding: 0,
       visualDensity: visualDensity,
       leading: leading,
       title: title,

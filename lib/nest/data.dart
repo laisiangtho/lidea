@@ -97,14 +97,21 @@ class DataNest {
   // SuggestionType cacheSuggestion = const SuggestionType();
   // ConclusionType cacheConclusion = const ConclusionType();
 
-  SettingsType get searchQuery => boxOfSettings.searchQuery();
-  set searchQuery(Object ord) {
+  String get searchQuery => boxOfSettings.searchQuery().asString;
+  set searchQuery(String ord) {
+    if (searchQuery != ord) {
+      notify();
+    }
     boxOfSettings.searchQuery(value: ord);
   }
 
-  SettingsType get suggestQuery => boxOfSettings.suggestQuery();
-  set suggestQuery(Object ord) {
-    boxOfSettings.suggestQuery(value: ord);
+  String get suggestQuery => boxOfSettings.suggestQuery().asString;
+  set suggestQuery(String ord) {
+    final word = ord.replaceAll(RegExp(' +'), ' ').trim();
+    if (suggestQuery != word) {
+      notify();
+    }
+    boxOfSettings.suggestQuery(value: word);
   }
 
   /// translate content from env,
@@ -120,7 +127,7 @@ class DataNest {
     // final lN0 = localeCode ?? locale.asString;
     final lN0 = localeCode ?? boxOfSettings.locale().asString;
     // final lN0 = localeCode ?? '';
-    final lN1 = 'en';
+    const lN1 = 'en';
 
     final l01 = env.language.entries;
     final l02 = l01.first;

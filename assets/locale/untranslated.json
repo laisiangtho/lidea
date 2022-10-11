@@ -12,6 +12,7 @@
   ],
 
   "no": [
+    "digit",
     "name",
     "title",
     "description",

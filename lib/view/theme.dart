@@ -110,7 +110,7 @@ abstract class ViewThemeData {
     required ViewColors color,
 
     /// Lato, 'Mm3Web', sans-serif
-    String? fontFamily = "Lato",
+    String? fontFamily = 'Lato',
     // List<String>? fontFallback = const ['Mm3Web'],
   }) {
     // final TextTheme textTheme = Theme.of(context).textTheme.merge(_textTheme);

@@ -111,7 +111,7 @@ abstract class ColorationData {
     required ColorationScheme color,
 
     /// Lato, 'Mm3Web', sans-serif
-    String? fontFamily = "Lato",
+    String? fontFamily = 'Lato',
     // List<String>? fontFallback = const ['Mm3Web'],
   }) {
     // final TextTheme textTheme = Theme.of(context).textTheme.merge(_textTheme);
@@ -207,7 +207,7 @@ abstract class ColorationData {
         brightness: color.brightness,
         // brightness: resolveBrightness,
       ),
-      listTileTheme: ListTileThemeData(
+      listTileTheme: const ListTileThemeData(
           // bool? dense,
           // ShapeBorder? shape,
           // ListTileStyle? style,
