@@ -5,7 +5,7 @@ class ViewGridBuilder extends StatelessWidget {
   final int itemCount;
   // final Widget? itemSnap;
   final Widget Function(BuildContext, int)? itemSnap;
-  final Widget? itemVoid;
+  final Widget? onEmpty;
   final EdgeInsetsGeometry? padding;
   final SliverGridDelegate gridDelegate;
   final Duration duration;
@@ -23,7 +23,7 @@ class ViewGridBuilder extends StatelessWidget {
     required this.itemCount,
     required this.itemBuilder,
     this.itemSnap,
-    this.itemVoid,
+    this.onEmpty,
     this.padding,
     this.primary,
     this.shrinkWrap = true,
@@ -45,7 +45,7 @@ class ViewGridBuilder extends StatelessWidget {
   }
 
   Widget widgets(BuildContext context) {
-    if (voided) return SizedBox(child: itemVoid);
+    if (voided) return SizedBox(child: onEmpty);
     return Padding(
       padding: padding ?? const EdgeInsets.fromLTRB(7, 3, 7, 5),
       child: GridView.builder(
@@ -64,7 +64,7 @@ class ViewGridBuilder extends StatelessWidget {
   }
 
   Widget slivers(BuildContext context) {
-    if (voided) return SliverToBoxAdapter(child: itemVoid);
+    if (voided) return SliverToBoxAdapter(child: onEmpty);
     return SliverPadding(
       padding: padding ?? const EdgeInsets.fromLTRB(7, 3, 7, 5),
       sliver: SliverGrid(
@@ -124,7 +124,7 @@ class ViewListBuilder extends StatelessWidget {
   final Widget Function(BuildContext, int)? itemSnap;
 
   /// show when itemCount is empty
-  final Widget? itemVoid;
+  final Widget? onEmpty;
   final EdgeInsetsGeometry padding;
   final Duration duration;
   final Axis scrollDirection;
@@ -147,7 +147,7 @@ class ViewListBuilder extends StatelessWidget {
     required this.itemCount,
     this.itemReorderable,
     this.itemSnap,
-    this.itemVoid,
+    this.onEmpty,
     this.padding = EdgeInsets.zero,
     this.primary,
     this.shrinkWrap = true,
@@ -174,8 +174,8 @@ class ViewListBuilder extends StatelessWidget {
   }
 
   Widget widgets(BuildContext context) {
-    // if (voided && itemVoid != null) return SizedBox(child: itemVoid);
-    if (voided && itemVoid != null) return itemVoid!;
+    // if (voided && onEmpty != null) return SizedBox(child: onEmpty);
+    if (voided && onEmpty != null) return onEmpty!;
 
     if (reorderable) {
       return Padding(
@@ -227,8 +227,8 @@ class ViewListBuilder extends StatelessWidget {
   }
 
   Widget slivers(BuildContext context) {
-    // if (voided) return SliverToBoxAdapter(child: itemVoid);
-    if (voided && itemVoid != null) return itemVoid!;
+    // if (voided) return SliverToBoxAdapter(child: onEmpty);
+    if (voided && onEmpty != null) return onEmpty!;
 
     if (reorderable) {
       return SliverPadding(
@@ -288,8 +288,8 @@ class ViewFlatBuilder extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final Widget? child;
 
-  /// placeHolder rendered when placeHolder NOT empty and show is FALSE
-  final Widget? placeHolder;
+  /// onAwait rendered when onAwait NOT empty and show is FALSE
+  final Widget? onAwait;
 
   /// if primary is not provided sliver is use to render
   final bool? primary;
@@ -304,7 +304,7 @@ class ViewFlatBuilder extends StatelessWidget {
     Key? key,
     this.padding,
     this.child,
-    this.placeHolder,
+    this.onAwait,
     this.primary,
     this.show = true,
     this.duration = Duration.zero,
@@ -315,8 +315,8 @@ class ViewFlatBuilder extends StatelessWidget {
     return FutureBuilder<bool>(
       future: Future.delayed(duration, () => true),
       builder: (_, snap) {
-        if (snap.hasData == false && placeHolder != null) {
-          return placeHolder!;
+        if (snap.hasData == false && onAwait != null) {
+          return onAwait!;
         }
         if (primary == null) {
           return _slivers();
@@ -343,8 +343,8 @@ class ViewFlatBuilder extends StatelessWidget {
   }
 
   Widget? get _showPlaceHolder {
-    if (show == false && placeHolder != null) {
-      return placeHolder;
+    if (show == false && onAwait != null) {
+      return onAwait;
     }
     return null;
   }

@@ -28,4 +28,8 @@ abstract class _State extends StateAbstract<Main> {
       }
     });
   }
+
+  Future<bool?> onDelete(dynamic key) {
+    return boxOfBookmarks.deleteAtKey(key);
+  }
 }

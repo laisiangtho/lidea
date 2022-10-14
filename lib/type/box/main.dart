@@ -42,20 +42,25 @@ abstract class BoxOfAbstract<E> {
   Iterable<E> get values => box.values;
   Iterable<MapEntry<dynamic, E>> get entries => box.toMap().entries;
 
-  // indexAtValues indexOfValues valuesOfWhere entriesOfWhere valuesOfIndex
-  // entryOfWhere
-  // entriesOfWhere
-  // valuesOfWhere valueOfWhere
-  // valuesOfIndex deleteAtIndex indexOfvalues whereAtValues valuesWhere entriesWhere
-
-  Future<void> deleteAtIndex(int index) {
-    return box.deleteAt(index);
+  /// Delete at index
+  /// [0, 1, 2, 3]
+  /// box.deleteAt(2)
+  /// [0, 1, 3]
+  Future<bool> deleteAtIndex(int index) async {
+    await box.deleteAt(index);
+    return true;
   }
 
-  Future<void> deleteAtKey(dynamic key) {
-    return box.delete(key);
+  /// Delete at key
+  Future<bool> deleteAtKey(dynamic key) async {
+    if (box.containsKey(key)) {
+      await box.delete(key);
+      return true;
+    }
+    return false;
   }
 
+  /// Delete all
   Future<void> deleteAll(Iterable<dynamic> keys) {
     return box.deleteAll(keys);
   }
@@ -75,8 +80,6 @@ abstract class BoxOfAbstract<E> {
   int indexOfvalues(bool Function(E) test) {
     return values.toList().indexWhere(test);
   }
-
-  void tmp() {}
 
   bool get plural => values.length > 1;
 

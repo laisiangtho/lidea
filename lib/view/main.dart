@@ -21,3 +21,5 @@ export 'pop/main.dart';
 export 'swipe/main.dart';
 // state
 export 'state/main.dart';
+// status
+export 'status/main.dart';

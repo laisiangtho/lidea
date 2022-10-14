@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:lidea/icon.dart';
+// import 'package:lidea/icon.dart';
 // import 'package:lidea/provider.dart';
 import 'package:lidea/hive.dart';
 
@@ -15,7 +15,7 @@ class Main extends StatefulWidget {
 
   static String route = 'note';
   static String label = 'Note';
-  static IconData icon = LideaIcon.listNested;
+  static IconData icon = Icons.loyalty;
 
   @override
   State<Main> createState() => _View();
@@ -65,47 +65,42 @@ class _View extends _State with _Header {
   }
 
   Widget listContainer() {
-    final items = boxOfBookmarks.values.toList();
+    final items = boxOfBookmarks.entries.toList();
+    // items.sort((a, b) => b.value.date!.compareTo(a.value.date!));
+
+    // final items = boxOfBookmarks.values.toList();
     // items.sort((a, b) => b.date!.compareTo(a.date!));
     return ViewListBuilder(
       itemBuilder: (BuildContext context, int index) {
         return itemContainer(index, items.elementAt(index));
       },
       itemCount: items.length,
-      itemVoid: SliverFillRemaining(
-        hasScrollBody: false,
-        child: Center(
-          child: Text(
-            App.preference.text.bookmarkCount(0),
-            style: state.textTheme.caption,
-          ),
-        ),
+      onEmpty: ViewFeedback.message(
+        label: App.preference.text.bookmarkCount(0),
       ),
       itemReorderable: boxOfBookmarks.reorderable,
     );
   }
 
-  Widget itemContainer(int index, BookmarksType item) {
+  Widget itemContainer(int index, MapEntry<dynamic, BookmarksType> item) {
     // final abc = App.core.scripturePrimary.bookById(bookmark.bookId);
     return Dismissible(
       // key: Key(index.toString()),
-      key: Key(item.date.toString()),
+      key: Key(item.value.date.toString()),
       direction: DismissDirection.endToStart,
       background: dismissiblesFromRight(),
 
       confirmDismiss: (direction) async {
-        // if (direction == DismissDirection.endToStart) {
-        //   return await onDelete(index);
-        // } else {
-        //   // Navigate to edit page;
-        // }
-        return null;
+        if (direction == DismissDirection.endToStart) {
+          return await onDelete(item.key);
+        }
+        return false;
       },
       child: ListTile(
         // contentPadding: EdgeInsets.zero,
         title: Text(
           // history.value.word,
-          'abc.name',
+          'item.value.name',
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
 

@@ -14,7 +14,7 @@ class UserLocaleWidget extends StatelessWidget {
     return ViewSection(
       primary: primary,
       duration: const Duration(milliseconds: 250),
-      placeHolder: const SliverToBoxAdapter(),
+      onAwait: const SliverToBoxAdapter(),
       headerLeading: const Icon(Icons.translate_rounded),
       headerTitle: ViewSectionTitle(
         title: ViewLabel(

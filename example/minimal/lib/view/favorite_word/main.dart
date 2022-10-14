@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:lidea/icon.dart';
+// import 'package:lidea/icon.dart';
 // import 'package:lidea/provider.dart';
 import 'package:lidea/hive.dart';
 
@@ -13,9 +13,9 @@ part 'header.dart';
 class Main extends StatefulWidget {
   const Main({Key? key}) : super(key: key);
 
-  static String route = 'recent-search';
-  static String label = 'Recent search';
-  static IconData icon = LideaIcon.listNested;
+  static String route = 'favorite-word';
+  static String label = 'Favorite';
+  static IconData icon = Icons.loyalty;
 
   @override
   State<Main> createState() => _View();
@@ -24,7 +24,7 @@ class Main extends StatefulWidget {
 class _View extends _State with _Header {
   @override
   Widget build(BuildContext context) {
-    debugPrint('recent-search->build');
+    debugPrint('favorite-word->build');
 
     return Scaffold(
       body: Views(
@@ -33,8 +33,8 @@ class _View extends _State with _Header {
           notifier: App.viewData.bottom,
         ),
         child: ValueListenableBuilder(
-          valueListenable: boxOfRecentSearch.listen(),
-          builder: (BuildContext _, Box<RecentSearchType> __, Widget? ___) {
+          valueListenable: boxOfFavoriteWord.listen(),
+          builder: (BuildContext _, Box<FavoriteWordType> __, Widget? ___) {
             return CustomScrollView(
               controller: _controller,
               slivers: _slivers,
@@ -51,37 +51,18 @@ class _View extends _State with _Header {
         pinned: true,
         floating: false,
         padding: state.fromContext.viewPadding,
-        heights: const [kToolbarHeight, 100],
+        heights: const [kToolbarHeight, kToolbarHeight],
         overlapsBackgroundColor: state.theme.primaryColor,
         overlapsBorderColor: state.theme.shadowColor,
         builder: _header,
       ),
       // listContainer(),
       ViewSection(
-        show: boxOfRecentSearch.isNotEmpty,
-
+        show: boxOfFavoriteWord.isNotEmpty,
         onAwait: const ViewFeedback.await(),
         onEmpty: ViewFeedback.message(
           label: App.preference.text.recentSearchCount(0),
         ),
-        // child: Padding(
-        //   padding: const EdgeInsets.fromLTRB(0, 3, 0, 5),
-        //   child: Material(
-        //     type: MaterialType.card,
-        //     color: Theme.of(context).primaryColor,
-        //     shape: RoundedRectangleBorder(
-        //       side: BorderSide(
-        //         color: Theme.of(context).shadowColor,
-        //         width: 0.5,
-        //       ),
-        //     ),
-        //     child: _recentBlock(items),
-        //   ),
-        // ),
-        // child: Card(
-        //   // clipBehavior: Clip.hardEdge,
-        //   child: _recentBlock(items),
-        // ),
         child: ViewBlockCard.fill(
           child: listContainer(),
         ),
@@ -94,8 +75,11 @@ class _View extends _State with _Header {
   }
 
   Widget listContainer() {
-    final items = boxOfRecentSearch.values.toList();
-    items.sort((a, b) => b.date!.compareTo(a.date!));
+    final items = boxOfFavoriteWord.entries.toList();
+    items.sort((a, b) => b.value.date!.compareTo(a.value.date!));
+
+    // final items = boxOfFavoriteWord.values.toList();
+    // items.sort((a, b) => b.date!.compareTo(a.date!));
 
     return ViewListBuilder(
       primary: false,
@@ -117,18 +101,17 @@ class _View extends _State with _Header {
     );
   }
 
-  Widget itemContainer(int index, RecentSearchType item) {
+  Widget itemContainer(int index, MapEntry<dynamic, FavoriteWordType> item) {
     // final abc = App.core.scripturePrimary.bookById(bookmark.bookId);
     return Dismissible(
       // key: Key(index.toString()),
-      key: Key(item.date.toString()),
+      key: Key(item.value.date.toString()),
       direction: DismissDirection.endToStart,
       background: dismissiblesFromRight(),
 
       confirmDismiss: (direction) async {
         if (direction == DismissDirection.endToStart) {
-          // return await onDelete(index);
-          return await onDelete(item.word);
+          return await onDelete(item.key);
         }
         return false;
       },
@@ -136,7 +119,7 @@ class _View extends _State with _Header {
         contentPadding: const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
         title: Text(
           // history.value.word,
-          item.word,
+          item.value.word,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
 
@@ -144,16 +127,13 @@ class _View extends _State with _Header {
         ),
         minLeadingWidth: 10,
         leading: const Icon(Icons.bookmark_added),
-        trailing: Text(
-          // App.core.scripturePrimary.digit(bookmark.chapterId),
-          item.hit.toString(),
-          style: const TextStyle(fontSize: 18),
-        ),
+        // trailing: Text(
+        //   // App.core.scripturePrimary.digit(bookmark.chapterId),
+        //   item.hit.toString(),
+        //   style: const TextStyle(fontSize: 18),
+        // ),
         onTap: () {
-          App.route.pushNamed(
-            'home/search',
-            arguments: {"keyword": item.word},
-          );
+          onSearch(item.value.word);
         },
       ),
     );

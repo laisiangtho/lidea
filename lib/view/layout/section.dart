@@ -2,7 +2,8 @@ part of view.layout;
 
 class ViewSection extends StatelessWidget {
   final Widget? child;
-  final Widget? placeHolder;
+  final Widget? onAwait;
+  final Widget? onEmpty;
   final bool? primary;
   final EdgeInsetsGeometry? padding;
 
@@ -24,7 +25,8 @@ class ViewSection extends StatelessWidget {
   const ViewSection({
     Key? key,
     this.child,
-    this.placeHolder,
+    this.onAwait,
+    this.onEmpty,
     this.primary,
     this.padding,
     this.show = true,
@@ -49,14 +51,17 @@ class ViewSection extends StatelessWidget {
     return FutureBuilder<bool>(
       future: Future.delayed(duration, () => true),
       builder: (_, snap) {
-        if (snap.hasData == false && placeHolder != null) {
-          return placeHolder!;
+        if (snap.hasData == false && onAwait != null) {
+          return onAwait!;
+        }
+        if (show == false && onEmpty != null) {
+          return onEmpty!;
         }
         return ViewFlatBuilder(
           primary: primary,
           padding: padding ?? const EdgeInsets.fromLTRB(0, 3, 0, 5),
           show: show && (hasChild || hasHeader || hasFooter),
-          placeHolder: placeHolder,
+          // onAwait: onAwait,
           child: ListBody(
             children: [
               if (header && hasHeader)

@@ -5,6 +5,9 @@
     },
     {
       "path": "../scripture"
+    },
+    {
+      "path": "../dictionary"
     }
   ],
   "settings": {

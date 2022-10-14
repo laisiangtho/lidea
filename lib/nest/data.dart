@@ -16,7 +16,7 @@ class DataNest {
 
   late final boxOfSettings = BoxOfSettings<SettingsType>();
   late final boxOfRecentSearch = BoxOfRecentSearch<RecentSearchType>();
-  late final boxOfFavoriteWord = BoxOfRecentSearch<FavoriteWordType>();
+  late final boxOfFavoriteWord = BoxOfFavoriteWord<FavoriteWordType>();
   late final boxOfPurchases = BoxOfPurchases<PurchasesType>();
 
   late final FirebaseFirestore firestore = FirebaseFirestore.instance;

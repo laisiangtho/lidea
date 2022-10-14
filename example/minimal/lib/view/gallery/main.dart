@@ -56,11 +56,8 @@ class _View extends _State with _Header {
   }
 
   Widget listContainer() {
-    return const SliverFillRemaining(
-      hasScrollBody: false,
-      child: Center(
-        child: Text('Working'),
-      ),
+    return const ViewFeedback.message(
+      label: 'Working',
     );
   }
 }

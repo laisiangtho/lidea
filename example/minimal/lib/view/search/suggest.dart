@@ -18,7 +18,9 @@ mixin _Suggest on _State {
 
             // return suggests(o);
           },
-          child: message(App.preference.text.searchNoMatch),
+          child: ViewFeedback.message(
+            label: App.preference.text.searchNoMatch,
+          ),
         ),
       ],
     );

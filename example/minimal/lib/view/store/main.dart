@@ -67,17 +67,8 @@ class _View extends _State with _Header {
 
   Widget buildContainer() {
     if (!store.isSupported) {
-      return ViewFlatBuilder(
-        show: false,
-        placeHolder: SliverFillRemaining(
-          hasScrollBody: false,
-          child: Center(
-            child: Text('Platform not supported! ${App.core.data.platform}'),
-          ),
-        ),
-        // child: Center(
-        //   child: Text('Platform not supported!'),
-        // ),
+      return ViewFeedback.message(
+        label: 'Platform not supported! ${App.core.data.platform}',
       );
     }
     List<Widget> sliverChildren = [];

@@ -36,7 +36,7 @@ class _ViewUserAccountState extends State<UserAccountWidget> {
     return ViewSection(
       primary: widget.primary,
       duration: const Duration(milliseconds: 150),
-      placeHolder: const SliverToBoxAdapter(),
+      onAwait: const SliverToBoxAdapter(),
       headerLeading: const Icon(Icons.face_outlined),
       show: widget.authenticate.hasUser,
       headerTitle: ViewSectionTitle(
