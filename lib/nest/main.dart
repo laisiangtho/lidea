@@ -4,6 +4,7 @@ library lidea.nest;
 import 'dart:math';
 // NOTE: UtilDocument
 import 'dart:async';
+import 'dart:typed_data';
 // import 'dart:math';
 import 'dart:convert' show json, utf8;
 import 'dart:io'
@@ -17,14 +18,14 @@ import 'dart:io'
         SocketException,
         Platform;
 
-import 'dart:typed_data';
-
 import 'package:flutter/foundation.dart' show kIsWeb, consolidateHttpClientResponseBytes;
 import 'package:flutter/services.dart' show ByteData, PlatformException, rootBundle;
 
 import 'package:path/path.dart' show join, basename;
 import 'package:path_provider/path_provider.dart' show getApplicationDocumentsDirectory;
-import 'package:archive/archive.dart' show ZipDecoder;
+// GZipDecoder, BZip2Decoder, XZDecoder, ZLibDecoder
+import 'package:archive/archive.dart'
+    show Archive, ZipDecoder, TarDecoder, GZipDecoder, BZip2Decoder;
 
 // NOTE: ClusterController
 import 'package:flutter/cupertino.dart';

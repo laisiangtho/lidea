@@ -8,6 +8,9 @@ class BoxOfSettings<E> extends BoxOfAbstract<SettingsType> {
       final item = box.get(key);
       if (item != null && item.isInBox) {
         // Update
+        if (key == 'version') {
+          version(value: value);
+        }
         if (!item.hasValue) {
           box.put(key, SettingsType(value: value));
         }
@@ -49,6 +52,7 @@ class BoxOfSettings<E> extends BoxOfAbstract<SettingsType> {
       }
       return item;
     } else {
+      debugPrint('update key:$key value:$value');
       final defaultValue = SettingsType(value: value);
       box.put(key, defaultValue);
       return box.get(key, defaultValue: defaultValue)!;

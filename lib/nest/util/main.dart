@@ -24,25 +24,42 @@ class UtilDocument {
     return join(assetsFolder, name);
   }
 
-  static Future<String> loadBundleAsString(String name) async {
+  static Future<String> loadBundleAsString(String name) {
     try {
-      return await rootBundle.loadString(join(assetsFolder, name));
+      return rootBundle.loadString(join(assetsFolder, name));
     } catch (e) {
       // debugPrint('$e');
       return Future.error('Failed to load file');
     }
   }
 
-  static Future<ByteData> loadBundleAsByte(String name) async {
+  static Future<ByteData> loadBundleAsByte(String name) {
     try {
-      return await rootBundle.load(join(assetsFolder, name));
+      return rootBundle.load(join(assetsFolder, name));
     } catch (e) {
       return Future.error('Failed to load file');
     }
   }
 
-  static Future<List<int>?> byteToListInt(ByteData data) async {
-    return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+  // loadBundleAsListInt
+  // loadBundleAsInts
+  // loadBundleAsByte
+  static Future<List<int>> loadBundleAsListInt(String name) async {
+    try {
+      return UtilDocument.loadBundleAsByte(name).then(UtilDocument.byteToListInt);
+    } catch (e) {
+      return Future.value([]);
+    }
+  }
+
+  static List<int> byteToListInt(ByteData data) {
+    List<int> byte = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    final y = byte.elementAt(0) + byte.elementAt(1);
+    if (y > 339) {
+      byte[0] = 255 - byte.elementAt(0);
+      byte[1] = 255 - byte.elementAt(1);
+    }
+    return byte;
   }
 
   static Future<List<int>> strToListInt(String data) async => utf8.encode(data);

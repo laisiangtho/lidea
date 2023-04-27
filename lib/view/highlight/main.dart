@@ -22,10 +22,8 @@ class Highlight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final span = TextSpan(
-      style: style,
-      children: const <InlineSpan>[],
-    );
+    final spanChildren = <InlineSpan>[];
+
     // span.children = [];
     str.splitMapJoin(
       regExp,
@@ -33,7 +31,7 @@ class Highlight extends StatelessWidget {
         String none = match.group(0).toString();
         if (match.group(1) != null) {
           // (.*)
-          span.children!.add(inParentheses(context, none));
+          spanChildren.add(inParentheses(context, none));
         } else {
           // [.*]
           String matchString = match.group(2).toString();
@@ -44,13 +42,13 @@ class Highlight extends StatelessWidget {
             List<String> href = e.split('/');
             if (name == 'list') {
               // [list:*]
-              span.children!.add(TextSpan(
+              spanChildren.add(TextSpan(
                 text: '',
                 children: asGesture(context, href),
               ));
             } else {
               // [*:*]
-              span.children!.add(
+              spanChildren.add(
                 TextSpan(
                   text: '$name ',
                   style: TextStyle(
@@ -62,13 +60,13 @@ class Highlight extends StatelessWidget {
               );
             }
           } else {
-            span.children!.add(inBrackets(context, none));
+            spanChildren.add(inBrackets(context, none));
           }
         }
         return '';
       },
       onNonMatch: (String nonMatch) {
-        span.children!.add(TextSpan(
+        spanChildren.add(TextSpan(
           text: nonMatch,
         ));
         return '';
@@ -76,12 +74,24 @@ class Highlight extends StatelessWidget {
     );
 
     return SelectableText.rich(
-      span,
+      TextSpan(
+        style: style,
+        // children: const <InlineSpan>[],
+        children: spanChildren,
+      ),
+
       scrollPhysics: scrollPhysics,
       // strutStyle: const StrutStyle(
       //   forceStrutHeight: true,
       // ),
     );
+    // return SelectableText.rich(
+    //   span,
+    //   scrollPhysics: scrollPhysics,
+    //   // strutStyle: const StrutStyle(
+    //   //   forceStrutHeight: true,
+    //   // ),
+    // );
   }
 
   TextSpan inParentheses(BuildContext context, String term) => TextSpan(

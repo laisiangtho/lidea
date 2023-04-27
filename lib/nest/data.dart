@@ -77,6 +77,8 @@ class DataNest {
     _isUpdates = boxOfSettings.checkVersion(env.settings['version']);
     boxOfSettings.fromJSON(env.settings);
 
+    debugPrint('_isInstalls: $_isInstalls _isUpdates: $_isUpdates');
+
     await updateToken(force: requireInitialized);
 
     await boxOfRecentSearch.open('recent-search');

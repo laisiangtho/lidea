@@ -7,56 +7,6 @@ part 'decoration.dart';
 part 'layout.dart';
 part 'title.dart';
 
-/// SliverPersistentHeaderDelegate
-class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
-  const ViewHeaderDelegate({
-    this.minHeight = kToolbarHeight,
-    this.maxHeight = kToolbarHeight,
-    // this.reservedTop = false,
-    this.verticalPadding = 0.0,
-    this.overlapsForce = false,
-    required this.builder,
-  });
-  final Widget Function(BuildContext, double, bool) builder;
-  final double minHeight;
-  final double maxHeight;
-  final double verticalPadding;
-  // final bool reservedTop;
-  final bool overlapsForce;
-
-  @override
-  bool shouldRebuild(ViewHeaderDelegate oldDelegate) => true;
-
-  @override
-  double get minExtent => minHeight;
-
-  @override
-  double get maxExtent => minHeight < maxHeight ? maxHeight : minHeight;
-
-  // @override
-  // FloatingHeaderSnapConfiguration? get snapConfiguration => null;
-
-  // @override
-  // OverScrollHeaderStretchConfiguration get stretchConfiguration => OverScrollHeaderStretchConfiguration();
-
-  double get _snapExtent => maxHeight - minHeight;
-
-  @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return SizedBox.expand(
-      child: builder(
-        context,
-        shrinkOffset,
-        overlapsForce
-            ? overlapsForce
-            : (_snapExtent > 0.0)
-                ? overlapsContent || shrinkOffset >= _snapExtent
-                : shrinkOffset > 0.0,
-      ),
-    );
-  }
-}
-
 class ViewHeaderSliver extends StatelessWidget {
   const ViewHeaderSliver({
     Key? key,
@@ -109,6 +59,8 @@ class ViewHeaderSliver extends StatelessWidget {
         maxHeight: _maxExtent,
         minHeight: _minExtent,
         overlapsForce: overlapsForce,
+        pinned: pinned,
+        floating: floating,
       ),
     );
   }
@@ -135,5 +87,58 @@ class ViewHeaderSliver extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+/// SliverPersistentHeaderDelegate
+class ViewHeaderDelegate extends SliverPersistentHeaderDelegate {
+  const ViewHeaderDelegate({
+    this.minHeight = kToolbarHeight,
+    this.maxHeight = kToolbarHeight,
+    // this.reservedTop = false,
+    this.verticalPadding = 0.0,
+    this.overlapsForce = false,
+    required this.pinned,
+    required this.floating,
+    required this.builder,
+  });
+  final double minHeight;
+  final double maxHeight;
+  final double verticalPadding;
+  // final bool reservedTop;
+  final bool overlapsForce;
+  final bool pinned;
+  final bool floating;
+  final Widget Function(BuildContext, double, bool) builder;
+
+  @override
+  bool shouldRebuild(ViewHeaderDelegate oldDelegate) => true;
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => minHeight < maxHeight ? maxHeight : minHeight;
+
+  // @override
+  // FloatingHeaderSnapConfiguration? get snapConfiguration => null;
+
+  // @override
+  // OverScrollHeaderStretchConfiguration get stretchConfiguration => OverScrollHeaderStretchConfiguration();
+
+  // double get _snapExtent => maxHeight - minHeight;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(
+      child: builder(
+        context,
+        shrinkOffset,
+        overlapsForce || overlapsContent || (pinned && shrinkOffset > maxExtent - minExtent),
+      ),
+    );
+    // : (_snapExtent > 0.0)
+    //     ? overlapsContent || shrinkOffset >= _snapExtent
+    //     : shrinkOffset > 0.0,
   }
 }

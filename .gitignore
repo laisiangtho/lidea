@@ -2,6 +2,10 @@
 /tmp.*
 /TODO-*.md
 
+/assets/*
+!/assets/locale
+!/assets/*.py
+
 # Development platform
 pubspec.lock
 

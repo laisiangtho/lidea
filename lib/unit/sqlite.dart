@@ -2,8 +2,15 @@ import 'dart:async';
 
 import 'package:sqflite/sqflite.dart';
 
+// import 'package:lidea/nest/main.dart';
+// import 'package:lidea/type/main.dart';
+
 // String queryCountTable = "SELECT count(*) as count FROM sqlite_master WHERE type = 'table';";
 abstract class UnitSQLite {
+  // final DataNest data;
+
+  // UnitSQLite({required this.data});
+
   String queryDatabaseList = 'PRAGMA database_list;';
 
   Database? _instance;
@@ -26,29 +33,33 @@ abstract class UnitSQLite {
       onUpgrade: onUpgrade,
       onDowngrade: onDowngrade,
       onOpen: onOpen,
+      // readOnly: false,
       // singleInstance: false,
     );
   }
 
+  Future<String> get databasePath => getDatabasesPath();
+
+  // SqfliteDatabaseException (DatabaseException(Cannot perform this operation because there is no current transaction.) sql 'COMMIT' args [])
   FutureOr<void> onConfigure(Database e) async {
     // ALTER TABLE table_name ADD PRIMARY KEY(col1, col2,...)
-    await doIndex(e);
+    // await doIndex(e);
   }
 
-  FutureOr<void> onCreate(Database e, int v) async {
-    await doIndex(e);
+  FutureOr<void> onCreate(Database e, int v) {
+    return doIndex(e);
   }
 
-  FutureOr<void> onUpgrade(Database e, int ov, int nv) async {
-    await doIndex(e);
+  FutureOr<void> onUpgrade(Database e, int ov, int nv) {
+    return doIndex(e);
   }
 
-  FutureOr<void> onDowngrade(Database e, int ov, int nv) async {
-    await doIndex(e);
+  FutureOr<void> onDowngrade(Database e, int ov, int nv) {
+    return doIndex(e);
   }
 
   /// doIndex executed onConfigure, onCreate, onUpgrade and onDowngrade by default
-  FutureOr<void> doIndex(Database e) async {
+  Future<void> doIndex(Database e) async {
     // await e.transaction((txn) async {
     //   Batch batch = txn.batch();
     //   batch.execute(_wordContext.createIndex!);
@@ -229,6 +240,21 @@ abstract class UnitSQLite {
   //     [keyword],
   //   );
   // }
+
+  /// sqlite_master
+  /// sense.sqlite_master
+  /// thesaurus.sqlite_master
+  Future<List<Map<String, Object?>>> checkTypeIndex({String table = ''}) async {
+    await db;
+    // return client.rawQuery('SELECT * FROM ? WHERE type =?;', [_senseTable, 'index']);
+    var name = table.isEmpty ? 'sqlite_master' : '$table.sqlite_master';
+    return client.query(
+      name,
+      columns: ['*'],
+      where: 'type =?',
+      whereArgs: ['index'],
+    );
+  }
 
   /// temp: get number of tables
   Future<List<Map<String, Object?>>> countTable() async {

@@ -2,6 +2,8 @@ part of view.layout;
 
 class ViewSection extends StatelessWidget {
   final Widget? child;
+
+  /// widget to render
   final Widget? onAwait;
   final Widget? onEmpty;
   final bool? primary;
@@ -59,7 +61,8 @@ class ViewSection extends StatelessWidget {
         }
         return ViewFlatBuilder(
           primary: primary,
-          padding: padding ?? const EdgeInsets.fromLTRB(0, 3, 0, 5),
+          // padding: padding ?? const EdgeInsets.fromLTRB(0, 3, 0, 5),
+          padding: padding,
           show: show && (hasChild || hasHeader || hasFooter),
           // onAwait: onAwait,
           child: ListBody(

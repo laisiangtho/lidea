@@ -13,21 +13,23 @@ class UnitSpeech {
     // await setLanguage('en-UK');
 
     // await api.setVoice({"name": "Karen", "locale": "en-GB"});
+    // await api.setPitch(0.2);
+    // await api.setSpeechRate(0.3);
     await api.speak(text);
   }
 
-  Future<void> speakWith(String? text, {String? language}) async {
+  Future<void> speakWith(String text, {String? language}) async {
     await setLanguage(language: language);
     // await api.setSpeechRate(0.42);
     // await api.setVolume(0.5);
     // await api.setPitch(0.87);
     await api.setSpeechRate(0.4);
     await api.setVolume(1.0);
-    await api.setPitch(0.9);
+    await api.setPitch(1.0);
 
     await api.awaitSpeakCompletion(true);
     await api.awaitSynthCompletion(true);
-    await speak(text ?? '');
+    await speak(text);
   }
 
   Future<dynamic> setLanguage({String? language = 'en-GB'}) async {
