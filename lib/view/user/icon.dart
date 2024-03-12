@@ -1,11 +1,11 @@
-part of view.user;
+part of 'main.dart';
 
 // ProfileIcon Profile
 
 class UserIconWidget extends StatelessWidget {
   final bool signedIn;
   final String? photoURL;
-  const UserIconWidget({Key? key, this.signedIn = false, this.photoURL}) : super(key: key);
+  const UserIconWidget({super.key, this.signedIn = false, this.photoURL});
 
   bool get userSignedIn => signedIn;
   String? get userPhotoURL => photoURL;
@@ -45,7 +45,7 @@ class UserIconWidget extends StatelessWidget {
           elevation: 10,
           shape: CircleBorder(
             side: BorderSide(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).colorScheme.background,
               width: .5,
             ),
           ),
@@ -67,7 +67,7 @@ class UserIconWidget extends StatelessWidget {
         elevation: 30,
         shape: CircleBorder(
           side: BorderSide(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).colorScheme.background,
             width: .7,
           ),
         ),

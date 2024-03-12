@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:lidea/view/main.dart';
 
 class DemoButtonStyle extends StatelessWidget {
-  const DemoButtonStyle({Key? key}) : super(key: key);
+  const DemoButtonStyle({super.key});
 
   @override
   Widget build(BuildContext context) {

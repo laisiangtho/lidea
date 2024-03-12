@@ -16,7 +16,7 @@ part 'state.dart';
 part 'header.dart';
 
 class Main extends StatefulWidget {
-  const Main({Key? key, this.arguments}) : super(key: key);
+  const Main({super.key, this.arguments});
   final Object? arguments;
 
   static String route = '/user';
@@ -174,7 +174,7 @@ class _View extends _State with _Header {
 
                       TextSpan(
                         text: App.preference.language('hereOnGithub'),
-                        style: TextStyle(color: Theme.of(context).errorColor),
+                        style: TextStyle(color: Theme.of(context).colorScheme.error),
                         recognizer: TapGestureRecognizer()..onTap = _launchAppIssues,
                       ),
                       const TextSpan(text: '...'),

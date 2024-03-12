@@ -350,15 +350,16 @@ abstract class UnitStore {
   /// Useless method for real world app
   Future<void> doConfirmPriceChange() async {
     if (data.isPlatform('android')) {
-      final android = _api.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
-      var result = await android.launchPriceChangeConfirmationFlow(
-        sku: 'purchaseId',
-      );
-      if (result.responseCode == BillingResponse.ok) {
-        // debugPrint('Price change accepted');
-      } else {
-        // debugPrint("Price change failed with code ${result.responseCode}");
-      }
+      // final android = _api.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+
+      // var result = await android.launchPriceChangeConfirmationFlow(
+      //   sku: 'purchaseId',
+      // );
+      // if (result.responseCode == BillingResponse.ok) {
+      //   // debugPrint('Price change accepted');
+      // } else {
+      //   // debugPrint("Price change failed with code ${result.responseCode}");
+      // }
     }
     if (data.isPlatform('ios')) {
       final ios = _api.getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();

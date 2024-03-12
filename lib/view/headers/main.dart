@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters
+
 library view.header;
 
 import 'package:flutter/material.dart';

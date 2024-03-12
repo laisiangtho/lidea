@@ -128,6 +128,9 @@ abstract class AuthenticateUnit extends Notify {
     // }
 
     // await Firebase.initializeApp(name: name, options: options);
+    // if (Firebase.apps.isNotEmpty) {
+    //   FirebaseAuth.instanceFor(app: Firebase.app());
+    // }
     FirebaseAuth.instanceFor(app: Firebase.app());
     _stateObserver();
   }

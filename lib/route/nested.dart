@@ -1,11 +1,11 @@
-part of lidea.route;
+part of 'main.dart';
 
 class RouteNestedWidget extends StatefulWidget {
   final RouteNestDelegate delegate;
   const RouteNestedWidget({
-    Key? key,
+    super.key,
     required this.delegate,
-  }) : super(key: key);
+  });
 
   @override
   State<RouteNestedWidget> createState() => _RouteNestedState();

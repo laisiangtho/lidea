@@ -1,13 +1,13 @@
-part of view.user;
+part of 'main.dart';
 
 class UserPictureWidget extends StatelessWidget {
   final AuthenticateUnit authenticate;
   final double snapShrink;
   const UserPictureWidget({
-    Key? key,
+    super.key,
     required this.authenticate,
     required this.snapShrink,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class UserPictureWidget extends StatelessWidget {
           elevation: 10,
           shape: CircleBorder(
             side: BorderSide(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).colorScheme.background,
               width: .5,
             ),
           ),
@@ -68,7 +68,7 @@ class UserPictureWidget extends StatelessWidget {
         elevation: 30,
         shape: CircleBorder(
           side: BorderSide(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).colorScheme.background,
             width: .7,
           ),
         ),

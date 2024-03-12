@@ -5,11 +5,6 @@ abstract class _State extends StateAbstract<Main> {
 
   late final boxOfBookmarks = App.core.data.boxOfBookmarks;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   void onDeleteAllConfirmWithDialog() {
     doConfirmWithDialog(
       context: context,

@@ -1,4 +1,4 @@
-part of lidea.type;
+part of '../main.dart';
 
 class BoxOfRecentSearch<E> extends BoxOfAbstract<RecentSearchType> {
   // boxOfRecentSearch addWordHistory
@@ -16,11 +16,18 @@ class BoxOfRecentSearch<E> extends BoxOfAbstract<RecentSearchType> {
 
   /// recentSearch UPDATE on exist, if not INSERT
   /// org:recentSearchUpdate
-  bool update(String ord) {
+  bool update(String ord, [String? lg]) {
     if (ord.isNotEmpty) {
       final ob = exist(ord);
       ob.value.date = DateTime.now();
       ob.value.hit++;
+
+      if (lg != null && lg.isNotEmpty) {
+        if (!ob.value.lang.contains(lg)) {
+          // ob.value.lang = [lg];
+          ob.value.lang = List.from(ob.value.lang)..add(lg);
+        }
+      }
       if (ob.key == null) {
         box.add(ob.value);
       } else {
@@ -67,7 +74,6 @@ class BoxOfRecentSearch<E> extends BoxOfAbstract<RecentSearchType> {
   //     );
   //   }
   // }
-
 }
 
 // RecentSearch

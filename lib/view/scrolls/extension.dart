@@ -1,4 +1,4 @@
-part of view.scrolls;
+part of 'main.dart';
 
 extension ScrollsExtension on ScrollController {
   static final _bottomController = <int, ScrollBottomListener>{};

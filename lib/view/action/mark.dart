@@ -1,4 +1,6 @@
-part of view.action;
+// ignore_for_file: use_super_parameters
+
+part of 'main.dart';
 
 class ViewMark extends StatelessWidget {
   final EdgeInsetsGeometry margin;
@@ -141,7 +143,7 @@ class ViewMark extends StatelessWidget {
               ViewBadage(
                 badge: badge,
                 top: 0,
-                right: 5,
+                right: 0,
                 show: badge != null && badge!.isNotEmpty,
               ),
             ],

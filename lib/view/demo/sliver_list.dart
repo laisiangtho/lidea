@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DemoSliverList extends StatelessWidget {
-  const DemoSliverList({Key? key}) : super(key: key);
+  const DemoSliverList({super.key});
 
   @override
   Widget build(BuildContext context) {

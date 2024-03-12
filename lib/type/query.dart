@@ -1,4 +1,4 @@
-part of lidea.type;
+part of 'main.dart';
 
 /// This use to format search suggestion type
 /// Map<String, Object?>

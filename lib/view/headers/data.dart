@@ -1,4 +1,4 @@
-part of view.header;
+part of 'main.dart';
 
 class ViewHeaderData {
   final double minHeight;

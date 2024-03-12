@@ -10,7 +10,8 @@
   "@bible": {
     "description": "default is singular form. Plural form must provided false",
     "placeholders": {
-      "plural": {}
+      "plural": {
+      }
     }
   },
 

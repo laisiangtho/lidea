@@ -1,4 +1,4 @@
-part of lidea.nest;
+part of '../main.dart';
 
 class ArchiveNest {
   /// ZipDecoder
@@ -68,9 +68,10 @@ class ArchiveNest {
 
   static Future<List<String>?> bundle(String file, {String? pwd}) async {
     debugPrint('bundle start');
-    List<int>? byte = await UtilDocument.loadBundleAsListInt(file).catchError((e) {
-      debugPrint('$e');
-    });
+    // List<int>? byte = await UtilDocument.loadBundleAsListInt(file).catchError((e) {
+    //   debugPrint('$e');
+    // });
+    List<int>? byte = await UtilDocument.loadBundleAsListInt(file);
     if (byte.isNotEmpty) {
       try {
         return await ArchiveNest.extract(byte);

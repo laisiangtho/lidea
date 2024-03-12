@@ -23,12 +23,12 @@ mixin _Header on _State {
         // left: 0,
         height: data.minHeight,
         child: ViewHeaderTitle(
-          label: App.preference.text.album(true),
+          label: App.preference.text.album('true'),
         ),
       ),
       right: [
         ViewButton(
-          message: App.preference.text.filter(false),
+          message: App.preference.text.filter('false'),
           onPressed: showFilter,
           child: const ViewMark(
             icon: Icons.tune_rounded,

@@ -1,4 +1,4 @@
-part of lidea.nest;
+part of '../main.dart';
 
 /// https://gist.github.com/[?]/
 ///
@@ -56,6 +56,8 @@ class GistData {
 
   Future<T> gitContent<T>({String? owner, String? repo, String? file, bool url = false}) async {
     if (file != null && file.isNotEmpty) {
+      final orange = gitContentUri(owner: owner, repo: repo, file: file);
+      debugPrint('gitContent $orange');
       return AskNest(gitContentUri(owner: owner, repo: repo, file: file)).get<T>();
     }
     return Future<T>.error('No identity');

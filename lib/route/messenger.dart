@@ -1,13 +1,13 @@
-part of lidea.route;
+part of 'main.dart';
 
 class RouteMessengerWidget extends StatelessWidget {
   final String title;
   final String message;
   const RouteMessengerWidget({
-    Key? key,
+    super.key,
     this.title = 'Route',
     this.message = 'Unknown',
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,4 @@
-part of lidea.nest;
+part of '../main.dart';
 
 class AskNest {
   // static Future<dynamic> request(String url) => null;
@@ -93,7 +93,6 @@ class AskNest {
       //   (HttpClientRequest request) {
       // ).then((HttpClientResponse response) async{
       // });
-
     } on PlatformException catch (e) {
       return Future<T>.error(e.message!);
     } on TimeoutException catch (e) {

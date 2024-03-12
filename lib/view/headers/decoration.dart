@@ -1,4 +1,6 @@
-part of view.header;
+// ignore_for_file: use_super_parameters
+
+part of 'main.dart';
 
 class ViewHeaderDecoration extends StatelessWidget {
   const ViewHeaderDecoration({

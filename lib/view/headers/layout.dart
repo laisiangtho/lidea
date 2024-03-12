@@ -1,4 +1,4 @@
-part of view.header;
+part of 'main.dart';
 
 class ViewHeaderLayoutStack extends StatelessWidget {
   /// left Action
@@ -12,13 +12,13 @@ class ViewHeaderLayoutStack extends StatelessWidget {
   final Widget? secondary;
   final ViewHeaderData data;
   const ViewHeaderLayoutStack({
-    Key? key,
+    super.key,
     required this.data,
     this.left = const [],
     this.primary,
     this.right = const [],
     this.secondary,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

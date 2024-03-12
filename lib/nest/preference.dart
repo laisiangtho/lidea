@@ -1,4 +1,4 @@
-part of lidea.nest;
+part of 'main.dart';
 
 // LideaController
 // LideaDocket
@@ -135,6 +135,7 @@ abstract class PreferenceNest with ChangeNotifier {
   /// Returns the active [Brightness].
   Brightness get systemBrightness {
     Brightness brightness;
+
     switch (themeMode) {
       case ThemeMode.light:
         brightness = Brightness.light;
@@ -143,7 +144,7 @@ abstract class PreferenceNest with ChangeNotifier {
         brightness = Brightness.dark;
         break;
       default:
-        brightness = WidgetsBinding.instance.window.platformBrightness;
+        brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
     }
     return brightness;
   }

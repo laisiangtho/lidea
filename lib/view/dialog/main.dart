@@ -135,7 +135,7 @@ Future<bool?> doConfirmWithDialog({
             child: Text(
               confirm,
               style: DefaultTextStyle.of(context).style.copyWith(
-                    color: Theme.of(context).errorColor,
+                    color: Theme.of(context).colorScheme.error,
                   ),
             ),
             // Navigator.of(context, rootNavigator: true).pop(false)

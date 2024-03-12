@@ -13,11 +13,11 @@ class PullToActivate extends StatefulWidget {
   final Future<void> Function()? onUpdate;
 
   const PullToActivate({
-    Key? key,
+    super.key,
     this.distance,
     this.extent,
     this.onUpdate,
-  }) : super(key: key);
+  });
 
   @override
   State<PullToActivate> createState() => PullOfState();
@@ -48,7 +48,9 @@ class PullOfState<T extends StatefulWidget> extends State<PullToActivate> {
 
   Future<void> refreshTrigger() async {
     await (widget.onUpdate ?? refreshUpdate).call().catchError((e) {
-      _message = e;
+      // _message = e.toString();
+      // debugPrint(e.toString());
+      // _message = 'error???';
     });
   }
 
@@ -110,7 +112,7 @@ class PullOfState<T extends StatefulWidget> extends State<PullToActivate> {
       return Text(
         _message,
         style: TextStyle(
-          color: Theme.of(context).errorColor,
+          color: Theme.of(context).colorScheme.error,
           fontWeight: FontWeight.w300,
           fontSize: DefaultTextStyle.of(context).style.fontSize! * percentage,
         ),

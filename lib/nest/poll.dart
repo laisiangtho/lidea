@@ -1,4 +1,4 @@
-part of lidea.nest;
+part of 'main.dart';
 
 /// The implementation of Poll.
 class PollNest {

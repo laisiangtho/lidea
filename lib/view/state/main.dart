@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:ui' show window;
 import '/view/scrolls/main.dart' show ScrollBottomNotifier;
 
 // Theme.of(context) ??
@@ -50,7 +49,8 @@ class ViewState {
   /// MediaQueryData.fromWindow(window)
   /// hoping to achieve unnecessary rebuild,
   /// at the same time getting Updated data
-  MediaQueryData get fromWindow => MediaQueryData.fromWindow(window);
+  MediaQueryData get fromWindow =>
+      MediaQueryData.fromView(WidgetsBinding.instance.platformDispatcher.views.single);
 
   /// height Of Top SafeArea -> StatusBar
   /// MediaQueryData.fromWindow(window).padding.top;

@@ -1,4 +1,4 @@
-part of lidea.nest;
+part of '../main.dart';
 
 // Default color configuration is light, and translated into
 // how human mind can interpreted the material color
@@ -148,7 +148,6 @@ abstract class ThemeNest {
     // final TextTheme textTheme = Theme.of(context).textTheme.merge(_textTheme);
 
     return ThemeData(
-      colorScheme: color.scheme,
       brightness: color.brightness,
       // primaryColorBrightness: Brightness.light,
       // primarySwatch: color.primarySwatch,
@@ -163,10 +162,8 @@ abstract class ThemeNest {
       shadowColor: color.shadow,
       canvasColor: color.canvas,
       scaffoldBackgroundColor: color.scaffold,
-      backgroundColor: color.background,
       highlightColor: color.highlight,
       disabledColor: color.disable,
-      errorColor: color.error,
       dividerColor: color.divider,
       focusColor: color.focus,
       hoverColor: color.focus.withOpacity(0.5),
@@ -365,6 +362,7 @@ abstract class ThemeNest {
           ),
         ),
       ),
+      colorScheme: color.scheme.copyWith(background: color.background).copyWith(error: color.error),
     );
   }
 

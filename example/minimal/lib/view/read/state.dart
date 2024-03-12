@@ -13,27 +13,27 @@ abstract class _State extends StateAbstract<Main> {
 
   // RouteNotifier get routes => App.route;
 
-  @override
-  void initState() {
-    super.initState();
-    // _controller = ScrollController();
-    // _bottomBarController = AppScrollBottomBarController();
-    // _viewSnap = Future.delayed(const Duration(milliseconds: 1000));
-    // Future.microtask(() {
-    //   final a = App.scroll.bottomFactor.value;
-    //   final b = App.scroll.bottomToggle.value;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // _controller = ScrollController();
+  //   // _bottomBarController = AppScrollBottomBarController();
+  //   // _viewSnap = Future.delayed(const Duration(milliseconds: 1000));
+  //   // Future.microtask(() {
+  //   //   final a = App.scroll.bottomFactor.value;
+  //   //   final b = App.scroll.bottomToggle.value;
 
-    //   final x = _controller.position.minScrollExtent;
-    //   final y = _controller.offset;
-    //   debugPrint('a $a b $b $x == $y');
-    //   // debugPrint('read.initState Future.microtask');
-    //   // _controller.animateTo(
-    //   //   _controller.position.maxScrollExtent,
-    //   //   duration: const Duration(milliseconds: 300),
-    //   //   curve: Curves.fastOutSlowIn,
-    //   // );
-    // });
-  }
+  //   //   final x = _controller.position.minScrollExtent;
+  //   //   final y = _controller.offset;
+  //   //   debugPrint('a $a b $b $x == $y');
+  //   //   // debugPrint('read.initState Future.microtask');
+  //   //   // _controller.animateTo(
+  //   //   //   _controller.position.maxScrollExtent,
+  //   //   //   duration: const Duration(milliseconds: 300),
+  //   //   //   curve: Curves.fastOutSlowIn,
+  //   //   // );
+  //   // });
+  // }
 
   @override
   void dispose() {

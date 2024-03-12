@@ -1,4 +1,4 @@
-part of lidea.nest;
+part of '../main.dart';
 
 class UtilDocument {
   // static String get assetsFolder => 'packages/dictionary/flutter/assets/';

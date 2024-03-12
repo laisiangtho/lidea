@@ -1,7 +1,7 @@
 part of 'main.dart';
 
 class _Recents extends StatefulWidget {
-  const _Recents({Key? key}) : super(key: key);
+  const _Recents();
 
   @override
   State<_Recents> createState() => _RecentView();
@@ -45,7 +45,7 @@ class _RecentView extends _RecentState {
           // duration: const Duration(milliseconds: 270),
           headerTitle: ViewLabel(
             alignment: Alignment.centerLeft,
-            label: preference.text.recentSearch(items.length > 1),
+            label: preference.text.recentSearch((items.length > 1) as String),
           ),
 
           onAwait: ViewFeedback.message(

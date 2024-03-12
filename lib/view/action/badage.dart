@@ -1,4 +1,4 @@
-part of view.action;
+part of 'main.dart';
 
 class ViewBadage extends StatelessWidget {
   final String? badge;
@@ -9,14 +9,14 @@ class ViewBadage extends StatelessWidget {
   final bool show;
 
   const ViewBadage({
-    Key? key,
+    super.key,
     this.badge,
     this.left,
     this.top,
     this.right,
     this.bottom,
     this.show = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +30,11 @@ class ViewBadage extends StatelessWidget {
       child: SizedBox(
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: Theme.of(context).errorColor,
+            color: Theme.of(context).colorScheme.error,
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             boxShadow: [
               BoxShadow(
-                color: Theme.of(context).backgroundColor.withOpacity(0.5),
+                color: Theme.of(context).colorScheme.background.withOpacity(0.1),
                 offset: const Offset(0, .2),
                 blurRadius: 1,
                 spreadRadius: 1,
@@ -42,13 +42,14 @@ class ViewBadage extends StatelessWidget {
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 6),
             child: Text(
               badge!,
               style: Theme.of(context).textTheme.labelSmall!.copyWith(
                     fontSize: 13,
                     letterSpacing: 0.1,
-                    color: Colors.white,
+                    // color: Colors.white,
+                    color: Theme.of(context).primaryColor,
                   ),
             ),
           ),

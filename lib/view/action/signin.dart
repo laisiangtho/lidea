@@ -1,4 +1,6 @@
-part of view.action;
+// ignore_for_file: use_super_parameters
+
+part of 'main.dart';
 
 class SignInButton extends StatelessWidget {
   final IconData? icon;

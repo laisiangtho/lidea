@@ -1,4 +1,4 @@
-part of lidea.route;
+part of 'main.dart';
 
 class RouteType {
   /// Unique pathName

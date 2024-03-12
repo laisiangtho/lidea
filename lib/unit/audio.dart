@@ -424,6 +424,7 @@ abstract class UnitAudio extends BaseAudioHandler with SeekHandler {
         // setMessage('Loading');
         await _player.setAudioSource(_playlist).catchError((e) {
           setMessageOnException(e);
+          return null;
         });
       }
     } catch (e) {

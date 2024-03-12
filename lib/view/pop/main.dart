@@ -37,7 +37,7 @@ class ViewPopupShapedArrow extends StatelessWidget {
   final AlignmentGeometry alignment;
 
   const ViewPopupShapedArrow({
-    Key? key,
+    super.key,
     required this.child,
     this.top,
     this.right,
@@ -52,7 +52,7 @@ class ViewPopupShapedArrow extends StatelessWidget {
     this.arrow = 65,
     this.arrowWidth = 10,
     this.arrowHeight = 12,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,4 @@
-part of lidea.type;
+part of 'main.dart';
 
 // NOTE: only type
 class EnvironmentType {
@@ -31,7 +31,7 @@ class EnvironmentType {
     required this.settingName,
     required this.settingKey,
     // required this.token,
-    List<TokenType>? token,
+    List<TokenType>? token = const [],
     required this.api,
     required this.products,
     required this.settings,
@@ -81,7 +81,8 @@ class EnvironmentType {
   /// String file = .url('word').local;
   /// ```
   APIType url(String id) {
-    return api.lastWhere((e) => e.uid == id);
+    // _updateAPI();
+    return _srcConfigure(api.lastWhere((e) => e.uid == id));
   }
 
   /// Update api based on token
@@ -119,35 +120,37 @@ class EnvironmentType {
 
   /// Update api based on token
   void _updateAPI() {
-    api = api.map((e) {
-      if (e.src.isNotEmpty) {
-        e.src = e.src.map((e) {
-          // patch Square Bracket
-          return e.replaceAllMapped(
-            RegExp(r'\[(.*?)\]'),
-            (Match i) {
-              final name = i.group(1);
-              final lt = _token.where((o) => o.id == name);
-              if (lt.isNotEmpty) {
-                final o = lt.first;
+    api = api.map((e) => _srcConfigure(e));
+  }
 
-                final url = GistData(token: o);
+  APIType _srcConfigure(APIType e) {
+    if (e.src.isNotEmpty) {
+      e.src = e.src.map((e) {
+        // patch Square Bracket
+        return e.replaceAllMapped(
+          RegExp(r'\[(.*?)\]'),
+          (Match i) {
+            final name = i.group(1);
+            final lt = _token.where((o) => o.id == name);
+            if (lt.isNotEmpty) {
+              final o = lt.first;
 
-                if (o.type == 'repo') {
-                  return url.rawContentUri().toString();
-                } else if (o.type == 'gist') {
-                  return url.gitContentUri().toString();
-                } else if (o.type == 'url') {
-                  return url.uri().toString();
-                }
+              final url = GistData(token: o);
+
+              if (o.type == 'repo') {
+                return url.rawContentUri().toString();
+              } else if (o.type == 'gist') {
+                return url.gitContentUri().toString();
+              } else if (o.type == 'url') {
+                return url.uri().toString();
               }
-              return name.toString();
-            },
-          );
-        });
-      }
-      return e;
-    });
+            }
+            return name.toString();
+          },
+        );
+      });
+    }
+    return e;
   }
 
   Future<void> updateToken({bool force = false, String file = 'env.json'}) async {
@@ -163,13 +166,18 @@ class EnvironmentType {
       });
 
       final res = await configure.gitContent<String>(file: file.replaceAll('env', id)).then((v) {
+        debugPrint(' abc $v');
         return UtilDocument.decodeJSON<Map<String, dynamic>>(v);
       }).onError((error, stackTrace) {
-        debugPrint(error.toString());
+        // debugPrint(error.toString());
+        debugPrint(' abc $error');
         return {};
       });
 
+      // configure.uri().toString()
+
       if (res.isEmpty) return Future.error('working');
+      // if (res.isEmpty) return Future.error(configure.uri().toString());
 
       raw = await configure.gitContent<String>(file: res['env']).onError((error, stackTrace) {
         return '';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../app.dart';
 
 class Main extends StatefulWidget {
-  const Main({Key? key}) : super(key: key);
+  const Main({super.key});
 
   static String route = 'nested';
   static String label = 'Nested';

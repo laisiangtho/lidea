@@ -1,4 +1,4 @@
-part of view.layout;
+part of 'main.dart';
 
 class ViewSection extends StatelessWidget {
   final Widget? child;
@@ -24,6 +24,7 @@ class ViewSection extends StatelessWidget {
   final Widget? footerTrailing;
   final void Function()? footerOnPressed;
 
+  // ignore: use_super_parameters
   const ViewSection({
     Key? key,
     this.child,

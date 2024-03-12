@@ -1,4 +1,4 @@
-part of lidea.route;
+part of 'main.dart';
 
 class RouteChangeNotifier extends ChangeNotifier {
   int _viewIndex = 0;
@@ -179,14 +179,26 @@ class RouteChangeNotifier extends ChangeNotifier {
   }
 
   /// showBottomSheet  using route
-  PersistentBottomSheetController<T> showSheetStack<T>({
+  // PersistentBottomSheetController<T> showSheetStack<T>({
+  //   required BuildContext context,
+  //   required String name,
+  //   Object? arguments,
+  // }) {
+  //   final raw = show(name);
+
+  //   return showBottomSheet<T>(
+  //     context: context,
+  //     builder: (BuildContext context) => raw.child,
+  //   );
+  // }
+  PersistentBottomSheetController showSheetStack<T>({
     required BuildContext context,
     required String name,
     Object? arguments,
   }) {
     final raw = show(name);
 
-    return showBottomSheet<T>(
+    return showBottomSheet(
       context: context,
       builder: (BuildContext context) => raw.child,
     );

@@ -34,7 +34,7 @@ void main() async {
 }
 
 class Minimal extends StatelessWidget {
-  const Minimal({Key? key}) : super(key: key);
+  const Minimal({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -108,5 +108,4 @@ class Minimal extends StatelessWidget {
   //   // );
   //   return child!;
   // }
-
 }

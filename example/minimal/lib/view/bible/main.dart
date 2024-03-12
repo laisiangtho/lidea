@@ -11,7 +11,7 @@ part 'state.dart';
 part 'header.dart';
 
 class Main extends StatefulWidget {
-  const Main({Key? key}) : super(key: key);
+  const Main({super.key});
 
   static String route = 'bible';
   static String label = 'Bible';
@@ -238,7 +238,7 @@ class _View extends _State with _Header {
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Icon(
           Icons.drag_handle_rounded,
-          color: Theme.of(context).errorColor,
+          color: Theme.of(context).colorScheme.error,
         ),
       ),
     );

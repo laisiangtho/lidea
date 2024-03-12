@@ -1,14 +1,14 @@
-part of view.user;
+part of 'main.dart';
 
 class UserLocaleWidget extends StatelessWidget {
   final PreferenceNest preference;
   final bool? primary;
 
   const UserLocaleWidget({
-    Key? key,
+    super.key,
     required this.preference,
     this.primary,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return ViewSection(

@@ -1,4 +1,4 @@
-part of view.layout;
+part of 'main.dart';
 
 class ViewBlockCard extends StatelessWidget {
   /// rounded and clip, card style
@@ -10,22 +10,22 @@ class ViewBlockCard extends StatelessWidget {
   /// Child as Card, having margin set around
   /// with BorderRadius.all(Radius.circular(12))
   const ViewBlockCard({
-    Key? key,
+    super.key,
     this.margin = const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     this.clipBehavior = Clip.hardEdge,
     this.borderRadius = const BorderRadius.all(Radius.circular(8)),
     this.child,
-  }) : super(key: key);
+  });
 
   /// Child as Card, having margin set only top and bottom
   /// with BorderRadius.zero
   const ViewBlockCard.fill({
-    Key? key,
+    super.key,
     this.margin = const EdgeInsets.symmetric(vertical: 10),
     this.clipBehavior = Clip.none,
     this.borderRadius = BorderRadius.zero,
     this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

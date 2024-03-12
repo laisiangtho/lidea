@@ -1,13 +1,13 @@
-part of view.layout;
+part of 'main.dart';
 
 class ViewSectionDivider extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final bool? primary;
   const ViewSectionDivider({
-    Key? key,
+    super.key,
     this.primary,
     this.padding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

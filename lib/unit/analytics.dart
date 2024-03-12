@@ -42,7 +42,8 @@ abstract class UnitAnalytics {
 
   Future<void> screen(String screenName, String screenClass) async {
     // await new FirebaseAnalytics().setCurrentScreen(creenName: 'home',screenClassOverride: 'HomeState');
-    await _analytics.setCurrentScreen(screenName: screenName, screenClassOverride: screenClass);
+    // await _analytics.setCurrentScreen(screenName: screenName, screenClassOverride: screenClass);
+    await _analytics.logScreenView(screenName: screenName, screenClass: screenClass);
   }
 
   // Future<void> analyticsSetUserId() async {

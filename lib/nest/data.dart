@@ -1,4 +1,4 @@
-part of lidea.nest;
+part of 'main.dart';
 
 //
 class DataNest {
@@ -93,6 +93,7 @@ class DataNest {
       // gist = env.client;
     }).catchError((e) {
       // gist = env.configure;
+      debugPrint('updateToken $e ');
     });
   }
 

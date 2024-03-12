@@ -1,4 +1,4 @@
-part of lidea.type;
+part of '../main.dart';
 
 class BoxOfPurchases<E> extends BoxOfAbstract<PurchasesType> {
   // MapEntry<dynamic, PurchasesType> boxOfPurchaseExistPurchaseId(String? id) {
@@ -35,7 +35,6 @@ class BoxOfPurchases<E> extends BoxOfAbstract<PurchasesType> {
   //     consumable: consumable,
   //   ));
   // }
-
 }
 
 // item.productID == consumableId

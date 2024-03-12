@@ -1,4 +1,6 @@
-part of view.action;
+// ignore_for_file: use_super_parameters
+
+part of 'main.dart';
 
 class ViewLabel extends StatelessWidget {
   final String? label;
@@ -66,6 +68,8 @@ class ViewLabel extends StatelessWidget {
                 : avatar
             : null,
         labelPadding: labelPadding,
+        elevation: 0,
+        side: BorderSide.none,
 
         label: (label != null)
             ? Text(

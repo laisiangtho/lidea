@@ -117,7 +117,6 @@ abstract class ColorationData {
     // final TextTheme textTheme = Theme.of(context).textTheme.merge(_textTheme);
 
     return ThemeData(
-      colorScheme: color.scheme,
       brightness: color.brightness,
       // primaryColorBrightness: Brightness.light,
       // primarySwatch: color.primarySwatch,
@@ -131,10 +130,8 @@ abstract class ColorationData {
       shadowColor: color.shadow,
       canvasColor: color.canvas,
       scaffoldBackgroundColor: color.scaffold,
-      backgroundColor: color.background,
       highlightColor: color.highlight,
       disabledColor: color.disable,
-      errorColor: color.error,
       dividerColor: color.divider,
       focusColor: color.focus,
 
@@ -221,7 +218,7 @@ abstract class ColorationData {
           // double? minVerticalPadding,
           // double? minLeadingWidth,
           // bool? enableFeedback,
-          ),
+          textColor: Colors.lightBlue),
       // cupertinoOverrideTheme: NoDefaultCupertinoThemeData(
       //   brightness: color.brightness,
       //   textTheme: const CupertinoTextThemeData(
@@ -241,7 +238,7 @@ abstract class ColorationData {
         // labelStyle: const TextStyle(),
         alignLabelWithHint: true,
 
-        suffixStyle: const TextStyle(color: Colors.red),
+        suffixStyle: const TextStyle(color: Colors.blue),
         contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: color.shadow, width: 0.3),
@@ -298,6 +295,7 @@ abstract class ColorationData {
           ),
         ),
       ),
+      colorScheme: color.scheme.copyWith(background: color.background).copyWith(error: color.error),
     );
   }
 

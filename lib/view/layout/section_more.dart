@@ -1,4 +1,4 @@
-part of view.layout;
+part of 'main.dart';
 
 // Footer of Section
 class ViewSectionMore extends StatelessWidget {
@@ -11,7 +11,7 @@ class ViewSectionMore extends StatelessWidget {
   final VisualDensity? visualDensity;
 
   const ViewSectionMore({
-    Key? key,
+    super.key,
     this.leading,
     this.title,
     this.trailing,
@@ -19,7 +19,7 @@ class ViewSectionMore extends StatelessWidget {
     this.onPressed,
     this.padding,
     this.visualDensity = VisualDensity.compact,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

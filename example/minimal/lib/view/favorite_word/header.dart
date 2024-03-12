@@ -15,7 +15,7 @@ mixin _Header on _State {
           const Alignment(0, .5),
           data.snapShrink,
         ),
-        label: App.preference.text.favorite(false),
+        label: App.preference.text.favorite('false'),
         data: data,
       ),
       right: [

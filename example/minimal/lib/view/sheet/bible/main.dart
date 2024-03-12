@@ -9,7 +9,7 @@ import '../../../app.dart';
 // class _View extends _State with _Header {
 // abstract class _State extends StateAbstract<Main> with SingleTickerProviderStateMixin {
 class Main extends SheetsDraggable {
-  const Main({Key? key}) : super(key: key);
+  const Main({super.key});
 
   static String route = 'sheet-bible';
   static String label = 'Bible';

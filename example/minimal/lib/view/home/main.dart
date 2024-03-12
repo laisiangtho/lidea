@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters
+
 import 'package:flutter/material.dart';
 
 import 'package:lidea/icon.dart';
@@ -575,14 +577,14 @@ class _View extends _State with _Header {
 
     return ViewSection(
       headerLeading: const Icon(Icons.ac_unit),
-      headerTitle: Text(App.preference.text.favorite(true)),
+      headerTitle: Text(App.preference.text.favorite('true')),
       // headerTitle: ViewMark(
       //   mainAxisAlignment: MainAxisAlignment.start,
       //   label: App.preference.text.favorite(true),
       // ),
       headerTrailing: ViewButton(
         show: items.isNotEmpty,
-        message: App.preference.text.addTo(App.preference.text.favorite(true)),
+        message: App.preference.text.addTo(App.preference.text.favorite('true')),
         onPressed: () {
           App.route.pushNamed('home/bible');
         },
@@ -605,7 +607,7 @@ class _View extends _State with _Header {
         //   label: App.preference.text.addMore(App.preference.text.favorite(true)),
         // ),
         child: Text(
-          App.preference.text.addMore(App.preference.text.favorite(true)),
+          App.preference.text.addMore(App.preference.text.favorite('true')),
           textAlign: TextAlign.center,
         ),
       ),
@@ -638,7 +640,7 @@ class _View extends _State with _Header {
             //   label: App.preference.text.addTo(App.preference.text.favorite(true)),
             // ),
             child: Text(
-              App.preference.text.addTo(App.preference.text.favorite(true)),
+              App.preference.text.addTo(App.preference.text.favorite('true')),
               textAlign: TextAlign.center,
             ),
             onPressed: () {
@@ -746,10 +748,10 @@ class _View extends _State with _Header {
     return ViewSection(
       show: items.isNotEmpty,
       headerTitle: Text(
-        App.preference.text.recentSearch(true),
+        App.preference.text.recentSearch('true'),
       ),
       headerTrailing: ViewButton(
-        message: App.preference.text.addTo(App.preference.text.recentSearch(true)),
+        message: App.preference.text.addTo(App.preference.text.recentSearch('true')),
         onPressed: () {
           App.route.pushNamed('home/recent-search');
         },
@@ -790,7 +792,7 @@ class _View extends _State with _Header {
 }
 
 class PullToRefresh extends PullToActivate {
-  const PullToRefresh({Key? key}) : super(key: key);
+  const PullToRefresh({super.key});
 
   @override
   State<PullToActivate> createState() => _PullToRefreshState();

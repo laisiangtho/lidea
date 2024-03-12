@@ -1,4 +1,4 @@
-part of view.action;
+part of 'main.dart';
 
 // const EdgeInsets _kButtonPadding = EdgeInsets.all(16.0);
 // const EdgeInsets _kBackgroundButtonPadding = EdgeInsets.symmetric(
@@ -9,7 +9,7 @@ part of view.action;
 class ViewButton extends StatefulWidget {
   /// Creates an iOS-style button.
   const ViewButton({
-    Key? key,
+    super.key,
     required this.child,
     this.style,
     // this.padding = const EdgeInsets.symmetric(vertical: 13.5, horizontal: 7),
@@ -31,13 +31,11 @@ class ViewButton extends StatefulWidget {
     this.enable = true,
     this.badge,
     this.message,
-  })  : _filled = false,
-        // showShadow = false,
-        super(key: key);
+  }) : _filled = false;
 
   /// Creates an iOS-style button with a filled background.
   const ViewButton.filled({
-    Key? key,
+    super.key,
     required this.child,
     this.style,
     // this.padding = const EdgeInsets.all(16.0),
@@ -60,10 +58,9 @@ class ViewButton extends StatefulWidget {
     this.enable = true,
     this.badge,
     this.message,
-  })  :
+  }) :
         //color = null,
-        _filled = true,
-        super(key: key);
+        _filled = true;
 
   final Widget child;
   final TextStyle? style;

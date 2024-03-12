@@ -1,4 +1,4 @@
-part of view.layout;
+part of 'main.dart';
 
 /// Header of Section
 class ViewSectionTitle extends StatelessWidget {
@@ -11,7 +11,7 @@ class ViewSectionTitle extends StatelessWidget {
   final VisualDensity? visualDensity;
 
   const ViewSectionTitle({
-    Key? key,
+    super.key,
     this.leading,
     this.title,
     this.trailing,
@@ -22,7 +22,7 @@ class ViewSectionTitle extends StatelessWidget {
 
     this.padding = const EdgeInsets.only(left: 12),
     this.visualDensity = VisualDensity.compact,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,4 @@
-part of view.popup;
+part of 'main.dart';
 
 class ShapedArrowWithRoundedRectangleBorder extends RoundedRectangleBorder {
   final double arrow;
@@ -11,12 +11,9 @@ class ShapedArrowWithRoundedRectangleBorder extends RoundedRectangleBorder {
     this.radius = Radius.zero,
     this.width = 10,
     this.height = 12,
-    BorderSide side = BorderSide.none,
-    BorderRadiusGeometry borderRadius = BorderRadius.zero,
-  }) : super(
-          side: side,
-          borderRadius: borderRadius,
-        );
+    super.side,
+    super.borderRadius,
+  });
 
   @override
   Path getOuterPath(Rect rect, {TextDirection? textDirection}) {

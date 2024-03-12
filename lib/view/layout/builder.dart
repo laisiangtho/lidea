@@ -1,4 +1,4 @@
-part of view.layout;
+part of 'main.dart';
 
 class ViewGridBuilder extends StatelessWidget {
   final Widget Function(BuildContext, int) itemBuilder;
@@ -19,7 +19,7 @@ class ViewGridBuilder extends StatelessWidget {
   final bool shrinkWrap;
 
   const ViewGridBuilder({
-    Key? key,
+    super.key,
     required this.itemCount,
     required this.itemBuilder,
     this.itemSnap,
@@ -31,7 +31,7 @@ class ViewGridBuilder extends StatelessWidget {
     this.physics = const NeverScrollableScrollPhysics(),
     this.scrollController,
     required this.gridDelegate,
-  }) : super(key: key);
+  });
 
   bool get voided => itemCount == 0;
 
@@ -141,7 +141,7 @@ class ViewListBuilder extends StatelessWidget {
   final bool shrinkWrap;
 
   const ViewListBuilder({
-    Key? key,
+    super.key,
     required this.itemBuilder,
     this.itemSeparator,
     required this.itemCount,
@@ -155,7 +155,7 @@ class ViewListBuilder extends StatelessWidget {
     this.scrollDirection = Axis.vertical,
     this.scrollController,
     this.physics,
-  }) : super(key: key);
+  });
 
   bool get voided => itemCount == 0;
   bool get reorderable => itemReorderable != null;
@@ -301,14 +301,14 @@ class ViewFlatBuilder extends StatelessWidget {
   final Duration duration;
 
   const ViewFlatBuilder({
-    Key? key,
+    super.key,
     this.padding,
     this.child,
     this.onAwait,
     this.primary,
     this.show = true,
     this.duration = Duration.zero,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

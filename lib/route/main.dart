@@ -43,10 +43,10 @@ part 'messenger.dart';
 /// ```
 class NavigatorRouteManager<T extends Listenable> extends InheritedNotifier<T> {
   const NavigatorRouteManager({
-    Key? key,
-    required T notifier,
-    required Widget child,
-  }) : super(key: key, notifier: notifier, child: child);
+    super.key,
+    required T super.notifier,
+    required super.child,
+  });
 }
 // class NavigatorRoutes<T> extends InheritedNotifier<NavigatorRouterMainDelegate> {
 //   const NavigatorRoutes({

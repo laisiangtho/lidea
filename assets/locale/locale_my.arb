@@ -80,7 +80,7 @@
   "bookmarkCount": "{count, plural, =0{စာညှပ် မရှိ} =1{{count} စာညှပ်} other{{count} စာညှပ်}}",
 
 
-  "itemCount": "{count, plural, =0{တစ်ခုမှမရှိ} =1{တစ်ခုရှိ} item} other{{count} ခုရှိ}}",
+  "itemCount": "{count, plural, =0{တစ်ခုမှမရှိ} =1{တစ်ခုရှိ} other{{count} ခုရှိ}}",
   "itemCountNumber": "{count, plural, =0{တစ်ခုမှမရှိ} =1{{number} ခုရှိ} other{{number} ခုရှိ}}",
 
   "confirmation": "အတည်ပြုချက်",

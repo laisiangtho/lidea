@@ -5,11 +5,6 @@ abstract class _State extends StateAbstract<Main> {
 
   late final boxOfRecentSearch = App.core.data.boxOfRecentSearch;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   void onSearch(String ord) {}
   Future<bool?> onDelete(String ord) async {
     return boxOfRecentSearch.delete(ord);

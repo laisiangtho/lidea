@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lidea/view/main.dart';
 
 class DemoDoConfirm extends StatelessWidget {
-  const DemoDoConfirm({Key? key}) : super(key: key);
+  const DemoDoConfirm({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,13 +1,13 @@
-part of view.user;
+part of 'main.dart';
 
 class UserThemeWidget extends StatelessWidget {
   final PreferenceNest preference;
   final bool? primary;
   const UserThemeWidget({
-    Key? key,
+    super.key,
     required this.preference,
     this.primary,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,4 @@
-part of view.scrolls;
+part of 'main.dart';
 
 class ScrollsBehavior extends ScrollBehavior {
   const ScrollsBehavior();
@@ -19,8 +19,8 @@ class ScrollsBehavior extends ScrollBehavior {
     return const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics());
   }
 
-  @override
-  Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) {
-    return child;
-  }
+  // @override
+  // Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) {
+  //   return child;
+  // }
 }

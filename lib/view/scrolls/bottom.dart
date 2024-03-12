@@ -1,4 +1,4 @@
-part of view.scrolls;
+part of 'main.dart';
 
 class ScrollBottomNavigation {
   final ScrollBottomNotifier notifier;

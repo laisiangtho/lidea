@@ -1,4 +1,4 @@
-part of lidea.route;
+part of 'main.dart';
 
 class RouteMainDelegate extends RouterDelegate<Uri>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<Uri> {

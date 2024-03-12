@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../app.dart';
 
 class Main extends StatefulWidget {
-  const Main({Key? key}) : super(key: key);
+  const Main({super.key});
   static String route = 'pop-books';
   static String label = 'Books';
   static IconData icon = Icons.opacity_outlined;
@@ -86,7 +86,7 @@ class _MainState extends StateAbstract<Main> with TickerProviderStateMixin {
       arrow: positionOfRender.dx - left + (sizeOfRender.width * 0.40),
       arrowWidth: arrowWidth,
       arrowHeight: arrowHeight,
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       child: SizeTransition(
         sizeFactor: _animation,
         axis: Axis.vertical,
@@ -105,7 +105,7 @@ class _MainState extends StateAbstract<Main> with TickerProviderStateMixin {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).colorScheme.background,
               blurRadius: 5,
               spreadRadius: 7,
               offset: const Offset(0, 0),
@@ -117,7 +117,7 @@ class _MainState extends StateAbstract<Main> with TickerProviderStateMixin {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).colorScheme.background,
               blurRadius: 9,
               spreadRadius: 15,
               offset: const Offset(0, 0),
@@ -164,7 +164,7 @@ class _MainState extends StateAbstract<Main> with TickerProviderStateMixin {
           body: chapterList(isExpanded, book),
           // backgroundColor: isCurrentBook ? Theme.of(context).disabledColor : Colors.transparent,
           // backgroundColor: Colors.transparent,
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.background,
           // backgroundColor: Colors.red,
           canTapOnHeader: isCurrentBook,
           headerBuilder: (BuildContext context, bool isExpanded) {

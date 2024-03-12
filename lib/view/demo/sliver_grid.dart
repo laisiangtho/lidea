@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DemoSliverGrid extends StatelessWidget {
-  const DemoSliverGrid({Key? key}) : super(key: key);
+  const DemoSliverGrid({super.key});
 
   @override
   Widget build(BuildContext context) {

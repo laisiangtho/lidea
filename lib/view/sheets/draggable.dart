@@ -1,8 +1,8 @@
-part of view.sheet;
+part of 'main.dart';
 
 // SheetsDraggable
 abstract class SheetsDraggable extends StatefulWidget {
-  const SheetsDraggable({Key? key}) : super(key: key);
+  const SheetsDraggable({super.key});
 
   @override
   State<SheetsDraggable> createState() => SheetsDraggableState();

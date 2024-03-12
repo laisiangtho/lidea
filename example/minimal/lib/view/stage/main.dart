@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../app.dart';
 
 class Main extends StatefulWidget {
-  const Main({Key? key}) : super(key: key);
+  const Main({super.key});
 
   static String route = 'stage';
   static String label = 'Stage';
@@ -108,9 +108,9 @@ class _MainState extends State<Main> {
                         sliderInfo.number = value;
                       },
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: const <Widget>[
+                      children: <Widget>[
                         Spinner(),
                         Spinner(),
                         Spinner(),
@@ -159,10 +159,10 @@ class CounterChangeNotifier extends ChangeNotifier {
 
 class CounterInheritedNotifier extends InheritedNotifier<CounterChangeNotifier> {
   const CounterInheritedNotifier({
-    Key? key,
-    required CounterChangeNotifier notifier,
-    required Widget child,
-  }) : super(key: key, notifier: notifier, child: child);
+    super.key,
+    required CounterChangeNotifier super.notifier,
+    required super.child,
+  });
 
   // static CounterInheritedNotifier of(BuildContext context) {
   //   return context.dependOnInheritedWidgetOfExactType<CounterInheritedNotifier>()!;
@@ -185,11 +185,11 @@ class CounterInheritedWidget extends InheritedWidget {
   final int number;
   final ValueChanged<int> numberChanged;
   const CounterInheritedWidget({
-    Key? key,
+    super.key,
     required this.number,
     required this.numberChanged,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   static CounterInheritedWidget? of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<CounterInheritedWidget>();
@@ -214,7 +214,7 @@ class CounterInheritedWidget extends InheritedWidget {
 // }
 
 class InheritedWidgetChild extends StatelessWidget {
-  const InheritedWidgetChild({Key? key}) : super(key: key);
+  const InheritedWidgetChild({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -249,7 +249,7 @@ class InheritedWidgetChild extends StatelessWidget {
 // }
 
 class Spinner extends StatelessWidget {
-  const Spinner({Key? key}) : super(key: key);
+  const Spinner({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -4,14 +4,14 @@ import 'package:lidea/intl.dart';
 
 class DemoTranslate extends StatefulWidget {
   const DemoTranslate({
-    Key? key,
+    super.key,
     // required this.locale,
     required this.itemCount,
     required this.itemCountNumber,
     required this.formatDate,
     required this.confirmToDelete,
     required this.formatCurrency,
-  }) : super(key: key);
+  });
   // final Locale locale;
   final String Function(int count) itemCount;
   final String Function(int count, Object number) itemCountNumber;
@@ -211,8 +211,8 @@ class _DemoTranslateState extends State<DemoTranslate> {
   }
 
   Widget _select() {
-    return Column(
-      children: const [
+    return const Column(
+      children: [
         Text.rich(
           TextSpan(
             text: '?? = ',

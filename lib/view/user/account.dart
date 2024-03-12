@@ -1,4 +1,4 @@
-part of view.user;
+part of 'main.dart';
 
 // UserAccountWidget
 class UserAccountWidget extends StatefulWidget {
@@ -7,12 +7,12 @@ class UserAccountWidget extends StatefulWidget {
   final List<Widget> children;
   final bool? primary;
   const UserAccountWidget({
-    Key? key,
+    super.key,
     required this.preference,
     required this.authenticate,
     this.children = const [],
     this.primary,
-  }) : super(key: key);
+  });
 
   @override
   State<UserAccountWidget> createState() => _ViewUserAccountState();
@@ -86,11 +86,11 @@ class _ViewUserAccountState extends State<UserAccountWidget> {
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
         alignment: Alignment.centerLeft,
         icon: Icons.person_remove_outlined,
-        iconColor: Theme.of(context).errorColor,
+        iconColor: Theme.of(context).colorScheme.error,
         label: widget.preference.text.deleteAccount,
         labelPadding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
         labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              color: Theme.of(context).errorColor,
+              color: Theme.of(context).colorScheme.error,
             ),
         softWrap: true,
         maxLines: 3,

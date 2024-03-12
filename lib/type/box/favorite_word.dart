@@ -1,4 +1,4 @@
-part of lidea.type;
+part of '../main.dart';
 
 class BoxOfFavoriteWord<E> extends BoxOfAbstract<FavoriteWordType> {
   /// favorite is EXIST by word

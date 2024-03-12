@@ -1,4 +1,4 @@
-part of data.type;
+part of '../main.dart';
 
 class BoxOfBooks<E> extends BoxOfAbstract<BooksType> {}
 

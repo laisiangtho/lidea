@@ -1,4 +1,4 @@
-part of lidea.type;
+part of '../main.dart';
 
 abstract class BoxOfAbstract<E> {
   /// Global constant to access Hive.

@@ -1,4 +1,4 @@
-part of lidea.type;
+part of '../main.dart';
 
 class BoxOfSettings<E> extends BoxOfAbstract<SettingsType> {
   /// import data from json `{key:value}` Map<String, dynamic>

@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 // ViewSwipeWidget
 class ViewSwipeWidget extends StatefulWidget {
   const ViewSwipeWidget({
-    Key? key,
+    super.key,
     required this.child,
     required this.menu,
     this.dx = 0.2,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final List<Widget> menu;

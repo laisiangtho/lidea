@@ -116,7 +116,6 @@ abstract class ViewThemeData {
     // final TextTheme textTheme = Theme.of(context).textTheme.merge(_textTheme);
 
     return ThemeData(
-      colorScheme: color.scheme,
       brightness: color.brightness,
       // primaryColorBrightness: Brightness.light,
       // primarySwatch: color.primarySwatch,
@@ -130,10 +129,8 @@ abstract class ViewThemeData {
       shadowColor: color.shadow,
       canvasColor: color.canvas,
       scaffoldBackgroundColor: color.scaffold,
-      backgroundColor: color.background,
       highlightColor: color.highlight,
       disabledColor: color.disable,
-      errorColor: color.error,
       dividerColor: color.divider,
       focusColor: color.focus,
 
@@ -299,6 +296,7 @@ abstract class ViewThemeData {
           ),
         ),
       ),
+      colorScheme: color.scheme.copyWith(background: color.background).copyWith(error: color.error),
     );
   }
 
