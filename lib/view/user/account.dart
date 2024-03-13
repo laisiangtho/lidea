@@ -45,7 +45,7 @@ class _ViewUserAccountState extends State<UserAccountWidget> {
           label: widget.preference.text.account,
         ),
       ),
-      child: Card(
+      child: ViewBlockCard(
         child: ViewListBuilder(
           primary: false,
           padding: const EdgeInsets.symmetric(horizontal: 20),
