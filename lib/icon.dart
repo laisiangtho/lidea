@@ -20,6 +20,7 @@ class LideaIcon {
   static const IconData layout = IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData play = IconData(0xe80b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData stop = IconData(0xe80c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData face = IconData(0xe80d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData pause = IconData(0xe80f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData record = IconData(0xe810, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData cd = IconData(0xe811, fontFamily: _kFontFam, fontPackage: _kFontPkg);
