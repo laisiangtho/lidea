@@ -67,7 +67,7 @@ class UserIconWidget extends StatelessWidget {
         elevation: 30,
         shape: CircleBorder(
           side: BorderSide(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).dividerColor,
             width: .7,
           ),
         ),
@@ -77,8 +77,9 @@ class UserIconWidget extends StatelessWidget {
           // padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
           // padding: EdgeInsets.zero,
           child: Icon(
-            Icons.face,
-            // size: 25,
+            // Icons.face,
+            LideaIcon.face,
+            // size: 20,
           ),
         ),
       ),
