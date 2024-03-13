@@ -1,5 +1,6 @@
 part of 'main.dart';
 
+/// Theme mode
 class UserThemeWidget extends StatelessWidget {
   final PreferenceNest preference;
   final bool? primary;
@@ -22,8 +23,9 @@ class UserThemeWidget extends StatelessWidget {
           label: preference.text.themeMode,
         ),
       ),
-      // child: ViewBlockCard(
-      child: Card(
+      child: ViewBlockCard(
+        // color: Colors.red,
+        // color: Theme.of(context).cardColor,
         child: ViewListBuilder(
           primary: false,
           // padding: const EdgeInsets.symmetric(horizontal: 20),
