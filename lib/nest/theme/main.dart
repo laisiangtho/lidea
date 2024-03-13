@@ -207,6 +207,10 @@ abstract class ThemeNest {
         ),
       ),
 
+      dividerTheme: DividerThemeData(
+        color: color.divider,
+      ),
+
       dialogTheme: DialogTheme(
         // Color? backgroundColor,
         // double? elevation,
