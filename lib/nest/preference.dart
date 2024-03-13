@@ -21,9 +21,9 @@ abstract class PreferenceNest with ChangeNotifier {
 
   /// `AppLocalizations.supportedLocales`
   Iterable<Locale> get listOfLocale => const [
-        Locale('no', 'NO'),
-        Locale('my', ''),
         Locale('en', 'GB'),
+        Locale('no', 'NO'),
+        Locale('my', 'MM'),
       ];
 
   String nameOfTheme(int index) {
