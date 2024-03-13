@@ -134,6 +134,7 @@ abstract class ColorationData {
       disabledColor: color.disable,
       dividerColor: color.divider,
       focusColor: color.focus,
+      cardColor: color.primaryScheme,
 
       textTheme: text.apply(
         // fontFamily: "Lato, sans-serif",
@@ -295,7 +296,10 @@ abstract class ColorationData {
           ),
         ),
       ),
-      colorScheme: color.scheme.copyWith(background: color.background).copyWith(error: color.error),
+      colorScheme: color.scheme.copyWith(
+        background: color.background,
+        error: color.error,
+      ),
     );
   }
 
