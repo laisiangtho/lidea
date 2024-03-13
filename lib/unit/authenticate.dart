@@ -117,7 +117,7 @@ abstract class AuthenticateUnit extends Notify {
   // user.email
   // user.photoURL
   Future<void> ensureInitialized() async {
-    showFacebook = true;
+    showFacebook = false;
     // showApple = !kIsWeb && Platform.isIOS && appleServiceId != null && redirectUri != null;
     showApple = data.isPlatform('ios') && appleServiceId != null && redirectUri != null;
     // if (!kIsWeb) {
