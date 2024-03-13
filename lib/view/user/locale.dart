@@ -22,7 +22,7 @@ class UserLocaleWidget extends StatelessWidget {
           label: preference.text.locale,
         ),
       ),
-      child: Card(
+      child: ViewBlockCard(
         // child: WidgetUserLocale(
         //   supportedLocales: preference.supportedLocales,
         //   updateLocale: preference.updateLocale,
