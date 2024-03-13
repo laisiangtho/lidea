@@ -42,11 +42,11 @@ class ViewBadage extends StatelessWidget {
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 6),
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
             child: Text(
               badge!,
               style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                    fontSize: 13,
+                    fontSize: 12,
                     letterSpacing: 0.1,
                     // color: Colors.white,
                     color: Theme.of(context).primaryColor,
