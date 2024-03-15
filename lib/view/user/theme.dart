@@ -60,7 +60,9 @@ class UserThemeWidget extends StatelessWidget {
               ),
               title: Text(
                 preference.nameOfTheme(index),
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: TextStyle(
+                  color: active ? Theme.of(context).highlightColor : null,
+                ),
               ),
               onTap: () {
                 if (!active) {

@@ -28,13 +28,16 @@ class ViewSectionTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     if (!show) return const SizedBox();
     return ListTile(
-      contentPadding: (leading == null) ? const EdgeInsets.only(left: 25, right: 10) : padding,
+      contentPadding: (leading == null)
+          ? const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 10)
+          : padding,
       horizontalTitleGap: 0,
       minVerticalPadding: 0,
       visualDensity: visualDensity,
       leading: leading,
       title: title,
       trailing: trailing,
+      titleTextStyle: Theme.of(context).textTheme.titleMedium,
       onTap: onPressed,
     );
   }

@@ -27,7 +27,7 @@ class SignInButton extends StatelessWidget {
       style: Theme.of(context).textTheme.labelLarge,
       child: ViewMark(
         icon: icon,
-        // iconColor: Theme.of(context).hintColor,
+        iconColor: Theme.of(context).focusColor,
         iconSize: 20,
         label: label,
         // labelStyle: Theme.of(context).textTheme.labelLarge,

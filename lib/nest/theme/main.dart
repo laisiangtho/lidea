@@ -50,12 +50,12 @@ class ColorNest {
     this.brightness = Brightness.dark,
     this.scaffold = const Color(0xFFa6a6a6),
     // this.focus = Color.fromARGB(255, 185, 183, 183),
-    this.focus = const Color(0xFF959595),
+    this.focus = const Color.fromARGB(255, 199, 199, 199),
     this.primary = const Color(0xFF9c9c9c),
     this.light = Colors.white,
     this.dark = Colors.white70,
     // this.highlight = Colors.black54,
-    this.highlight = const Color(0xFF706f68),
+    this.highlight = const Color.fromARGB(255, 110, 110, 110),
     this.disable = const Color.fromARGB(31, 235, 232, 232),
     // const Color(0xFFdbdbdb),
     // this.background = const Color(0xFFbdbdbd),
@@ -115,6 +115,13 @@ class ColorNest {
   // });
 
   Color get canvas => Colors.transparent;
+
+  // NOTE: TextSelectionMenu BackgroundColor, used in colorScheme.onSurface
+  Color get menuBackgroundColor => scaffold.lighten(amount: .7);
+
+  // NOTE: TextSelectionMenu TextColor, , used in colorScheme.surface
+  Color get menuTextColor => primary.darken(amount: .5);
+
   // Color get focusOpacity => focus.withOpacity(0.12);
 
   ColorScheme get scheme {
@@ -162,11 +169,13 @@ abstract class ThemeNest {
       shadowColor: color.shadow,
       canvasColor: color.canvas,
       scaffoldBackgroundColor: color.scaffold,
+      splashColor: color.focus,
       highlightColor: color.highlight,
       disabledColor: color.disable,
       dividerColor: color.divider,
       focusColor: color.focus,
       hoverColor: color.focus.withOpacity(0.5),
+
       // hoverColor: color.focus,
       // hoverColor: Colors.red,
       // indicatorColor: Colors.amber,
@@ -175,9 +184,47 @@ abstract class ThemeNest {
       // selectedRowColor: Colors.red,
       // unselectedWidgetColor: Colors.red,
 
+//  brightness: brightness,
+//       primary: primaryScheme,
+//       // primaryVariant: light,
+//       secondary: primaryScheme,
+//       // secondaryVariant: light,
+//       background: background,
+//       surface: background.darken(),
+//       error: error,
+//       onError: focus.withOpacity(0.42),
+//       onPrimary: focus.withOpacity(0.32),
+//       onSecondary: focus.withOpacity(0.22),
+//       onSurface: focus.withOpacity(0.12),
+//       onBackground: scaffold,
+      colorScheme: color.scheme.copyWith(
+        background: color.background,
+        error: color.error,
+        // primary: color.primary,
+        // onBackground: Colors.red,
+        // NOTE: TextSelectionMenu TextColor
+        onSurface: color.menuBackgroundColor,
+        // NOTE: TextSelectionMenu BackgroundColor
+        surface: color.menuTextColor,
+        // surfaceTint: Colors.red,
+        // inverseSurface: Colors.red,
+        // onPrimary: Colors.red,
+        // onInverseSurface: Colors.red,
+        // onPrimaryContainer: Colors.red,
+        // onSecondary: Colors.red,
+        // onSecondaryContainer: Colors.red,
+        // onSurfaceVariant: Colors.red,
+        // onTertiary: Colors.red,
+        // onTertiaryContainer: Colors.red,
+        // onBackground: Colors.red,
+      ),
+
       cupertinoOverrideTheme: NoDefaultCupertinoThemeData(
         brightness: color.brightness,
         // primaryContrastingColor: color.dark,
+      ),
+      popupMenuTheme: const PopupMenuThemeData(
+        color: Colors.red,
       ),
 
       textTheme: text.apply(
@@ -249,7 +296,9 @@ abstract class ThemeNest {
         backgroundColor: Colors.transparent,
         disabledColor: Colors.grey,
         selectedColor: Colors.amber,
-        secondarySelectedColor: Colors.blueAccent,
+        // secondarySelectedColor: Colors.blueAccent,
+        secondarySelectedColor: Colors.red,
+
         padding: EdgeInsets.zero,
         // labelStyle: TextStyle(color: Colors.red),
         labelStyle: text.labelMedium,
@@ -275,8 +324,9 @@ abstract class ThemeNest {
         // iconColor: color.primaryScheme.withOpacity(0.5),
         iconColor: color.dark,
         enableFeedback: true,
-        // selectedColor: Colors.red,
-        // iconColor: color.focus,
+        selectedColor: color.highlight,
+        // selectedTileColor: color.focus,
+        textColor: color.primaryScheme,
       ),
       expansionTileTheme: ExpansionTileThemeData(
         collapsedIconColor: color.divider,
@@ -366,7 +416,6 @@ abstract class ThemeNest {
           ),
         ),
       ),
-      colorScheme: color.scheme.copyWith(background: color.background).copyWith(error: color.error),
     );
   }
 

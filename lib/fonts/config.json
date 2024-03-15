@@ -91,12 +91,6 @@
       "src": "iconic"
     },
     {
-      "uid": "97bd5542ed3e143d2ee9b60e14487615",
-      "css": "listAdd",
-      "code": 59398,
-      "src": "entypo"
-    },
-    {
       "uid": "3626b3f3a0b284e7f4166b815719aece",
       "css": "list",
       "code": 59399,
@@ -442,6 +436,72 @@
       "uid": "4b0e8023fe49a8ec3f640a4e58fda969",
       "css": "face",
       "code": 59405,
+      "src": "material"
+    },
+    {
+      "uid": "97bd5542ed3e143d2ee9b60e14487615",
+      "css": "listAdd",
+      "code": 59398,
+      "src": "entypo"
+    },
+    {
+      "uid": "24f6c08bd38dc0e137e4b1b98d7d24e2",
+      "css": "circleAdd",
+      "code": 59406,
+      "src": "material"
+    },
+    {
+      "uid": "73bef5f9212f5d5ce27182aa2f30a474",
+      "css": "circleRemove",
+      "code": 59429,
+      "src": "material"
+    },
+    {
+      "uid": "87f4758ee5aa9b99e6a61d8460413fee",
+      "css": "global",
+      "code": 59440,
+      "src": "material"
+    },
+    {
+      "uid": "02e23c2d4c5fc5738910ecbd1f8dd0c1",
+      "css": "bible",
+      "code": 63047,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "7c5cbb4be0c79cc7f64da33f17efc402",
+      "css": "code",
+      "code": 59441,
+      "src": "material"
+    },
+    {
+      "uid": "62f1ff4cf2eed7aacee840e01dc447e1",
+      "css": "copyright",
+      "code": 59442,
+      "src": "material"
+    },
+    {
+      "uid": "3ed68ae14e9cde775121954242a412b2",
+      "css": "sortUp",
+      "code": 61789,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "6586267200a42008a9fc0a1bf7ac06c7",
+      "css": "sortDown",
+      "code": 61790,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "a0d0ae1c602b86645f14c357cd8c6574",
+      "css": "subRight",
+      "code": 59443,
+      "src": "material"
+    },
+    {
+      "uid": "d7eb2b3235098f752b8249936aca7c42",
+      "css": "subLeft",
+      "code": 59444,
       "src": "material"
     }
   ]

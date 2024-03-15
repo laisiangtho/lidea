@@ -42,22 +42,6 @@ class UserLocaleWidget extends StatelessWidget {
             final String localeName = preference.nameOfLocale(locale.languageCode);
             final bool active = localeCurrent.languageCode == locale.languageCode;
 
-            // return ViewButton(
-            //   child: ViewLabel(
-            //     padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
-            //     alignment: Alignment.centerLeft,
-            //     icon: Icons.check_rounded,
-            //     iconColor: active ? null : Theme.of(context).disabledColor,
-            //     label: localeName,
-            //     labelPadding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-            //     labelStyle: Theme.of(context).textTheme.bodyLarge,
-            //     softWrap: true,
-            //     maxLines: 3,
-            //   ),
-            //   onPressed: () {
-            //     preference.updateLocale(locale);
-            //   },
-            // );
             return ListTile(
               selected: active,
               contentPadding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
@@ -66,7 +50,9 @@ class UserLocaleWidget extends StatelessWidget {
               ),
               title: Text(
                 localeName,
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: TextStyle(
+                  color: active ? Theme.of(context).highlightColor : null,
+                ),
               ),
               onTap: () {
                 if (!active) {

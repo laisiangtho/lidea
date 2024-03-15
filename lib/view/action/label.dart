@@ -86,7 +86,8 @@ class ViewLabel extends StatelessWidget {
               )
             : avatar,
 
-        labelStyle: Theme.of(context).textTheme.labelMedium!.merge(labelStyle),
+        // labelStyle: Theme.of(context).textTheme.labelLarge!.merge(labelStyle),
+        labelStyle: labelStyle,
 
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         // materialTapTargetSize: MaterialTapTargetSize.padded,

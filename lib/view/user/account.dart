@@ -48,7 +48,7 @@ class _ViewUserAccountState extends State<UserAccountWidget> {
       child: ViewBlockCard(
         child: ViewListBuilder(
           primary: false,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          // padding: const EdgeInsets.symmetric(horizontal: 20),
           itemBuilder: (_, index) {
             if (index < more.length) {
               return more.elementAt(index);
@@ -80,21 +80,37 @@ class _ViewUserAccountState extends State<UserAccountWidget> {
   }
 
   Widget doDeleteWidget() {
-    return ViewButton(
-      onPressed: doDeleteAccountWithConfirm,
-      child: ViewLabel(
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
-        alignment: Alignment.centerLeft,
-        icon: Icons.person_remove_outlined,
-        iconColor: Theme.of(context).colorScheme.error,
-        label: widget.preference.text.deleteAccount,
-        labelPadding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-        labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              color: Theme.of(context).colorScheme.error,
-            ),
-        softWrap: true,
-        maxLines: 3,
+    // return ViewButton(
+    //   onPressed: doDeleteAccountWithConfirm,
+    //   child: ViewLabel(
+    //     padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+    //     alignment: Alignment.centerLeft,
+    //     icon: Icons.person_remove_outlined,
+    //     iconColor: Theme.of(context).colorScheme.error,
+    //     label: widget.preference.text.deleteAccount,
+    //     // labelPadding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+    //     labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+    //           color: Theme.of(context).colorScheme.error,
+    //         ),
+    //     softWrap: true,
+    //     maxLines: 3,
+    //   ),
+    // );
+    return ListTile(
+      // selected: active,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+      leading: const Icon(Icons.person_remove_outlined),
+      // tileColor: Theme.of(context).focusColor,
+      // textColor: Theme.of(context).focusColor,
+      // splashColor: Colors.red,
+      // selectedColor: Colors.red,
+      // hoverColor: Colors.red,
+      // focusColor: Colors.red,
+      title: Text(
+        widget.preference.text.deleteAccount,
+        // style: Theme.of(context).textTheme.bodyLarge,
       ),
+      onTap: doDeleteAccountWithConfirm,
     );
   }
 
