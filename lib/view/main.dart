@@ -6,6 +6,8 @@ export 'dialog/main.dart';
 export 'headers/main.dart';
 // Highlight
 export 'highlight/main.dart';
+// TextDecoration
+export 'highlight/decoration.dart';
 // section, block...
 export 'layout/main.dart';
 

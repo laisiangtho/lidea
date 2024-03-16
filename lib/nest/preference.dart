@@ -51,9 +51,9 @@ abstract class PreferenceNest with ChangeNotifier {
 
   /// convert number to current locale digit
   /// [0-9] r'\b\w+\b' [^0-9]
-  String digit(String str) {
+  String digit(dynamic str) {
     final src = text.digit.split('') as List<String>;
-    return str.replaceAllMapped(RegExp('[0-9]'), (e) {
+    return str.toString().replaceAllMapped(RegExp('[0-9]'), (e) {
       return src.elementAt(int.parse(e.group(0)!));
     });
   }

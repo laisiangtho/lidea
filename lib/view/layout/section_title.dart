@@ -20,7 +20,8 @@ class ViewSectionTitle extends StatelessWidget {
     // this.padding = const EdgeInsets.fromLTRB(25, 0, 25, 0),
     // this.padding = const EdgeInsets.fromLTRB(25, 0, 10, 0),
 
-    this.padding = const EdgeInsets.only(left: 12),
+    this.padding = const EdgeInsets.only(left: 12, right: 12),
+    // this.padding = const EdgeInsets.only(left: 12),
     this.visualDensity = VisualDensity.compact,
   });
 
@@ -28,16 +29,19 @@ class ViewSectionTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     if (!show) return const SizedBox();
     return ListTile(
-      contentPadding: (leading == null)
-          ? const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 10)
+      // contentPadding: (leading == null)
+      //     ? const EdgeInsets.only(left: 30, right: 15, bottom: 10, top: 10)
+      //     : padding,
+      contentPadding: (leading != null || trailing != null)
+          ? const EdgeInsets.only(left: 20, right: 5, bottom: 10, top: 10)
           : padding,
-      horizontalTitleGap: 0,
-      minVerticalPadding: 0,
+      // horizontalTitleGap: 0,
+      // minVerticalPadding: 0,
       visualDensity: visualDensity,
       leading: leading,
       title: title,
       trailing: trailing,
-      titleTextStyle: Theme.of(context).textTheme.titleMedium,
+      // titleTextStyle: Theme.of(context).textTheme.titleMedium,
       onTap: onPressed,
     );
   }

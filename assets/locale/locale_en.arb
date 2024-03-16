@@ -61,6 +61,16 @@
       "plural": {}
     }
   },
+  
+
+  "issue": "{plural, select, true{Issues} other{Issue}}",
+  "@issue": {
+    "description": "default is singular form. Plural form must provided false",
+    "placeholders": {
+      "plural": {}
+    }
+  },
+
   "title": "{plural, select, true{Titles} other{Title}}",
   "@title": {
     "description": "default is singular form. Plural form must provided false",

@@ -1,6 +1,6 @@
 name: lidea
 description: Loading, reading, writing file logic
-version: 0.3.3+47
+version: 0.3.3+48
 homepage:
 
 environment:
@@ -42,7 +42,7 @@ dependencies:
   just_audio: ^0.9.30
   audio_service: ^0.18.7
   rxdart: ^0.27.7
-  flutter_tts: ^3.6.2
+  flutter_tts: ^4.0.1
   # sliver_tools: ^0.2.5
 
   # Dependable on referenced packages

@@ -28,6 +28,7 @@
   "read":"Lese",
   "note": "{plural, select, true{Notater} other{Notere}}",
   "page": "{plural, select, true{Sider} other{Side}}",
+  "issue": "{plural, select, true{Problemer} other{Problemer}}",
 
   "favorite": "{plural, select, true{Favoritter} other{Favoritt}}",
 
