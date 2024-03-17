@@ -166,11 +166,11 @@ class EnvironmentType {
       });
 
       final res = await configure.gitContent<String>(file: file.replaceAll('env', id)).then((v) {
-        debugPrint(' abc $v');
+        debugPrint('updateToken $v');
         return UtilDocument.decodeJSON<Map<String, dynamic>>(v);
       }).onError((error, stackTrace) {
         // debugPrint(error.toString());
-        debugPrint(' abc $error');
+        debugPrint('updateToken $error');
         return {};
       });
 

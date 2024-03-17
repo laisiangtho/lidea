@@ -67,7 +67,6 @@ class ArchiveNest {
   }
 
   static Future<List<String>?> bundle(String file, {String? pwd}) async {
-    debugPrint('bundle start');
     // List<int>? byte = await UtilDocument.loadBundleAsListInt(file).catchError((e) {
     //   debugPrint('$e');
     // });

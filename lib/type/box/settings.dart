@@ -6,6 +6,7 @@ class BoxOfSettings<E> extends BoxOfAbstract<SettingsType> {
   Future<void> fromJSON(Map<String, dynamic> o) async {
     o.forEach((key, value) {
       final item = box.get(key);
+      debugPrint('BoxOfAbstract $key $value');
       if (item != null && item.isInBox) {
         // Update
         if (key == 'version') {
@@ -34,11 +35,23 @@ class BoxOfSettings<E> extends BoxOfAbstract<SettingsType> {
   }
 
   /// check if outdated
-  bool checkVersion(dynamic v) {
-    // int.parse(v);(v as int)
-    if (v == null) return true;
+  // bool checkVersion(dynamic v) {
+  //   // int.parse(v);(v as int)
+  //   if (v == null) return true;
 
-    return version().asInt != (v as int);
+  //   return version().asInt != (v as int);
+  //   // return version().asInt != int.parse(v);
+  // }
+
+  /// check if outdated, return true if null or not equal
+  bool checkVersion(dynamic v) {
+    SettingsType? item = box.get('version');
+    if (item != null && item.isInBox) {
+      if (item.value != null) {
+        return (item.value as int) != (v as int);
+      }
+    }
+    return true;
   }
 
   // private update or insert
@@ -50,9 +63,10 @@ class BoxOfSettings<E> extends BoxOfAbstract<SettingsType> {
         item.value = value;
         item.save();
       }
+      // debugPrint('save key:$key value:$value');
       return item;
     } else {
-      debugPrint('update key:$key value:$value');
+      // debugPrint('update key:$key value:$value');
       final defaultValue = SettingsType(value: value);
       box.put(key, defaultValue);
       return box.get(key, defaultValue: defaultValue)!;

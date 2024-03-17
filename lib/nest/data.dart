@@ -13,6 +13,8 @@ class DataNest {
   late bool _isInstalls;
   late bool _isUpdates;
   bool get requireInitialized => _isInstalls || _isUpdates;
+  bool get isIntalls => _isInstalls;
+  bool get isUpdated => _isUpdates;
 
   late final boxOfSettings = BoxOfSettings<SettingsType>();
   late final boxOfRecentSearch = BoxOfRecentSearch<RecentSearchType>();

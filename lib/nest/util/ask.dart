@@ -83,7 +83,7 @@ class AskNest {
           return res as T;
         }
       } else {
-        debugPrint('${res.statusCode}');
+        debugPrint('ask ${res.statusCode}');
         // debugPrint('${res.compressionState}');
         return Future<T>.error('Failed to load');
         // return Future.error("Failed to load", StackTrace.fromString("code: ${res.statusCode}"));
@@ -104,7 +104,7 @@ class AskNest {
         return Future<T>.error('Failed host lookup');
       }
     } on Error catch (e) {
-      debugPrint('$e');
+      debugPrint('ask.open $e');
       return Future<T>.error('Error', e.stackTrace);
     } catch (e) {
       return Future<T>.error(e);
