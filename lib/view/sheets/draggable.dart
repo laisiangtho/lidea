@@ -61,8 +61,10 @@ class SheetsDraggableState<T extends StatefulWidget> extends ViewStateWidget<T>
   // double get viewPaddingBottom => state.fromContext.viewPadding.bottom;
 
   // double get kHeight => view.kBottomPadding + kBottomNavigationBarHeight;
-  double get kHeight => viewPaddingBottom + height;
-  double get kExtent => viewPaddingTop + kToolbarHeight;
+  // double get kHeight => viewPaddingBottom + height;
+  // double get kExtent => viewPaddingTop + kToolbarHeight;
+  double get kHeight => height;
+  double get kExtent => kToolbarHeight;
 
   void onStart() {}
 
