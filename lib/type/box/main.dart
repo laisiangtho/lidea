@@ -36,6 +36,8 @@ abstract class BoxOfAbstract<E> {
         await openBox<E>(name);
       }
     }
+    // instance.deleteBoxFromDisk('');
+    // instance.deleteFromDisk();
     // if (!instance.isBoxOpen(_name)) {
     //   await openBox<E>(name);
     // }

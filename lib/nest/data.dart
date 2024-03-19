@@ -4,6 +4,7 @@ part of 'main.dart';
 class DataNest {
 // retrieve the instance through the app
   // ClusterDocket.internal();
+  late final HiveInterface hive = Hive;
 
   final void Function() notify;
 
@@ -29,13 +30,13 @@ class DataNest {
   /// Initiate primary context
   // Future<void> ensureWhat() async {
   //   await Firebase.initializeApp(name: 'Lai Siangtho');
-  //   await Hive.initFlutter();
+  //   await hive.initFlutter();
   // }
 
   DataNest({required this.notify});
 
   Future<void> ensureInitialized() async {
-    await Hive.initFlutter();
+    await hive.initFlutter();
     notify();
 
     boxOfSettings.registerAdapter(SettingsAdapter());
@@ -66,17 +67,8 @@ class DataNest {
     await boxOfSettings.open(env.settingName);
 
     _isInstalls = boxOfSettings.box.isEmpty;
-
-    // NOTE: delete previous settings
-    // if (!_isInstalls) {
-    //   boxOfSettings.box.delete(env.settingKey);
-    // }
-
-    // if (await boxOfSettings.instance.boxExists('')) {
-    //   boxOfSettings.instance.deleteBoxFromDisk('');
-    // }
-
     _isUpdates = boxOfSettings.checkVersion(env.settings['version']);
+
     boxOfSettings.fromJSON(env.settings);
 
     debugPrint('_isInstalls: $_isInstalls _isUpdates: $_isUpdates');
