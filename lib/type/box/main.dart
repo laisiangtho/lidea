@@ -23,11 +23,22 @@ abstract class BoxOfAbstract<E> {
   Box<E> get box => instance.box<E>(_name);
 
   bool get isOpening => instance.isBoxOpen(_name);
-  Future<Box<E>> open(String name) async {
+
+  Future<Box<E>> open(String name, {bool deleteBoxOnError = true}) async {
     _name = name;
-    if (!instance.isBoxOpen(_name)) {
-      await openBox<E>(name);
+    try {
+      if (!instance.isBoxOpen(_name)) {
+        await openBox<E>(name);
+      }
+    } catch (e) {
+      if (deleteBoxOnError) {
+        await instance.deleteBoxFromDisk(_name);
+        await openBox<E>(name);
+      }
     }
+    // if (!instance.isBoxOpen(_name)) {
+    //   await openBox<E>(name);
+    // }
     return box;
   }
 
