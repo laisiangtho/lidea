@@ -33,6 +33,14 @@ class UtilDocument {
     }
   }
 
+  static Future<T> loadBundleAsJSON<T>(String name) async {
+    try {
+      return decodeJSON<T>(await loadBundleAsString(name));
+    } catch (e) {
+      return Future.error('Failed to load file');
+    }
+  }
+
   static Future<ByteData> loadBundleAsByte(String name) {
     try {
       return rootBundle.load(join(assetsFolder, name));
