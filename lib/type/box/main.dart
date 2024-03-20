@@ -7,22 +7,24 @@ abstract class BoxOfAbstract<E> {
   /// Opens a box.
   late final openBox = instance.openBox;
 
-  /// Register a [TypeAdapter] to announce it to Hive.
-  /// ```dart
-  /// Hive.registerAdapter(SettingsAdapter())
-  /// ```
-  late final registerAdapter = instance.registerAdapter;
+  /// current name boxName
+  dynamic _name;
 
-  // void registerAdapter<T>(TypeAdapter<T> adapter, {bool internal = false, bool override = false}) {
-  //   Hive.registerAdapter(adapter, internal: internal, override: override);
-  // }
-
-  /// bridge
-  String _name = '';
+  /// current Adapter
+  dynamic _adapter;
 
   Box<E> get box => instance.box<E>(_name);
 
   bool get isOpening => instance.isBoxOpen(_name);
+
+  /// Register a [TypeAdapter] to announce it to Hive.
+  /// ```dart
+  /// Hive.registerAdapter(SettingsAdapter())
+  /// ```
+  void registerAdapter<T>(TypeAdapter<T> adapter, {bool internal = false, bool override = false}) {
+    _adapter = adapter;
+    instance.registerAdapter(adapter, internal: internal, override: override);
+  }
 
   Future<Box<E>> open(String name, {bool deleteBoxOnError = true}) async {
     _name = name;
@@ -32,17 +34,33 @@ abstract class BoxOfAbstract<E> {
       }
     } catch (e) {
       if (deleteBoxOnError) {
+        // await instance.close();
         await instance.deleteBoxFromDisk(_name);
-        await openBox<E>(name);
+        instance.registerAdapter(_adapter);
+        await openBox<E>(_name);
+        // if (await instance.boxExists(_name)) {
+        // }
+        // if (!instance.isAdapterRegistered(_adapter.typeId)) {
+        //   debugPrint('box re-registerAdapter typeId: ${_adapter.typeId}');
+        //   // instance.registerAdapter(_adapter);
+        // }
+        // if (await instance.boxExists(_name)) {
+        //   debugPrint('box open');
+        //   // if (!instance.isBoxOpen(_name)) {
+        //   //   await openBox<E>(_name);
+        //   // }
+        // }
       }
     }
     // instance.deleteBoxFromDisk('');
     // instance.deleteFromDisk();
-    // if (!instance.isBoxOpen(_name)) {
-    //   await openBox<E>(name);
-    // }
+
     return box;
   }
+
+  String get name => _name;
+
+  TypeAdapter<E> get apapter => _adapter;
 
   /// listener
   /// ValueListenable<Box<E>> Function({List<dynamic>? keys})
