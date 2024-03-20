@@ -75,7 +75,7 @@ class DataNest {
 
     await updateToken(force: requireInitialized);
 
-    await boxOfRecentSearch.open('recent-search');
+    await boxOfRecentSearch.open('search-word');
     // NOTE: orginal name is "favorite"??
     await boxOfFavoriteWord.open('favorite-word');
     await boxOfPurchases.open('purchase-list');
