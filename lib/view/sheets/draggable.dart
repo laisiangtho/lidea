@@ -173,6 +173,19 @@ class SheetsDraggableState<T extends StatefulWidget> extends ViewStateWidget<T>
     );
   }
 
+  Widget notifier() {
+    return CustomScrollView(
+      controller: scrollController,
+      // physics: const NeverScrollableScrollPhysics(),
+      // scrollBehavior: const ViewScrollBehavior(),
+      // physics: const ScrollPhysics(),
+      // physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      // physics: const BouncingScrollPhysics(),
+      slivers: slivers(),
+      restorationId: 'view-bottomsheet',
+    );
+  }
+
   List<Widget> slivers() {
     return <Widget>[
       const SliverAppBar(
@@ -206,8 +219,9 @@ class SheetsDraggableState<T extends StatefulWidget> extends ViewStateWidget<T>
         decoration: BoxDecoration(
           // color: persistent ? theme.scaffoldBackgroundColor.withOpacity(0.5) : theme.primaryColor,
           // color: theme.primaryColor,
-          // color: Theme.of(context).primaryColor,
-          color: Theme.of(context).bottomSheetTheme.modalBackgroundColor,
+          color: Theme.of(context).primaryColor,
+
+          // color: Theme.of(context).bottomSheetTheme.modalBackgroundColor,
           // color: Colors.transparent,
           borderRadius: const BorderRadius.vertical(
             top: Radius.circular(10),
@@ -234,6 +248,7 @@ class SheetsDraggableState<T extends StatefulWidget> extends ViewStateWidget<T>
             )
           ],
         ),
+
         clipBehavior: Clip.hardEdge,
         child: child,
       );

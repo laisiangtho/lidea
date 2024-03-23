@@ -43,6 +43,9 @@ class _ViewUserAccountState extends State<UserAccountWidget> {
         title: ViewLabel(
           alignment: Alignment.centerLeft,
           label: widget.preference.text.account,
+          labelStyle: TextStyle(
+            color: Theme.of(context).hintColor,
+          ),
         ),
       ),
       child: ViewBlockCard(

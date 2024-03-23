@@ -49,7 +49,7 @@ class ViewBadage extends StatelessWidget {
                     fontSize: 12,
                     letterSpacing: 0.1,
                     // color: Colors.white,
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).primaryColorLight,
                   ),
             ),
           ),

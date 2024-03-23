@@ -11,7 +11,7 @@ class ViewHeaderTitle extends StatelessWidget {
       horizontal: 50.0,
     ),
     this.alignment,
-    this.shrinkMin = 21,
+    this.shrinkMin = 19,
     this.shrinkMax = 30,
     this.data,
   }) : super(key: key);
@@ -33,10 +33,11 @@ class ViewHeaderTitle extends StatelessWidget {
         child: Text(
           label,
           maxLines: 1,
+          textAlign: TextAlign.center,
           // textScaleFactor: 1.0,
           // overflow: TextOverflow.fade,
           // style: Theme.of(context).textTheme.titleLarge,
-          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+          style: Theme.of(context).textTheme.titleMedium!.copyWith(
                 fontSize: fontSize,
                 // fontWeight: FontWeight.lerp(FontWeight.bold, FontWeight.normal, data!.snapShrink),
               ),

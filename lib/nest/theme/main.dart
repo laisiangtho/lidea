@@ -6,6 +6,7 @@ class ColorNest {
   final Brightness brightness;
   final Color scaffold;
   final Color focus;
+  final Color splash;
 
   final Color primary;
   final Color dark;
@@ -20,6 +21,7 @@ class ColorNest {
 
   final Color primaryScheme;
   final MaterialColor primarySwatch;
+  final Color secondaryScheme;
 
   const ColorNest.light({
     this.brightness = Brightness.light,
@@ -27,7 +29,7 @@ class ColorNest {
     // this.focus = Colors.black12,
     // this.primary = const Color(0xFFffffff),
     this.focus = const Color(0xFFd5d5d5),
-    // this.primary = const Color(0xFFffffff),
+    this.splash = const Color.fromARGB(94, 118, 119, 119),
     this.primary = Colors.white,
     this.light = Colors.white,
     this.dark = Colors.black45,
@@ -44,6 +46,7 @@ class ColorNest {
     this.button = const Color(0xFFdedcdc),
     this.primaryScheme = Colors.black,
     this.primarySwatch = Colors.grey,
+    this.secondaryScheme = Colors.white,
   });
 
   const ColorNest.dark({
@@ -51,6 +54,7 @@ class ColorNest {
     this.scaffold = const Color(0xFFa6a6a6),
     // this.focus = Color.fromARGB(255, 185, 183, 183),
     this.focus = const Color.fromARGB(255, 199, 199, 199),
+    this.splash = const Color.fromARGB(94, 170, 170, 170),
     this.primary = const Color(0xFF9c9c9c),
     this.light = Colors.white,
     this.dark = Colors.white70,
@@ -62,7 +66,8 @@ class ColorNest {
     this.background = const Color(0xFF949494),
     // this.background = const Color(0xFF9c9c9c),
     // this.background = const Color.fromARGB(182, 181, 181, 0),
-    this.error = const Color.fromARGB(255, 138, 52, 52),
+    // this.error = const Color.fromARGB(255, 138, 52, 52),
+    this.error = const Color(0xFF604542),
     this.shadow = const Color.fromARGB(255, 116, 114, 114),
     // this.divider = const Color(0xFF8f8f8f),
     // this.divider = const Color(0xFFababab),
@@ -70,49 +75,8 @@ class ColorNest {
     this.button = const Color(0xFFd9d9d9),
     this.primaryScheme = Colors.white,
     this.primarySwatch = Colors.grey,
+    this.secondaryScheme = Colors.white,
   });
-  //   const ColorNest.light({
-  //   this.brightness = Brightness.light,
-  //   this.scaffold = const Color(0xFFf7f7f7),
-  //   // this.focus = Colors.black12,
-  //   // this.primary = const Color(0xFFffffff),
-  //   this.focus = const Color(0xFFd5d5d5),
-  //   this.primary = const Color(0xFFffffff),
-  //   this.light = Colors.white,
-  //   this.dark = Colors.black45,
-  //   this.highlight = Colors.black38,
-  //   // this.disable = const Color.fromARGB(31, 221, 220, 220),
-  //   this.disable = const Color(0xFFefefef),
-  //   this.background = const Color(0xFFdbdbdb),
-  //   this.error = const Color.fromARGB(255, 187, 43, 43),
-  //   this.shadow = const Color(0xFFbdbdbd),
-  //   this.divider = const Color(0xFFbdbdbd),
-  //   this.button = const Color(0xFFdedcdc),
-  //   this.primaryScheme = Colors.black,
-  //   this.primarySwatch = Colors.grey,
-  // });
-  // const ColorNest.dark({
-  //   this.brightness = Brightness.dark,
-  //   this.scaffold = const Color(0xFFa6a6a6),
-  //   // this.focus = Color.fromARGB(255, 185, 183, 183),
-  //   this.focus = const Color(0xFF959595),
-  //   this.primary = const Color(0xFF9c9c9c),
-  //   this.light = Colors.white,
-  //   this.dark = Colors.black12,
-  //   this.highlight = Colors.black54,
-  //   this.disable = const Color.fromARGB(31, 235, 232, 232),
-  //   // const Color(0xFFdbdbdb),
-  //   // this.background = const Color(0xFFbdbdbd),
-  //   this.background = const Color(0xFF949494),
-  //   // this.background = const Color(0xFF9c9c9c),
-  //   // this.background = const Color.fromARGB(182, 181, 181, 0),
-  //   this.error = const Color.fromARGB(255, 138, 52, 52),
-  //   this.shadow = const Color.fromARGB(255, 116, 114, 114),
-  //   this.divider = const Color(0xFF8f8f8f),
-  //   this.button = const Color(0xFFd9d9d9),
-  //   this.primaryScheme = Colors.white,
-  //   this.primarySwatch = Colors.grey,
-  // });
 
   Color get canvas => Colors.transparent;
 
@@ -129,7 +93,7 @@ class ColorNest {
       brightness: brightness,
       primary: primaryScheme,
       // primaryVariant: light,
-      secondary: primaryScheme,
+      secondary: secondaryScheme,
       // secondaryVariant: light,
       background: background,
       surface: background.darken(),
@@ -169,12 +133,13 @@ abstract class ThemeNest {
       shadowColor: color.shadow,
       canvasColor: color.canvas,
       scaffoldBackgroundColor: color.scaffold,
-      splashColor: color.focus,
+      splashColor: color.splash,
+      hoverColor: color.focus.withOpacity(0.5),
+      focusColor: color.focus,
+
       highlightColor: color.highlight,
       disabledColor: color.disable,
       dividerColor: color.divider,
-      focusColor: color.focus,
-      hoverColor: color.focus.withOpacity(0.5),
 
       // hoverColor: color.focus,
       // hoverColor: Colors.red,
@@ -224,8 +189,8 @@ abstract class ThemeNest {
         // primaryContrastingColor: color.dark,
       ),
       popupMenuTheme: const PopupMenuThemeData(
-        color: Colors.red,
-      ),
+          // color: Colors.red,
+          ),
 
       textTheme: text.apply(
         // fontFamily: "Lato, sans-serif",
@@ -293,11 +258,11 @@ abstract class ThemeNest {
       ),
 
       chipTheme: ChipThemeData(
-        backgroundColor: Colors.transparent,
-        disabledColor: Colors.grey,
-        selectedColor: Colors.amber,
+        // backgroundColor: Colors.transparent,
+        // disabledColor: Colors.grey,
+        // selectedColor: Colors.amber,
         // secondarySelectedColor: Colors.blueAccent,
-        secondarySelectedColor: Colors.red,
+        // secondarySelectedColor: Colors.red,
 
         padding: EdgeInsets.zero,
         // labelStyle: TextStyle(color: Colors.red),
@@ -375,18 +340,20 @@ abstract class ThemeNest {
         ),
         clipBehavior: Clip.hardEdge,
         // modalBackgroundColor: color.background,
+        // modalBackgroundColor: color.light,
+
         modalBackgroundColor: color.primary,
         // modalBackgroundColor: Colors.red,
-        modalElevation: 2.0,
+        modalElevation: 0.0,
         // backgroundColor: color.primary,
         // backgroundColor: color.background,
-        backgroundColor: Colors.red,
+        // backgroundColor: Colors.red,
         elevation: 2.0,
       ),
 
       bottomAppBarTheme: const BottomAppBarTheme(
-        color: Colors.red,
-      ),
+          // color: Colors.red,
+          ),
 
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: color.primary,

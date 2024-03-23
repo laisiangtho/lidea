@@ -21,6 +21,9 @@ class UserThemeWidget extends StatelessWidget {
         title: ViewLabel(
           alignment: Alignment.centerLeft,
           label: preference.text.themeMode,
+          labelStyle: TextStyle(
+            color: Theme.of(context).hintColor,
+          ),
         ),
       ),
       child: ViewBlockCard(
