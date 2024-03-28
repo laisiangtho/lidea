@@ -30,7 +30,8 @@ class ViewBadage extends StatelessWidget {
       child: SizedBox(
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.error,
+            // color: Theme.of(context).colorScheme.error.withOpacity(0.8),
+            color: Theme.of(context).highlightColor.withOpacity(0.9),
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             boxShadow: [
               BoxShadow(

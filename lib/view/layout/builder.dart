@@ -191,6 +191,21 @@ class ViewListBuilder extends StatelessWidget {
           itemBuilder: builder,
           itemCount: itemCount,
           onReorder: itemReorderable!,
+          proxyDecorator: (Widget child, int index, Animation<double> animation) {
+            return AnimatedBuilder(
+              animation: animation,
+              builder: (BuildContext context, Widget? child) {
+                return Material(
+                  elevation: 2,
+                  // color: Colors.transparent,
+                  // shadowColor: Colors.transparent,
+                  shadowColor: Theme.of(context).shadowColor.withOpacity(0.2),
+                  child: child,
+                );
+              },
+              child: child,
+            );
+          },
         ),
       );
     }
@@ -237,6 +252,19 @@ class ViewListBuilder extends StatelessWidget {
           itemBuilder: builder,
           itemCount: itemCount,
           onReorder: itemReorderable!,
+          proxyDecorator: (Widget child, int index, Animation<double> animation) {
+            return AnimatedBuilder(
+              animation: animation,
+              builder: (BuildContext context, Widget? child) {
+                return Material(
+                  elevation: 0,
+                  color: Colors.transparent,
+                  child: child,
+                );
+              },
+              child: child,
+            );
+          },
         ),
       );
     }

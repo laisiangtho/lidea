@@ -43,7 +43,7 @@ class ViewPopupShapedArrow extends StatelessWidget {
     this.right,
     this.left,
     this.bottom,
-    this.elevation = 0.5,
+    this.elevation = 2,
     this.backgroundColor,
     this.alignment = AlignmentDirectional.center,
     this.radius = const Radius.circular(7),

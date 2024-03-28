@@ -19,7 +19,7 @@ class ViewState {
 
   // Of.scroll.window = MediaQueryData.fromWindow(window);
   ModalRoute<Object?>? get route => ModalRoute.of(context);
-  NavigatorState get navigator => Navigator.of(context);
+  NavigatorState get navigator => Navigator.of(context, rootNavigator: false);
   ThemeData get theme => Theme.of(context);
   TextTheme get textTheme => theme.textTheme;
 

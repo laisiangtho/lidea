@@ -133,7 +133,6 @@ abstract class BoxOfAbstract<E> {
     // final newItem = box.getAt(newIndex)!.copyWith(order:newIndex);
     // box.putAt(oldIndex, newItem);
     // box.putAt(newIndex, oldItem);
-
     // final items = box.toMap().values.toList();
     // final items = box.values.toList();
     // items.insert(newIndex, items.removeAt(oldIndex));

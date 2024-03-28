@@ -33,7 +33,7 @@ class UserThemeWidget extends StatelessWidget {
           primary: false,
           // padding: const EdgeInsets.symmetric(horizontal: 20),
           itemCount: ThemeMode.values.length,
-          itemBuilder: (_, index) {
+          itemBuilder: (BuildContext _, int index) {
             ThemeMode mode = ThemeMode.values[index];
             bool active = preference.themeMode == mode;
             // return ViewButton(

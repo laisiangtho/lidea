@@ -400,7 +400,7 @@
   "@fontSize": {
     "description": "Text size"
   },
-  "themeMode": "Theme mode",
+  "themeMode": "Theme",
   "@themeMode": {
     "description": "Change theme"
   },

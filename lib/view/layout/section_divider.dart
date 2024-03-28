@@ -2,6 +2,8 @@ part of 'main.dart';
 
 class ViewSectionDivider extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
+
+  /// if primary is not provided sliver is use to render
   final bool? primary;
   const ViewSectionDivider({
     super.key,

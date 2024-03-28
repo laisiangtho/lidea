@@ -116,6 +116,7 @@ abstract class PreferenceNest with ChangeNotifier {
   }
 
   Future<void> updateThemeMode(ThemeMode? value) async {
+    debugPrint('updateThemeMode $value');
     if (value == null) return;
 
     // Dot not perform any work if new and old ThemeMode are identical
